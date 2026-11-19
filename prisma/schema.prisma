@@ -1,0 +1,227 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum Difficulty {
+  EASY
+  MEDIUM
+  HARD
+}
+
+enum ApproachType {
+  BRUTE_FORCE
+  OPTIMAL
+}
+
+enum NoteFileType {
+  IMAGE
+  PDF
+}
+
+enum PurchaseType {
+  BUNDLE
+  CATEGORY
+  PROBLEM
+}
+
+enum PurchaseStatus {
+  PENDING
+  COMPLETED
+  FAILED
+}
+
+enum ProgressStatus {
+  IN_PROGRESS
+  COMPLETED
+}
+
+model User {
+  id           String         @id @default(cuid())
+  name         String
+  email        String         @unique
+  passwordHash String
+  role         Role           @default(USER)
+  avatar       String?
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+
+  purchases    Purchase[]
+  bookmarks    Bookmark[]
+  progress     UserProgress[]
+
+  @@map("users")
+}
+
+model Category {
+  id          String     @id @default(cuid())
+  title       String
+  slug        String     @unique
+  description String     @db.Text
+  isFree      Boolean    @default(false)
+  price       Int        @default(299) // INR
+  order       Int        @default(0)
+  isPublished Boolean    @default(true)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  problems    Problem[]
+  purchases   Purchase[]
+
+  @@map("categories")
+}
+
+model Problem {
+  id           String            @id @default(cuid())
+  title        String
+  slug         String            @unique
+  difficulty   Difficulty        @default(MEDIUM)
+  description  String            @db.Text
+  inputFormat  String?           @db.Text
+  outputFormat String?           @db.Text
+  constraints  String?           @db.Text
+  examples     Json?
+  explanation  String?           @db.Text
+  leetcodeUrl  String?
+  isFree       Boolean           @default(false)
+  price        Int               @default(49) // INR
+  order        Int               @default(0)
+  isPublished  Boolean           @default(true)
+  categoryId   String
+  category     Category          @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
+
+  codes        ProblemCode[]
+  notes        HandwrittenNote[]
+  purchases    Purchase[]
+  bookmarks    Bookmark[]
+  progress     UserProgress[]
+
+  @@index([categoryId])
+  @@map("problems")
+}
+
+model ProblemCode {
+  id              String       @id @default(cuid())
+  problemId       String
+  problem         Problem      @relation(fields: [problemId], references: [id], onDelete: Cascade)
+  approachType    ApproachType
+  title           String
+  explanation     String       @db.Text
+  javaCode        String       @db.Text
+  timeComplexity  String
+  spaceComplexity String
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+
+  @@unique([problemId, approachType])
+  @@map("problem_codes")
+}
+
+model HandwrittenNote {
+  id          String       @id @default(cuid())
+  problemId   String
+  problem     Problem      @relation(fields: [problemId], references: [id], onDelete: Cascade)
+  title       String
+  fileUrl     String       @db.Text
+  previewUrl  String?      @db.Text
+  fileType    NoteFileType @default(IMAGE)
+  pageCount   Int          @default(1)
+  isProtected Boolean      @default(true)
+  order       Int          @default(0)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  @@index([problemId])
+  @@map("handwritten_notes")
+}
+
+model Purchase {
+  id                String                @id @default(cuid())
+  userId            String
+  user              User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  purchaseType      PurchaseType
+  categoryId        String?
+  category          Category?             @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  problemId         String?
+  problem           Problem?              @relation(fields: [problemId], references: [id], onDelete: SetNull)
+  amount            Int                   // INR
+  currency          String                @default("INR")
+  status            PurchaseStatus        @default(PENDING)
+  razorpayOrderId   String?
+  razorpayPaymentId String?
+  razorpaySignature String?
+  createdAt         DateTime              @default(now())
+  updatedAt         DateTime              @updatedAt
+
+  transactions      PaymentTransaction[]
+
+  @@index([userId])
+  @@index([purchaseType])
+  @@index([status])
+  @@map("purchases")
+}
+
+model PaymentTransaction {
+  id                String   @id @default(cuid())
+  purchaseId        String
+  purchase          Purchase @relation(fields: [purchaseId], references: [id], onDelete: Cascade)
+  razorpayPaymentId String
+  amount            Int
+  status            String
+  payload           Json?
+  createdAt         DateTime @default(now())
+
+  @@index([purchaseId])
+  @@map("payment_transactions")
+}
+
+model Bookmark {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  problemId String
+  problem   Problem  @relation(fields: [problemId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([userId, problemId])
+  @@index([userId])
+  @@map("bookmarks")
+}
+
+model UserProgress {
+  id          String         @id @default(cuid())
+  userId      String
+  user        User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  problemId   String
+  problem     Problem        @relation(fields: [problemId], references: [id], onDelete: Cascade)
+  status      ProgressStatus @default(IN_PROGRESS)
+  completedAt DateTime?
+  updatedAt   DateTime       @updatedAt
+
+  @@unique([userId, problemId])
+  @@index([userId])
+  @@map("user_progress")
+}
+
+model BundleConfig {
+  id            String   @id @default("default")
+  title         String   @default("All-Access DSA Handwritten Mastery Bundle")
+  description   String   @default("Complete lifetime access to all 18 DSA categories, handwritten notes, and Java solutions.")
+  price         Int      @default(1499)
+  originalPrice Int      @default(4999)
+  isActive      Boolean  @default(true)
+  updatedAt     DateTime @updatedAt
+
+  @@map("bundle_config")
+}

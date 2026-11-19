@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" width="100%" height="100%">
+  <defs>
+    <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#222222" stroke-width="1"/>
+    </pattern>
+    <linearGradient id="headerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E1E1E"/>
+      <stop offset="100%" stop-color="#131313"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Dark Engineering Grid Canvas -->
+  <rect width="800" height="1000" fill="#111111" />
+  <rect width="800" height="1000" fill="url(#grid)" />
+
+  <!-- Top Margin Red Accent Line -->
+  <line x1="30" y1="0" x2="30" y2="1000" stroke="#E52532" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.6"/>
+
+  <!-- Header Card -->
+  <g transform="translate(40, 25)">
+    <rect width="720" height="110" rx="10" fill="url(#headerGrad)" stroke="#333333" stroke-width="1.5"/>
+    <rect x="0" y="0" width="6" height="110" rx="3" fill="#E52532" />
+    <text x="25" y="36" fill="#E52532" font-family="'Courier New', monospace" font-size="13" font-weight="bold" letter-spacing="2">[BEENEXT HANDWRITTEN DSA NOTES]</text>
+    <text x="25" y="70" fill="#FFFFFF" font-family="'Segoe UI', -apple-system, sans-serif" font-size="24" font-weight="800">Merge Sort [Page 2/2] — Inversion Count & Linked Lists</text>
+    <text x="25" y="94" fill="#A0A0A0" font-family="'Segoe UI', -apple-system, sans-serif" font-size="14">Advanced Applications of Merge Step • Category: Sorting</text>
+  </g>
+
+  <!-- Step By Step Trace Visuals -->
+  
+    <g transform="translate(40, 160)">
+      <rect x="0" y="0" width="720" height="95" rx="8" fill="#181818" stroke="#2D2D2D" stroke-width="1.5" />
+      <circle cx="28" cy="28" r="14" fill="#E52532" />
+      <text x="28" y="33" fill="#FFFFFF" font-family="'Courier New', monospace" font-size="13" font-weight="bold" text-anchor="middle">1</text>
+      <text x="56" y="32" fill="#FFFFFF" font-family="'Segoe UI', -apple-system, sans-serif" font-size="15" font-weight="bold">1. Counting Inversions Technique</text>
+      <text x="56" y="56" fill="#C5C5C5" font-family="'Courier New', monospace" font-size="13">if (arr[p1] > arr[p2]) inversions += (mid - p1 + 1);</text>
+      <text x="56" y="78" fill="#999999" font-family="'Segoe UI', -apple-system, sans-serif" font-size="12">Whenever right half element is smaller, it is smaller than all remaining left elements!</text>
+      <rect x="610" y="14" width="95" height="24" rx="4" fill="#2E1114" stroke="#E52532" stroke-width="1"/>
+      <text x="657" y="30" fill="#E52532" font-family="monospace" font-size="11" text-anchor="middle" font-weight="bold">INVERSIONS</text>
+    </g>
+
+    <g transform="translate(40, 275)">
+      <rect x="0" y="0" width="720" height="95" rx="8" fill="#181818" stroke="#2D2D2D" stroke-width="1.5" />
+      <circle cx="28" cy="28" r="14" fill="#E52532" />
+      <text x="28" y="33" fill="#FFFFFF" font-family="'Courier New', monospace" font-size="13" font-weight="bold" text-anchor="middle">2</text>
+      <text x="56" y="32" fill="#FFFFFF" font-family="'Segoe UI', -apple-system, sans-serif" font-size="15" font-weight="bold">2. Fast & Slow Pointers for Linked Lists</text>
+      <text x="56" y="56" fill="#C5C5C5" font-family="'Courier New', monospace" font-size="13">ListNode slow = head, fast = head.next; while(fast != null && fast.next != null)</text>
+      <text x="56" y="78" fill="#999999" font-family="'Segoe UI', -apple-system, sans-serif" font-size="12">Finds the exact middle of a singly linked list in O(N/2) single pass.</text>
+      <rect x="610" y="14" width="95" height="24" rx="4" fill="#2E1114" stroke="#E52532" stroke-width="1"/>
+      <text x="657" y="30" fill="#E52532" font-family="monospace" font-size="11" text-anchor="middle" font-weight="bold">LINKED LIST</text>
+    </g>
+
+    <g transform="translate(40, 390)">
+      <rect x="0" y="0" width="720" height="95" rx="8" fill="#181818" stroke="#2D2D2D" stroke-width="1.5" />
+      <circle cx="28" cy="28" r="14" fill="#E52532" />
+      <text x="28" y="33" fill="#FFFFFF" font-family="'Courier New', monospace" font-size="13" font-weight="bold" text-anchor="middle">3</text>
+      <text x="56" y="32" fill="#FFFFFF" font-family="'Segoe UI', -apple-system, sans-serif" font-size="15" font-weight="bold">3. O(1) Space Linked List Merge</text>
+      <text x="56" y="56" fill="#C5C5C5" font-family="'Courier New', monospace" font-size="13">Rewire .next pointers directly without allocating new nodes</text>
+      <text x="56" y="78" fill="#999999" font-family="'Segoe UI', -apple-system, sans-serif" font-size="12">Solves LeetCode 148: Sort List in O(N log N) time and O(1) memory!</text>
+      <rect x="610" y="14" width="95" height="24" rx="4" fill="#2E1114" stroke="#E52532" stroke-width="1"/>
+      <text x="657" y="30" fill="#E52532" font-family="monospace" font-size="11" text-anchor="middle" font-weight="bold">O(1) SPACE</text>
+    </g>
+
+    <g transform="translate(40, 505)">
+      <rect x="0" y="0" width="720" height="95" rx="8" fill="#181818" stroke="#2D2D2D" stroke-width="1.5" />
+      <circle cx="28" cy="28" r="14" fill="#E52532" />
+      <text x="28" y="33" fill="#FFFFFF" font-family="'Courier New', monospace" font-size="13" font-weight="bold" text-anchor="middle">4</text>
+      <text x="56" y="32" fill="#FFFFFF" font-family="'Segoe UI', -apple-system, sans-serif" font-size="15" font-weight="bold">4. Bottom-Up Iterative Merge Sort</text>
+      <text x="56" y="56" fill="#C5C5C5" font-family="'Courier New', monospace" font-size="13">for (int sz = 1; sz < n; sz *= 2) for (int lo = 0; lo < n - sz; lo += 2 * sz)</text>
+      <text x="56" y="78" fill="#999999" font-family="'Segoe UI', -apple-system, sans-serif" font-size="12">Eliminates recursion call stack completely; ideal for external sorting.</text>
+      <rect x="610" y="14" width="95" height="24" rx="4" fill="#2E1114" stroke="#E52532" stroke-width="1"/>
+      <text x="657" y="30" fill="#E52532" font-family="monospace" font-size="11" text-anchor="middle" font-weight="bold">ITERATIVE</text>
+    </g>
+
+    <g transform="translate(40, 620)">
+      <rect x="0" y="0" width="720" height="95" rx="8" fill="#181818" stroke="#2D2D2D" stroke-width="1.5" />
+      <circle cx="28" cy="28" r="14" fill="#E52532" />
+      <text x="28" y="33" fill="#FFFFFF" font-family="'Courier New', monospace" font-size="13" font-weight="bold" text-anchor="middle">5</text>
+      <text x="56" y="32" fill="#FFFFFF" font-family="'Segoe UI', -apple-system, sans-serif" font-size="15" font-weight="bold">5. Timsort Hybrid (Python & Java standard)</text>
+      <text x="56" y="56" fill="#C5C5C5" font-family="'Courier New', monospace" font-size="13">Identifies natural sorted runs, merges with minimal comparisons</text>
+      <text x="56" y="78" fill="#999999" font-family="'Segoe UI', -apple-system, sans-serif" font-size="12">Achieves O(N) best case on real-world partially sorted arrays.</text>
+      <rect x="610" y="14" width="95" height="24" rx="4" fill="#2E1114" stroke="#E52532" stroke-width="1"/>
+      <text x="657" y="30" fill="#E52532" font-family="monospace" font-size="11" text-anchor="middle" font-weight="bold">TIMSORT</text>
+    </g>
+
+  <!-- Complexity Summary Box -->
+  <g transform="translate(40, 770)">
+    <rect width="720" height="95" rx="8" fill="#161616" stroke="#E52532" stroke-width="1.5"/>
+    <text x="20" y="32" fill="#E52532" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold">⚡ COMPLEXITY &amp; INVARIANTS</text>
+    <text x="20" y="60" fill="#FFFFFF" font-family="'Courier New', monospace" font-size="13">Time: Best=O(N log N) [O(N) with Timsort] | Avg=O(N log N) | Worst=O(N log N)</text>
+    <text x="20" y="80" fill="#AAAAAA" font-family="'Courier New', monospace" font-size="13">Space: Aux Space=O(N) arrays / O(1) linked lists | In-Place=NO | Stable=YES</text>
+  </g>
+
+  <!-- Handwritten Tips Footer -->
+  <g transform="translate(40, 885)">
+    <rect width="720" height="85" rx="8" fill="#1C1C1C" stroke="#2E2E2E" stroke-width="1"/>
+    <text x="20" y="28" fill="#FFFFFF" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="bold">💡 KEY INTERVIEW MENTAL MODEL:</text>
+    <text x="20" y="52" fill="#C0C0C0" font-family="'Courier New', monospace" font-size="12">CRITICAL: LeetCode 315 'Count of Smaller Numbers After Self' uses this exact merge tree.</text>
+    <text x="20" y="72" fill="#E52532" font-family="'Courier New', monospace" font-size="12">MEMORY NOTE: Java uses Timsort for Objects (stable) and Dual-Pivot Quicksort for primitives.</text>
+  </g>
+</svg>
