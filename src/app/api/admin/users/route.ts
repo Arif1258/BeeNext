@@ -20,6 +20,17 @@ export async function GET() {
         role: true,
         avatar: true,
         createdAt: true,
+        updatedAt: true,
+        printedOrders: {
+          select: {
+            id: true,
+            orderNumber: true,
+            totalAmount: true,
+            paymentStatus: true,
+            orderStatus: true,
+            createdAt: true,
+          },
+        },
         purchases: {
           where: { status: "COMPLETED" },
           select: {
@@ -27,14 +38,12 @@ export async function GET() {
             purchaseType: true,
             amount: true,
             createdAt: true,
-            category: { select: { title: true } },
-            problem: { select: { title: true } },
           },
         },
         _count: {
           select: {
+            printedOrders: true,
             purchases: true,
-            bookmarks: true,
             progress: true,
           },
         },

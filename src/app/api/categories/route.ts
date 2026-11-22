@@ -2,8 +2,11 @@ import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth";
 
-export async function GET() {
+export async function GET(req: Request) {
   try {
+    const { searchParams } = new URL(req.url);
+    const includeProblems = searchParams.get("includeProblems") === "true";
+
     const categories = await prisma.category.findMany({
       where: { isPublished: true },
       orderBy: { order: "asc" },
@@ -11,6 +14,37 @@ export async function GET() {
         _count: {
           select: { problems: true },
         },
+        ...(includeProblems
+          ? {
+              problems: {
+                where: { isPublished: true },
+                orderBy: { order: "asc" },
+                select: {
+                  id: true,
+                  title: true,
+                  slug: true,
+                  difficulty: true,
+                  isFree: true,
+                  price: true,
+                  order: true,
+                  leetcodeUrl: true,
+                  notes: {
+                    select: {
+                      id: true,
+                      title: true,
+                      fileType: true,
+                      fileUrl: true,
+                      pageCount: true,
+                      isProtected: true,
+                    },
+                  },
+                  _count: {
+                    select: { notes: true },
+                  },
+                },
+              },
+            }
+          : {}),
       },
     });
 

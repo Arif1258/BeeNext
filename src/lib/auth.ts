@@ -78,123 +78,45 @@ export async function requireAdmin(): Promise<UserSession> {
 }
 
 /**
- * Robust backend access verification
- * Checks whether user has permission to view full problem code, handwritten notes, and solution.
+ * Backend problem access verification
+ * Under the new business model, all DSA problems, code, and solutions are 100% FREE!
  */
 export async function checkProblemAccess(
   userId: string | null | undefined,
   problemId: string
 ): Promise<{ hasAccess: boolean; reason: "FREE" | "PURCHASED" | "ADMIN" | "LOCKED" }> {
-  const problem = await prisma.problem.findUnique({
-    where: { id: problemId },
-    select: {
-      id: true,
-      isFree: true,
-      categoryId: true,
-      category: {
-        select: {
-          id: true,
-          isFree: true,
-          slug: true,
-        },
-      },
-    },
-  });
-
-  if (!problem) {
-    return { hasAccess: false, reason: "LOCKED" };
-  }
-
-  // 1. Free category (like Sorting) or free problem is accessible to all
-  if (problem.isFree || problem.category.isFree || problem.category.slug === "sorting") {
-    return { hasAccess: true, reason: "FREE" };
-  }
-
-  // If not logged in, premium problem is locked
-  if (!userId) {
-    return { hasAccess: false, reason: "LOCKED" };
-  }
-
-  // 2. Check if user is an ADMIN
-  const user = await prisma.user.findUnique({
-    where: { id: userId },
-    select: { role: true },
-  });
-
-  if (user?.role === "ADMIN") {
-    return { hasAccess: true, reason: "ADMIN" };
-  }
-
-  // 3. Check purchases:
-  // - BUNDLE purchase (gives access to everything)
-  // - CATEGORY purchase (gives access to this problem's category)
-  // - PROBLEM purchase (gives access to this specific problem)
-  const purchase = await prisma.purchase.findFirst({
-    where: {
-      userId,
-      status: "COMPLETED",
-      OR: [
-        { purchaseType: "BUNDLE" },
-        { purchaseType: "CATEGORY", categoryId: problem.categoryId },
-        { purchaseType: "PROBLEM", problemId: problem.id },
-      ],
-    },
-  });
-
-  if (purchase) {
-    return { hasAccess: true, reason: "PURCHASED" };
-  }
-
-  return { hasAccess: false, reason: "LOCKED" };
+  return { hasAccess: true, reason: "FREE" };
 }
 
 /**
  * Backend category access verification
+ * Under the new business model, all DSA topics are 100% FREE!
  */
 export async function checkCategoryAccess(
   userId: string | null | undefined,
   categoryId: string
 ): Promise<{ hasAccess: boolean; reason: "FREE" | "PURCHASED" | "ADMIN" | "LOCKED" }> {
-  const category = await prisma.category.findUnique({
-    where: { id: categoryId },
-    select: { id: true, isFree: true, slug: true },
-  });
+  return { hasAccess: true, reason: "FREE" };
+}
 
-  if (!category) {
-    return { hasAccess: false, reason: "LOCKED" };
-  }
-
-  if (category.isFree || category.slug === "sorting") {
-    return { hasAccess: true, reason: "FREE" };
-  }
-
-  if (!userId) {
-    return { hasAccess: false, reason: "LOCKED" };
-  }
-
+/**
+ * Digital Notes PDF Access verification
+ * Requires COMPLETED BUNDLE purchase (or ADMIN role)
+ */
+export async function checkPdfAccess(userId: string | null | undefined): Promise<boolean> {
+  if (!userId) return false;
   const user = await prisma.user.findUnique({
     where: { id: userId },
     select: { role: true },
   });
-
-  if (user?.role === "ADMIN") {
-    return { hasAccess: true, reason: "ADMIN" };
-  }
+  if (user?.role === "ADMIN") return true;
 
   const purchase = await prisma.purchase.findFirst({
     where: {
       userId,
+      purchaseType: "BUNDLE",
       status: "COMPLETED",
-      OR: [
-        { purchaseType: "BUNDLE" },
-        { purchaseType: "CATEGORY", categoryId: category.id },
-      ],
     },
   });
-
-  if (purchase) {
-    return { hasAccess: true, reason: "PURCHASED" };
-  }
-
-  return { hasAccess: false, reason: "LOCKED" };
+  return Boolean(purchase);
 }

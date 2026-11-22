@@ -159,7 +159,7 @@ export default function PaymentModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 animate-in fade-in duration-200">
       <div className="relative w-full max-w-lg rounded-2xl bg-brand-card border border-brand-border p-6 shadow-2xl">
         {/* Close Button */}
         <button
@@ -201,7 +201,7 @@ export default function PaymentModal({
             <div>
               <h3 className="text-xl font-bold text-white tracking-tight">{title}</h3>
               <p className="text-xs text-brand-muted mt-1">
-                Unlock high-resolution handwritten diagrams, brute-force &amp; optimal Java implementations, and time/space complexity proofs.
+                Unlock computer-written Java solutions with Brute Force Solution, Optimal Solution, Time Complexity, and Space Complexity.
               </p>
             </div>
 
@@ -231,7 +231,7 @@ export default function PaymentModal({
             <ul className="space-y-2 text-xs text-brand-muted border-y border-brand-border py-4">
               <li className="flex items-center gap-2 text-white">
                 <CheckCircle2 className="h-4 w-4 text-brand-red flex-shrink-0" />
-                <span>Instant access to multi-page handwritten note images &amp; PDFs</span>
+                <span>Instant access to multi-page note PDFs &amp; solutions</span>
               </li>
               <li className="flex items-center gap-2 text-white">
                 <CheckCircle2 className="h-4 w-4 text-brand-red flex-shrink-0" />

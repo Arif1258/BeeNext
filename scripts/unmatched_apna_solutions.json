@@ -1,0 +1,218 @@
+[
+  {
+    "topic": "Day 3 : Array (Part 3)",
+    "title": "Product of array except self",
+    "lc": "https://leetcode.com/problems/product-of-array-except-self/description/",
+    "solution": "https://www.youtube.com/watch?v=TW2m8m_FNJE"
+  },
+  {
+    "topic": "Day 2 : Array (Part 2)",
+    "title": "Container with most water",
+    "lc": "https://leetcode.com/problems/container-with-most-water/description/",
+    "solution": "https://www.youtube.com/watch?v=EbkMABpP52U"
+  },
+  {
+    "topic": "Day 4 : Array (Part 4)",
+    "title": "Find Duplicate",
+    "lc": "https://leetcode.com/problems/find-the-duplicate-number/",
+    "solution": "https://youtu.be/0Fxc_jKj2vo?t=2000"
+  },
+  {
+    "topic": "Day 6 : Strings (Part 1)",
+    "title": "Remove All Occurrences",
+    "lc": "https://leetcode.com/problems/remove-all-occurrences-of-a-substring/description/",
+    "solution": "https://youtu.be/dSRFgEs3a6A?si=OP8Zzi_5VDRzKwju"
+  },
+  {
+    "topic": "Day 6 : Strings (Part 1)",
+    "title": "Permutation in String",
+    "lc": "https://leetcode.com/problems/permutation-in-string/description/",
+    "solution": "https://youtu.be/VXewy91P0S4?si=LpzKLUD9PZf_9Nra"
+  },
+  {
+    "topic": "Day 6 : Strings (Part 1)",
+    "title": "String Compression",
+    "lc": "https://leetcode.com/problems/string-compression/description/",
+    "solution": "https://youtu.be/cAB15h6-sWA?si=eS5enMt3366LGh-7"
+  },
+  {
+    "topic": "Day 8 : Binary Search",
+    "title": "Peak Index in Mountain Array",
+    "lc": "https://leetcode.com/problems/peak-index-in-a-mountain-array/description/",
+    "solution": "https://youtu.be/RjxD6UXGlhc?si=cw3-q4z5Z005_R5G"
+  },
+  {
+    "topic": "Day 8 : Binary Search",
+    "title": "Allocate Minimum Pages",
+    "lc": "https://leetcode.com/problems/minimized-maximum-of-products-distributed-to-any-store/description/",
+    "solution": "https://youtu.be/JRAByolWqhw?t=32"
+  },
+  {
+    "topic": "Day 10 : Recursion & Backtracking",
+    "title": "Knights Tour",
+    "lc": "https://leetcode.com/problems/check-knight-tour-configuration/description/",
+    "solution": "https://youtu.be/Sp1jzttFVdE"
+  },
+  {
+    "topic": "Day 10 : Recursion & Backtracking",
+    "title": "Count Inversions 2",
+    "lc": "https://leetcode.com/problems/count-the-number-of-inversions/description/",
+    "solution": "https://www.youtube.com/watch?v=ynnWDBTdVi0&amp;t=69s"
+  },
+  {
+    "topic": "Day 11 : Linked List (Part 1)",
+    "title": "Flatten a Linked List",
+    "lc": "https://leetcode.com/problems/flatten-a-multilevel-doubly-linked-list/description/",
+    "solution": "https://www.youtube.com/watch?v=I8b0rff5F9M"
+  },
+  {
+    "topic": "Day 15 : Stacks & Queues (Part 3)",
+    "title": "Circular Tour / Gas Station",
+    "lc": "https://leetcode.com/problems/gas-station/description/",
+    "solution": "https://www.youtube.com/watch?v=SmTow5Ht4iU"
+  },
+  {
+    "topic": "Day 15 : Stacks & Queues (Part 3)",
+    "title": "Max Area in Histogram",
+    "lc": "https://leetcode.com/problems/largest-rectangle-in-histogram/description/",
+    "solution": "https://www.youtube.com/watch?v=ysy1o-QEj3k&t=4s"
+  },
+  {
+    "topic": "Day 16 : Binary Trees (Part 1)",
+    "title": "Minimum Distance between Nodes",
+    "lc": "https://leetcode.com/problems/minimum-distance-between-bst-nodes/description/",
+    "solution": "https://www.youtube.com/watch?v=WZmjRXF_Zi4"
+  },
+  {
+    "topic": "Day 17 : Binary Trees (Part 2)",
+    "title": "Morris Inorder Traversal",
+    "lc": "https://leetcode.com/problems/binary-tree-inorder-traversal/description/",
+    "solution": "https://youtu.be/PUfADhkq1LI?t=9"
+  },
+  {
+    "topic": "Day 17 : Binary Trees (Part 2)",
+    "title": "Subtree of Another Tree",
+    "lc": "https://leetcode.com/problems/subtree-of-another-tree/description/",
+    "solution": "https://youtu.be/tumW7jsjv68?t=611"
+  },
+  {
+    "topic": "Day 18 : Binary Trees (Part 3)",
+    "title": "Bottom View of a Tree",
+    "lc": "https://www.geeksforgeeks.org/problems/bottom-view-of-binary-tree/1",
+    "solution": "https://www.youtube.com/watch?v=FGr-syrhvOA"
+  },
+  {
+    "topic": "Day 18 : Binary Trees (Part 3)",
+    "title": "Top View of a Tree",
+    "lc": "https://www.geeksforgeeks.org/problems/top-view-of-binary-tree/1",
+    "solution": "https://www.youtube.com/watch?v=FGr-syrhvOA"
+  },
+  {
+    "topic": "Day 18 : Binary Trees (Part 3)",
+    "title": "Kth Level of Tree",
+    "lc": "https://leetcode.com/problems/maximum-level-sum-of-a-binary-tree/description/",
+    "solution": "https://www.youtube.com/watch?v=ze4JO_ODl3w"
+  },
+  {
+    "topic": "Day 18 : Binary Trees (Part 3)",
+    "title": "Transform to Sum Tree",
+    "lc": "https://leetcode.com/problems/binary-search-tree-to-greater-sum-tree/description/",
+    "solution": "https://www.youtube.com/watch?v=TY6kEejJEM0"
+  },
+  {
+    "topic": "Day 20 : BST (Part 1)",
+    "title": "Sorted Array to Balanced BST",
+    "lc": "https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/description/",
+    "solution": "https://www.youtube.com/watch?v=0s6sCjs_4g0"
+  },
+  {
+    "topic": "Day 21 : BST (Part 2)",
+    "title": "Populate Next Right Pointers",
+    "lc": "https://leetcode.com/problems/populating-next-right-pointers-in-each-node/",
+    "solution": "https://www.youtube.com/watch?v=a8VKpW1DsD8"
+  },
+  {
+    "topic": "Day 21 : BST (Part 2)",
+    "title": "Flatten BST to Sorted list",
+    "lc": "https://leetcode.com/problems/convert-binary-search-tree-to-sorted-doubly-linked-list/description/",
+    "solution": "https://youtu.be/dU2Z5HWSGM0?si=wyQANxRxIlsJsDoC"
+  },
+  {
+    "topic": "Day 22 : BST (Part 3)",
+    "title": "Merge 2 BSTs",
+    "lc": "https://leetcode.com/problems/merge-bsts-to-create-single-bst/description/",
+    "solution": "https://www.youtube.com/watch?v=AiKZjCuy2k4"
+  },
+  {
+    "topic": "Day 25 : Graphs (Part 1)",
+    "title": "DFS : Depth First Search",
+    "lc": "https://www.geeksforgeeks.org/problems/depth-first-traversal-for-a-graph/1",
+    "solution": "https://youtu.be/3czYbhac160?si=x2Z0M_2JhXz2J8zr"
+  },
+  {
+    "topic": "Day 25 : Graphs (Part 1)",
+    "title": "BFS : Breadth First Search",
+    "lc": "https://www.geeksforgeeks.org/problems/bfs-traversal-of-graph/1",
+    "solution": "https://youtu.be/scQITTLgFJo?si=wWP38t1K-etIUYRr"
+  },
+  {
+    "topic": "Day 25 : Graphs (Part 1)",
+    "title": "Detect Cycle in Undirected using DFS",
+    "lc": "https://leetcode.com/problems/course-schedule/description/",
+    "solution": "https://youtu.be/OZClCpPQDR4?si=LHmPSDxyURUIDxsD"
+  },
+  {
+    "topic": "Day 25 : Graphs (Part 1)",
+    "title": "Detect Cycle in Directed using DFS",
+    "lc": "https://leetcode.com/problems/redundant-connection/description/",
+    "solution": "https://youtu.be/AcppN5XFt24?t=27"
+  },
+  {
+    "topic": "Day 25 : Graphs (Part 1)",
+    "title": "Detect Cycle in Directed using BFS",
+    "lc": "https://leetcode.com/problems/redundant-connection/description/",
+    "solution": "https://youtu.be/AcppN5XFt24"
+  },
+  {
+    "topic": "Day 26 : Graphs (Part 2)",
+    "title": "Topological Sorting (DFS)",
+    "lc": "https://www.geeksforgeeks.org/problems/topological-sort/1",
+    "solution": "https://youtu.be/0WIINUY12Yg"
+  },
+  {
+    "topic": "Day 26 : Graphs (Part 2)",
+    "title": "Topological Sorting (BFS)",
+    "lc": "https://www.geeksforgeeks.org/problems/topological-sort/1",
+    "solution": "https://youtu.be/BnQpaTZg6Sc"
+  },
+  {
+    "topic": "Day 27 : Graphs (Part 3)",
+    "title": "Kruskal's Algorithm (MST)",
+    "lc": "https://leetcode.com/problems/min-cost-to-connect-all-points/description/",
+    "solution": "https://youtu.be/inoM6jwj1CA?si=oI5j5RHPlq_syIOT"
+  },
+  {
+    "topic": "Day 27 : Graphs (Part 3)",
+    "title": "Prim's Algorithm (MST)",
+    "lc": "https://leetcode.com/problems/min-cost-to-connect-all-points/description/",
+    "solution": "https://youtu.be/Sflh1z6cIMk?si=a-giZuHw0ZKhq7pm"
+  },
+  {
+    "topic": "Day 27 : Graphs (Part 3)",
+    "title": "Rotting Oranges",
+    "lc": "https://leetcode.com/problems/rotting-oranges/description/",
+    "solution": "https://youtu.be/RmXo5SWkhCs?si=PekrhTqJxNbimhVp"
+  },
+  {
+    "topic": "Day 28 : Graphs (Part 4)",
+    "title": "Strongly Connected Components (Kosaraju's)",
+    "lc": "https://www.geeksforgeeks.org/problems/strongly-connected-components-kosarajus-algo/1",
+    "solution": "https://youtu.be/lqY8TE0P1S8"
+  },
+  {
+    "topic": "Day 29 : DP (Part 1)",
+    "title": "Buy & Sell Stocks I",
+    "lc": "https://leetcode.com/problems/best-time-to-buy-and-sell-stock/description/",
+    "solution": "https://youtu.be/WBzZCm46mFo?si=0HH8sY1_cmD_h2rz"
+  }
+]

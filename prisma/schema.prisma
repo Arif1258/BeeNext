@@ -45,6 +45,15 @@ enum ProgressStatus {
   COMPLETED
 }
 
+enum PrintedOrderStatus {
+  PENDING
+  CONFIRMED
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
+
 model User {
   id           String         @id @default(cuid())
   name         String
@@ -55,9 +64,14 @@ model User {
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
 
-  purchases    Purchase[]
-  bookmarks    Bookmark[]
-  progress     UserProgress[]
+  dsaQualifiedAt       DateTime?
+  certificateClaimedAt DateTime?
+
+  purchases     Purchase[]
+  printedOrders PrintedOrder[]
+  bookmarks     Bookmark[]
+  progress      UserProgress[]
+  bookRatings   BookRating[]
 
   @@map("users")
 }
@@ -68,9 +82,10 @@ model Category {
   slug        String     @unique
   description String     @db.Text
   isFree      Boolean    @default(false)
-  price       Int        @default(299) // INR
+  price       Int        @default(19) // INR
   order       Int        @default(0)
   isPublished Boolean    @default(true)
+  pdfUrl      String?    @db.Text
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
 
@@ -91,8 +106,10 @@ model Problem {
   constraints  String?           @db.Text
   examples     Json?
   explanation  String?           @db.Text
-  leetcodeUrl  String?
-  isFree       Boolean           @default(false)
+  leetcodeUrl    String?
+  youtubeUrl     String?
+  apnaYoutubeUrl String?
+  isFree         Boolean           @default(false)
   price        Int               @default(49) // INR
   order        Int               @default(0)
   isPublished  Boolean           @default(true)
@@ -216,12 +233,102 @@ model UserProgress {
 
 model BundleConfig {
   id            String   @id @default("default")
-  title         String   @default("All-Access DSA Handwritten Mastery Bundle")
-  description   String   @default("Complete lifetime access to all 18 DSA categories, handwritten notes, and Java solutions.")
-  price         Int      @default(1499)
-  originalPrice Int      @default(4999)
+  title         String   @default("Complete Striver's A to Z DSA Sheet – Handwritten PDF")
+  description   String   @default("Download the complete collection of handwritten DSA notes covering all 20 topics.")
+  price         Int      @default(299)
+  originalPrice Int      @default(999)
+  topicPrice    Int      @default(19)
+  pdfUrl        String?  @default("/notes/strivers-a2z-dsa-notes.pdf")
+  previewImages Json?
   isActive      Boolean  @default(true)
   updatedAt     DateTime @updatedAt
 
   @@map("bundle_config")
+}
+
+model PrintedOrder {
+  id                String             @id @default(cuid())
+  orderNumber       String             @unique
+  userId            String?
+  user              User?              @relation(fields: [userId], references: [id], onDelete: SetNull)
+  customerName      String
+  customerEmail     String
+  customerPhone     String
+  addressLine1      String
+  addressLine2      String?
+  city              String
+  state             String
+  postalCode        String
+  country           String             @default("India")
+  notes             String?            @db.Text
+  language          String?
+
+  productTitle      String             @default("Complete Printed DSA Notes – Striver's A to Z Sheet")
+  quantity          Int                @default(1)
+  unitPrice         Int                @default(1499)
+  deliveryCharge    Int                @default(0)
+  totalAmount       Int                @default(1499)
+  currency          String             @default("INR")
+
+  paymentStatus     PurchaseStatus     @default(PENDING)
+  paymentMethod     String             @default("RAZORPAY")
+  razorpayOrderId   String?
+  razorpayPaymentId String?
+  razorpaySignature String?
+
+  orderStatus       PrintedOrderStatus @default(PENDING)
+  trackingNumber    String?
+  carrier           String?
+
+  requiresCertificate Boolean          @default(false)
+  certificateStatus   String?
+
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+
+  @@index([userId])
+  @@index([orderStatus])
+  @@index([paymentStatus])
+  @@map("printed_orders")
+}
+
+model PrintedProductConfig {
+  id             String   @id @default("default")
+  title          String   @default("Complete Printed Handwritten DSA Notes")
+  description    String   @default("Get the complete collection of handwritten DSA notes in physical printed format delivered to your address.")
+  price          Int      @default(1499)
+  originalPrice  Int      @default(3999)
+  deliveryCharge Int      @default(0)
+  isFreeShipping Boolean  @default(true)
+  isActive       Boolean  @default(true)
+  previewImages  Json?
+  updatedAt      DateTime @updatedAt
+
+  @@map("printed_product_config")
+}
+
+model HomepageSampleImage {
+  id          String   @id @default(cuid())
+  slotIndex   Int      @unique // 1, 2, 3, 4
+  title       String
+  caption     String?
+  imageUrl    String   @db.Text
+  order       Int      @default(0)
+  updatedAt   DateTime @updatedAt
+
+  @@map("homepage_sample_images")
+}
+
+model BookRating {
+  id        String   @id @default(cuid())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  language  String   // "C" | "C++" | "Java" | "Python"
+  rating    Int      // 1 to 5
+  review    String?  @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([language])
+  @@map("book_ratings")
 }

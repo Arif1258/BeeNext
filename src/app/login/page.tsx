@@ -30,16 +30,6 @@ export default function LoginPage() {
     }
   };
 
-  const handleAutofill = (type: "admin" | "user") => {
-    if (type === "admin") {
-      setEmail("admin@beenext.dev");
-      setPassword("AdminSecurePassword123!");
-    } else {
-      setEmail("alex@beenext.dev");
-      setPassword("UserSecurePassword123!");
-    }
-  };
-
   return (
     <div className="min-h-screen bg-brand-black flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8 graph-paper-bg">
       <div className="sm:mx-auto sm:w-full sm:max-w-md space-y-6">
@@ -52,33 +42,8 @@ export default function LoginPage() {
             Welcome to Bee<span className="text-brand-red">Next</span>
           </h2>
           <p className="text-xs text-brand-muted font-mono">
-            Sign in to access your handwritten notes &amp; DSA solutions
+            Sign in to access your DSA notes &amp; solutions
           </p>
-        </div>
-
-        {/* Demo Fast-Login Pills */}
-        <div className="p-3 rounded-xl bg-brand-card border border-brand-border space-y-2">
-          <span className="text-[10px] uppercase font-mono font-bold tracking-wider text-brand-subtle block text-center">
-            ⚡ Quick Test Autofill (For Reviewers)
-          </span>
-          <div className="grid grid-cols-2 gap-2">
-            <button
-              type="button"
-              onClick={() => handleAutofill("admin")}
-              className="flex items-center justify-center gap-1.5 py-1.5 px-3 rounded-lg bg-brand-black hover:bg-brand-surface border border-brand-red/50 text-brand-red text-xs font-mono font-bold transition-all"
-            >
-              <Shield className="h-3 w-3" />
-              <span>Login as Admin</span>
-            </button>
-            <button
-              type="button"
-              onClick={() => handleAutofill("user")}
-              className="flex items-center justify-center gap-1.5 py-1.5 px-3 rounded-lg bg-brand-black hover:bg-brand-surface border border-brand-border text-white text-xs font-mono font-bold transition-all"
-            >
-              <User className="h-3 w-3" />
-              <span>Login as User</span>
-            </button>
-          </div>
         </div>
 
         {/* Login Card */}

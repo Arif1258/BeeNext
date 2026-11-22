@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 450 560" width="100%" height="100%">
+  <defs>
+    <filter id="cardShadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.12"/>
+    </filter>
+    <pattern id="dotPattern" width="16" height="16" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1" fill="#E5E7EB"/>
+    </pattern>
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#E52532"/>
+    </marker>
+  </defs>
+
+  <!-- Clean White Page Card -->
+  <rect x="15" y="15" width="420" height="530" rx="16" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1.5" filter="url(#cardShadow)"/>
+  
+  <!-- Dot Grid Paper Background -->
+  <rect x="25" y="25" width="400" height="510" rx="12" fill="url(#dotPattern)"/>
+
+  <!-- Left Notebook Spiral Border -->
+  <line x1="38" y1="25" x2="38" y2="535" stroke="#E52532" stroke-width="1.5" stroke-dasharray="4,6"/>
+
+  <!-- Header Strip -->
+  <g transform="translate(50, 45)">
+    <rect x="0" y="0" width="80" height="22" rx="4" fill="#FFF1F2" stroke="#E52532" stroke-width="1"/>
+    <text x="40" y="15" text-anchor="middle" fill="#E52532" font-family="Courier, monospace" font-weight="bold" font-size="10">MODULE 13</text>
+    
+    <text x="0" y="46" fill="#111111" font-family="system-ui, -apple-system, sans-serif" font-weight="800" font-size="18">Binary Trees & BST</text>
+    <text x="0" y="66" fill="#666666" font-family="system-ui, -apple-system, sans-serif" font-size="12">LCA & Recursive Height Subtrees</text>
+  </g>
+
+  <line x1="50" y1="130" x2="400" y2="130" stroke="#EEEEEE" stroke-width="1"/>
+
+  <!-- Diagram Content -->
+  
+      <!-- Binary Tree Nodes -->
+      <g transform="translate(225, 200)">
+        <!-- Root -->
+        <circle cx="0" cy="0" r="22" fill="#FFFFFF" stroke="#E52532" stroke-width="2.5"/>
+        <text x="0" y="6" text-anchor="middle" fill="#E52532" font-family="Courier, monospace" font-weight="bold" font-size="16">10</text>
+        
+        <!-- Edges -->
+        <line x1="-15" y1="15" x2="-65" y2="60" stroke="#111111" stroke-width="2"/>
+        <line x1="15" y1="15" x2="65" y2="60" stroke="#111111" stroke-width="2"/>
+
+        <!-- Left Child -->
+        <circle cx="-75" cy="75" r="20" fill="#FFFFFF" stroke="#111111" stroke-width="2"/>
+        <text x="-75" y="80" text-anchor="middle" fill="#111111" font-family="Courier, monospace" font-weight="bold" font-size="15">5</text>
+
+        <!-- Right Child -->
+        <circle cx="75" cy="75" r="20" fill="#FFFFFF" stroke="#111111" stroke-width="2"/>
+        <text x="75" y="80" text-anchor="middle" fill="#111111" font-family="Courier, monospace" font-weight="bold" font-size="15">15</text>
+
+        <!-- Sub edges -->
+        <line x1="-85" y1="90" x2="-115" y2="130" stroke="#111111" stroke-width="1.5"/>
+        <line x1="-65" y1="90" x2="-35" y2="130" stroke="#111111" stroke-width="1.5"/>
+
+        <circle cx="-125" cy="145" r="16" fill="#FFFFFF" stroke="#111111" stroke-width="1.5"/>
+        <text x="-125" y="150" text-anchor="middle" fill="#111111" font-family="Courier, monospace" font-size="13">2</text>
+
+        <circle cx="-25" cy="145" r="16" fill="#FFFFFF" stroke="#111111" stroke-width="1.5"/>
+        <text x="-25" y="150" text-anchor="middle" fill="#111111" font-family="Courier, monospace" font-size="13">7</text>
+      </g>
+
+      <g transform="translate(50, 380)">
+        <rect x="0" y="0" width="350" height="65" fill="#FFF5F5" stroke="#E52532" stroke-width="1" rx="8"/>
+        <text x="16" y="24" fill="#E52532" font-family="Courier, monospace" font-weight="bold" font-size="13">LCA Rule in BST:</text>
+        <text x="16" y="48" fill="#333333" font-family="Courier, monospace" font-size="12">If p &lt; curr and q &lt; curr: go LEFT. Else LCA = curr.</text>
+      </g>
+    
+
+  <!-- Footer Watermark / Verified -->
+  <g transform="translate(50, 510)">
+    <text x="0" y="0" fill="#999999" font-family="Courier, monospace" font-size="10">BEENEXT HANDWRITTEN DSA ARCHIVE • VERIFIED</text>
+  </g>
+</svg>

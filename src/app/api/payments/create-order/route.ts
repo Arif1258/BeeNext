@@ -22,76 +22,59 @@ export async function POST(req: Request) {
     let problemId: string | null = null;
     let description = "";
 
-    // Check duplicate purchase
+    const bundle = await prisma.bundleConfig.findUnique({ where: { id: "default" } });
+
+    // Check duplicate purchase & configure order
     if (type === "BUNDLE") {
       const existing = await prisma.purchase.findFirst({
         where: { userId: user.id, purchaseType: PurchaseType.BUNDLE, status: "COMPLETED" },
       });
       if (existing) {
-        return NextResponse.json({ error: "You already own the All-Access DSA Bundle!" }, { status: 400 });
+        return NextResponse.json({ error: "You already own the Complete Notes PDF!" }, { status: 400 });
       }
 
-      const bundle = await prisma.bundleConfig.findUnique({ where: { id: "default" } });
-      amount = bundle?.price || 1499;
-      description = bundle?.title || "All-Access DSA Bundle";
+      amount = bundle?.price || 299;
+      description = bundle?.title || "Complete Striver's A to Z DSA Sheet – Notes PDF";
     } else if (type === "CATEGORY") {
-      if (!id) return NextResponse.json({ error: "Category ID required." }, { status: 400 });
+      if (!id) {
+        return NextResponse.json({ error: "Topic ID is required." }, { status: 400 });
+      }
 
-      const category = await prisma.category.findUnique({ where: { id } });
-      if (!category) return NextResponse.json({ error: "Category not found." }, { status: 404 });
-      if (category.isFree) return NextResponse.json({ error: "This category is already free!" }, { status: 400 });
-
-      // Check if user already owns bundle or this category
-      const existing = await prisma.purchase.findFirst({
+      const category = await prisma.category.findFirst({
         where: {
-          userId: user.id,
-          status: "COMPLETED",
-          OR: [
-            { purchaseType: PurchaseType.BUNDLE },
-            { purchaseType: PurchaseType.CATEGORY, categoryId: category.id },
-          ],
+          OR: [{ id }, { slug: id }],
         },
       });
 
-      if (existing) {
-        return NextResponse.json({ error: "You already have access to this category!" }, { status: 400 });
+      if (!category) {
+        return NextResponse.json({ error: "Topic not found." }, { status: 404 });
       }
 
-      amount = category.price;
+      // Check if user already owns full bundle or this specific category
+      const existingFull = await prisma.purchase.findFirst({
+        where: { userId: user.id, purchaseType: PurchaseType.BUNDLE, status: "COMPLETED" },
+      });
+      if (existingFull) {
+        return NextResponse.json({ error: "You already own the Complete PDF bundle, which includes all topics!" }, { status: 400 });
+      }
+
+      const existingCat = await prisma.purchase.findFirst({
+        where: {
+          userId: user.id,
+          purchaseType: PurchaseType.CATEGORY,
+          categoryId: category.id,
+          status: "COMPLETED",
+        },
+      });
+      if (existingCat) {
+        return NextResponse.json({ error: `You have already purchased the notes for ${category.title}.` }, { status: 400 });
+      }
+
       categoryId = category.id;
-      description = `Category: ${category.title}`;
-    } else if (type === "PROBLEM") {
-      if (!id) return NextResponse.json({ error: "Problem ID required." }, { status: 400 });
-
-      const problem = await prisma.problem.findUnique({
-        where: { id },
-        include: { category: true },
-      });
-      if (!problem) return NextResponse.json({ error: "Problem not found." }, { status: 404 });
-      if (problem.isFree || problem.category.isFree) {
-        return NextResponse.json({ error: "This problem is already free!" }, { status: 400 });
-      }
-
-      // Check if user already owns bundle, category, or problem
-      const existing = await prisma.purchase.findFirst({
-        where: {
-          userId: user.id,
-          status: "COMPLETED",
-          OR: [
-            { purchaseType: PurchaseType.BUNDLE },
-            { purchaseType: PurchaseType.CATEGORY, categoryId: problem.categoryId },
-            { purchaseType: PurchaseType.PROBLEM, problemId: problem.id },
-          ],
-        },
-      });
-
-      if (existing) {
-        return NextResponse.json({ error: "You already have access to this problem!" }, { status: 400 });
-      }
-
-      amount = problem.price;
-      problemId = problem.id;
-      description = `Problem: ${problem.title}`;
+      amount = (bundle as any)?.topicPrice || category.price || 19;
+      description = `DSA Notes: ${category.title}`;
+    } else {
+      return NextResponse.json({ error: "All DSA problem solutions are completely free! Only notes PDFs can be purchased." }, { status: 400 });
     }
 
     if (amount <= 0) {

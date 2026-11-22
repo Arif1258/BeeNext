@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 650" width="100%" height="100%">
+  <defs>
+    <filter id="mockupShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="16" stdDeviation="20" flood-color="#000000" flood-opacity="0.4"/>
+    </filter>
+    <linearGradient id="coverGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1A1A1A"/>
+      <stop offset="50%" stop-color="#111111"/>
+      <stop offset="100%" stop-color="#080808"/>
+    </linearGradient>
+    <linearGradient id="spineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#333333"/>
+      <stop offset="50%" stop-color="#E52532"/>
+      <stop offset="100%" stop-color="#99151D"/>
+    </linearGradient>
+    <linearGradient id="pageEdge" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#E5E5E5"/>
+      <stop offset="50%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#D4D4D4"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background Base Shadow -->
+  <ellipse cx="300" cy="590" rx="220" ry="25" fill="#000000" opacity="0.6" filter="blur(8px)"/>
+
+  <!-- Page Thickness Behind Book -->
+  <path d="M 140 100 L 510 100 L 490 560 L 120 560 Z" fill="url(#pageEdge)" stroke="#CCCCCC" stroke-width="1"/>
+  <line x1="490" y1="100" x2="490" y2="560" stroke="#BBBBBB" stroke-width="1.5"/>
+  <line x1="500" y1="100" x2="500" y2="560" stroke="#DDDDDD" stroke-width="1"/>
+
+  <!-- Book Main Cover -->
+  <rect x="100" y="80" width="380" height="480" rx="16" fill="url(#coverGrad)" stroke="#333333" stroke-width="2" filter="url(#mockupShadow)"/>
+
+  <!-- Book Spine Strip -->
+  <rect x="100" y="80" width="42" height="480" rx="8" fill="url(#spineGrad)"/>
+  
+  <!-- Spiral Wire Rings -->
+  
+      <rect x="92" y="110" width="22" height="8" rx="4" fill="#CCCCCC" stroke="#444444" stroke-width="1"/>
+      <circle cx="92" cy="114" r="3" fill="#111111"/>
+      <circle cx="114" cy="114" r="3" fill="#111111"/>
+    
+      <rect x="92" y="142" width="22" height="8" rx="4" fill="#CCCCCC" stroke="#444444" stroke-width="1"/>
+      <circle cx="92" cy="146" r="3" fill="#111111"/>
+      <circle cx="114" cy="146" r="3" fill="#111111"/>
+    
+      <rect x="92" y="174" width="22" height="8" rx="4" fill="#CCCCCC" stroke="#444444" stroke-width="1"/>
+      <circle cx="92" cy="178" r="3" fill="#111111"/>
+      <circle cx="114" cy="178" r="3" fill="#111111"/>
+    
+      <rect x="92" y="206" width="22" height="8" rx="4" fill="#CCCCCC" stroke="#444444" stroke-width="1"/>
+      <circle cx="92" cy="210" r="3" fill="#111111"/>
+      <circle cx="114" cy="210" r="3" fill="#111111"/>
+    
+      <rect x="92" y="238" width="22" height="8" rx="4" fill="#CCCCCC" stroke="#444444" stroke-width="1"/>
+      <circle cx="92" cy="242" r="3" fill="#111111"/>
+      <circle cx="114" cy="242" r="3" fill="#111111"/>
+    
+      <rect x="92" y="270" width="22" height="8" rx="4" fill="#CCCCCC" stroke="#444444" stroke-width="1"/>
+      <circle cx="92" cy="274" r="3" fill="#111111"/>
+      <circle cx="114" cy="274" r="3" fill="#111111"/>
+    
+      <rect x="92" y="302" width="22" height="8" rx="4" fill="#CCCCCC" stroke="#444444" stroke-width="1"/>
+      <circle cx="92" cy="306" r="3" fill="#111111"/>
+      <circle cx="114" cy="306" r="3" fill="#111111"/>
+    
+      <rect x="92" y="334" width="22" height="8" rx="4" fill="#CCCCCC" stroke="#444444" stroke-width="1"/>
+      <circle cx="92" cy="338" r="3" fill="#111111"/>
+      <circle cx="114" cy="338" r="3" fill="#111111"/>
+    
+      <rect x="92" y="366" width="22" height="8" rx="4" fill="#CCCCCC" stroke="#444444" stroke-width="1"/>
+      <circle cx="92" cy="370" r="3" fill="#111111"/>
+      <circle cx="114" cy="370" r="3" fill="#111111"/>
+    
+      <rect x="92" y="398" width="22" height="8" rx="4" fill="#CCCCCC" stroke="#444444" stroke-width="1"/>
+      <circle cx="92" cy="402" r="3" fill="#111111"/>
+      <circle cx="114" cy="402" r="3" fill="#111111"/>
+    
+      <rect x="92" y="430" width="22" height="8" rx="4" fill="#CCCCCC" stroke="#444444" stroke-width="1"/>
+      <circle cx="92" cy="434" r="3" fill="#111111"/>
+      <circle cx="114" cy="434" r="3" fill="#111111"/>
+    
+      <rect x="92" y="462" width="22" height="8" rx="4" fill="#CCCCCC" stroke="#444444" stroke-width="1"/>
+      <circle cx="92" cy="466" r="3" fill="#111111"/>
+      <circle cx="114" cy="466" r="3" fill="#111111"/>
+    
+      <rect x="92" y="494" width="22" height="8" rx="4" fill="#CCCCCC" stroke="#444444" stroke-width="1"/>
+      <circle cx="92" cy="498" r="3" fill="#111111"/>
+      <circle cx="114" cy="498" r="3" fill="#111111"/>
+    
+      <rect x="92" y="526" width="22" height="8" rx="4" fill="#CCCCCC" stroke="#444444" stroke-width="1"/>
+      <circle cx="92" cy="530" r="3" fill="#111111"/>
+      <circle cx="114" cy="530" r="3" fill="#111111"/>
+    
+
+  <!-- Cover Content -->
+  <g transform="translate(170, 140)">
+    <!-- Brand Badge -->
+    <rect x="0" y="0" width="120" height="26" rx="6" fill="#E52532"/>
+    <text x="60" y="17" text-anchor="middle" fill="#FFFFFF" font-family="Courier, monospace" font-weight="bold" font-size="11">BEENEXT OFFICIAL</text>
+
+    <!-- Main Title -->
+    <text x="0" y="65" fill="#FFFFFF" font-family="system-ui, -apple-system, sans-serif" font-weight="900" font-size="24">STRIVER'S A2Z</text>
+    <text x="0" y="95" fill="#E52532" font-family="system-ui, -apple-system, sans-serif" font-weight="900" font-size="22">DSA HANDWRITTEN</text>
+    <text x="0" y="125" fill="#FFFFFF" font-family="system-ui, -apple-system, sans-serif" font-weight="800" font-size="20">BLUEPRINTS</text>
+
+    <!-- Divider -->
+    <line x1="0" y1="145" x2="270" y2="145" stroke="#333333" stroke-width="1.5"/>
+
+    <!-- Spec Pills -->
+    <g transform="translate(0, 165)">
+      <circle cx="6" cy="6" r="3" fill="#E52532"/>
+      <text x="18" y="10" fill="#CCCCCC" font-family="Courier, monospace" font-size="12">400+ Printed Heavyweight Pages</text>
+
+      <circle cx="6" cy="32" r="3" fill="#E52532"/>
+      <text x="18" y="36" fill="#CCCCCC" font-family="Courier, monospace" font-size="12">100 GSM Anti-Ink Bleed Paper</text>
+
+      <circle cx="6" cy="58" r="3" fill="#E52532"/>
+      <text x="18" y="62" fill="#CCCCCC" font-family="Courier, monospace" font-size="12">Matte Hard Lamination Cover</text>
+
+      <circle cx="6" cy="84" r="3" fill="#E52532"/>
+      <text x="18" y="88" fill="#CCCCCC" font-family="Courier, monospace" font-size="12">All 17 Sheet Topics Complete</text>
+    </g>
+
+    <!-- Bottom Stamp -->
+    <g transform="translate(0, 310)">
+      <rect x="0" y="0" width="170" height="42" rx="8" fill="#1C1C1C" stroke="#E52532" stroke-width="1.5"/>
+      <text x="12" y="18" fill="#888888" font-family="Courier, monospace" font-size="10">PHYSICAL DELIVERED EDITION</text>
+      <text x="12" y="34" fill="#FFFFFF" font-family="Courier, monospace" font-weight="bold" font-size="15">PRICE: ₹1,499</text>
+    </g>
+  </g>
+</svg>

@@ -34,49 +34,6 @@ export async function GET(req: Request, { params }: { params: { slug: string } }
       return NextResponse.json({ error: "Problem not found" }, { status: 404 });
     }
 
-    // Backend access check
-    const access = await checkProblemAccess(session?.id, problem.id);
-
-    // If access is locked, mask protected code and secure note files
-    if (!access.hasAccess) {
-      const sanitizedCodes = problem.codes.map((c) => ({
-        id: c.id,
-        approachType: c.approachType,
-        title: c.title,
-        explanation: c.explanation.slice(0, 150) + "...\n[Unlock to read full architectural breakdown]",
-        javaCode: "// 🔒 CONTENT LOCKED\n// Purchase this problem (₹" + problem.price + ") or the " + problem.category.title + " category (₹" + problem.category.price + ") to view full Java source code.",
-        timeComplexity: c.timeComplexity,
-        spaceComplexity: c.spaceComplexity,
-        isLocked: true,
-      }));
-
-      const sanitizedNotes = problem.notes.map((n) => ({
-        id: n.id,
-        title: n.title,
-        fileType: n.fileType,
-        pageCount: n.pageCount,
-        isProtected: true,
-        previewUrl: n.previewUrl || null,
-        fileUrl: null, // Hidden on backend!
-        isLocked: true,
-      }));
-
-      return NextResponse.json({
-        problem: {
-          ...problem,
-          codes: sanitizedCodes,
-          notes: sanitizedNotes,
-        },
-        access: {
-          hasAccess: false,
-          reason: access.reason,
-          price: problem.price,
-          categoryPrice: problem.category.price,
-        },
-      });
-    }
-
-    // If access granted, return all content with verified media access
     return NextResponse.json({
       problem: {
         ...problem,
@@ -85,7 +42,7 @@ export async function GET(req: Request, { params }: { params: { slug: string } }
       },
       access: {
         hasAccess: true,
-        reason: access.reason,
+        reason: "FREE",
       },
     });
   } catch (err) {

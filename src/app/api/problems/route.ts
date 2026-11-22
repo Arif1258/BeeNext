@@ -7,10 +7,21 @@ export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
     const categorySlug = searchParams.get("category");
+    const categoryId = searchParams.get("categoryId");
+    const search = searchParams.get("search");
 
     const where: any = { isPublished: true };
     if (categorySlug) {
       where.category = { slug: categorySlug };
+    }
+    if (categoryId) {
+      where.categoryId = categoryId;
+    }
+    if (search) {
+      where.OR = [
+        { title: { contains: search, mode: "insensitive" } },
+        { slug: { contains: search, mode: "insensitive" } },
+      ];
     }
 
     const problems = await prisma.problem.findMany({
@@ -26,6 +37,7 @@ export async function GET(req: Request) {
         price: true,
         order: true,
         leetcodeUrl: true,
+        youtubeUrl: true,
         category: {
           select: {
             id: true,
@@ -33,6 +45,17 @@ export async function GET(req: Request) {
             slug: true,
             isFree: true,
             price: true,
+          },
+        },
+        codes: {
+          select: {
+            id: true,
+            approachType: true,
+            title: true,
+            explanation: true,
+            javaCode: true,
+            timeComplexity: true,
+            spaceComplexity: true,
           },
         },
         _count: {
@@ -56,7 +79,7 @@ export async function POST(req: Request) {
     }
 
     const body = await req.json();
-    const {
+    let {
       title,
       slug,
       categoryId,
@@ -67,71 +90,136 @@ export async function POST(req: Request) {
       constraints,
       examples,
       leetcodeUrl,
+      youtubeUrl,
       isFree = false,
       price = 49,
-      order = 0,
+      order,
       bruteForce,
       optimal,
     } = body;
 
-    if (!title || !slug || !categoryId || !description) {
-      return NextResponse.json(
-        { error: "Title, slug, category, and description are required" },
-        { status: 400 }
-      );
+    if (!title || !title.trim()) {
+      return NextResponse.json({ error: "Problem title is required" }, { status: 400 });
     }
 
-    const normalizedSlug = slug.toLowerCase().trim().replace(/[^a-z0-9-]/g, "-");
+    if (!categoryId) {
+      return NextResponse.json({ error: "Topic/Category is required" }, { status: 400 });
+    }
+
+    // Verify category exists
+    const categoryExists = await prisma.category.findUnique({ where: { id: categoryId } });
+    if (!categoryExists) {
+      return NextResponse.json({ error: "Selected category does not exist" }, { status: 400 });
+    }
+
+    // Auto-generate slug if not provided
+    let finalSlug = slug ? slug.trim() : title.trim();
+    finalSlug = finalSlug.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+    if (!finalSlug) finalSlug = `problem-${Date.now().toString().slice(-6)}`;
+
+    // Ensure slug uniqueness
+    const existingProblem = await prisma.problem.findUnique({ where: { slug: finalSlug } });
+    if (existingProblem) {
+      finalSlug = `${finalSlug}-${Date.now().toString().slice(-4)}`;
+    }
+
+    // Default description to title if not provided
+    const finalDescription = description?.trim() || title.trim();
+
+    // Validate LeetCode / external problem URL if provided
+    if (leetcodeUrl && typeof leetcodeUrl === "string" && leetcodeUrl.trim().length > 0) {
+      try {
+        const parsed = new URL(leetcodeUrl.trim());
+        if (parsed.protocol !== "http:" && parsed.protocol !== "https:") {
+          return NextResponse.json({ error: "Problem URL must start with http:// or https://" }, { status: 400 });
+        }
+      } catch {
+        return NextResponse.json({ error: "Invalid Problem URL format" }, { status: 400 });
+      }
+    }
+
+    // Validate YouTube URL if provided
+    if (youtubeUrl && typeof youtubeUrl === "string" && youtubeUrl.trim().length > 0) {
+      const trimmed = youtubeUrl.trim();
+      const isYT = /^(https?:\/\/)?(www\.)?(youtube\.com\/(watch\?v=|embed\/|shorts\/)|youtu\.be\/)[a-zA-Z0-9_-]{11}(.*)?$/.test(trimmed);
+      if (!isYT) {
+        return NextResponse.json(
+          { error: "Invalid YouTube URL format. Please provide a valid YouTube watch or share URL." },
+          { status: 400 }
+        );
+      }
+    }
+
+    // Auto-calculate order within category if not set
+    let finalOrder = typeof order === "number" ? order : 0;
+    if (finalOrder === 0) {
+      const lastProblem = await prisma.problem.findFirst({
+        where: { categoryId },
+        orderBy: { order: "desc" },
+        select: { order: true },
+      });
+      finalOrder = (lastProblem?.order ?? -1) + 1;
+    }
 
     const problem = await prisma.problem.create({
       data: {
         title: title.trim(),
-        slug: normalizedSlug,
+        slug: finalSlug,
         categoryId,
-        difficulty: difficulty as Difficulty,
-        description: description.trim(),
-        inputFormat: inputFormat?.trim(),
-        outputFormat: outputFormat?.trim(),
-        constraints: constraints?.trim(),
+        difficulty: (difficulty as Difficulty) || "MEDIUM",
+        description: finalDescription,
+        inputFormat: inputFormat?.trim() || null,
+        outputFormat: outputFormat?.trim() || null,
+        constraints: constraints?.trim() || null,
         examples: examples || [],
         leetcodeUrl: leetcodeUrl?.trim() || null,
+        youtubeUrl: youtubeUrl?.trim() || null,
         isFree: Boolean(isFree),
         price: Number(price) || 0,
-        order: Number(order) || 0,
+        order: finalOrder,
+        isPublished: true,
       },
     });
 
     // Create brute force code if provided
-    if (bruteForce?.javaCode) {
+    if (bruteForce?.javaCode && bruteForce.javaCode.trim()) {
       await prisma.problemCode.create({
         data: {
           problemId: problem.id,
           approachType: ApproachType.BRUTE_FORCE,
-          title: bruteForce.title || "Brute Force Approach",
-          explanation: bruteForce.explanation || "",
-          javaCode: bruteForce.javaCode,
-          timeComplexity: bruteForce.timeComplexity || "O(N^2)",
-          spaceComplexity: bruteForce.spaceComplexity || "O(1)",
+          title: bruteForce.title?.trim() || "Brute Force Approach",
+          explanation: bruteForce.explanation?.trim() || "",
+          javaCode: bruteForce.javaCode.trim(),
+          timeComplexity: bruteForce.timeComplexity?.trim() || "O(N^2)",
+          spaceComplexity: bruteForce.spaceComplexity?.trim() || "O(1)",
         },
       });
     }
 
     // Create optimal code if provided
-    if (optimal?.javaCode) {
+    if (optimal?.javaCode && optimal.javaCode.trim()) {
       await prisma.problemCode.create({
         data: {
           problemId: problem.id,
           approachType: ApproachType.OPTIMAL,
-          title: optimal.title || "Optimal Approach",
-          explanation: optimal.explanation || "",
-          javaCode: optimal.javaCode,
-          timeComplexity: optimal.timeComplexity || "O(N)",
-          spaceComplexity: optimal.spaceComplexity || "O(1)",
+          title: optimal.title?.trim() || "Optimal Approach",
+          explanation: optimal.explanation?.trim() || "",
+          javaCode: optimal.javaCode.trim(),
+          timeComplexity: optimal.timeComplexity?.trim() || "O(N)",
+          spaceComplexity: optimal.spaceComplexity?.trim() || "O(1)",
         },
       });
     }
 
-    return NextResponse.json({ problem }, { status: 201 });
+    const fullProblem = await prisma.problem.findUnique({
+      where: { id: problem.id },
+      include: {
+        category: true,
+        codes: true,
+      },
+    });
+
+    return NextResponse.json({ problem: fullProblem }, { status: 201 });
   } catch (err: unknown) {
     console.error("Create problem error:", err);
     const message = err instanceof Error ? err.message : "Failed to create problem";

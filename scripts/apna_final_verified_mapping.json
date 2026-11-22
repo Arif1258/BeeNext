@@ -1,0 +1,698 @@
+[
+  {
+    "id": "cmwolljsx0075o76vkkcfinx8",
+    "slug": "palindrome-check",
+    "title": "Palindrome Check",
+    "category": "Beginner Problems",
+    "apnaYoutubeUrl": "https://youtu.be/dSRFgEs3a6A?si=WUcnajw8nRAsHlb4",
+    "source": "lcSlug:valid-palindrome"
+  },
+  {
+    "id": "cmwn97dlw000xo4zizrecqcxt",
+    "slug": "merge-sort",
+    "title": "Merge Sort",
+    "category": "Sorting",
+    "apnaYoutubeUrl": "https://www.youtube.com/watch?v=cQDtOBTy7_Y&t=12s",
+    "source": "manualOverride"
+  },
+  {
+    "id": "cmwolljtz00aho76vyu8v89hd",
+    "slug": "majority-element-i",
+    "title": "Majority Element-I",
+    "category": "Arrays",
+    "apnaYoutubeUrl": "https://youtu.be/_xqIp2rj8bo?t=882",
+    "source": "lcSlug:majority-element"
+  },
+  {
+    "id": "cmwollju200ato76vpz24b7ng",
+    "slug": "print-the-matrix-in-spiral-manner",
+    "title": "Print the matrix in spiral manner",
+    "category": "Arrays",
+    "apnaYoutubeUrl": "https://youtu.be/XMpdvwUObho?si=opqd98A9rm0GiTMG",
+    "source": "lcSlug:spiral-matrix"
+  },
+  {
+    "id": "cmwollju900blo76vw5lqhow7",
+    "slug": "3-sum",
+    "title": "3 Sum",
+    "category": "Arrays",
+    "apnaYoutubeUrl": "https://www.youtube.com/watch?v=K-RsltkN63w",
+    "source": "lcSlug:3sum"
+  },
+  {
+    "id": "cmwolljua00bpo76v6w7els7w",
+    "slug": "4-sum",
+    "title": "4 Sum",
+    "category": "Arrays",
+    "apnaYoutubeUrl": "https://www.youtube.com/watch?v=X6sL8JTROLY",
+    "source": "lcSlug:4sum"
+  },
+  {
+    "id": "cmwolljub00bto76vbvc6dr14",
+    "slug": "sort-an-array-of-0's-1's-and-2's",
+    "title": "Sort an array of 0's 1's and 2's",
+    "category": "Arrays",
+    "apnaYoutubeUrl": "https://www.youtube.com/watch?v=J48aGjfjYTI&list=PLfqMhTWNBTe137I_EPQd34TsgV6IO55pt&index=26",
+    "source": "lcSlug:sort-colors"
+  },
+  {
+    "id": "cmwolljuc00bxo76vce5v9q16",
+    "slug": "kadane's-algorithm",
+    "title": "Kadane's Algorithm",
+    "category": "Arrays",
+    "apnaYoutubeUrl": "https://youtu.be/9IZYqostl2M?t=760",
+    "source": "manualOverride"
+  },
+  {
+    "id": "cmwolljud00c1o76vluyydv97",
+    "slug": "next-permutation",
+    "title": "Next Permutation",
+    "category": "Arrays",
+    "apnaYoutubeUrl": "https://youtu.be/-1cLK6PaLsQ?list=PLfqMhTWNBTe137I_EPQd34TsgV6IO55pt&t=967",
+    "source": "manualOverride"
+  },
+  {
+    "id": "cmwolljuh00cdo76vvfck9stb",
+    "slug": "count-inversions",
+    "title": "Count Inversions",
+    "category": "Arrays",
+    "apnaYoutubeUrl": "https://www.youtube.com/watch?v=ynnWDBTdVi0",
+    "source": "manualOverride"
+  },
+  {
+    "id": "cmwolljuk00cpo76vwh7cka25",
+    "slug": "merge-two-sorted-arrays-without-extra-space",
+    "title": "Merge two sorted arrays without extra space",
+    "category": "Arrays",
+    "apnaYoutubeUrl": "https://www.youtube.com/watch?v=-1cLK6PaLsQ&list=PLfqMhTWNBTe137I_EPQd34TsgV6IO55pt&index=27",
+    "source": "lcSlug:merge-sorted-array"
+  },
+  {
+    "id": "cmwolljup00d9o76vo0if8bev",
+    "slug": "count-subarrays-with-given-sum",
+    "title": "Count subarrays with given sum",
+    "category": "Hashing",
+    "apnaYoutubeUrl": "https://youtu.be/KDH4mhFVvHw?si=LGsc4jbq5QZ0QnsO",
+    "source": "lcSlug:subarray-sum-equals-k"
+  },
+  {
+    "id": "cmwolljux00e5o76vdpyx44fc",
+    "slug": "search-in-rotated-sorted-array-i",
+    "title": "Search in rotated sorted array-I",
+    "category": "Binary Search",
+    "apnaYoutubeUrl": "https://youtu.be/6WNZQBHWQJs?si=MihpDB7KJ2aCOO9u",
+    "source": "lcSlug:search-in-rotated-sorted-array"
+  },
+  {
+    "id": "cmwolljv000elo76v2ak1q0ln",
+    "slug": "single-element-in-sorted-array",
+    "title": "Single element in sorted array",
+    "category": "Binary Search",
+    "apnaYoutubeUrl": "https://youtu.be/qsbCBduIs40?si=RDuU5EnemxN6j6mW",
+    "source": "manualOverride"
+  },
+  {
+    "id": "cmwolljv800flo76vzr1jtz7e",
+    "slug": "painters-partition",
+    "title": "Painter's Partition",
+    "category": "Binary Search",
+    "apnaYoutubeUrl": "https://youtu.be/srsFN5OHBgw?si=k7hAiRe8HnPi4NHF",
+    "source": "manualOverride"
+  },
+  {
+    "id": "cmwolljv900fpo76vu0ve92it",
+    "slug": "aggressive-cows",
+    "title": "Aggressive Cows",
+    "category": "Binary Search",
+    "apnaYoutubeUrl": "https://youtu.be/7wOzDqsfXy0?si=c6eVx-Wc-1GIrj0y",
+    "source": "manualOverride"
+  },
+  {
+    "id": "cmwolljva00fto76v2danoy5r",
+    "slug": "book-allocation-problem",
+    "title": "Book Allocation Problem",
+    "category": "Binary Search",
+    "apnaYoutubeUrl": "https://youtu.be/JRAByolWqhw?t=32",
+    "source": "manualOverride"
+  },
+  {
+    "id": "cmwolljvg00glo76vlmokcs9n",
+    "slug": "search-in-a-2d-matrix",
+    "title": "Search in a 2D Matrix",
+    "category": "Binary Search",
+    "apnaYoutubeUrl": "https://youtu.be/LEFFjgt5i6w?t=882",
+    "source": "lcSlug:search-a-2d-matrix"
+  },
+  {
+    "id": "cmwolljvh00gpo76vect8l4ie",
+    "slug": "search-in-2d-matrix-ii",
+    "title": "Search in 2D matrix - II",
+    "category": "Binary Search",
+    "apnaYoutubeUrl": "https://youtu.be/LEFFjgt5i6w?si=E2QRmGvkNcrrv64t",
+    "source": "lcSlug:search-a-2d-matrix-ii"
+  },
+  {
+    "id": "cmwolljvp00hto76v2nvecybt",
+    "slug": "pow(x,n)",
+    "title": "Pow(x,n)",
+    "category": "Recursion",
+    "apnaYoutubeUrl": "https://youtu.be/g_mQTCptqg8?si=ZqM3FwK3t8_7XJ0p",
+    "source": "manualOverride"
+  },
+  {
+    "id": "cmwolljvw00ito76v55a89ity",
+    "slug": "combination-sum",
+    "title": "Combination Sum",
+    "category": "Recursion",
+    "apnaYoutubeUrl": "https://youtu.be/jkgZw2WEaqA?si=3YpIrvX_36R4MOa2",
+    "source": "lcSlug:combination-sum"
+  },
+  {
+    "id": "cmwolljvz00j5o76vt0fpo5ps",
+    "slug": "subsets-ii",
+    "title": "Subsets II",
+    "category": "Recursion",
+    "apnaYoutubeUrl": "https://youtu.be/Vn2v6ajA7U0?si=3vF5aQhXz8-8Z8z8",
+    "source": "manualOverride"
+  },
+  {
+    "id": "cmwolljw300jho76vy4ygg2xt",
+    "slug": "palindrome-partitioning",
+    "title": "Palindrome partitioning",
+    "category": "Recursion",
+    "apnaYoutubeUrl": "https://youtu.be/aZ0B1eWkSVU?si=4DLqSJjkT9iT0JMS",
+    "source": "manualOverride"
+  },
+  {
+    "id": "cmwolljw600jpo76vrn5h2bap",
+    "slug": "n-queen",
+    "title": "N Queen",
+    "category": "Recursion",
+    "apnaYoutubeUrl": "https://youtu.be/BdSJnIdR-4s?si=w5K9IKkKeecaXaq7",
+    "source": "lcSlug:n-queens"
+  },
+  {
+    "id": "cmwolljw700jto76vl6ghwxzd",
+    "slug": "rat-in-a-maze",
+    "title": "Rat in a Maze",
+    "category": "Recursion",
+    "apnaYoutubeUrl": "https://youtu.be/D8Yze9CDDAw?si=4HiqdNuf2gYtcMMH",
+    "source": "manualOverride"
+  },
+  {
+    "id": "cmwolljwa00k1o76v6afvdjjo",
+    "slug": "sudoko-solver",
+    "title": "Sudoku Solver",
+    "category": "Recursion",
+    "apnaYoutubeUrl": "https://youtu.be/70cP3qtJp-s?si=Mi8inCRxN2n-VlmR",
+    "source": "lcSlug:sudoku-solver"
+  },
+  {
+    "id": "cmwolljx500npo76v8qf5rt0m",
+    "slug": "reverse-a-ll",
+    "title": "Reverse a LL",
+    "category": "Linked-List",
+    "apnaYoutubeUrl": "https://www.youtube.com/watch?v=R-CKBYnOv1U",
+    "source": "manualOverride"
+  },
+  {
+    "id": "cmwolljx700nxo76v1666j015",
+    "slug": "find-middle-of-linked-list",
+    "title": "Find Middle of Linked List",
+    "category": "Linked-List",
+    "apnaYoutubeUrl": "https://www.youtube.com/watch?v=nzaHG0dme4g",
+    "source": "lcSlug:middle-of-the-linked-list"
+  },
+  {
+    "id": "cmwolljxa00odo76vta8olkll",
+    "slug": "detect-a-loop-in-ll",
+    "title": "Detect a loop in LL",
+    "category": "Linked-List",
+    "apnaYoutubeUrl": "https://www.youtube.com/watch?v=-1E8ZMS0gSs",
+    "source": "lcSlug:linked-list-cycle"
+  },
+  {
+    "id": "cmwolljxb00oho76viwfq4zzh",
+    "slug": "find-the-starting-point-in-ll",
+    "title": "Find the starting point in LL",
+    "category": "Linked-List",
+    "apnaYoutubeUrl": "https://www.youtube.com/watch?v=-1E8ZMS0gSs",
+    "source": "lcSlug:linked-list-cycle-ii"
+  },
+  {
+    "id": "cmwolljxd00opo76vciz8566j",
+    "slug": "reverse-ll-in-group-of-given-size-k",
+    "title": "Reverse LL in group of given size K",
+    "category": "Linked-List",
+    "apnaYoutubeUrl": "https://www.youtube.com/watch?v=-swgIiMIlJo",
+    "source": "lcSlug:reverse-nodes-in-k-group"
+  },
+  {
+    "id": "cmwolljxg00oxo76vb9fblzod",
+    "slug": "merge-sorted-lists-",
+    "title": "Merge two Sorted Lists ",
+    "category": "Linked-List",
+    "apnaYoutubeUrl": "https://www.youtube.com/watch?v=f8RPIb-0DDE",
+    "source": "lcSlug:merge-two-sorted-lists"
+  },
+  {
+    "id": "cmwolljxh00p1o76vm03l1cna",
+    "slug": "flattening-of-ll",
+    "title": "Flattening of LL",
+    "category": "Linked-List",
+    "apnaYoutubeUrl": "https://www.youtube.com/watch?v=I8b0rff5F9M",
+    "source": "manualOverride"
+  },
+  {
+    "id": "cmwolljxk00p9o76voxn4d3r0",
+    "slug": "clone-a-ll-with-random-and-next-pointer",
+    "title": "Clone a LL with random and next pointer",
+    "category": "Linked-List",
+    "apnaYoutubeUrl": "https://www.youtube.com/watch?v=8ze7Zopdsaw",
+    "source": "lcSlug:copy-list-with-random-pointer"
+  },
+  {
+    "id": "cmwolljy000qlo76vaa282sug",
+    "slug": "single-number---i",
+    "title": "Single Number - I",
+    "category": "Bit Manipulation",
+    "apnaYoutubeUrl": "https://www.youtube.com/watch?v=qsbCBduIs40",
+    "source": "lcSlug:single-number"
+  },
+  {
+    "id": "cmwolljyb00rho76vczj47a98",
+    "slug": "fractional-knapsack",
+    "title": "Fractional Knapsack",
+    "category": "Greedy Algorithms",
+    "apnaYoutubeUrl": "https://youtu.be/yggezlvUN2w?si=uv6eGxtpvOZq9JxZ",
+    "source": "manualOverride"
+  },
+  {
+    "id": "cmwolljz900ulo76vasinfbuv",
+    "slug": "implement-stack-using-queue",
+    "title": "Implement Stack using Queue",
+    "category": "Stack / Queues",
+    "apnaYoutubeUrl": "https://youtu.be/0wG8h7a2k7k?t=20",
+    "source": "manualOverride"
+  },
+  {
+    "id": "cmwolljza00upo76vg0zzagpq",
+    "slug": "implement-queue-using-stack",
+    "title": "Implement Queue using Stack",
+    "category": "Stack / Queues",
+    "apnaYoutubeUrl": "https://youtu.be/0wG8h7a2k7k",
+    "source": "manualOverride"
+  },
+  {
+    "id": "cmwolljzc00v1o76vdum608s6",
+    "slug": "balanced-paranthesis",
+    "title": "Balanced Paranthesis",
+    "category": "Stack / Queues",
+    "apnaYoutubeUrl": "https://www.youtube.com/watch?v=NlHupEeDXzY",
+    "source": "lcSlug:valid-parentheses"
+  },
+  {
+    "id": "cmwolljzi00vto76vkhc5xvlz",
+    "slug": "next-greater-element",
+    "title": "Next Greater Element",
+    "category": "Stack / Queues",
+    "apnaYoutubeUrl": "https://www.youtube.com/watch?v=NKbExYwvjb0",
+    "source": "lcSlug:next-greater-element-i"
+  },
+  {
+    "id": "cmwolljzj00vxo76vaafrkqsd",
+    "slug": "next-greater-element---2",
+    "title": "Next Greater Element - 2",
+    "category": "Stack / Queues",
+    "apnaYoutubeUrl": "https://youtu.be/If--3pm9K3U?t=28",
+    "source": "lcSlug:next-greater-element-ii"
+  },
+  {
+    "id": "cmwolljzr00wlo76viehiv5jr",
+    "slug": "implement-min-stack",
+    "title": "Implement Min Stack",
+    "category": "Stack / Queues",
+    "apnaYoutubeUrl": "https://www.youtube.com/watch?v=wHDm-N2m2XY",
+    "source": "lcSlug:min-stack"
+  },
+  {
+    "id": "cmwolljzs00wpo76vck5e9qn6",
+    "slug": "sliding-window-maximum",
+    "title": "Sliding Window Maximum",
+    "category": "Stack / Queues",
+    "apnaYoutubeUrl": "https://youtu.be/1fZ7kP-ZpX0",
+    "source": "manualOverride"
+  },
+  {
+    "id": "cmwolljzt00wto76vuxzvc2hi",
+    "slug": "trapping-rainwater",
+    "title": "Trapping Rainwater",
+    "category": "Stack / Queues",
+    "apnaYoutubeUrl": "https://youtu.be/UfZ3K-0X_Z4",
+    "source": "manualOverride"
+  },
+  {
+    "id": "cmwolljzu00wxo76vw5jq9w8h",
+    "slug": "largest-rectangle-in-a-histogram",
+    "title": "Largest rectangle in a histogram",
+    "category": "Stack / Queues",
+    "apnaYoutubeUrl": "https://www.youtube.com/watch?v=ysy1o-QEj3k",
+    "source": "manualOverride"
+  },
+  {
+    "id": "cmwolljzx00x5o76vurithlq6",
+    "slug": "stock-span-problem",
+    "title": "Stock span problem",
+    "category": "Stack / Queues",
+    "apnaYoutubeUrl": "https://youtu.be/01vBuZyMfqk?t=20",
+    "source": "manualOverride"
+  },
+  {
+    "id": "cmwolljzy00x9o76vz4bvj33d",
+    "slug": "celebrity-problem",
+    "title": "Celebrity Problem",
+    "category": "Stack / Queues",
+    "apnaYoutubeUrl": "https://youtu.be/CiiX_bF3mmo?t=20",
+    "source": "manualOverride"
+  },
+  {
+    "id": "cmwollk0000xdo76vumha640s",
+    "slug": "lru-cache",
+    "title": "LRU Cache",
+    "category": "Stack / Queues",
+    "apnaYoutubeUrl": "https://youtu.be/xDEu36_3570?t=20",
+    "source": "manualOverride"
+  },
+  {
+    "id": "cmwollk0500xto76v2p2mo3b2",
+    "slug": "inorder-traversal",
+    "title": "Inorder Traversal",
+    "category": "Binary Trees",
+    "apnaYoutubeUrl": "https://youtu.be/eKJrXBCRuNQ?t=2831",
+    "source": "manualOverride"
+  },
+  {
+    "id": "cmwollk0600xxo76vl9iv48dz",
+    "slug": "preorder-traversal",
+    "title": "Preorder Traversal",
+    "category": "Binary Trees",
+    "apnaYoutubeUrl": "https://youtu.be/eKJrXBCRuNQ?t=815",
+    "source": "manualOverride"
+  },
+  {
+    "id": "cmwollk0800y1o76vdr94qsq0",
+    "slug": "postorder-traversal",
+    "title": "Postorder Traversal",
+    "category": "Binary Trees",
+    "apnaYoutubeUrl": "https://youtu.be/eKJrXBCRuNQ?t=3415",
+    "source": "manualOverride"
+  },
+  {
+    "id": "cmwollk0900y5o76vr7ocbmur",
+    "slug": "level-order-traversal",
+    "title": "Level Order Traversal",
+    "category": "Binary Trees",
+    "apnaYoutubeUrl": "https://youtu.be/eKJrXBCRuNQ?t=4115",
+    "source": "manualOverride"
+  },
+  {
+    "id": "cmwollk0d00yho76v64iczcfz",
+    "slug": "check-if-two-trees-are-identical-or-not",
+    "title": "Check if two trees are identical or not",
+    "category": "Binary Trees",
+    "apnaYoutubeUrl": "https://youtu.be/tumW7jsjv68?t=20",
+    "source": "lcSlug:same-tree"
+  },
+  {
+    "id": "cmwollk0e00ylo76viw6f3emx",
+    "slug": "check-for-balanced-binary-tree",
+    "title": "Check for balanced binary tree",
+    "category": "Binary Trees",
+    "apnaYoutubeUrl": "https://www.youtube.com/watch?v=7tzHzN_Ehus",
+    "source": "lcSlug:balanced-binary-tree"
+  },
+  {
+    "id": "cmwollk0g00ypo76vuf826o7x",
+    "slug": "diameter-of-binary-tree",
+    "title": "Diameter of Binary Tree",
+    "category": "Binary Trees",
+    "apnaYoutubeUrl": "https://www.youtube.com/watch?v=aPyDPImR5UM",
+    "source": "lcSlug:diameter-of-binary-tree"
+  },
+  {
+    "id": "cmwollk0n00zho76vv95qwkvl",
+    "slug": "top-view-of-bt",
+    "title": "Top View of BT",
+    "category": "Binary Trees",
+    "apnaYoutubeUrl": "https://www.youtube.com/watch?v=FGr-syrhvOA",
+    "source": "manualOverride"
+  },
+  {
+    "id": "cmwollk0o00zlo76vtkk963wv",
+    "slug": "bottom-view-of-bt",
+    "title": "Bottom view of BT",
+    "category": "Binary Trees",
+    "apnaYoutubeUrl": "https://www.youtube.com/watch?v=FGr-syrhvOA",
+    "source": "manualOverride"
+  },
+  {
+    "id": "cmwollk0t00zxo76vabsoojb2",
+    "slug": "lca-in-bt",
+    "title": "Lowest Common Ancestor in BT",
+    "category": "Binary Trees",
+    "apnaYoutubeUrl": "https://www.youtube.com/watch?v=oX5D0uKOMck",
+    "source": "lcSlug:lowest-common-ancestor-of-a-binary-tree"
+  },
+  {
+    "id": "cmwollk0u0101o76v4klyshdh",
+    "slug": "maximum-width-of-bt",
+    "title": "Maximum Width of BT",
+    "category": "Binary Trees",
+    "apnaYoutubeUrl": "https://www.youtube.com/watch?v=rhz-csskg_A",
+    "source": "lcSlug:maximum-width-of-binary-tree"
+  },
+  {
+    "id": "cmwollk0y010ho76v4xyy4ygp",
+    "slug": "flatten-binary-tree-to-linked-list",
+    "title": "Flatten Binary Tree to Linked List",
+    "category": "Binary Trees",
+    "apnaYoutubeUrl": "https://www.youtube.com/watch?v=dU2Z5HWSGM0",
+    "source": "lcSlug:flatten-binary-tree-to-linked-list"
+  },
+  {
+    "id": "cmwollk10010po76vdz8ykhxw",
+    "slug": "construct-a-bt-from-preorder-and-inorder",
+    "title": "Construct a BT from Preorder and Inorder",
+    "category": "Binary Trees",
+    "apnaYoutubeUrl": "https://www.youtube.com/watch?v=33b1M980cCA",
+    "source": "lcSlug:construct-binary-tree-from-preorder-and-inorder-traversal"
+  },
+  {
+    "id": "cmwollk11010to76vkbv82njz",
+    "slug": "construct-a-bt-from-postorder-and-inorder",
+    "title": "Construct a BT from Postorder and Inorder",
+    "category": "Binary Trees",
+    "apnaYoutubeUrl": "https://youtu.be/33b1M980cCA?list=PLfqMhTWNBTe137I_EPQd34TsgV6IO55pt&t=7",
+    "source": "lcSlug:construct-binary-tree-from-inorder-and-postorder-traversal"
+  },
+  {
+    "id": "cmwollk140111o76vbenvuiql",
+    "slug": "morris-inorder-traversal-",
+    "title": "Morris Inorder Traversal ",
+    "category": "Binary Trees",
+    "apnaYoutubeUrl": "https://youtu.be/PUfADhkq1LI?t=9",
+    "source": "manualOverride"
+  },
+  {
+    "id": "cmwollk1d011xo76vr04my7gt",
+    "slug": "kth-smallest-and-largest-element-in-bst",
+    "title": "Kth Smallest and Largest element in BST",
+    "category": "Binary Search Trees",
+    "apnaYoutubeUrl": "https://www.youtube.com/watch?v=Kq4BbvIhj44",
+    "source": "lcSlug:kth-smallest-element-in-a-bst"
+  },
+  {
+    "id": "cmwollk1d0121o76vect6w0i5",
+    "slug": "check-if-a-tree-is-a-bst-or-not",
+    "title": "Check if a tree is a BST or not",
+    "category": "Binary Search Trees",
+    "apnaYoutubeUrl": "https://www.youtube.com/watch?v=dSBcCynP1nA&t=21s",
+    "source": "lcSlug:validate-binary-search-tree"
+  },
+  {
+    "id": "cmwollk1e0125o76v6er62nj2",
+    "slug": "lca-in-bst",
+    "title": "LCA in BST",
+    "category": "Binary Search Trees",
+    "apnaYoutubeUrl": "https://youtu.be/5E3S_S8AknA?si=oA3jT8c3k2_0Qz8z",
+    "source": "manualOverride"
+  },
+  {
+    "id": "cmwollk1f0129o76v3evzffrd",
+    "slug": "construct-a-bst-from-a-preorder-traversal",
+    "title": "Construct a BST from a preorder traversal",
+    "category": "Binary Search Trees",
+    "apnaYoutubeUrl": "https://youtu.be/-n5Ur1wE5Jc?si=Bh0ukUvFtj3p1Ku8",
+    "source": "lcSlug:construct-binary-search-tree-from-preorder-traversal"
+  },
+  {
+    "id": "cmwollk1g012do76vn54tn8b1",
+    "slug": "inorder-successor-and-predecessor-in-bst",
+    "title": "Inorder successor and predecessor in BST",
+    "category": "Binary Search Trees",
+    "apnaYoutubeUrl": "https://www.youtube.com/watch?v=IHNkql1tAnk",
+    "source": "manualOverride"
+  },
+  {
+    "id": "cmwollk1h012ho76vetuubyfv",
+    "slug": "bst-iterator",
+    "title": "BST iterator",
+    "category": "Binary Search Trees",
+    "apnaYoutubeUrl": "https://youtu.be/rx-mGv_hF7U",
+    "source": "manualOverride"
+  },
+  {
+    "id": "cmwollk1i012po76vmr7ls8fp",
+    "slug": "correct-bst-with-two-nodes-swapped",
+    "title": "Correct BST with two nodes swapped",
+    "category": "Binary Search Trees",
+    "apnaYoutubeUrl": "https://www.youtube.com/watch?v=0KGzfij_SCk",
+    "source": "lcSlug:recover-binary-search-tree"
+  },
+  {
+    "id": "cmwollk1j012to76vllqlzxqs",
+    "slug": "largest-bst-in-binary-tree",
+    "title": "Largest BST in Binary Tree",
+    "category": "Binary Search Trees",
+    "apnaYoutubeUrl": "https://www.youtube.com/watch?v=Pr-HFxp7npk",
+    "source": "lcSlug:largest-bst-subtree"
+  },
+  {
+    "id": "cmwollk29015ho76vabnzm6r4",
+    "slug": "number-of-provinces",
+    "title": "Number of provinces",
+    "category": "Graphs",
+    "apnaYoutubeUrl": "https://youtu.be/8fvyk6w7njo",
+    "source": "manualOverride"
+  },
+  {
+    "id": "cmwollk2a015lo76vhd6jjcwf",
+    "slug": "number-of-islands",
+    "title": "Number of islands",
+    "category": "Graphs",
+    "apnaYoutubeUrl": "https://youtu.be/muncqlKJ860?si=mUj284v9e9pB41l4",
+    "source": "manualOverride"
+  },
+  {
+    "id": "cmwollk2b015po76vq5ykmrzl",
+    "slug": "flood-fill-algorithm",
+    "title": "Flood fill algorithm",
+    "category": "Graphs",
+    "apnaYoutubeUrl": "https://youtu.be/C-2_uSRli8o?si=Rj3kG1tq7rZ08PqM",
+    "source": "manualOverride"
+  },
+  {
+    "id": "cmwollk2e015xo76vb2b9o1lc",
+    "slug": "rotten-oranges",
+    "title": "Rotten Oranges",
+    "category": "Graphs",
+    "apnaYoutubeUrl": "https://youtu.be/RmXo5SWkhCs?t=20",
+    "source": "manualOverride"
+  },
+  {
+    "id": "cmwollk2i016do76vqjxnleud",
+    "slug": "detect-a-cycle-in-an-undirected-graph",
+    "title": "Detect a cycle in an undirected graph",
+    "category": "Graphs",
+    "apnaYoutubeUrl": "https://youtu.be/OZClCpPQDR4?si=LHmPSDxyURUIDxsD",
+    "source": "manualOverride"
+  },
+  {
+    "id": "cmwollk2k016lo76v9moj1yle",
+    "slug": "topological-sort-or-kahns-algorithm",
+    "title": "Topological sort or Kahn's algorithm",
+    "category": "Graphs",
+    "apnaYoutubeUrl": "https://youtu.be/BnQpaTZg6Sc",
+    "source": "manualOverride"
+  },
+  {
+    "id": "cmwollk2l016po76vn6ac1you",
+    "slug": "detect-a-cycle-in-a-directed-graph",
+    "title": "Detect a cycle in a directed graph",
+    "category": "Graphs",
+    "apnaYoutubeUrl": "https://youtu.be/AcppN5XFt24?t=27",
+    "source": "manualOverride"
+  },
+  {
+    "id": "cmwollk2p0171o76vusljb8v1",
+    "slug": "course-schedule-ii",
+    "title": "Course Schedule II",
+    "category": "Graphs",
+    "apnaYoutubeUrl": "https://youtu.be/rZsgWxodGmM?si=OgsOy5YcwN41QYwm",
+    "source": "manualOverride"
+  },
+  {
+    "id": "cmwollk2w017po76v0jk4ji62",
+    "slug": "dijkstra's-algorithm",
+    "title": "Dijkstra's algorithm",
+    "category": "Graphs",
+    "apnaYoutubeUrl": "https://youtu.be/8gYBHjtjWBI?si=nymThY9oC_NcAMPE",
+    "source": "manualOverride"
+  },
+  {
+    "id": "cmwollk300185o76vlwibzfv6",
+    "slug": "cheapest-flight-within-k-stops",
+    "title": "Cheapest flight within K stops",
+    "category": "Graphs",
+    "apnaYoutubeUrl": "https://youtu.be/CLmykzpeCCs?si=VSbiBnnh-v9PNl6v",
+    "source": "lcSlug:cheapest-flights-within-k-stops"
+  },
+  {
+    "id": "cmwollk33018ho76v1g2f1tv7",
+    "slug": "bellman-ford-algorithm",
+    "title": "Bellman ford algorithm",
+    "category": "Graphs",
+    "apnaYoutubeUrl": "https://youtu.be/3rFHlbJ7qKc?si=nSmurlJ6tWbk0ymU",
+    "source": "manualOverride"
+  },
+  {
+    "id": "cmwollk34018lo76vk06awcps",
+    "slug": "floyd-warshall-algorithm",
+    "title": "Floyd warshall algorithm",
+    "category": "Graphs",
+    "apnaYoutubeUrl": "https://youtu.be/iZBXd-vjHUA?t=16",
+    "source": "manualOverride"
+  },
+  {
+    "id": "cmwollk3i019xo76vsmjxw0d8",
+    "slug": "kosaraju's-algorithm",
+    "title": "Kosaraju's algorithm",
+    "category": "Graphs",
+    "apnaYoutubeUrl": "https://youtu.be/lqY8TE0P1S8",
+    "source": "manualOverride"
+  },
+  {
+    "id": "cmwollk3k01a1o76vz5gab8tf",
+    "slug": "bridges-in-graph",
+    "title": "Bridges in graph",
+    "category": "Graphs",
+    "apnaYoutubeUrl": "https://youtu.be/6h1SucBNxgc?list=PLfqMhTWNBTe137I_EPQd34TsgV6IO55pt&t=1426",
+    "source": "lcSlug:critical-connections-in-a-network"
+  },
+  {
+    "id": "cmwollk3w01bpo76vwaltrw29",
+    "slug": "best-time-to-buy-and-sell-stock",
+    "title": "Best time to buy and sell stock",
+    "category": "Dynamic Programming",
+    "apnaYoutubeUrl": "https://youtu.be/WBzZCm46mFo?t=835",
+    "source": "manualOverride"
+  },
+  {
+    "id": "cmwollk5b01gxo76v0xopvwjq",
+    "slug": "reverse-every-word-in-a-string",
+    "title": "Reverse every word in a string",
+    "category": "Strings (Advanced Algo)",
+    "apnaYoutubeUrl": "https://youtu.be/RitppzIdMCo?si=bLqHmxS1_C_HlODW",
+    "source": "manualOverride"
+  }
+]

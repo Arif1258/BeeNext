@@ -71,611 +71,360 @@ function createNoteSvg({ title, subtitle, topic, steps, complexities, extraNotes
 </svg>`;
 }
 
-const noteFiles = [
+const additionalNotes = [
   {
-    filename: "quicksort-p1.svg",
-    title: "Quick Sort [Page 1/2] — Lomuto Partition Visualizer",
-    subtitle: "Divide & Conquer Pivot Strategy",
-    topic: "Sorting",
+    filename: "recursive-bubblesort.svg",
+    title: "Recursive Bubble Sort — Call Stack Reduction",
+    subtitle: "Bubbling Elements with Recursive Frame Bounds",
+    topic: "Sorting Techniques",
     steps: [
       {
-        title: "1. Pivot Selection & Pointers Setup",
-        code: "pivot = arr[high]; i = low - 1;",
-        note: "Pointer 'i' tracks the boundary of elements strictly smaller than pivot.",
-        badge: "STEP 1"
-      },
-      {
-        title: "2. Scanning Array with Pointer 'j'",
-        code: "for (j = low; j < high; j++) if (arr[j] <= pivot) swap(++i, j)",
-        note: "Elements <= pivot are moved into the left partition window.",
-        badge: "PARTITION"
-      },
-      {
-        title: "3. Place Pivot in Final Ordered Slot",
-        code: "swap(arr[i + 1], arr[high]); return i + 1;",
-        note: "Pivot is now at its true global sorted position!",
-        badge: "CONQUER"
-      },
-      {
-        title: "4. Recurse on Left & Right Sub-arrays",
-        code: "quickSort(arr, low, pi - 1); quickSort(arr, pi + 1, high);",
-        note: "Sub-problems are independent; no extra merge step required.",
-        badge: "DIVIDE"
-      },
-      {
-        title: "5. Base Condition Guard",
-        code: "if (low >= high) return;",
-        note: "Single element or invalid bounds terminate recursion instantly.",
+        title: "1. Base Case Formulation",
+        code: "if (n == 1) return; // Array of 1 element is sorted",
+        note: "Terminates recursion when effective array length reduces to 1.",
         badge: "BASE CASE"
+      },
+      {
+        title: "2. Single Pass Adjacent Bubble",
+        code: "for (int i = 0; i < n - 1; i++) if (arr[i] > arr[i+1]) swap(i, i+1);",
+        note: "Moves maximum element of current prefix [0..n-1] to index n-1.",
+        badge: "ONE PASS"
+      },
+      {
+        title: "3. Recursive Step on Subarray (N - 1)",
+        code: "recursiveBubbleSort(arr, n - 1);",
+        note: "Largest element fixed; recurse on remaining n-1 elements.",
+        badge: "RECURSE"
+      },
+      {
+        title: "4. Stack Frame Invariant",
+        code: "Call stack depth is exactly N frames.",
+        note: "Simulates outer loop using recursion tree depth.",
+        badge: "STACK DEPTH"
+      },
+      {
+        title: "5. Early Exit Detection",
+        code: "boolean swapped = false; if (!swapped) return;",
+        note: "Optimizes best case to O(N) when array is already sorted.",
+        badge: "OPTIMIZATION"
       }
     ],
     complexities: {
-      best: "O(N log N)",
-      avg: "O(N log N)",
-      worst: "O(N^2) [Sorted array with last element pivot]",
-      space: "O(log N) [Call stack]",
-      inPlace: true,
-      stable: false
-    },
-    extraNotes: [
-      "TIP: Always randomize pivot choice in production to avoid O(N^2) killer sequences.",
-      "KEY ADVANTAGE: Cache-friendly locality of reference outperforms Merge Sort in RAM."
-    ]
-  },
-  {
-    filename: "quicksort-p2.svg",
-    title: "Quick Sort [Page 2/2] — Hoare vs Lomuto & Call Stack",
-    subtitle: "Recursion Depth & Space Invariants",
-    topic: "Sorting",
-    steps: [
-      {
-        title: "1. Recursion Tree Depth Invariant",
-        code: "Balanced Partition: Depth = log2(N) | Unbalanced: Depth = N",
-        note: "Each recursion level processes O(N) operations across all sub-arrays.",
-        badge: "TREE DEPTH"
-      },
-      {
-        title: "2. Hoare Partition Alternative",
-        code: "Two pointers converge from low and high towards the center",
-        note: "Hoare does 3x fewer swaps on average than Lomuto partition.",
-        badge: "HOARE"
-      },
-      {
-        title: "3. Tail Call Optimization",
-        code: "Recurse on smaller half first; loop on larger half",
-        note: "Guarantees maximum O(log N) stack frames even in worst case!",
-        badge: "TAIL CALL"
-      },
-      {
-        title: "4. 3-Way Partitioning (Dutch National Flag)",
-        code: "arr[i] < pivot, arr[i] == pivot, arr[i] > pivot",
-        note: "Handles arrays with massive duplicate counts in linear O(N) time.",
-        badge: "DUPLICATES"
-      },
-      {
-        title: "5. Production Dual-Pivot (Java Arrays.sort)",
-        code: "Uses 2 pivots (P1, P2) dividing array into 3 partitions",
-        note: "Dual-pivot Quicksort by Yaroslavskiy improves cache behavior significantly.",
-        badge: "DUAL PIVOT"
-      }
-    ],
-    complexities: {
-      best: "O(N log N)",
-      avg: "O(N log N)",
-      worst: "O(N log N) [With randomized pivot]",
-      space: "O(log N) auxiliary call stack",
-      inPlace: true,
-      stable: false
-    },
-    extraNotes: [
-      "PRO-TIP: Switch to Insertion Sort when sub-array size falls below 16-27 elements.",
-      "QUESTION: Is Quicksort stable? No, swaps jump elements across long distances."
-    ]
-  },
-  {
-    filename: "mergesort-p1.svg",
-    title: "Merge Sort [Page 1/2] — Divide & Conquer Tree",
-    subtitle: "Guaranteed O(N log N) Stable Sort",
-    topic: "Sorting",
-    steps: [
-      {
-        title: "1. Mid-Point Calculation",
-        code: "int mid = low + (high - low) / 2;",
-        note: "Avoid integer overflow: never write (low + high) / 2 directly.",
-        badge: "BISECTION"
-      },
-      {
-        title: "2. Recurse to Atomic Base Leaves",
-        code: "mergeSort(arr, low, mid); mergeSort(arr, mid + 1, high);",
-        note: "Halves input array recursively until arrays have length 1.",
-        badge: "DIVIDE"
-      },
-      {
-        title: "3. Merge Subroutine: Two Pointers",
-        code: "while (p1 <= mid && p2 <= high) arr[k++] = left[p1] <= right[p2] ? ...",
-        note: "Compare elements from both halves and pick the smaller in order.",
-        badge: "MERGE"
-      },
-      {
-        title: "4. Drain Residual Elements",
-        code: "while (p1 <= mid) temp[k++] = arr[p1++]; while (p2 <= high) ...",
-        note: "Copy remaining elements from left or right half without comparisons.",
-        badge: "DRAIN"
-      },
-      {
-        title: "5. Write Back to Original Array",
-        code: "System.arraycopy(temp, 0, arr, low, length);",
-        note: "Copies sorted merged slice back into the master array segment.",
-        badge: "WRITEBACK"
-      }
-    ],
-    complexities: {
-      best: "O(N log N)",
-      avg: "O(N log N)",
-      worst: "O(N log N) [Guaranteed]",
-      space: "O(N) [Temporary buffer]",
-      inPlace: false,
-      stable: true
-    },
-    extraNotes: [
-      "WHY STABLE? 'left[p1] <= right[p2]' ensures earlier duplicates keep original order.",
-      "APPLICATION: Ideal for sorting Linked Lists because no contiguous buffer needed!"
-    ]
-  },
-  {
-    filename: "mergesort-p2.svg",
-    title: "Merge Sort [Page 2/2] — Inversion Count & Linked Lists",
-    subtitle: "Advanced Applications of Merge Step",
-    topic: "Sorting",
-    steps: [
-      {
-        title: "1. Counting Inversions Technique",
-        code: "if (arr[p1] > arr[p2]) inversions += (mid - p1 + 1);",
-        note: "Whenever right half element is smaller, it is smaller than all remaining left elements!",
-        badge: "INVERSIONS"
-      },
-      {
-        title: "2. Fast & Slow Pointers for Linked Lists",
-        code: "ListNode slow = head, fast = head.next; while(fast != null && fast.next != null)",
-        note: "Finds the exact middle of a singly linked list in O(N/2) single pass.",
-        badge: "LINKED LIST"
-      },
-      {
-        title: "3. O(1) Space Linked List Merge",
-        code: "Rewire .next pointers directly without allocating new nodes",
-        note: "Solves LeetCode 148: Sort List in O(N log N) time and O(1) memory!",
-        badge: "O(1) SPACE"
-      },
-      {
-        title: "4. Bottom-Up Iterative Merge Sort",
-        code: "for (int sz = 1; sz < n; sz *= 2) for (int lo = 0; lo < n - sz; lo += 2 * sz)",
-        note: "Eliminates recursion call stack completely; ideal for external sorting.",
-        badge: "ITERATIVE"
-      },
-      {
-        title: "5. Timsort Hybrid (Python & Java standard)",
-        code: "Identifies natural sorted runs, merges with minimal comparisons",
-        note: "Achieves O(N) best case on real-world partially sorted arrays.",
-        badge: "TIMSORT"
-      }
-    ],
-    complexities: {
-      best: "O(N log N) [O(N) with Timsort]",
-      avg: "O(N log N)",
-      worst: "O(N log N)",
-      space: "O(N) arrays / O(1) linked lists",
-      inPlace: false,
-      stable: true
-    },
-    extraNotes: [
-      "CRITICAL: LeetCode 315 'Count of Smaller Numbers After Self' uses this exact merge tree.",
-      "MEMORY NOTE: Java uses Timsort for Objects (stable) and Dual-Pivot Quicksort for primitives."
-    ]
-  },
-  {
-    filename: "bubblesort.svg",
-    title: "Bubble Sort — Adjacent Comparison & Optimization",
-    subtitle: "Bubbling Max Elements to the Right",
-    topic: "Sorting",
-    steps: [
-      {
-        title: "1. Outer Pass Loop (0 to N-1)",
-        code: "for (int i = 0; i < n - 1; i++) { boolean swapped = false; ... }",
-        note: "After pass 'i', the largest 'i' elements are locked in their final positions.",
-        badge: "OUTER PASS"
-      },
-      {
-        title: "2. Inner Adjacent Pairs Comparison",
-        code: "for (int j = 0; j < n - i - 1; j++) if (arr[j] > arr[j + 1]) swap(j, j+1)",
-        note: "Compare side-by-side neighbors and bubble the heavier element forward.",
-        badge: "COMPARE"
-      },
-      {
-        title: "3. Swap Detection & Early Exit",
-        code: "if (!swapped) break;",
-        note: "Optimization: If no swaps occurred in a pass, array is already sorted! O(N) best case.",
-        badge: "EARLY EXIT"
-      },
-      {
-        title: "4. Redundant Comparison Reduction",
-        code: "Limit inner loop to n - i - 1 instead of n - 1",
-        note: "Never re-check the sorted right suffix.",
-        badge: "EFFICIENCY"
-      },
-      {
-        title: "5. Stability Check",
-        code: "if (arr[j] > arr[j + 1]) vs arr[j] >= arr[j + 1]",
-        note: "Strict inequality '>' preserves relative ordering of equal values.",
-        badge: "STABILITY"
-      }
-    ],
-    complexities: {
-      best: "O(N) [With swapped flag optimization]",
-      avg: "O(N^2)",
-      worst: "O(N^2) [Reverse sorted]",
-      space: "O(1) [Auxiliary space]",
-      inPlace: true,
-      stable: true
-    },
-    extraNotes: [
-      "REAL-WORLD USE: Primarily educational; occasionally used when data is nearly sorted.",
-      "WATCH OUT: Without the 'swapped' flag, best case degrades unnecessarily to O(N^2)."
-    ]
-  },
-  {
-    filename: "selectionsort.svg",
-    title: "Selection Sort — Minimum Selection Invariant",
-    subtitle: "Minimizing Total Array Swaps (At Most N Swaps)",
-    topic: "Sorting",
-    steps: [
-      {
-        title: "1. Define Sorted vs Unsorted Boundary",
-        code: "for (int i = 0; i < n - 1; i++) int minIdx = i;",
-        note: "Left segment [0..i-1] is strictly sorted; right segment [i..n-1] is unsorted.",
-        badge: "INVARIANT"
-      },
-      {
-        title: "2. Scan Right Segment for Minimum",
-        code: "for (int j = i + 1; j < n; j++) if (arr[j] < arr[minIdx]) minIdx = j;",
-        note: "Finds index of the absolute minimum element in the remaining subarray.",
-        badge: "FIND MIN"
-      },
-      {
-        title: "3. Swap Minimum into Slot 'i'",
-        code: "if (minIdx != i) swap(arr, i, minIdx);",
-        note: "Requires AT MOST 1 swap per outer iteration! Exactly O(N) total swaps.",
-        badge: "SINGLE SWAP"
-      },
-      {
-        title: "4. Total Comparison Count",
-        code: "(N-1) + (N-2) + ... + 1 = N * (N - 1) / 2 comparisons",
-        note: "Always executes O(N^2) comparisons regardless of input distribution.",
-        badge: "COMPARE COUNT"
-      },
-      {
-        title: "5. Instability Demonstration",
-        code: "Input [4a, 4b, 2] -> 2 swaps with 4a -> [2, 4b, 4a]",
-        note: "Long-range swap causes 4a to jump past 4b, breaking stability.",
-        badge: "NOT STABLE"
-      }
-    ],
-    complexities: {
-      best: "O(N^2)",
+      best: "O(N)",
       avg: "O(N^2)",
       worst: "O(N^2)",
-      space: "O(1) auxiliary",
+      space: "O(N) recursion stack",
       inPlace: true,
-      stable: false
+      stable: true
     },
     extraNotes: [
-      "NICHE ADVANTAGE: Useful when memory write operations are heavily expensive (e.g., EEPROM flash).",
-      "COMPARISON: Bubble sort may perform O(N^2) swaps; Selection sort performs at most N swaps."
+      "INTERVIEW TIP: Great question to test conversion of iterative loops into pure recursion.",
+      "SPACE TRADE-OFF: Consumes O(N) auxiliary stack frames compared to O(1) iterative version."
     ]
   },
   {
-    filename: "insertionsort.svg",
-    title: "Insertion Sort — Playing Card Mental Model",
-    subtitle: "Adaptive Linear Time for Nearly Sorted Data",
-    topic: "Sorting",
+    filename: "recursive-insertionsort.svg",
+    title: "Recursive Insertion Sort — Inductive Placement",
+    subtitle: "Mathematical Induction on Subarray [0..N-2]",
+    topic: "Sorting Techniques",
     steps: [
       {
-        title: "1. Assume First Element is Sorted Hand",
-        code: "for (int i = 1; i < n; i++) int key = arr[i]; int j = i - 1;",
-        note: "Extract the next card 'key' to be inserted into the sorted hand on the left.",
-        badge: "KEY EXTRACTION"
+        title: "1. Base Case: Single Element Subarray",
+        code: "if (n <= 1) return;",
+        note: "An array of size 0 or 1 is intrinsically sorted.",
+        badge: "BASE CASE"
       },
       {
-        title: "2. Shift Greater Elements Rightwards",
-        code: "while (j >= 0 && arr[j] > key) { arr[j + 1] = arr[j]; j--; }",
-        note: "Shift cards right one-by-one to create an empty vacancy slot.",
+        title: "2. Hypothesis Step: Sort First N - 1 Elements",
+        code: "recursiveInsertionSort(arr, n - 1);",
+        note: "Assume by induction that prefix arr[0..n-2] is already sorted.",
+        badge: "INDUCTION"
+      },
+      {
+        title: "3. Extraction of Last Key Element",
+        code: "int last = arr[n - 1]; int j = n - 2;",
+        note: "Extract the last card to be inserted into the sorted prefix.",
+        badge: "KEY EXTRACT"
+      },
+      {
+        title: "4. Shift Elements Greater Than Key",
+        code: "while (j >= 0 && arr[j] > last) { arr[j + 1] = arr[j]; j--; }",
+        note: "Shift rightward to create space for the inductive key.",
         badge: "SHIFT"
       },
       {
-        title: "3. Insert Key into Created Slot",
-        code: "arr[j + 1] = key;",
-        note: "Drop the key into its precise sorted position.",
+        title: "5. Final Inductive Insertion",
+        code: "arr[j + 1] = last;",
+        note: "The entire prefix arr[0..n-1] is now completely sorted.",
         badge: "INSERT"
-      },
-      {
-        title: "4. Adaptive Early Termination",
-        code: "If arr[j] <= key, inner loop immediately halts on first comparison!",
-        note: "If array is already sorted, runs in blazing O(N) total time.",
-        badge: "ADAPTIVE"
-      },
-      {
-        title: "5. Online Algorithm Feature",
-        code: "Can sort streaming data in real-time as numbers arrive",
-        note: "No need to know total size N in advance.",
-        badge: "ONLINE"
       }
     ],
     complexities: {
-      best: "O(N) [Already sorted]",
+      best: "O(N) [Sorted array]",
       avg: "O(N^2)",
       worst: "O(N^2) [Reverse sorted]",
-      space: "O(1) auxiliary",
+      space: "O(N) auxiliary call stack",
       inPlace: true,
       stable: true
     },
     extraNotes: [
-      "WHY SO POPULAR IN MODERN LIBS? Fast cache performance makes it the sub-sorter for small arrays (N <= 20).",
-      "BINARY INSERTION SORT: Binary search can find insertion slot in O(log N), but shifting still takes O(N)."
+      "MATHEMATICAL ELEGANCE: Directly mirrors mathematical induction proof steps.",
+      "PRACTICAL NOTE: For production, iterative insertion is favored to avoid stack overflow."
     ]
   },
   {
-    filename: "heapsort.svg",
-    title: "Heap Sort — Complete Binary Heap & Heapify",
-    subtitle: "Guaranteed O(N log N) In-Place Sorting",
-    topic: "Sorting",
+    filename: "count-inversions.svg",
+    title: "Count Inversions — Enhanced Merge Sort Step",
+    subtitle: "Measuring How Close an Array Is to Being Sorted",
+    topic: "Sorting Techniques",
     steps: [
       {
-        title: "1. Array as Implicit Binary Tree",
-        code: "Left Child = 2*i + 1 | Right Child = 2*i + 2 | Parent = (i - 1) / 2",
-        note: "No pointers needed! Stored sequentially in contiguous memory.",
-        badge: "HEAP INDEX"
+        title: "1. Definition of Inversion Pair",
+        code: "i < j AND arr[i] > arr[j]",
+        note: "Number of inversions represents minimum adjacent swaps required to sort.",
+        badge: "DEFINITION"
       },
       {
-        title: "2. Build Max-Heap Bottom-Up in O(N)",
-        code: "for (int i = n / 2 - 1; i >= 0; i--) heapify(arr, n, i);",
-        note: "Starts at last non-leaf parent node. Total work sums to O(N), not O(N log N)!",
-        badge: "BUILD HEAP"
+        title: "2. Divide Array at Midpoint",
+        code: "invCount += mergeSortCount(arr, low, mid); invCount += mergeSortCount(arr, mid + 1, high);",
+        note: "Count inversions in left half and right half independently.",
+        badge: "DIVIDE"
       },
       {
-        title: "3. Extract Maximum to Array End",
-        code: "swap(arr[0], arr[i]); heapify(arr, i, 0);",
-        note: "Top of heap is largest element. Swap with last slot, shrink heap boundary.",
-        badge: "EXTRACT"
+        title: "3. Cross-Boundary Inversions During Merge",
+        code: "if (arr[left] > arr[right]) invCount += (mid - left + 1);",
+        note: "Since left half is sorted, if arr[left] > arr[right], all elements from left to mid exceed arr[right]!",
+        badge: "KEY INSIGHT"
       },
       {
-        title: "4. Sift-Down / Heapify Subroutine",
-        code: "Find largest among root, left, right; swap and recurse down",
-        note: "Restores max-heap invariant down through at most log(N) levels.",
-        badge: "HEAPIFY"
+        title: "4. Standard Two-Pointer Merge",
+        code: "temp[k++] = arr[left] <= arr[right] ? arr[left++] : arr[right++];",
+        note: "Merge sorted halves in linear O(N) time.",
+        badge: "MERGE"
       },
       {
-        title: "5. Comparison with Quicksort",
-        code: "Heapsort guarantees O(N log N) worst-case without extra O(N) memory",
-        note: "However, jumpy memory access patterns yield slightly higher constant factors.",
-        badge: "ANALYSIS"
+        title: "5. Return Total Combined Count",
+        code: "return leftInversions + rightInversions + splitInversions;",
+        note: "Achieves O(N log N) total time vs naive O(N^2) double loop.",
+        badge: "OPTIMAL"
       }
     ],
     complexities: {
       best: "O(N log N)",
       avg: "O(N log N)",
-      worst: "O(N log N) [Guaranteed]",
-      space: "O(1) [Zero extra memory]",
-      inPlace: true,
-      stable: false
-    },
-    extraNotes: [
-      "INTRO-SORT: C++ std::sort starts with Quicksort and switches to Heapsort if recursion exceeds 2*log(N).",
-      "LEETCODE 215: Kth Largest Element can be solved in O(N) using Max-Heap build."
-    ]
-  },
-  {
-    filename: "countingsort.svg",
-    title: "Counting Sort — Non-Comparison Integer Sort",
-    subtitle: "Breaking the O(N log N) Comparison Barrier to O(N + K)",
-    topic: "Sorting",
-    steps: [
-      {
-        title: "1. Determine Range (Min & Max)",
-        code: "int k = max - min + 1; int[] count = new int[k];",
-        note: "Count array size 'k' is proportional to the range of input values.",
-        badge: "RANGE"
-      },
-      {
-        title: "2. Frequency Count Histogram",
-        code: "for (int num : arr) count[num - min]++;",
-        note: "Tally how many times each number appears in the input.",
-        badge: "TALLY"
-      },
-      {
-        title: "3. Prefix Sum Accumulation",
-        code: "for (int i = 1; i < k; i++) count[i] += count[i - 1];",
-        note: "count[i] now stores the exact final ending index of value 'i'!",
-        badge: "PREFIX SUM"
-      },
-      {
-        title: "4. Stable Output Placement (Traverse Backwards)",
-        code: "for (int i = n - 1; i >= 0; i--) output[--count[arr[i] - min]] = arr[i];",
-        note: "Traversing right-to-left guarantees stability for duplicate values.",
-        badge: "STABLE PLACEMENT"
-      },
-      {
-        title: "5. Write Back to Original",
-        code: "System.arraycopy(output, 0, arr, 0, n);",
-        note: "Done in linear time O(N + K).",
-        badge: "FINISH"
-      }
-    ],
-    complexities: {
-      best: "O(N + K)",
-      avg: "O(N + K)",
-      worst: "O(N + K) [K = range of elements]",
-      space: "O(N + K) [Requires auxiliary count and output]",
+      worst: "O(N log N) [Reverse sorted]",
+      space: "O(N) temporary buffer + O(log N) stack",
       inPlace: false,
       stable: true
     },
     extraNotes: [
-      "WHEN TO USE: Extremely fast when K <= N (e.g., sorting ages, exam scores, character frequencies).",
-      "BUILDING BLOCK: Counting Sort is the stable inner subroutine that powers Radix Sort."
+      "CLASSIC PROBLEM: LeetCode hard and Google/Amazon frequent interview favorite.",
+      "KEY ADVANTAGE: (mid - left + 1) calculates up to N inversions in a single O(1) step!"
     ]
   },
   {
-    filename: "radixsort.svg",
-    title: "Radix Sort — Digit-by-Digit Linear Sort",
-    subtitle: "LSD (Least Significant Digit) Multi-Pass Sorting",
-    topic: "Sorting",
+    filename: "binary-search.svg",
+    title: "Binary Search — Invariant & Boundary Proofs",
+    subtitle: "Search Space Reduction from O(N) to O(log N)",
+    topic: "Binary Search",
     steps: [
       {
-        title: "1. Find Maximum Element",
-        code: "int max = getMax(arr); // Number of digits D = log10(max) + 1",
-        note: "The maximum number determines how many digit passes 'D' are needed.",
-        badge: "DIGIT PASSES"
+        title: "1. Monotonic Predicate Invariant",
+        code: "low = 0, high = n - 1; // Range where target might exist",
+        note: "Requires input to be monotonic (sorted or binary partitioned).",
+        badge: "PREDICATE"
       },
       {
-        title: "2. Loop Over Digit Place Values",
-        code: "for (int exp = 1; max / exp > 0; exp *= 10) countSortByDigit(arr, exp);",
-        note: "Pass 1: Units (1s) -> Pass 2: Tens (10s) -> Pass 3: Hundreds (100s)...",
-        badge: "LSD LOOP"
+        title: "2. Safe Midpoint Calculation",
+        code: "int mid = low + (high - low) / 2;",
+        note: "Guarantees no 32-bit integer overflow when low + high > 2^31 - 1.",
+        badge: "OVERFLOW SAFE"
       },
       {
-        title: "3. Extract Current Digit",
-        code: "int digit = (arr[i] / exp) % 10; // Range 0 to 9",
-        note: "K is fixed at 10 for decimal numbers; count array is always size 10.",
-        badge: "DIGIT EXTRACTION"
-      },
-      {
-        title: "4. Stable Counting Sort on Digit",
-        code: "Must be STABLE so earlier digit order is preserved!",
-        note: "If digit is equal, previous lower digits maintain their relative order.",
-        badge: "STABILITY CRUCIAL"
-      },
-      {
-        title: "5. Final Sorted Array",
-        code: "After D passes, the entire array is fully sorted in O(D * (N + K)) time.",
-        note: "For 32-bit integers with base 256 (byte), D=4 passes total!",
-        badge: "COMPLETION"
-      }
-    ],
-    complexities: {
-      best: "O(D * (N + K))",
-      avg: "O(D * (N + K))",
-      worst: "O(D * (N + K)) [D = number of digits, K = base (10)]",
-      space: "O(N + K)",
-      inPlace: false,
-      stable: true
-    },
-    extraNotes: [
-      "MSD vs LSD: LSD is simpler and iterative; MSD (Most Significant Digit) works top-down recursively.",
-      "KEY ADVANTAGE: Outperforms comparison sorts for huge datasets of fixed-length integers or strings."
-    ]
-  },
-  {
-    filename: "twosum.svg",
-    title: "Two Sum — One-Pass Hash Map Technique",
-    subtitle: "Transforming O(N^2) to O(N) Time",
-    topic: "Arrays",
-    steps: [
-      {
-        title: "1. Hash Map Initialization",
-        code: "Map<Integer, Integer> map = new HashMap<>(); // Value -> Index",
-        note: "Store visited numbers as keys and their array indices as values.",
-        badge: "DATA STRUCTURE"
-      },
-      {
-        title: "2. Iterate Once and Calculate Complement",
-        code: "int complement = target - nums[i];",
-        note: "Instead of searching for partner later, compute exactly what number is needed.",
-        badge: "LOOKUP"
-      },
-      {
-        title: "3. Check Complement in Map",
-        code: "if (map.containsKey(complement)) return new int[] { map.get(complement), i };",
-        note: "Hash Map lookup takes O(1) average time, resolving pair immediately.",
+        title: "3. Direct Match Check",
+        code: "if (nums[mid] == target) return mid;",
+        note: "Found target index in current search window.",
         badge: "O(1) MATCH"
       },
       {
-        title: "4. Store Current Element & Move Forward",
-        code: "map.put(nums[i], i);",
-        note: "If complement not yet found, register current element for future numbers.",
-        badge: "INSERT"
+        title: "4. Discard Half of Search Space",
+        code: "if (nums[mid] < target) low = mid + 1; else high = mid - 1;",
+        note: "Halves the candidates every single iteration.",
+        badge: "HALVING"
       },
       {
-        title: "5. Edge Cases & Constraints",
-        code: "Negative numbers, duplicates, and 0 are handled naturally by Map.",
-        note: "Does not require sorted input unlike Two Pointers.",
-        badge: "CONSTRAINTS"
+        title: "5. Termination Condition",
+        code: "while (low <= high)",
+        note: "Loop terminates when search window becomes empty (low > high).",
+        badge: "CONVERGENCE"
       }
     ],
     complexities: {
-      best: "O(1) [Pair at beginning]",
-      avg: "O(N)",
-      worst: "O(N) [Hash collisions negligible]",
-      space: "O(N) [Hash Map storage]",
-      inPlace: false,
+      best: "O(1)",
+      avg: "O(log N)",
+      worst: "O(log N)",
+      space: "O(1) iterative",
+      inPlace: true,
       stable: true
     },
     extraNotes: [
-      "TRADE-OFF: Sacrifices O(N) extra memory to achieve blazing fast O(N) runtime.",
-      "ALTERNATIVE: Two Pointers approach requires O(N log N) sorting first."
-    ]
-  },
-  {
-    filename: "knapsack.svg",
-    title: "0/1 Knapsack — 2D DP Table & State Equations",
-    subtitle: "Optimal Substructure & Overlapping Subproblems",
-    topic: "Dynamic Programming",
-    steps: [
-      {
-        title: "1. State Definition",
-        code: "dp[i][w] = Maximum profit using first 'i' items with knapsack capacity 'w'",
-        note: "Two dimensions: Item choices (0..N) and capacity levels (0..W).",
-        badge: "DP STATE"
-      },
-      {
-        title: "2. Base Case Initialization",
-        code: "dp[0][w] = 0; dp[i][0] = 0;",
-        note: "Zero items yields 0 profit; zero capacity can hold 0 items.",
-        badge: "BASE CASES"
-      },
-      {
-        title: "3. Decision Tree: Exclude Item 'i'",
-        code: "excludeProfit = dp[i - 1][w];",
-        note: "If we don't take item 'i', best profit is simply using previous items.",
-        badge: "EXCLUDE"
-      },
-      {
-        title: "4. Decision Tree: Include Item 'i' (If wt <= w)",
-        code: "includeProfit = val[i - 1] + dp[i - 1][w - wt[i - 1]];",
-        note: "Gain item profit plus best profit for the remaining capacity (w - wt).",
-        badge: "INCLUDE"
-      },
-      {
-        title: "5. Transition Equation",
-        code: "dp[i][w] = Math.max(excludeProfit, includeProfit);",
-        note: "Pick the optimal strategy at each state.",
-        badge: "TRANSITION"
-      }
-    ],
-    complexities: {
-      best: "O(N * W)",
-      avg: "O(N * W)",
-      worst: "O(N * W) [Pseudo-polynomial]",
-      space: "O(N * W) [Can be optimized to O(W) with 1D array]",
-      inPlace: false,
-      stable: true
-    },
-    extraNotes: [
-      "SPACE OPTIMIZATION: Notice dp[i][w] only depends on row (i-1); reduce to 1D array traversing backwards!",
-      "WHY BACKWARDS? Right-to-left traversal prevents using the same item multiple times in 0/1."
+      "EXPANSION: Lower Bound (first index >= x) and Upper Bound (first index > x).",
+      "BINARY SEARCH ON ANSWER: Used in Book Allocation, Koko Eating Bananas, Aggressive Cows."
     ]
   }
 ];
 
-noteFiles.forEach((n) => {
+additionalNotes.forEach((n) => {
   const svg = createNoteSvg(n);
   fs.writeFileSync(path.join(notesDir, n.filename), svg, "utf8");
   console.log(`Generated note SVG: ${n.filename}`);
+});
+
+// Generate Notebook Mockup Graphics for Homepage & Catalog
+function createNotebookMockupSvg({ title, pageTitle, bullets, tag }) {
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 750" width="100%" height="100%">
+  <defs>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#000000" flood-opacity="0.8"/>
+    </filter>
+    <pattern id="smallGrid" width="16" height="16" patternUnits="userSpaceOnUse">
+      <path d="M 16 0 L 0 0 0 16" fill="none" stroke="#222222" stroke-width="0.8"/>
+    </pattern>
+    <linearGradient id="binding" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1A1A1A"/>
+      <stop offset="50%" stop-color="#333333"/>
+      <stop offset="100%" stop-color="#1A1A1A"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background Shadow & Outer Book Cover -->
+  <rect x="25" y="20" width="550" height="710" rx="16" fill="#141414" stroke="#2E2E2E" stroke-width="2" filter="url(#shadow)"/>
+
+  <!-- Left Spiral Binding Rings -->
+  <rect x="25" y="20" width="36" height="710" rx="8" fill="url(#binding)"/>
+  ${Array.from({ length: 22 })
+    .map(
+      (_, i) => `
+    <rect x="36" y="${40 + i * 31}" width="16" height="6" rx="3" fill="#666666" stroke="#222222"/>
+    <circle cx="36" cy="${43 + i * 31}" r="3" fill="#111111"/>
+    <circle cx="52" cy="${43 + i * 31}" r="3" fill="#111111"/>
+  `
+    )
+    .join("")}
+
+  <!-- Inner Notebook Page -->
+  <rect x="68" y="32" width="495" height="686" rx="8" fill="#161616"/>
+  <rect x="68" y="32" width="495" height="686" rx="8" fill="url(#smallGrid)"/>
+
+  <!-- Red Margin Rule Line -->
+  <line x1="110" y1="32" x2="110" y2="718" stroke="#E52532" stroke-width="1.5" stroke-dasharray="4,4" opacity="0.8"/>
+
+  <!-- Header Section -->
+  <g transform="translate(125, 55)">
+    <rect x="0" y="0" width="418" height="34" rx="6" fill="#1F1F1F" stroke="#333333"/>
+    <circle cx="16" cy="17" r="6" fill="#E52532"/>
+    <text x="32" y="22" fill="#E52532" font-family="'Courier New', monospace" font-size="12" font-weight="bold">${tag}</text>
+    <text x="402" y="22" fill="#999999" font-family="'Courier New', monospace" font-size="11" text-anchor="end">PAGE 01</text>
+  </g>
+
+  <!-- Page Title Handwritten -->
+  <text x="125" y="130" fill="#FFFFFF" font-family="'Segoe UI', -apple-system, sans-serif" font-size="22" font-weight="800">${title}</text>
+  <text x="125" y="155" fill="#E52532" font-family="'Courier New', monospace" font-size="13" font-weight="bold">${pageTitle}</text>
+  <line x1="125" y1="168" x2="540" y2="168" stroke="#2E2E2E" stroke-width="1"/>
+
+  <!-- Visual Diagram Box -->
+  <g transform="translate(125, 185)">
+    <rect width="415" height="230" rx="10" fill="#0E0E0E" stroke="#2D2D2D"/>
+    <!-- Simulated Tree / Array Graph -->
+    <rect x="20" y="20" width="85" height="30" rx="4" fill="#202020" stroke="#E52532" stroke-width="1.5"/>
+    <text x="62" y="40" fill="#FFFFFF" font-family="monospace" font-size="12" text-anchor="middle" font-weight="bold">[Root: P]</text>
+
+    <!-- Branch Arrows -->
+    <path d="M 62 50 L 62 75 L 35 105" fill="none" stroke="#E52532" stroke-width="1.5"/>
+    <path d="M 62 75 L 145 105" fill="none" stroke="#E52532" stroke-width="1.5"/>
+
+    <rect x="10" y="105" width="80" height="30" rx="4" fill="#1C1C1C" stroke="#444444"/>
+    <text x="50" y="125" fill="#AAAAAA" font-family="monospace" font-size="11" text-anchor="middle">Left &lt; P</text>
+
+    <rect x="110" y="105" width="80" height="30" rx="4" fill="#1C1C1C" stroke="#444444"/>
+    <text x="150" y="125" fill="#AAAAAA" font-family="monospace" font-size="11" text-anchor="middle">Right &gt;= P</text>
+
+    <!-- Handwritten Invariant Box -->
+    <rect x="210" y="20" width="185" height="190" rx="8" fill="#181818" stroke="#E52532" stroke-dasharray="3,3"/>
+    <text x="225" y="48" fill="#E52532" font-family="'Courier New', monospace" font-size="12" font-weight="bold">// INVARIANT TRACE</text>
+    <text x="225" y="75" fill="#FFFFFF" font-family="'Courier New', monospace" font-size="11">low .. i   &lt;= pivot</text>
+    <text x="225" y="100" fill="#AAAAAA" font-family="'Courier New', monospace" font-size="11">i+1 .. j-1  &gt; pivot</text>
+    <text x="225" y="125" fill="#E52532" font-family="'Courier New', monospace" font-size="11">j .. high-1  unexplored</text>
+    <text x="225" y="155" fill="#FFFFFF" font-family="'Courier New', monospace" font-size="11">arr[high]  = pivot</text>
+    <rect x="225" y="172" width="155" height="24" rx="4" fill="#2E1114" stroke="#E52532" stroke-width="0.8"/>
+    <text x="302" y="188" fill="#E52532" font-family="monospace" font-size="10" text-anchor="middle" font-weight="bold">O(N log N) GUARANTEE</text>
+  </g>
+
+  <!-- Key Handwritten Takeaways -->
+  <g transform="translate(125, 435)">
+    <text x="0" y="20" fill="#FFFFFF" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold">Key Algorithmic Takeaways:</text>
+    ${bullets
+      .map(
+        (b, i) => `
+      <g transform="translate(0, ${40 + i * 48})">
+        <circle cx="8" cy="10" r="4" fill="#E52532"/>
+        <text x="22" y="14" fill="#E0E0E0" font-family="'Courier New', monospace" font-size="12">${b}</text>
+      </g>
+    `
+      )
+      .join("")}
+  </g>
+
+  <!-- Stamp at Bottom Right -->
+  <g transform="translate(420, 640)">
+    <rect width="125" height="42" rx="6" fill="#1C1C1C" stroke="#E52532" stroke-width="1"/>
+    <text x="62" y="20" fill="#E52532" font-family="'Courier New', monospace" font-size="10" text-anchor="middle" font-weight="bold">VERIFIED PROOF</text>
+    <text x="62" y="34" fill="#FFFFFF" font-family="'Courier New', monospace" font-size="9" text-anchor="middle">BEENEXT NOTES</text>
+  </g>
+</svg>`;
+}
+
+const notebookMockups = [
+  {
+    filename: "notebook-preview-1.svg",
+    title: "Sorting Techniques — QuickSort Breakdown",
+    pageTitle: "Lomuto Partition & Recursion Tree Mental Model",
+    tag: "MODULE 02 • FREE NOTEBOOK",
+    bullets: [
+      "Two-pointer boundary invariant: [low..i] strictly <= pivot.",
+      "Partitioning in-place in linear O(N) time without extra RAM.",
+      "Randomized pivot defense against worst-case O(N^2) killer sets.",
+      "Tail recursion stack optimized to O(log N) depth."
+    ]
+  },
+  {
+    filename: "notebook-preview-2.svg",
+    title: "Dynamic Programming — 0/1 Knapsack",
+    pageTitle: "Optimal Substructure & 1D Space Reduction",
+    tag: "MODULE 16 • PREMIUM NOTEBOOK",
+    bullets: [
+      "State transition: dp[i][w] = max(exclude, include + dp[i-1][w-wt]).",
+      "Overlapping subproblems mapped to 2D matrix cells.",
+      "1D array space compression traversing capacity backwards.",
+      "Time complexity O(N*W) pseudo-polynomial proof."
+    ]
+  },
+  {
+    filename: "notebook-preview-3.svg",
+    title: "Binary Trees & BST — LCA & Traversals",
+    pageTitle: "Lowest Common Ancestor & Tree Diameter Proof",
+    tag: "MODULE 13 • PREMIUM NOTEBOOK",
+    bullets: [
+      "Postorder traversal enables bottom-up state propagation.",
+      "LCA invariant: split node where p and q diverge in left/right.",
+      "Diameter calculated simultaneously with height in single O(N) pass.",
+      "Binary Search Tree validator using (-inf, +inf) range boundaries."
+    ]
+  }
+];
+
+notebookMockups.forEach((m) => {
+  const svg = createNotebookMockupSvg(m);
+  fs.writeFileSync(path.join(notesDir, m.filename), svg, "utf8");
+  console.log(`Generated Notebook Mockup SVG: ${m.filename}`);
 });

@@ -42,8 +42,8 @@ export async function DELETE(req: Request, { params }: { params: { id: string } 
 
     // Guard against deleting sorting category
     const cat = await prisma.category.findUnique({ where: { id } });
-    if (cat?.slug === "sorting") {
-      return NextResponse.json({ error: "Cannot delete the default free Sorting category" }, { status: 400 });
+    if (cat?.slug === "sorting" || cat?.slug === "sorting-techniques") {
+      return NextResponse.json({ error: "Cannot delete the default free Sorting Techniques category" }, { status: 400 });
     }
 
     await prisma.category.delete({ where: { id } });

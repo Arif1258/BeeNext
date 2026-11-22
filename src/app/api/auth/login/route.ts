@@ -50,6 +50,12 @@ export async function POST(req: Request) {
       );
     }
 
+    // Update last login timestamp
+    await prisma.user.update({
+      where: { id: user.id },
+      data: { updatedAt: new Date() },
+    });
+
     const token = signToken({
       id: user.id,
       name: user.name,

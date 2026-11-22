@@ -36,6 +36,30 @@ export async function POST(req: Request) {
       },
     });
 
+    // Check if user has reached >= 85% completion
+    if (targetStatus === ProgressStatus.COMPLETED) {
+      const [totalProblems, completedProblems] = await Promise.all([
+        prisma.problem.count({ where: { isPublished: true } }),
+        prisma.userProgress.count({
+          where: { userId: user.id, status: ProgressStatus.COMPLETED },
+        }),
+      ]);
+
+      if (totalProblems > 0 && completedProblems / totalProblems >= 0.85) {
+        const userRecord = await prisma.user.findUnique({
+          where: { id: user.id },
+          select: { dsaQualifiedAt: true },
+        });
+
+        if (!userRecord?.dsaQualifiedAt) {
+          await prisma.user.update({
+            where: { id: user.id },
+            data: { dsaQualifiedAt: new Date() },
+          });
+        }
+      }
+    }
+
     return NextResponse.json({ progress: record });
   } catch (err) {
     console.error("Progress update error:", err);

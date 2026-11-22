@@ -21,6 +21,29 @@ export interface User {
   }>;
   bookmarks?: Array<{ problemId: string }>;
   progress?: Array<{ problemId: string; status: "IN_PROGRESS" | "COMPLETED" }>;
+  dsaQualifiedAt?: string | null;
+  certificateClaimedAt?: string | null;
+  printedOrders?: Array<{
+    id: string;
+    orderNumber: string;
+    customerName: string;
+    customerEmail: string;
+    customerPhone: string;
+    addressLine1: string;
+    addressLine2?: string | null;
+    city: string;
+    state: string;
+    postalCode: string;
+    productTitle: string;
+    totalAmount: number;
+    orderStatus: "PENDING" | "CONFIRMED" | "PROCESSING" | "SHIPPED" | "DELIVERED";
+    paymentStatus: string;
+    requiresCertificate?: boolean;
+    certificateStatus?: string | null;
+    trackingNumber?: string | null;
+    carrier?: string | null;
+    createdAt: string;
+  }>;
 }
 
 interface AuthContextType {
@@ -31,6 +54,7 @@ interface AuthContextType {
   logout: () => Promise<void>;
   refreshUser: () => Promise<void>;
   hasBundleAccess: boolean;
+  hasPdfAccess: boolean;
   hasCategoryAccess: (categoryId: string, isFree?: boolean) => boolean;
   hasProblemAccess: (problemId: string, categoryId: string, isProblemFree?: boolean, isCategoryFree?: boolean) => boolean;
 }
@@ -117,33 +141,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     user?.role === "ADMIN" ||
     Boolean(user?.purchases?.some((p) => p.purchaseType === "BUNDLE" && p.status === "COMPLETED"));
 
-  const hasCategoryAccess = (categoryId: string, isFree?: boolean): boolean => {
-    if (isFree) return true;
-    if (user?.role === "ADMIN") return true;
-    if (hasBundleAccess) return true;
-    return Boolean(
-      user?.purchases?.some(
-        (p) => p.status === "COMPLETED" && p.purchaseType === "CATEGORY" && p.categoryId === categoryId
-      )
-    );
-  };
+  const hasPdfAccess = hasBundleAccess;
 
-  const hasProblemAccess = (
-    problemId: string,
-    categoryId: string,
-    isProblemFree?: boolean,
-    isCategoryFree?: boolean
-  ): boolean => {
-    if (isProblemFree || isCategoryFree) return true;
-    if (user?.role === "ADMIN") return true;
-    if (hasBundleAccess) return true;
-    if (hasCategoryAccess(categoryId, isCategoryFree)) return true;
-    return Boolean(
-      user?.purchases?.some(
-        (p) => p.status === "COMPLETED" && p.purchaseType === "PROBLEM" && p.problemId === problemId
-      )
-    );
-  };
+  // All DSA topics and problems are 100% free under the new business model
+  const hasCategoryAccess = (): boolean => true;
+  const hasProblemAccess = (): boolean => true;
 
   return (
     <AuthContext.Provider
@@ -155,6 +157,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         logout,
         refreshUser,
         hasBundleAccess,
+        hasPdfAccess,
         hasCategoryAccess,
         hasProblemAccess,
       }}

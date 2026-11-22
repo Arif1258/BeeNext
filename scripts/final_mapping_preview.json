@@ -1,0 +1,912 @@
+[
+  {
+    "beenextId": "cmwolljsx0075o76vkkcfinx8",
+    "category": "Beginner Problems",
+    "beenextTitle": "Palindrome Check",
+    "apnaTopic": "Day 6 : Strings (Part 1)",
+    "apnaTitle": "Valid Palindrome",
+    "matchType": "lc-slug: valid-palindrome",
+    "solutionUrl": "https://youtu.be/dSRFgEs3a6A?si=WUcnajw8nRAsHlb4",
+    "striverUrl": null
+  },
+  {
+    "beenextId": "cmwolljtc008lo76vhw2kaiug",
+    "category": "Beginner Problems",
+    "beenextTitle": "Check if String is Palindrome or Not ",
+    "apnaTopic": "Day 6 : Strings (Part 1)",
+    "apnaTitle": "Valid Palindrome",
+    "matchType": "lc-slug: valid-palindrome",
+    "solutionUrl": "https://youtu.be/dSRFgEs3a6A?si=WUcnajw8nRAsHlb4",
+    "striverUrl": "https://www.youtube.com/watch?v=twuC1F6gLI8&list=PLgUwDviBIf0rGlzIn_7rsaR2FQ5e6ZOL9&index=4"
+  },
+  {
+    "beenextId": "cmwn97dlw000xo4zizrecqcxt",
+    "category": "Sorting",
+    "beenextTitle": "Merge Sort",
+    "apnaTopic": "Day 10 : Recursion & Backtracking",
+    "apnaTitle": "Merge Sort",
+    "matchType": "manual-title: Merge Sort",
+    "solutionUrl": "https://www.youtube.com/watch?v=cQDtOBTy7_Y&t=12s",
+    "striverUrl": "https://www.youtube.com/watch?v=ogjf7ORKfd8"
+  },
+  {
+    "beenextId": "cmwolljtz00aho76vyu8v89hd",
+    "category": "Arrays",
+    "beenextTitle": "Majority Element-I",
+    "apnaTopic": "Day 1 : Array (Part 1)",
+    "apnaTitle": "Majority Element",
+    "matchType": "lc-slug: majority-element",
+    "solutionUrl": "https://youtu.be/_xqIp2rj8bo?t=882",
+    "striverUrl": "https://youtu.be/nP_ns3uSh80"
+  },
+  {
+    "beenextId": "cmwollju200ato76vpz24b7ng",
+    "category": "Arrays",
+    "beenextTitle": "Print the matrix in spiral manner",
+    "apnaTopic": "Day 4 : Array (Part 4)",
+    "apnaTitle": "Spiral Matrix",
+    "matchType": "lc-slug: spiral-matrix",
+    "solutionUrl": "https://youtu.be/XMpdvwUObho?si=opqd98A9rm0GiTMG",
+    "striverUrl": "https://youtu.be/3Zv-s9UUrFM"
+  },
+  {
+    "beenextId": "cmwollju900blo76vw5lqhow7",
+    "category": "Arrays",
+    "beenextTitle": "3 Sum",
+    "apnaTopic": "Day 2 : Array (Part 2)",
+    "apnaTitle": "3Sum",
+    "matchType": "lc-slug: 3sum",
+    "solutionUrl": "https://www.youtube.com/watch?v=K-RsltkN63w",
+    "striverUrl": "https://youtu.be/DhFh8Kw7ymk"
+  },
+  {
+    "beenextId": "cmwolljua00bpo76v6w7els7w",
+    "category": "Arrays",
+    "beenextTitle": "4 Sum",
+    "apnaTopic": "Day 2 : Array (Part 2)",
+    "apnaTitle": "4Sum",
+    "matchType": "lc-slug: 4sum",
+    "solutionUrl": "https://www.youtube.com/watch?v=X6sL8JTROLY",
+    "striverUrl": "https://youtu.be/eD95WRfh81c"
+  },
+  {
+    "beenextId": "cmwolljub00bto76vbvc6dr14",
+    "category": "Arrays",
+    "beenextTitle": "Sort an array of 0's 1's and 2's",
+    "apnaTopic": "Day 2 : Array (Part 2)",
+    "apnaTitle": "Sort array of 0s, 1s & 2s",
+    "matchType": "lc-slug: sort-colors",
+    "solutionUrl": "https://www.youtube.com/watch?v=J48aGjfjYTI&list=PLfqMhTWNBTe137I_EPQd34TsgV6IO55pt&index=26",
+    "striverUrl": "https://youtu.be/tp8JIuCXBaU"
+  },
+  {
+    "beenextId": "cmwolljuc00bxo76vce5v9q16",
+    "category": "Arrays",
+    "beenextTitle": "Kadane's Algorithm",
+    "apnaTopic": "Day 2 : Array (Part 2)",
+    "apnaTitle": "Kadane's Algorithm",
+    "matchType": "exact-title",
+    "solutionUrl": "https://youtu.be/9IZYqostl2M?t=760",
+    "striverUrl": "https://youtu.be/AHZpyENo7k4"
+  },
+  {
+    "beenextId": "cmwolljud00c1o76vluyydv97",
+    "category": "Arrays",
+    "beenextTitle": "Next Permutation",
+    "apnaTopic": "Day 3 : Array (Part 3)",
+    "apnaTitle": "Next permutation",
+    "matchType": "exact-title",
+    "solutionUrl": "https://youtu.be/-1cLK6PaLsQ?list=PLfqMhTWNBTe137I_EPQd34TsgV6IO55pt&t=967",
+    "striverUrl": "https://youtu.be/JDOXKqF60RQ"
+  },
+  {
+    "beenextId": "cmwolljuh00cdo76vvfck9stb",
+    "category": "Arrays",
+    "beenextTitle": "Count Inversions",
+    "apnaTopic": "Day 4 : Array (Part 4)",
+    "apnaTitle": "Count Inversions",
+    "matchType": "manual-title: Count Inversions",
+    "solutionUrl": "https://www.youtube.com/watch?v=ynnWDBTdVi0",
+    "striverUrl": "https://youtu.be/AseUmwVNaoY"
+  },
+  {
+    "beenextId": "cmwolljuk00cpo76vwh7cka25",
+    "category": "Arrays",
+    "beenextTitle": "Merge two sorted arrays without extra space",
+    "apnaTopic": "Day 1 : Array (Part 1)",
+    "apnaTitle": "Merge 2 Sorted Arrays",
+    "matchType": "lc-slug: merge-sorted-array",
+    "solutionUrl": "https://www.youtube.com/watch?v=-1cLK6PaLsQ&list=PLfqMhTWNBTe137I_EPQd34TsgV6IO55pt&index=27",
+    "striverUrl": "https://youtu.be/n7uwj04E0I4"
+  },
+  {
+    "beenextId": "cmwolljup00d9o76vo0if8bev",
+    "category": "Hashing",
+    "beenextTitle": "Count subarrays with given sum",
+    "apnaTopic": "Day 4 : Array (Part 4)",
+    "apnaTitle": "Subarray sum equals k",
+    "matchType": "lc-slug: subarray-sum-equals-k",
+    "solutionUrl": "https://youtu.be/KDH4mhFVvHw?si=LGsc4jbq5QZ0QnsO",
+    "striverUrl": "https://www.youtube.com/watch?v=xvNwoz-ufXA&list=PLgUwDviBIf0oF6QL8m22w1hIDC1vJ_BHz&index=32"
+  },
+  {
+    "beenextId": "cmwolljux00e5o76vdpyx44fc",
+    "category": "Binary Search",
+    "beenextTitle": "Search in rotated sorted array-I",
+    "apnaTopic": "Day 8 : Binary Search",
+    "apnaTitle": "Search in Rotated Sorted Array ",
+    "matchType": "lc-slug: search-in-rotated-sorted-array",
+    "solutionUrl": "https://youtu.be/6WNZQBHWQJs?si=MihpDB7KJ2aCOO9u",
+    "striverUrl": "https://www.youtube.com/watch?v=r3pMQ8-Ad5s&list=PLgUwDviBIf0p4ozDR_kJJkONnb1wdx2Ma&index=64"
+  },
+  {
+    "beenextId": "cmwolljv000elo76v2ak1q0ln",
+    "category": "Binary Search",
+    "beenextTitle": "Single element in sorted array",
+    "apnaTopic": "Day 8 : Binary Search",
+    "apnaTitle": "Single Element in Sorted Array",
+    "matchType": "exact-title",
+    "solutionUrl": "https://youtu.be/qsbCBduIs40?si=RDuU5EnemxN6j6mW",
+    "striverUrl": "https://youtu.be/AZOmHuHadxQ"
+  },
+  {
+    "beenextId": "cmwolljv800flo76vzr1jtz7e",
+    "category": "Binary Search",
+    "beenextTitle": "Painter's Partition",
+    "apnaTopic": "Day 8 : Binary Search",
+    "apnaTitle": "Painter’s Partition",
+    "matchType": "manual-title: Painter’s Partition",
+    "solutionUrl": "https://youtu.be/srsFN5OHBgw?si=k7hAiRe8HnPi4NHF",
+    "striverUrl": "https://www.youtube.com/watch?v=thUd_WJn6wk&list=PLgUwDviBIf0pMFMWuuvDNMAkoQFi-h0ZF&index=20"
+  },
+  {
+    "beenextId": "cmwolljv900fpo76vu0ve92it",
+    "category": "Binary Search",
+    "beenextTitle": "Aggressive Cows",
+    "apnaTopic": "Day 8 : Binary Search",
+    "apnaTitle": "Aggressive Cows",
+    "matchType": "manual-title: Aggressive Cows",
+    "solutionUrl": "https://youtu.be/7wOzDqsfXy0?si=c6eVx-Wc-1GIrj0y",
+    "striverUrl": "https://youtu.be/R_Mfw4ew-Vo"
+  },
+  {
+    "beenextId": "cmwolljva00fto76v2danoy5r",
+    "category": "Binary Search",
+    "beenextTitle": "Book Allocation Problem",
+    "apnaTopic": "Day 8 : Binary Search",
+    "apnaTitle": "Allocate Minimum Pages",
+    "matchType": "manual-title: Allocate Minimum Pages",
+    "solutionUrl": "https://youtu.be/JRAByolWqhw?t=32",
+    "striverUrl": "https://www.youtube.com/watch?v=gYmWHvRHu-s&list=PLgUwDviBIf0p4ozDR_kJJkONnb1wdx2Ma&index=69"
+  },
+  {
+    "beenextId": "cmwolljvg00glo76vlmokcs9n",
+    "category": "Binary Search",
+    "beenextTitle": "Search in a 2D Matrix",
+    "apnaTopic": "Day 2 : Array (Part 2)",
+    "apnaTitle": "Search in 2d matrix",
+    "matchType": "lc-slug: search-a-2d-matrix",
+    "solutionUrl": "https://youtu.be/LEFFjgt5i6w?t=882",
+    "striverUrl": "https://youtu.be/ZYpYur0znng"
+  },
+  {
+    "beenextId": "cmwolljvh00gpo76vect8l4ie",
+    "category": "Binary Search",
+    "beenextTitle": "Search in 2D matrix - II",
+    "apnaTopic": "Day 4 : Array (Part 4)",
+    "apnaTitle": "Search in Sorted matrix II",
+    "matchType": "lc-slug: search-a-2d-matrix-ii",
+    "solutionUrl": "https://youtu.be/LEFFjgt5i6w?si=E2QRmGvkNcrrv64t",
+    "striverUrl": "https://youtu.be/9ZbB397jU4k"
+  },
+  {
+    "beenextId": "cmwolljvp00hto76v2nvecybt",
+    "category": "Recursion",
+    "beenextTitle": "Pow(x,n)",
+    "apnaTopic": "Day 1 : Array (Part 1)",
+    "apnaTitle": "Pow (x^n)",
+    "matchType": "exact-title",
+    "solutionUrl": "https://youtu.be/WBzZCm46mFo?t=21",
+    "striverUrl": "https://youtu.be/l0YC3876qxg"
+  },
+  {
+    "beenextId": "cmwolljvw00ito76v55a89ity",
+    "category": "Recursion",
+    "beenextTitle": "Combination Sum",
+    "apnaTopic": "Day 9 : Recursion & Backtracking",
+    "apnaTitle": "Combination Sum I",
+    "matchType": "lc-slug: combination-sum",
+    "solutionUrl": "https://youtu.be/jkgZw2WEaqA?si=3YpIrvX_36R4MOa2",
+    "striverUrl": "https://www.youtube.com/watch?v=OyZFFqQtu98&list=PLgUwDviBIf0p4ozDR_kJJkONnb1wdx2Ma&index=49"
+  },
+  {
+    "beenextId": "cmwolljvz00j5o76vt0fpo5ps",
+    "category": "Recursion",
+    "beenextTitle": "Subsets II",
+    "apnaTopic": "Day 10 : Recursion & Backtracking",
+    "apnaTitle": "Subsets II",
+    "matchType": "exact-title",
+    "solutionUrl": "https://www.youtube.com/watch?v=pNzljlzDCiI&t=2s",
+    "striverUrl": "https://www.youtube.com/watch?v=RIn3gOkbhQE&list=PLgUwDviBIf0p4ozDR_kJJkONnb1wdx2Ma&index=53"
+  },
+  {
+    "beenextId": "cmwolljw300jho76vy4ygg2xt",
+    "category": "Recursion",
+    "beenextTitle": "Palindrome partitioning",
+    "apnaTopic": "Day 9 : Recursion & Backtracking",
+    "apnaTitle": "Palindrome Partitioning",
+    "matchType": "exact-title",
+    "solutionUrl": "https://youtu.be/aZ0B1eWkSVU?si=4DLqSJjkT9iT0JMS",
+    "striverUrl": "https://youtu.be/_H8V5hJUGd0"
+  },
+  {
+    "beenextId": "cmwolljw600jpo76vrn5h2bap",
+    "category": "Recursion",
+    "beenextTitle": "N Queen",
+    "apnaTopic": "Day 9 : Recursion & Backtracking",
+    "apnaTitle": "N Queens",
+    "matchType": "lc-slug: n-queens",
+    "solutionUrl": "https://youtu.be/BdSJnIdR-4s?si=w5K9IKkKeecaXaq7",
+    "striverUrl": "https://www.youtube.com/watch?v=i05Ju7AftcM&list=PLgUwDviBIf0p4ozDR_kJJkONnb1wdx2Ma&index=57"
+  },
+  {
+    "beenextId": "cmwolljw700jto76vl6ghwxzd",
+    "category": "Recursion",
+    "beenextTitle": "Rat in a Maze",
+    "apnaTopic": "Day 10 : Recursion & Backtracking",
+    "apnaTitle": "Rat in a Maze",
+    "matchType": "manual-title: Rat in a Maze",
+    "solutionUrl": "https://youtu.be/D8Yze9CDDAw?si=4HiqdNuf2gYtcMMH",
+    "striverUrl": "https://www.youtube.com/watch?v=bLGZhJlt4y0&list=PLgUwDviBIf0p4ozDR_kJJkONnb1wdx2Ma&index=60"
+  },
+  {
+    "beenextId": "cmwolljwa00k1o76v6afvdjjo",
+    "category": "Recursion",
+    "beenextTitle": "Sudoku Solver",
+    "apnaTopic": "Day 9 : Recursion & Backtracking",
+    "apnaTitle": "Sudoku Solver",
+    "matchType": "exact-title",
+    "solutionUrl": "https://youtu.be/70cP3qtJp-s?si=Mi8inCRxN2n-VlmR",
+    "striverUrl": "https://www.youtube.com/watch?v=FWAIf_EVUKE&list=PLgUwDviBIf0p4ozDR_kJJkONnb1wdx2Ma&index=58"
+  },
+  {
+    "beenextId": "cmwolljx200n5o76v7rdyf7ml",
+    "category": "Linked-List",
+    "beenextTitle": "Reverse a Doubly Linked List",
+    "apnaTopic": "Day 11 : Linked List (Part 1)",
+    "apnaTitle": "Reverse Linked List ",
+    "matchType": "lc-slug: reverse-linked-list",
+    "solutionUrl": "https://www.youtube.com/watch?v=R-CKBYnOv1U",
+    "striverUrl": "https://youtu.be/u3WUW2qe6ww?si=96Wwlju72IvmzkxE"
+  },
+  {
+    "beenextId": "cmwolljx500npo76v8qf5rt0m",
+    "category": "Linked-List",
+    "beenextTitle": "Reverse a LL",
+    "apnaTopic": "Day 11 : Linked List (Part 1)",
+    "apnaTitle": "Reverse Linked List ",
+    "matchType": "lc-slug: reverse-linked-list",
+    "solutionUrl": "https://www.youtube.com/watch?v=R-CKBYnOv1U",
+    "striverUrl": "https://youtu.be/D2vI2DNJGd8?si=RCaLSx01qR21IBdh"
+  },
+  {
+    "beenextId": "cmwolljx700nxo76v1666j015",
+    "category": "Linked-List",
+    "beenextTitle": "Find Middle of Linked List",
+    "apnaTopic": "Day 11 : Linked List (Part 1)",
+    "apnaTitle": "Middle of a Linked List",
+    "matchType": "lc-slug: middle-of-the-linked-list",
+    "solutionUrl": "https://www.youtube.com/watch?v=nzaHG0dme4g",
+    "striverUrl": "https://youtu.be/7LjQ57RqgEc?si=ir_rRDio38rhamU_"
+  },
+  {
+    "beenextId": "cmwolljxa00odo76vta8olkll",
+    "category": "Linked-List",
+    "beenextTitle": "Detect a loop in LL",
+    "apnaTopic": "Day 11 : Linked List (Part 1)",
+    "apnaTitle": "Detect Cycle in a LL",
+    "matchType": "lc-slug: linked-list-cycle",
+    "solutionUrl": "https://www.youtube.com/watch?v=-1E8ZMS0gSs",
+    "striverUrl": "https://youtu.be/wiOo4DC5GGA?si=zagt6O6tFXc4_3cx"
+  },
+  {
+    "beenextId": "cmwolljxb00oho76viwfq4zzh",
+    "category": "Linked-List",
+    "beenextTitle": "Find the starting point in LL",
+    "apnaTopic": "Day 11 : Linked List (Part 1)",
+    "apnaTitle": "Remove Cycle in a LL",
+    "matchType": "lc-slug: linked-list-cycle-ii",
+    "solutionUrl": "https://www.youtube.com/watch?v=-1E8ZMS0gSs",
+    "striverUrl": "https://youtu.be/2Kd0KKmmHFc?si=7UreDPRjRvapeVB0"
+  },
+  {
+    "beenextId": "cmwolljxd00opo76vciz8566j",
+    "category": "Linked-List",
+    "beenextTitle": "Reverse LL in group of given size K",
+    "apnaTopic": "Day 12 : Linked List (Part 2)",
+    "apnaTitle": "Reverse Nodes in K Groups",
+    "matchType": "lc-slug: reverse-nodes-in-k-group",
+    "solutionUrl": "https://www.youtube.com/watch?v=-swgIiMIlJo",
+    "striverUrl": "https://youtu.be/lIar1skcQYI?si=_jFghHKX4eaK36a1"
+  },
+  {
+    "beenextId": "cmwolljxg00oxo76vb9fblzod",
+    "category": "Linked-List",
+    "beenextTitle": "Merge two Sorted Lists ",
+    "apnaTopic": "Day 11 : Linked List (Part 1)",
+    "apnaTitle": "Merge 2 Sorted LL",
+    "matchType": "lc-slug: merge-two-sorted-lists",
+    "solutionUrl": "https://www.youtube.com/watch?v=f8RPIb-0DDE",
+    "striverUrl": "https://www.youtube.com/watch?v=Xb4slcp1U38&list=PLgUwDviBIf0p4ozDR_kJJkONnb1wdx2Ma&index=29"
+  },
+  {
+    "beenextId": "cmwolljxh00p1o76vm03l1cna",
+    "category": "Linked-List",
+    "beenextTitle": "Flattening of LL",
+    "apnaTopic": "Day 11 : Linked List (Part 1)",
+    "apnaTitle": "Flatten a Linked List",
+    "matchType": "manual-title: Flatten a Linked List",
+    "solutionUrl": "https://www.youtube.com/watch?v=I8b0rff5F9M",
+    "striverUrl": "https://youtu.be/ykelywHJWLg?si=InMg9MmTHzY22NSR"
+  },
+  {
+    "beenextId": "cmwolljxk00p9o76voxn4d3r0",
+    "category": "Linked-List",
+    "beenextTitle": "Clone a LL with random and next pointer",
+    "apnaTopic": "Day 12 : Linked List (Part 2)",
+    "apnaTitle": "Clone List with Random Pointers",
+    "matchType": "lc-slug: copy-list-with-random-pointer",
+    "solutionUrl": "https://www.youtube.com/watch?v=8ze7Zopdsaw",
+    "striverUrl": "https://youtu.be/q570bKdrnlw?si=epZtpWvtNwuTf23o"
+  },
+  {
+    "beenextId": "cmwolljy000qlo76vaa282sug",
+    "category": "Bit Manipulation",
+    "beenextTitle": "Single Number - I",
+    "apnaTopic": "Day 1 : Array (Part 1)",
+    "apnaTitle": "Single Number",
+    "matchType": "lc-slug: single-number",
+    "solutionUrl": "https://www.youtube.com/watch?v=qsbCBduIs40",
+    "striverUrl": "https://youtu.be/bYWLJb3vCWY?t=1369"
+  },
+  {
+    "beenextId": "cmwolljyb00rho76vczj47a98",
+    "category": "Greedy Algorithms",
+    "beenextTitle": "Fractional Knapsack",
+    "apnaTopic": "Day 33 : Greedy",
+    "apnaTitle": "Fractional Knapsack",
+    "matchType": "manual-title: Fractional Knapsack",
+    "solutionUrl": "https://youtu.be/yggezlvUN2w?si=uv6eGxtpvOZq9JxZ",
+    "striverUrl": "https://youtu.be/1ibsQrnuEEg?si=8R2By3wpHo0zZVHE"
+  },
+  {
+    "beenextId": "cmwolljz900ulo76vasinfbuv",
+    "category": "Stack / Queues",
+    "beenextTitle": "Implement Stack using Queue",
+    "apnaTopic": "Day 13 : Stacks & Queues (Part 1)",
+    "apnaTitle": "Implement Stack using Queue",
+    "matchType": "exact-title",
+    "solutionUrl": "https://www.youtube.com/watch?v=sFvP5Ois0CE",
+    "striverUrl": "https://youtu.be/tqQ5fTamIN4?si=ofLt8Zt1ZvhikZ6w"
+  },
+  {
+    "beenextId": "cmwolljza00upo76vg0zzagpq",
+    "category": "Stack / Queues",
+    "beenextTitle": "Implement Queue using Stack",
+    "apnaTopic": "Day 13 : Stacks & Queues (Part 1)",
+    "apnaTitle": "Implement Queue using Stack",
+    "matchType": "exact-title",
+    "solutionUrl": "https://www.youtube.com/watch?v=sFvP5Ois0CE",
+    "striverUrl": "https://youtu.be/tqQ5fTamIN4?si=ofLt8Zt1ZvhikZ6w"
+  },
+  {
+    "beenextId": "cmwolljzc00v1o76vdum608s6",
+    "category": "Stack / Queues",
+    "beenextTitle": "Balanced Paranthesis",
+    "apnaTopic": "Day 13 : Stacks & Queues (Part 1)",
+    "apnaTitle": "Valid Parentheses",
+    "matchType": "lc-slug: valid-parentheses",
+    "solutionUrl": "https://www.youtube.com/watch?v=NlHupEeDXzY",
+    "striverUrl": "https://youtu.be/xwjS0iZhw4I?si=UoyKpFn4Q3nf5h2R"
+  },
+  {
+    "beenextId": "cmwolljzi00vto76vkhc5xvlz",
+    "category": "Stack / Queues",
+    "beenextTitle": "Next Greater Element",
+    "apnaTopic": "Day 13 : Stacks & Queues (Part 1)",
+    "apnaTitle": "Next Greater Element I",
+    "matchType": "lc-slug: next-greater-element-i",
+    "solutionUrl": "https://www.youtube.com/watch?v=NKbExYwvjb0",
+    "striverUrl": "https://youtu.be/e7XQLtOQM3I?si=QdcHpTtx6gAHsext"
+  },
+  {
+    "beenextId": "cmwolljzj00vxo76vaafrkqsd",
+    "category": "Stack / Queues",
+    "beenextTitle": "Next Greater Element - 2",
+    "apnaTopic": "Day 14 : Stacks & Queues (Part 2)",
+    "apnaTitle": "Next Greater Element II",
+    "matchType": "lc-slug: next-greater-element-ii",
+    "solutionUrl": "https://youtu.be/If--3pm9K3U?t=28",
+    "striverUrl": "https://youtu.be/7PrncD7v9YQ?si=UkBc7eVy9HGlBpeW"
+  },
+  {
+    "beenextId": "cmwolljzr00wlo76viehiv5jr",
+    "category": "Stack / Queues",
+    "beenextTitle": "Implement Min Stack",
+    "apnaTopic": "Day 14 : Stacks & Queues (Part 2)",
+    "apnaTitle": "Get Min Element from Stack",
+    "matchType": "lc-slug: min-stack",
+    "solutionUrl": "https://www.youtube.com/watch?v=wHDm-N2m2XY",
+    "striverUrl": "https://youtu.be/NdDIaH91P0g?si=4_Jbsq5trFvfSdUY"
+  },
+  {
+    "beenextId": "cmwolljzs00wpo76vck5e9qn6",
+    "category": "Stack / Queues",
+    "beenextTitle": "Sliding Window Maximum",
+    "apnaTopic": "Day 5 : Array (Part 5)",
+    "apnaTitle": "Sliding Window Maximum",
+    "matchType": "exact-title",
+    "solutionUrl": "https://www.youtube.com/watch?v=XwG5cozqfaM",
+    "striverUrl": "https://youtu.be/NwBvene4Imo?si=eU1PY-bcQfk5wdog"
+  },
+  {
+    "beenextId": "cmwolljzt00wto76vuxzvc2hi",
+    "category": "Stack / Queues",
+    "beenextTitle": "Trapping Rainwater",
+    "apnaTopic": "Day 5 : Array (Part 5)",
+    "apnaTitle": "Trapping Rainwater",
+    "matchType": "exact-title",
+    "solutionUrl": "https://www.youtube.com/watch?v=UHHp8USwx4M",
+    "striverUrl": "https://youtu.be/1_5VuquLbXg?si=NFG6df318_6OtGvg"
+  },
+  {
+    "beenextId": "cmwolljzu00wxo76vw5jq9w8h",
+    "category": "Stack / Queues",
+    "beenextTitle": "Largest rectangle in a histogram",
+    "apnaTopic": "Day 5 : Array (Part 5)",
+    "apnaTitle": "Largest Rectangle in a Histogram",
+    "matchType": "manual-title: Largest Rectangle in a Histogram",
+    "solutionUrl": "https://www.youtube.com/watch?v=ysy1o-QEj3k",
+    "striverUrl": "https://youtu.be/Bzat9vgD0fs?si=DiBlLejXcr6EJoyB"
+  },
+  {
+    "beenextId": "cmwolljzx00x5o76vurithlq6",
+    "category": "Stack / Queues",
+    "beenextTitle": "Stock span problem",
+    "apnaTopic": "Day 15 : Stacks & Queues (Part 3)",
+    "apnaTitle": "Stock Span",
+    "matchType": "manual-title: Stock Span",
+    "solutionUrl": "https://youtu.be/01vBuZyMfqk?t=20",
+    "striverUrl": "https://youtu.be/eay-zoSRkVc?si=deNNe5i38BOAntha"
+  },
+  {
+    "beenextId": "cmwolljzy00x9o76vz4bvj33d",
+    "category": "Stack / Queues",
+    "beenextTitle": "Celebrity Problem",
+    "apnaTopic": "Day 14 : Stacks & Queues (Part 2)",
+    "apnaTitle": "Celebrity Problem",
+    "matchType": "exact-title",
+    "solutionUrl": "https://www.youtube.com/watch?v=OZPmEA_8FM8",
+    "striverUrl": "https://youtu.be/cEadsbTeze4?si=olXYfOs7l-SEn2zl"
+  },
+  {
+    "beenextId": "cmwollk0000xdo76vumha640s",
+    "category": "Stack / Queues",
+    "beenextTitle": "LRU Cache",
+    "apnaTopic": "Day 14 : Stacks & Queues (Part 2)",
+    "apnaTitle": "LRU Cache",
+    "matchType": "exact-title",
+    "solutionUrl": "https://www.youtube.com/watch?v=GsY6y0iPaHw",
+    "striverUrl": "https://www.youtube.com/watch?v=z9bJUPxzFOw"
+  },
+  {
+    "beenextId": "cmwollk0500xto76v2p2mo3b2",
+    "category": "Binary Trees",
+    "beenextTitle": "Inorder Traversal",
+    "apnaTopic": "Day 16 : Binary Trees (Part 1)",
+    "apnaTitle": "Inorder Traversal",
+    "matchType": "exact-title",
+    "solutionUrl": "https://youtu.be/eKJrXBCRuNQ?t=2831",
+    "striverUrl": "https://youtu.be/lxTGsVXjwvM"
+  },
+  {
+    "beenextId": "cmwollk0600xxo76vl9iv48dz",
+    "category": "Binary Trees",
+    "beenextTitle": "Preorder Traversal",
+    "apnaTopic": "Day 16 : Binary Trees (Part 1)",
+    "apnaTitle": "Preorder Traversal",
+    "matchType": "exact-title",
+    "solutionUrl": "https://youtu.be/eKJrXBCRuNQ?t=2285",
+    "striverUrl": "https://youtu.be/RlUu72JrOCQ"
+  },
+  {
+    "beenextId": "cmwollk0800y1o76vdr94qsq0",
+    "category": "Binary Trees",
+    "beenextTitle": "Postorder Traversal",
+    "apnaTopic": "Day 16 : Binary Trees (Part 1)",
+    "apnaTitle": "Postorder Traversal",
+    "matchType": "exact-title",
+    "solutionUrl": "https://youtu.be/eKJrXBCRuNQ?t=3157",
+    "striverUrl": "https://youtu.be/2YBhNLodD8Q"
+  },
+  {
+    "beenextId": "cmwollk0900y5o76vr7ocbmur",
+    "category": "Binary Trees",
+    "beenextTitle": "Level Order Traversal",
+    "apnaTopic": "Day 16 : Binary Trees (Part 1)",
+    "apnaTitle": "Level Order Traversal",
+    "matchType": "exact-title",
+    "solutionUrl": "https://youtu.be/eKJrXBCRuNQ?t=3345",
+    "striverUrl": "https://youtu.be/EoAsWbO7sqg"
+  },
+  {
+    "beenextId": "cmwollk0d00yho76v64iczcfz",
+    "category": "Binary Trees",
+    "beenextTitle": "Check if two trees are identical or not",
+    "apnaTopic": "Day 17 : Binary Trees (Part 2)",
+    "apnaTitle": "Are 2 Trees Identical or Not",
+    "matchType": "lc-slug: same-tree",
+    "solutionUrl": "https://youtu.be/tumW7jsjv68?t=20",
+    "striverUrl": "https://youtu.be/BhuvF_-PWS0"
+  },
+  {
+    "beenextId": "cmwollk0e00ylo76viw6f3emx",
+    "category": "Binary Trees",
+    "beenextTitle": "Check for balanced binary tree",
+    "apnaTopic": "Day 17 : Binary Trees (Part 2)",
+    "apnaTitle": "Is Tree Height Balanced",
+    "matchType": "lc-slug: balanced-binary-tree",
+    "solutionUrl": "https://www.youtube.com/watch?v=7tzHzN_Ehus",
+    "striverUrl": "https://youtu.be/Yt50Jfbd8Po"
+  },
+  {
+    "beenextId": "cmwollk0g00ypo76vuf826o7x",
+    "category": "Binary Trees",
+    "beenextTitle": "Diameter of Binary Tree",
+    "apnaTopic": "Day 17 : Binary Trees (Part 2)",
+    "apnaTitle": "Diameter of a Tree",
+    "matchType": "lc-slug: diameter-of-binary-tree",
+    "solutionUrl": "https://www.youtube.com/watch?v=aPyDPImR5UM",
+    "striverUrl": "https://youtu.be/Rezetez59Nk"
+  },
+  {
+    "beenextId": "cmwollk0n00zho76vv95qwkvl",
+    "category": "Binary Trees",
+    "beenextTitle": "Top View of BT",
+    "apnaTopic": "Day 18 : Binary Trees (Part 3)",
+    "apnaTitle": "Top View of a Tree",
+    "matchType": "manual-title: Top View of a Tree",
+    "solutionUrl": "https://www.youtube.com/watch?v=FGr-syrhvOA",
+    "striverUrl": "https://youtu.be/Et9OCDNvJ78"
+  },
+  {
+    "beenextId": "cmwollk0o00zlo76vtkk963wv",
+    "category": "Binary Trees",
+    "beenextTitle": "Bottom view of BT",
+    "apnaTopic": "Day 18 : Binary Trees (Part 3)",
+    "apnaTitle": "Bottom View of a Tree",
+    "matchType": "manual-title: Bottom View of a Tree",
+    "solutionUrl": "https://www.youtube.com/watch?v=FGr-syrhvOA",
+    "striverUrl": "https://youtu.be/0FtVY6I4pB8"
+  },
+  {
+    "beenextId": "cmwollk0t00zxo76vabsoojb2",
+    "category": "Binary Trees",
+    "beenextTitle": "Lowest Common Ancestor in BT",
+    "apnaTopic": "Day 18 : Binary Trees (Part 3)",
+    "apnaTitle": "Lowest Common Ancestor (LCA)",
+    "matchType": "lc-slug: lowest-common-ancestor-of-a-binary-tree",
+    "solutionUrl": "https://www.youtube.com/watch?v=oX5D0uKOMck",
+    "striverUrl": "https://youtu.be/_-QHfMDde90"
+  },
+  {
+    "beenextId": "cmwollk0u0101o76v4klyshdh",
+    "category": "Binary Trees",
+    "beenextTitle": "Maximum Width of BT",
+    "apnaTopic": "Day 19 : Binary Trees (Part 4)",
+    "apnaTitle": "Max Width of BT",
+    "matchType": "lc-slug: maximum-width-of-binary-tree",
+    "solutionUrl": "https://www.youtube.com/watch?v=rhz-csskg_A",
+    "striverUrl": "https://youtu.be/ZbybYvcVLks"
+  },
+  {
+    "beenextId": "cmwollk0y010ho76v4xyy4ygp",
+    "category": "Binary Trees",
+    "beenextTitle": "Flatten Binary Tree to Linked List",
+    "apnaTopic": "Day 19 : Binary Trees (Part 4)",
+    "apnaTitle": "Flatten BT to LL",
+    "matchType": "lc-slug: flatten-binary-tree-to-linked-list",
+    "solutionUrl": "https://www.youtube.com/watch?v=dU2Z5HWSGM0",
+    "striverUrl": "https://youtu.be/sWf7k1x9XR4"
+  },
+  {
+    "beenextId": "cmwollk10010po76vdz8ykhxw",
+    "category": "Binary Trees",
+    "beenextTitle": "Construct a BT from Preorder and Inorder",
+    "apnaTopic": "Day 18 : Binary Trees (Part 3)",
+    "apnaTitle": "Construct BT from Inorder & Preorder",
+    "matchType": "lc-slug: construct-binary-tree-from-preorder-and-inorder-traversal",
+    "solutionUrl": "https://www.youtube.com/watch?v=33b1M980cCA",
+    "striverUrl": "https://youtu.be/aZNaLrVebKQ"
+  },
+  {
+    "beenextId": "cmwollk11010to76vkbv82njz",
+    "category": "Binary Trees",
+    "beenextTitle": "Construct a BT from Postorder and Inorder",
+    "apnaTopic": "Day 19 : Binary Trees (Part 4)",
+    "apnaTitle": "Construct BT from Inorder and Postorder",
+    "matchType": "lc-slug: construct-binary-tree-from-inorder-and-postorder-traversal",
+    "solutionUrl": "https://youtu.be/33b1M980cCA?list=PLfqMhTWNBTe137I_EPQd34TsgV6IO55pt&t=7",
+    "striverUrl": "https://youtu.be/LgLRTaEMRVc"
+  },
+  {
+    "beenextId": "cmwollk140111o76vbenvuiql",
+    "category": "Binary Trees",
+    "beenextTitle": "Morris Inorder Traversal ",
+    "apnaTopic": "Day 17 : Binary Trees (Part 2)",
+    "apnaTitle": "Morris Inorder Traversal",
+    "matchType": "manual-title: Morris Inorder Traversal",
+    "solutionUrl": "https://youtu.be/PUfADhkq1LI?t=9",
+    "striverUrl": "https://youtu.be/80Zug6D1_r4"
+  },
+  {
+    "beenextId": "cmwollk150115o76v8i3a3cj0",
+    "category": "Binary Trees",
+    "beenextTitle": "Morris Preorder Traversal ",
+    "apnaTopic": "Day 16 : Binary Trees (Part 1)",
+    "apnaTitle": "Preorder Traversal",
+    "matchType": "lc-slug: binary-tree-preorder-traversal",
+    "solutionUrl": "https://youtu.be/eKJrXBCRuNQ?t=2285",
+    "striverUrl": "https://youtu.be/80Zug6D1_r4"
+  },
+  {
+    "beenextId": "cmwollk1b011to76vkyt4rx6k",
+    "category": "Binary Search Trees",
+    "beenextTitle": "Delete a node in BST",
+    "apnaTopic": "Day 22 : BST (Part 3)",
+    "apnaTitle": "Inorder Predecessor",
+    "matchType": "lc-slug: delete-node-in-a-bst",
+    "solutionUrl": "https://www.youtube.com/watch?v=IHNkql1tAnk",
+    "striverUrl": "https://youtu.be/kouxiP_H5WE"
+  },
+  {
+    "beenextId": "cmwollk1d011xo76vr04my7gt",
+    "category": "Binary Search Trees",
+    "beenextTitle": "Kth Smallest and Largest element in BST",
+    "apnaTopic": "Day 20 : BST (Part 1)",
+    "apnaTitle": "Kth Smallest in BST",
+    "matchType": "lc-slug: kth-smallest-element-in-a-bst",
+    "solutionUrl": "https://www.youtube.com/watch?v=Kq4BbvIhj44",
+    "striverUrl": "https://youtu.be/9TJYWh0adfk"
+  },
+  {
+    "beenextId": "cmwollk1d0121o76vect6w0i5",
+    "category": "Binary Search Trees",
+    "beenextTitle": "Check if a tree is a BST or not",
+    "apnaTopic": "Day 20 : BST (Part 1)",
+    "apnaTitle": "Validate BST",
+    "matchType": "lc-slug: validate-binary-search-tree",
+    "solutionUrl": "https://www.youtube.com/watch?v=dSBcCynP1nA&t=21s",
+    "striverUrl": "https://youtu.be/f-sj7I5oXEI"
+  },
+  {
+    "beenextId": "cmwollk1e0125o76v6er62nj2",
+    "category": "Binary Search Trees",
+    "beenextTitle": "LCA in BST",
+    "apnaTopic": "Day 20 : BST (Part 1)",
+    "apnaTitle": "LCA in BST",
+    "matchType": "exact-title",
+    "solutionUrl": "https://www.youtube.com/watch?v=ORxkZ12FrU4",
+    "striverUrl": "https://youtu.be/cX_kPV_foZc"
+  },
+  {
+    "beenextId": "cmwollk1f0129o76v3evzffrd",
+    "category": "Binary Search Trees",
+    "beenextTitle": "Construct a BST from a preorder traversal",
+    "apnaTopic": "Day 21 : BST (Part 2)",
+    "apnaTitle": "Construct from Preorder",
+    "matchType": "lc-slug: construct-binary-search-tree-from-preorder-traversal",
+    "solutionUrl": "https://youtu.be/-n5Ur1wE5Jc?si=Bh0ukUvFtj3p1Ku8",
+    "striverUrl": "https://youtu.be/UmJT3j26t1I"
+  },
+  {
+    "beenextId": "cmwollk1g012do76vn54tn8b1",
+    "category": "Binary Search Trees",
+    "beenextTitle": "Inorder successor and predecessor in BST",
+    "apnaTopic": "Day 22 : BST (Part 3)",
+    "apnaTitle": "Inorder Successor",
+    "matchType": "lc-slug: inorder-successor-in-bst",
+    "solutionUrl": "https://www.youtube.com/watch?v=IHNkql1tAnk",
+    "striverUrl": "https://youtu.be/SXKAD2svfmI"
+  },
+  {
+    "beenextId": "cmwollk1h012ho76vetuubyfv",
+    "category": "Binary Search Trees",
+    "beenextTitle": "BST iterator",
+    "apnaTopic": "Day 21 : BST (Part 2)",
+    "apnaTitle": "BST Iterator",
+    "matchType": "exact-title",
+    "solutionUrl": "https://www.youtube.com/watch?v=dS1bKglre3A",
+    "striverUrl": "https://youtu.be/D2jMcmxU4bs"
+  },
+  {
+    "beenextId": "cmwollk1i012po76vmr7ls8fp",
+    "category": "Binary Search Trees",
+    "beenextTitle": "Correct BST with two nodes swapped",
+    "apnaTopic": "Day 21 : BST (Part 2)",
+    "apnaTitle": "Recover BST",
+    "matchType": "lc-slug: recover-binary-search-tree",
+    "solutionUrl": "https://www.youtube.com/watch?v=0KGzfij_SCk",
+    "striverUrl": "https://youtu.be/ZWGW7FminDM"
+  },
+  {
+    "beenextId": "cmwollk1j012to76vllqlzxqs",
+    "category": "Binary Search Trees",
+    "beenextTitle": "Largest BST in Binary Tree",
+    "apnaTopic": "Day 22 : BST (Part 3)",
+    "apnaTitle": "Largest BST in BT",
+    "matchType": "lc-slug: largest-bst-subtree",
+    "solutionUrl": "https://www.youtube.com/watch?v=Pr-HFxp7npk",
+    "striverUrl": "https://youtu.be/X0oXMdtUDwo"
+  },
+  {
+    "beenextId": "cmwollk29015ho76vabnzm6r4",
+    "category": "Graphs",
+    "beenextTitle": "Number of provinces",
+    "apnaTopic": "Day 28 : Graphs (Part 4)",
+    "apnaTitle": "Number of Provinces",
+    "matchType": "exact-title",
+    "solutionUrl": "https://youtu.be/J1yCPIP-K8s?si=I86S3sfHWkRMrNxb",
+    "striverUrl": "https://youtu.be/ACzkVtewUYA"
+  },
+  {
+    "beenextId": "cmwollk2a015lo76vhd6jjcwf",
+    "category": "Graphs",
+    "beenextTitle": "Number of islands",
+    "apnaTopic": "Day 28 : Graphs (Part 4)",
+    "apnaTitle": "Number of Islands",
+    "matchType": "exact-title",
+    "solutionUrl": "https://youtu.be/AME6baBpswY?si=0zFCNvVP0GX8e7U7",
+    "striverUrl": "https://www.youtube.com/watch?v=muncqlKJrH0&list=PLgUwDviBIf0oE3gA41TKO2H5bHpPd7fzn&index=8"
+  },
+  {
+    "beenextId": "cmwollk2b015po76vq5ykmrzl",
+    "category": "Graphs",
+    "beenextTitle": "Flood fill algorithm",
+    "apnaTopic": "Day 26 : Graphs (Part 2)",
+    "apnaTitle": "Flood Fill Algorithm",
+    "matchType": "exact-title",
+    "solutionUrl": "https://youtu.be/JI_e2RzARbM?si=WGTSPN-KWL0C4a9q",
+    "striverUrl": null
+  },
+  {
+    "beenextId": "cmwollk2e015xo76vb2b9o1lc",
+    "category": "Graphs",
+    "beenextTitle": "Rotten Oranges",
+    "apnaTopic": "Day 27 : Graphs (Part 3)",
+    "apnaTitle": "Rotting Oranges",
+    "matchType": "manual-title: Rotting Oranges",
+    "solutionUrl": "https://youtu.be/RmXo5SWkhCs?si=PekrhTqJxNbimhVp",
+    "striverUrl": "https://www.youtube.com/watch?v=yf3oUhkvqA0"
+  },
+  {
+    "beenextId": "cmwollk2i016do76vqjxnleud",
+    "category": "Graphs",
+    "beenextTitle": "Detect a cycle in an undirected graph",
+    "apnaTopic": "Day 25 : Graphs (Part 1)",
+    "apnaTitle": "Detect Cycle in Undirected using DFS",
+    "matchType": "manual-title: Detect Cycle in Undirected using DFS",
+    "solutionUrl": "https://youtu.be/OZClCpPQDR4?si=LHmPSDxyURUIDxsD",
+    "striverUrl": "https://youtu.be/zQ3zgFypzX4"
+  },
+  {
+    "beenextId": "cmwollk2k016lo76v9moj1yle",
+    "category": "Graphs",
+    "beenextTitle": "Topological sort or Kahn's algorithm",
+    "apnaTopic": "Day 26 : Graphs (Part 2)",
+    "apnaTitle": "Topological Sorting (BFS)",
+    "matchType": "manual-title: Topological Sorting (BFS)",
+    "solutionUrl": "https://youtu.be/BnQpaTZg6Sc",
+    "striverUrl": "https://youtu.be/5lZ0iJMrUMk"
+  },
+  {
+    "beenextId": "cmwollk2l016po76vn6ac1you",
+    "category": "Graphs",
+    "beenextTitle": "Detect a cycle in a directed graph",
+    "apnaTopic": "Day 25 : Graphs (Part 1)",
+    "apnaTitle": "Detect Cycle in Directed using DFS",
+    "matchType": "manual-title: Detect Cycle in Directed using DFS",
+    "solutionUrl": "https://youtu.be/AcppN5XFt24?t=27",
+    "striverUrl": "https://www.youtube.com/watch?v=uzVUw90ZFIg&list=PLgUwDviBIf0rGEWe64KWas0Nryn7SCRWw&index=12"
+  },
+  {
+    "beenextId": "cmwollk2p0171o76vusljb8v1",
+    "category": "Graphs",
+    "beenextTitle": "Course Schedule II",
+    "apnaTopic": "Day 26 : Graphs (Part 2)",
+    "apnaTitle": "Course Schedule II",
+    "matchType": "manual-title: Course Schedule II",
+    "solutionUrl": "https://youtu.be/rZsgWxodGmM?si=OgsOy5YcwN41QYwm",
+    "striverUrl": "https://youtu.be/WAOfKpxYHR8"
+  },
+  {
+    "beenextId": "cmwollk2w017po76v0jk4ji62",
+    "category": "Graphs",
+    "beenextTitle": "Dijkstra's algorithm",
+    "apnaTopic": "Day 26 : Graphs (Part 2)",
+    "apnaTitle": "Dijkstra's Algorithm",
+    "matchType": "manual-title: Dijkstra's Algorithm",
+    "solutionUrl": "https://youtu.be/8gYBHjtjWBI?si=nymThY9oC_NcAMPE",
+    "striverUrl": "https://www.youtube.com/watch?v=rp1SMw7HSO8&list=PLgUwDviBIf0oE3gA41TKO2H5bHpPd7fzn&index=35"
+  },
+  {
+    "beenextId": "cmwollk300185o76vlwibzfv6",
+    "category": "Graphs",
+    "beenextTitle": "Cheapest flight within K stops",
+    "apnaTopic": "Day 26 : Graphs (Part 2)",
+    "apnaTitle": "Cheapest Flights within K Stops",
+    "matchType": "lc-slug: cheapest-flights-within-k-stops",
+    "solutionUrl": "https://youtu.be/CLmykzpeCCs?si=VSbiBnnh-v9PNl6v",
+    "striverUrl": "https://youtu.be/9XybHVqTHcQ"
+  },
+  {
+    "beenextId": "cmwollk33018ho76v1g2f1tv7",
+    "category": "Graphs",
+    "beenextTitle": "Bellman ford algorithm",
+    "apnaTopic": "Day 27 : Graphs (Part 3)",
+    "apnaTitle": "Bellman Ford Algorithm",
+    "matchType": "manual-title: Bellman Ford Algorithm",
+    "solutionUrl": "https://youtu.be/3rFHlbJ7qKc?si=nSmurlJ6tWbk0ymU",
+    "striverUrl": "https://youtu.be/0vVofAhAYjc"
+  },
+  {
+    "beenextId": "cmwollk34018lo76vk06awcps",
+    "category": "Graphs",
+    "beenextTitle": "Floyd warshall algorithm",
+    "apnaTopic": "Day 27 : Graphs (Part 3)",
+    "apnaTitle": "Floyd Warshall Algorithm",
+    "matchType": "exact-title",
+    "solutionUrl": "https://youtu.be/iZBXd-vjHUA?t=16",
+    "striverUrl": "https://www.youtube.com/watch?v=YbY8cVwWAvw&list=PLgUwDviBIf0oE3gA41TKO2H5bHpPd7fzn&index=42"
+  },
+  {
+    "beenextId": "cmwollk35018po76v7yxmrwli",
+    "category": "Graphs",
+    "beenextTitle": "Find the city with the smallest number of neighbors",
+    "apnaTopic": "Day 27 : Graphs (Part 3)",
+    "apnaTitle": "Floyd Warshall Algorithm",
+    "matchType": "lc-slug: find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance",
+    "solutionUrl": "https://youtu.be/iZBXd-vjHUA?t=16",
+    "striverUrl": "https://youtu.be/9XybHVqTHcQ"
+  },
+  {
+    "beenextId": "cmwollk3i019xo76vsmjxw0d8",
+    "category": "Graphs",
+    "beenextTitle": "Kosaraju's algorithm",
+    "apnaTopic": "Day 28 : Graphs (Part 4)",
+    "apnaTitle": "Strongly Connected Components (Kosaraju's)",
+    "matchType": "manual-title: Strongly Connected Components (Kosaraju's)",
+    "solutionUrl": "https://youtu.be/lqY8TE0P1S8",
+    "striverUrl": "https://www.youtube.com/watch?v=V8qIqJxCioo&list=PLgUwDviBIf0rGEWe64KWas0Nryn7SCRWw&index=27"
+  },
+  {
+    "beenextId": "cmwollk3k01a1o76vz5gab8tf",
+    "category": "Graphs",
+    "beenextTitle": "Bridges in graph",
+    "apnaTopic": "Day 28 : Graphs (Part 4)",
+    "apnaTitle": "Critical Connections in a Network",
+    "matchType": "lc-slug: critical-connections-in-a-network",
+    "solutionUrl": "https://youtu.be/6h1SucBNxgc?list=PLfqMhTWNBTe137I_EPQd34TsgV6IO55pt&t=1426",
+    "striverUrl": "https://youtu.be/qrAub5z8FeA"
+  },
+  {
+    "beenextId": "cmwollk5b01gxo76v0xopvwjq",
+    "category": "Strings (Advanced Algo)",
+    "beenextTitle": "Reverse every word in a string",
+    "apnaTopic": "Day 6 : Strings (Part 1)",
+    "apnaTitle": "Reverse Words in String",
+    "matchType": "manual-title: Reverse Words in String",
+    "solutionUrl": "https://youtu.be/RitppzIdMCo?si=bLqHmxS1_C_HlODW",
+    "striverUrl": null
+  }
+]

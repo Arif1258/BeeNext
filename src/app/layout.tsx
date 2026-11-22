@@ -18,12 +18,12 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "BeeNext — Handwritten DSA Notes & Code Marketplace",
+  title: "BeeNext — DSA Notes & Computer-Written Java Solutions",
   description:
-    "Master Data Structures and Algorithms with high-resolution handwritten diagrams, dry-run traces, LeetCode references, and production-grade Java solutions. Free Sorting track included.",
+    "Master Data Structures and Algorithms with clean computer-written Java solutions, Brute Force and Optimal approaches, time and space complexity analysis, and LeetCode references. Free Sorting track included.",
   keywords: [
     "DSA Notes",
-    "Handwritten DSA",
+    "Computer-Written DSA",
     "Data Structures",
     "Algorithms",
     "Java DSA",

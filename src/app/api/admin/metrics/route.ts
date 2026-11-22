@@ -13,60 +13,96 @@ export async function GET() {
 
     const [
       totalUsers,
-      totalPurchases,
-      revenueAggregate,
-      freeCategoriesCount,
-      premiumCategoriesCount,
-      totalProblemsCount,
-      recentPurchases,
+      totalProblems,
+      actualPrintedOrdersCount,
+      testPrintedOrdersCount,
+      digitalPurchasesCount,
+      printedRevenueAggregate,
+      digitalRevenueAggregate,
+      recentPrintedOrders,
       recentUsers,
     ] = await Promise.all([
       prisma.user.count(),
+      prisma.problem.count({ where: { isPublished: true } }),
+      // Exclude test orders from real customer order counts
+      prisma.printedOrder.count({
+        where: {
+          NOT: {
+            orderNumber: { contains: "TEST" },
+          },
+        },
+      }),
+      // Count test orders specifically
+      prisma.printedOrder.count({
+        where: {
+          orderNumber: { contains: "TEST" },
+        },
+      }),
       prisma.purchase.count({ where: { status: "COMPLETED" } }),
+      // Exclude test orders from revenue calculations
+      prisma.printedOrder.aggregate({
+        where: {
+          paymentStatus: "COMPLETED",
+          NOT: {
+            orderNumber: { contains: "TEST" },
+          },
+        },
+        _sum: { totalAmount: true },
+      }),
       prisma.purchase.aggregate({
         where: { status: "COMPLETED" },
         _sum: { amount: true },
       }),
-      prisma.category.count({ where: { isFree: true } }),
-      prisma.category.count({ where: { isFree: false } }),
-      prisma.problem.count(),
-      prisma.purchase.findMany({
-        where: { status: "COMPLETED" },
+      prisma.printedOrder.findMany({
         take: 8,
         orderBy: { createdAt: "desc" },
-        include: {
-          user: { select: { id: true, name: true, email: true, avatar: true } },
-          category: { select: { title: true } },
-          problem: { select: { title: true } },
+        select: {
+          id: true,
+          orderNumber: true,
+          customerName: true,
+          customerEmail: true,
+          productTitle: true,
+          totalAmount: true,
+          paymentStatus: true,
+          orderStatus: true,
+          createdAt: true,
         },
       }),
       prisma.user.findMany({
-        take: 6,
+        take: 8,
         orderBy: { createdAt: "desc" },
         select: {
           id: true,
           name: true,
           email: true,
           role: true,
-          avatar: true,
           createdAt: true,
-          _count: { select: { purchases: true } },
+          updatedAt: true,
         },
       }),
     ]);
 
-    const totalRevenue = revenueAggregate._sum.amount || 0;
+    const totalOrders = actualPrintedOrdersCount + digitalPurchasesCount;
+    const totalRevenue = (printedRevenueAggregate._sum.totalAmount || 0) + (digitalRevenueAggregate._sum.amount || 0);
 
     return NextResponse.json({
+      totalUsers,
+      totalProblemsCount: totalProblems,
+      totalOrders,
+      actualOrdersCount: actualPrintedOrdersCount,
+      testOrdersCount: testPrintedOrdersCount,
+      totalRevenue,
       metrics: {
         totalUsers,
+        totalProblems,
+        totalOrders,
+        actualOrdersCount: actualPrintedOrdersCount,
+        testOrdersCount: testPrintedOrdersCount,
         totalRevenue,
-        totalPurchases,
-        freeTopics: freeCategoriesCount,
-        premiumTopics: premiumCategoriesCount,
-        totalProblems: totalProblemsCount,
+        printedOrdersCount: actualPrintedOrdersCount,
+        digitalPurchasesCount,
       },
-      recentPurchases,
+      recentOrders: recentPrintedOrders,
       recentUsers,
     });
   } catch (err) {
