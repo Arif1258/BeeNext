@@ -94,7 +94,7 @@ export default function TopicsClient({ initialCategories }: TopicsClientProps) {
       : 0;
 
   return (
-    <div className="min-h-screen bg-brand-black text-white py-10 px-4 sm:px-6 lg:px-8 selection:bg-brand-red selection:text-white">
+    <div className="min-h-screen bg-brand-black text-white pt-6 pb-10 px-4 sm:px-6 lg:px-8 selection:bg-brand-red selection:text-white">
       <div className="mx-auto max-w-7xl space-y-6">
         {/* Clean Page Header (Title + Subtitle + Description + Circular Progress Graph & Completed Problems) */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-brand-border pb-6">

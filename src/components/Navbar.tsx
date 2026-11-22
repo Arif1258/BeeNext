@@ -84,7 +84,7 @@ export default function Navbar() {
           {/* Left Side: Brand Logo + Primary Navigation */}
           <div className="flex items-center space-x-6 lg:space-x-8">
             {/* Brand Logo - Redirects to /topics */}
-            <Link href="/topics" className="flex items-center space-x-3 group flex-shrink-0">
+            <Link href="/topics" className="flex items-center space-x-3 group flex-shrink-0 min-[1344px]:-translate-x-8">
               <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-red text-white font-mono font-bold shadow-brand group-hover:scale-105 transition-transform">
                 B&gt;
               </div>
