@@ -93,6 +93,16 @@ export default function TopicsClient({ initialCategories }: TopicsClientProps) {
       ? Math.round((completedCount / totalProblemsCount) * 100)
       : 0;
 
+  // Number of grid boxes in the LeetCode contribution-style tracker (single horizontal row)
+  const TOTAL_TRACKER_BOXES = 40;
+  const completedBoxesCount = Math.min(
+    TOTAL_TRACKER_BOXES,
+    Math.max(
+      completedCount > 0 ? 1 : 0,
+      Math.round((progressPercentage / 100) * TOTAL_TRACKER_BOXES)
+    )
+  );
+
   return (
     <div className="min-h-screen bg-brand-black text-white pt-6 pb-10 px-4 sm:px-6 lg:px-8 selection:bg-brand-red selection:text-white">
       <div className="mx-auto max-w-7xl space-y-6">
@@ -189,12 +199,34 @@ export default function TopicsClient({ initialCategories }: TopicsClientProps) {
             </div>
           </div>
 
-          {/* Clean Progress Bar with green progress indicator */}
-          <div className="relative w-full h-2.5 bg-brand-black rounded-full overflow-hidden border border-brand-border">
-            <div
-              className="h-full bg-emerald-500 rounded-full transition-all duration-300 ease-out shadow-sm"
-              style={{ width: `${Math.min(100, Math.max(0, progressPercentage))}%` }}
-            />
+          {/* LeetCode Contribution-Style Grid Tracker (Single Row of Small Square Boxes) */}
+          <div
+            className="w-full flex items-center gap-0.5 sm:gap-1 lg:gap-1.5"
+            role="progressbar"
+            aria-valuenow={progressPercentage}
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-label={`DSA Progress: ${progressPercentage}% completed`}
+          >
+            {Array.from({ length: TOTAL_TRACKER_BOXES }).map((_, index) => {
+              const isCompleted = index < completedBoxesCount;
+              return (
+                <div
+                  key={index}
+                  className={`flex-1 aspect-square rounded-[2px] transition-colors duration-200 ${
+                    isCompleted
+                      ? "bg-[#16a34a] border border-[#16a34a]"
+                      : "bg-transparent border border-emerald-500/40"
+                  }`}
+                  style={{ aspectRatio: "1 / 1" }}
+                  title={
+                    isCompleted
+                      ? `Box ${index + 1} of ${TOTAL_TRACKER_BOXES} (Completed)`
+                      : `Box ${index + 1} of ${TOTAL_TRACKER_BOXES} (Remaining)`
+                  }
+                />
+              );
+            })}
           </div>
         </div>
 
