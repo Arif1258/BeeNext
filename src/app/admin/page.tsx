@@ -70,6 +70,9 @@ interface OrderItem {
   paymentStatus: "PENDING" | "COMPLETED" | "FAILED";
   orderStatus: "PENDING" | "CONFIRMED" | "PROCESSING" | "SHIPPED" | "DELIVERED" | "CANCELLED";
   paymentMethod?: string;
+  razorpayOrderId?: string | null;
+  razorpayPaymentId?: string | null;
+  items?: any;
   carrier?: string | null;
   trackingNumber?: string | null;
   requiresCertificate?: boolean;
@@ -1009,8 +1012,27 @@ export default function AdminDashboardPage() {
                                 </div>
                               )}
                               <span className="text-[11px] text-brand-subtle font-mono block mt-1">
-                                Quantity: {ord.quantity || 1} booklet
+                                Quantity: {ord.quantity || 1} {ord.quantity === 1 ? "book" : "books"}
                               </span>
+
+                              {/* Itemized Cart Items Breakdown */}
+                              {Array.isArray(ord.items) && ord.items.length > 0 && (
+                                <div className="mt-2 space-y-1.5 border border-brand-border/60 rounded-lg bg-brand-black/70 p-2.5 max-h-36 overflow-y-auto">
+                                  <div className="text-[10px] font-mono text-brand-subtle uppercase font-bold">
+                                    Itemized Books ({ord.items.length}):
+                                  </div>
+                                  {ord.items.map((it: any, i: number) => (
+                                    <div key={i} className="text-[11px] flex justify-between items-start gap-1.5 border-b border-brand-border/30 pb-1 last:border-b-0 last:pb-0 font-mono">
+                                      <span className="text-white truncate">
+                                        {it.title} {it.language ? `(${it.language})` : ""} &times; {it.quantity || 1}
+                                      </span>
+                                      <span className="text-emerald-400 font-bold shrink-0">
+                                        ₹{it.totalItemPrice || it.unitPrice * (it.quantity || 1)}
+                                      </span>
+                                    </div>
+                                  ))}
+                                </div>
+                              )}
                             </div>
 
                             <div>
@@ -1036,6 +1058,16 @@ export default function AdminDashboardPage() {
                                   ? "Excluded from revenue (Test Mode)"
                                   : `Payment Method: ${ord.paymentMethod || "Razorpay"}`}
                               </span>
+                              {ord.razorpayPaymentId && (
+                                <span className="text-[10px] text-neutral-400 font-mono block truncate mt-0.5" title={ord.razorpayPaymentId}>
+                                  Payment ID: {ord.razorpayPaymentId}
+                                </span>
+                              )}
+                              {ord.razorpayOrderId && (
+                                <span className="text-[10px] text-neutral-500 font-mono block truncate" title={ord.razorpayOrderId}>
+                                  Razorpay Order: {ord.razorpayOrderId}
+                                </span>
+                              )}
                             </div>
                           </div>
 

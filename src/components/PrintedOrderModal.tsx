@@ -418,7 +418,7 @@ export default function PrintedOrderModal({
                 {/* Full Name */}
                 <div>
                   <label className="block text-xs font-semibold text-neutral-200 mb-1.5 font-mono">
-                    Student Full Name <span className="text-brand-red font-bold">*</span>
+                    Full Name <span className="text-brand-red font-bold">*</span>
                   </label>
                   <input
                     type="text"
@@ -426,15 +426,14 @@ export default function PrintedOrderModal({
                     required
                     value={formData.customerName}
                     onChange={handleChange}
-                    placeholder="Enter your full name"
-                    className="w-full h-11 px-3.5 rounded-lg bg-white border border-neutral-300 text-neutral-900 placeholder:text-neutral-400 text-sm font-sans focus:outline-none focus:border-brand-red focus:ring-2 focus:ring-brand-red/20 transition-all shadow-sm"
+                    className="w-full h-11 px-3.5 rounded-lg bg-white border border-neutral-300 text-neutral-900 text-sm font-sans focus:outline-none focus:border-brand-red focus:ring-2 focus:ring-brand-red/20 transition-all shadow-sm"
                   />
                 </div>
 
                 {/* Mobile Number */}
                 <div>
                   <label className="block text-xs font-semibold text-neutral-200 mb-1.5 font-mono">
-                    Mobile Number (10 digits) <span className="text-brand-red font-bold">*</span>
+                    Mobile Number <span className="text-brand-red font-bold">*</span>
                   </label>
                   <input
                     type="tel"
@@ -443,8 +442,7 @@ export default function PrintedOrderModal({
                     maxLength={14}
                     value={formData.customerPhone}
                     onChange={handleChange}
-                    placeholder="Enter phone number"
-                    className="w-full h-11 px-3.5 rounded-lg bg-white border border-neutral-300 text-neutral-900 placeholder:text-neutral-400 text-sm font-sans focus:outline-none focus:border-brand-red focus:ring-2 focus:ring-brand-red/20 transition-all shadow-sm"
+                    className="w-full h-11 px-3.5 rounded-lg bg-white border border-neutral-300 text-neutral-900 text-sm font-sans focus:outline-none focus:border-brand-red focus:ring-2 focus:ring-brand-red/20 transition-all shadow-sm"
                   />
                 </div>
               </div>
@@ -452,7 +450,7 @@ export default function PrintedOrderModal({
               {/* Email Address */}
               <div>
                 <label className="block text-xs font-semibold text-neutral-200 mb-1.5 font-mono">
-                  Email Address (for order tracking) <span className="text-brand-red font-bold">*</span>
+                  Email Address <span className="text-brand-red font-bold">*</span>
                 </label>
                 <input
                   type="email"
@@ -460,15 +458,14 @@ export default function PrintedOrderModal({
                   required
                   value={formData.customerEmail}
                   onChange={handleChange}
-                  placeholder="Enter email address"
-                  className="w-full h-11 px-3.5 rounded-lg bg-white border border-neutral-300 text-neutral-900 placeholder:text-neutral-400 text-sm font-sans focus:outline-none focus:border-brand-red focus:ring-2 focus:ring-brand-red/20 transition-all shadow-sm"
+                  className="w-full h-11 px-3.5 rounded-lg bg-white border border-neutral-300 text-neutral-900 text-sm font-sans focus:outline-none focus:border-brand-red focus:ring-2 focus:ring-brand-red/20 transition-all shadow-sm"
                 />
               </div>
 
               {/* Address Line 1 */}
               <div>
                 <label className="block text-xs font-semibold text-neutral-200 mb-1.5 font-mono">
-                  Street / Flat / House No. / Hostel <span className="text-brand-red font-bold">*</span>
+                  Address Line 1 <span className="text-brand-red font-bold">*</span>
                 </label>
                 <input
                   type="text"
@@ -476,23 +473,21 @@ export default function PrintedOrderModal({
                   required
                   value={formData.addressLine1}
                   onChange={handleChange}
-                  placeholder="Enter delivery address"
-                  className="w-full h-11 px-3.5 rounded-lg bg-white border border-neutral-300 text-neutral-900 placeholder:text-neutral-400 text-sm font-sans focus:outline-none focus:border-brand-red focus:ring-2 focus:ring-brand-red/20 transition-all shadow-sm"
+                  className="w-full h-11 px-3.5 rounded-lg bg-white border border-neutral-300 text-neutral-900 text-sm font-sans focus:outline-none focus:border-brand-red focus:ring-2 focus:ring-brand-red/20 transition-all shadow-sm"
                 />
               </div>
 
               {/* Address Line 2 */}
               <div>
                 <label className="block text-xs font-semibold text-neutral-200 mb-1.5 font-mono">
-                  Area / Landmark (Optional)
+                  Address Line 2 (Optional)
                 </label>
                 <input
                   type="text"
                   name="addressLine2"
                   value={formData.addressLine2}
                   onChange={handleChange}
-                  placeholder="Apartment, suite, landmark (optional)"
-                  className="w-full h-11 px-3.5 rounded-lg bg-white border border-neutral-300 text-neutral-900 placeholder:text-neutral-400 text-sm font-sans focus:outline-none focus:border-brand-red focus:ring-2 focus:ring-brand-red/20 transition-all shadow-sm"
+                  className="w-full h-11 px-3.5 rounded-lg bg-white border border-neutral-300 text-neutral-900 text-sm font-sans focus:outline-none focus:border-brand-red focus:ring-2 focus:ring-brand-red/20 transition-all shadow-sm"
                 />
               </div>
 
@@ -508,8 +503,7 @@ export default function PrintedOrderModal({
                     required
                     value={formData.city}
                     onChange={handleChange}
-                    placeholder="Enter city"
-                    className="w-full h-11 px-3.5 rounded-lg bg-white border border-neutral-300 text-neutral-900 placeholder:text-neutral-400 text-sm font-sans focus:outline-none focus:border-brand-red focus:ring-2 focus:ring-brand-red/20 transition-all shadow-sm"
+                    className="w-full h-11 px-3.5 rounded-lg bg-white border border-neutral-300 text-neutral-900 text-sm font-sans focus:outline-none focus:border-brand-red focus:ring-2 focus:ring-brand-red/20 transition-all shadow-sm"
                   />
                 </div>
 
@@ -524,8 +518,7 @@ export default function PrintedOrderModal({
                     required
                     value={formData.state}
                     onChange={handleChange}
-                    placeholder="Enter state"
-                    className="w-full h-11 px-3.5 rounded-lg bg-white border border-neutral-300 text-neutral-900 placeholder:text-neutral-400 text-sm font-sans focus:outline-none focus:border-brand-red focus:ring-2 focus:ring-brand-red/20 transition-all shadow-sm"
+                    className="w-full h-11 px-3.5 rounded-lg bg-white border border-neutral-300 text-neutral-900 text-sm font-sans focus:outline-none focus:border-brand-red focus:ring-2 focus:ring-brand-red/20 transition-all shadow-sm"
                   />
                 </div>
 
@@ -541,8 +534,7 @@ export default function PrintedOrderModal({
                     maxLength={8}
                     value={formData.postalCode}
                     onChange={handleChange}
-                    placeholder="Enter PIN code"
-                    className="w-full h-11 px-3.5 rounded-lg bg-white border border-neutral-300 text-neutral-900 placeholder:text-neutral-400 text-sm font-sans focus:outline-none focus:border-brand-red focus:ring-2 focus:ring-brand-red/20 transition-all shadow-sm"
+                    className="w-full h-11 px-3.5 rounded-lg bg-white border border-neutral-300 text-neutral-900 text-sm font-sans focus:outline-none focus:border-brand-red focus:ring-2 focus:ring-brand-red/20 transition-all shadow-sm"
                   />
                 </div>
               </div>

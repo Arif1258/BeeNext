@@ -4,9 +4,11 @@ import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
+import { useCart } from "@/context/CartContext";
 import {
   BookOpen,
   ShoppingBag,
+  ShoppingCart,
   Package,
   Info,
   User,
@@ -19,6 +21,7 @@ import {
 
 export default function Navbar() {
   const { user, logout } = useAuth();
+  const { totalItems, openCart } = useCart();
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
@@ -151,8 +154,24 @@ export default function Navbar() {
             </nav>
           </div>
 
-          {/* Far Right: Single Profile / User Icon with Dropdown Menu */}
+          {/* Far Right: Shopping Cart + Profile / User Icon */}
           <div className="flex items-center space-x-2 sm:space-x-3">
+            {/* Shopping Cart Button */}
+            <button
+              type="button"
+              onClick={openCart}
+              className="relative flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-xl border bg-neutral-900 border-neutral-800 hover:border-neutral-700 text-neutral-300 hover:text-white transition-all focus:outline-none"
+              aria-label={`View shopping cart (${totalItems} items)`}
+              title="Shopping Cart"
+            >
+              <ShoppingCart className="h-4 w-4 sm:h-5 sm:w-5" />
+              {totalItems > 0 && (
+                <span className="absolute -top-1.5 -right-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-brand-red text-[10px] font-mono font-bold text-white shadow-sm ring-2 ring-brand-black animate-in zoom-in-75 duration-150">
+                  {totalItems}
+                </span>
+              )}
+            </button>
+
             <div ref={dropdownRef} className="relative">
               <button
                 type="button"
@@ -277,7 +296,27 @@ export default function Navbar() {
               <span>Purchase</span>
             </Link>
 
-            {/* 3. My Orders */}
+            {/* 3. My Cart */}
+            <button
+              type="button"
+              onClick={() => {
+                setMobileMenuOpen(false);
+                openCart();
+              }}
+              className="w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium text-brand-muted hover:text-white hover:bg-brand-card transition text-left"
+            >
+              <div className="flex items-center gap-2">
+                <ShoppingCart className="h-4 w-4" />
+                <span>My Cart</span>
+              </div>
+              {totalItems > 0 && (
+                <span className="px-2 py-0.5 rounded-full bg-brand-red text-white text-[11px] font-mono font-bold">
+                  {totalItems}
+                </span>
+              )}
+            </button>
+
+            {/* 4. My Orders */}
             <Link
               href="/orders"
               onClick={() => setMobileMenuOpen(false)}

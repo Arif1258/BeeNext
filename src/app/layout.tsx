@@ -3,8 +3,11 @@ import localFont from "next/font/local";
 import Script from "next/script";
 import "./globals.css";
 import { AuthProvider } from "@/context/AuthContext";
+import { CartProvider } from "@/context/CartContext";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import CartDrawer from "@/components/CartDrawer";
+import CheckoutModal from "@/components/CheckoutModal";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -49,9 +52,13 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased bg-brand-black text-white min-h-screen flex flex-col selection:bg-brand-red selection:text-white`}
       >
         <AuthProvider>
-          <Navbar />
-          <main className="flex-1">{children}</main>
-          <Footer />
+          <CartProvider>
+            <Navbar />
+            <main className="flex-1">{children}</main>
+            <Footer />
+            <CartDrawer />
+            <CheckoutModal />
+          </CartProvider>
         </AuthProvider>
       </body>
     </html>

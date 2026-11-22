@@ -36,6 +36,23 @@ export async function POST(req: Request) {
       });
     }
 
+    // Replay attack prevention: Ensure payment ID hasn't been used on another completed order
+    if (razorpayPaymentId && !razorpayPaymentId.startsWith("pay_mock_")) {
+      const existingPayment = await prisma.printedOrder.findFirst({
+        where: {
+          razorpayPaymentId,
+          paymentStatus: "COMPLETED",
+          id: { not: printedOrderId },
+        },
+      });
+      if (existingPayment) {
+        return NextResponse.json(
+          { error: "This payment reference has already been processed for another order." },
+          { status: 400 }
+        );
+      }
+    }
+
     // Cryptographic signature verification
     const isValid = verifyRazorpaySignature({
       orderId: razorpayOrderId,

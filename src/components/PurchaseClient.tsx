@@ -4,8 +4,10 @@ import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
+import { useCart } from "@/context/CartContext";
 import { formatCurrency } from "@/lib/utils";
 import { PRICING, getTopicPrice, getBookPrice } from "@/lib/pricing";
+import { getBookImage } from "@/lib/bookImages";
 import PrintedOrderModal, { OrderProductInfo } from "@/components/PrintedOrderModal";
 import {
   Package,
@@ -24,6 +26,7 @@ import {
   ChevronRight,
   Flame,
   Users,
+  ShoppingCart,
 } from "lucide-react";
 
 export interface CategoryCardItem {
@@ -615,6 +618,89 @@ export default function PurchaseClient({
 }: PurchaseClientProps) {
   const searchParams = useSearchParams();
   const { user } = useAuth();
+  const { openCheckout, addItem, openCart } = useCart();
+
+  // Add to cart feedback states
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [addedStatus, setAddedStatus] = useState<Record<string, boolean>>({});
+
+  const triggerAddedFeedback = (key: string, title: string) => {
+    setAddedStatus((prev) => ({ ...prev, [key]: true }));
+    setToastMessage(`"${title}" added to cart!`);
+    setTimeout(() => {
+      setAddedStatus((prev) => ({ ...prev, [key]: false }));
+    }, 2000);
+    setTimeout(() => {
+      setToastMessage((prev) => (prev?.includes(title) ? null : prev));
+    }, 3500);
+  };
+
+  const handleAddCSToCart = (book: { title: string; slug: string; price: number }) => {
+    addItem(
+      {
+        productType: "CS_FUNDAMENTAL",
+        slug: book.slug,
+        title: book.title,
+        description: `Physical printed notes for ${book.title} delivered to your doorstep.`,
+        price: book.price,
+        image: getBookImage(book.slug, "CS_FUNDAMENTAL"),
+      },
+      { openDrawer: false }
+    );
+    triggerAddedFeedback(book.slug, book.title);
+  };
+
+  const handleAddTopicToCart = (cat: CategoryCardItem) => {
+    const selectedLang = topicLanguages[cat.id];
+    if (!selectedLang) {
+      setTopicErrors((prev) => ({
+        ...prev,
+        [cat.id]: "Please select a language before adding to cart.",
+      }));
+      return;
+    }
+    setTopicErrors((prev) => {
+      const next = { ...prev };
+      delete next[cat.id];
+      return next;
+    });
+
+    const title = `${cat.title} (${selectedLang}) – Book`;
+    addItem(
+      {
+        productType: "TOPIC",
+        slug: cat.slug,
+        categoryId: cat.id,
+        title,
+        description: `Physical printed book for ${cat.title} featuring computer-written ${selectedLang} solutions with Brute Force Solution, Optimal Solution, Time Complexity, and Space Complexity delivered to your doorstep.`,
+        price: getTopicPrice(cat),
+        language: selectedLang,
+        image: getBookImage(cat.slug, "TOPIC"),
+      },
+      { openDrawer: false }
+    );
+    triggerAddedFeedback(`topic-${cat.id}`, title);
+  };
+
+  const handleAddFullBookToCart = (lang: string, keySuffix?: string) => {
+    const title = `Full DSA Book – ${lang} (All 20 Sections, ~500 Pages)`;
+    addItem(
+      {
+        productType: "COMPLETE_BOOK",
+        slug: "full-dsa-book",
+        title,
+        description: `Physical spiral-bound printed DSA book containing computer-written ${lang} solutions with Brute Force Solution, Optimal Solution, Time Complexity, and Space Complexity across all 20 DSA sections (~500 pages) delivered to your doorstep.`,
+        language: lang,
+        price: bookPrice,
+        originalPrice: bookOriginalPrice,
+        pages: 500,
+        sections: 20,
+        image: getBookImage("full-dsa-book", "COMPLETE_BOOK"),
+      },
+      { openDrawer: false }
+    );
+    triggerAddedFeedback(keySuffix || `full-book-${lang}`, title);
+  };
 
   // Database-backed and established sold counts
   const topicSoldCount = 67 + (initialSalesCounts?.topicWise ?? 0);
@@ -697,8 +783,9 @@ export default function PurchaseClient({
       return;
     }
     setLanguageError(null);
-    setSelectedProduct({
+    openCheckout({
       productType: "COMPLETE_BOOK",
+      slug: "full-dsa-book",
       title: `Full DSA Book – ${selectedLanguage} (All 20 Sections, ~500 Pages)`,
       description: `Physical spiral-bound printed DSA book containing computer-written ${selectedLanguage} solutions with Brute Force Solution, Optimal Solution, Time Complexity, and Space Complexity across all 20 DSA sections (~500 pages) delivered to your doorstep.`,
       language: selectedLanguage,
@@ -706,10 +793,7 @@ export default function PurchaseClient({
       originalPrice: bookOriginalPrice,
       pages: 500,
       sections: 20,
-      deliveryCharge: 0,
-      isFreeShipping: true,
     });
-    setIsOrderModalOpen(true);
   };
 
   const handleOpenTopicOrder = (cat: CategoryCardItem) => {
@@ -727,31 +811,25 @@ export default function PurchaseClient({
       return next;
     });
 
-    setSelectedProduct({
+    openCheckout({
       productType: "TOPIC",
+      slug: cat.slug,
+      categoryId: cat.id,
       title: `${cat.title} (${selectedLang}) – Book`,
       description: `Physical printed book for ${cat.title} featuring computer-written ${selectedLang} solutions with Brute Force Solution, Optimal Solution, Time Complexity, and Space Complexity delivered to your doorstep.`,
       price: getTopicPrice(cat),
-      topicSlug: cat.slug,
-      categoryId: cat.id,
       language: selectedLang,
-      deliveryCharge: 0,
-      isFreeShipping: true,
     });
-    setIsOrderModalOpen(true);
   };
 
   const handleOpenCSOrder = (book: { title: string; slug: string; price: number }) => {
-    setSelectedProduct({
+    openCheckout({
       productType: "CS_FUNDAMENTAL",
+      slug: book.slug,
       title: book.title,
       description: `Physical printed notes for ${book.title} delivered to your doorstep.`,
       price: book.price,
-      topicSlug: book.slug,
-      deliveryCharge: 0,
-      isFreeShipping: true,
     });
-    setIsOrderModalOpen(true);
   };
 
   return (
@@ -801,18 +879,29 @@ export default function PurchaseClient({
                   onEnlarge={(idx) => handleOpenProductSample("Topic-Wise Book", "topic-wise", idx)}
                 />
 
-                <button
-                  type="button"
-                  onClick={() => setSelectedOption("TOPIC_WISE")}
-                  aria-label="Explore Topic-Wise Book topics and options"
-                  className="w-full pt-2.5 mt-0.5 border-t border-brand-border/60 flex items-center justify-between text-xs font-mono text-neutral-400 hover:text-white group cursor-pointer transition-colors"
-                >
+                <div className="w-full pt-3 mt-1 border-t border-brand-border/60 flex items-center justify-between gap-1.5 text-xs font-mono">
                   <SoldCountBadge count={`Sold: ${topicSoldCount} units`} size="md" />
-                  <div className="h-8 sm:h-8.5 px-3 sm:px-3.5 rounded-full bg-brand-red/15 border border-brand-red/40 flex items-center gap-1.5 text-white font-mono text-[11px] sm:text-xs font-bold shadow-sm group-hover:bg-brand-red group-hover:border-brand-red group-hover:shadow-brand transition-all duration-200 shrink-0 active:scale-95">
-                    <span>Order Now</span>
-                    <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform" />
+                  <div className="flex items-center gap-1.5 shrink-0">
+                    <button
+                      type="button"
+                      onClick={() => setSelectedOption("TOPIC_WISE")}
+                      className="h-8 w-8 sm:h-8.5 sm:w-8.5 rounded-lg bg-neutral-900 hover:bg-neutral-800 text-neutral-300 hover:text-white border border-neutral-700 hover:border-neutral-600 flex items-center justify-center transition-all cursor-pointer shadow-sm active:scale-95 shrink-0"
+                      title="Add to Cart"
+                      aria-label="Add to Cart"
+                    >
+                      <ShoppingCart className="h-3.5 w-3.5" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setSelectedOption("TOPIC_WISE")}
+                      aria-label="Explore Topic-Wise Book topics and options"
+                      className="h-8 sm:h-8.5 px-3 sm:px-3.5 rounded-full bg-brand-red/15 border border-brand-red/40 flex items-center gap-1.5 text-white font-mono text-[11px] sm:text-xs font-bold shadow-sm hover:bg-brand-red hover:border-brand-red hover:shadow-brand transition-all duration-200 shrink-0 active:scale-95 cursor-pointer"
+                    >
+                      <span>Order Now</span>
+                      <ArrowRight className="h-3.5 w-3.5" />
+                    </button>
                   </div>
-                </button>
+                </div>
               </div>
 
               {/* Box 2: Full DSA Book */}
@@ -842,21 +931,36 @@ export default function PurchaseClient({
                   onEnlarge={(idx) => handleOpenProductSample("Full DSA Book", "full-dsa-book", idx)}
                 />
 
-                <button
-                  type="button"
-                  onClick={() => {
-                    setSelectedOption("FULL_BOOK");
-                    setLanguageError(null);
-                  }}
-                  aria-label="View Full DSA Book editions and languages"
-                  className="w-full pt-2.5 mt-0.5 border-t border-brand-border/60 flex items-center justify-between text-xs font-mono text-neutral-400 hover:text-white group cursor-pointer transition-colors"
-                >
+                <div className="w-full pt-3 mt-1 border-t border-brand-border/60 flex items-center justify-between gap-1.5 text-xs font-mono">
                   <SoldCountBadge count={`Sold: ${fullBookTotalSold} units`} size="md" />
-                  <div className="h-8 sm:h-8.5 px-3 sm:px-3.5 rounded-full bg-brand-red/15 border border-brand-red/40 flex items-center gap-1.5 text-white font-mono text-[11px] sm:text-xs font-bold shadow-sm group-hover:bg-brand-red group-hover:border-brand-red group-hover:shadow-brand transition-all duration-200 shrink-0 active:scale-95">
-                    <span>Order Now</span>
-                    <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform" />
+                  <div className="flex items-center gap-1.5 shrink-0">
+                    <button
+                      type="button"
+                      onClick={() => handleAddFullBookToCart("Java", "full-dsa-init")}
+                      className="h-8 w-8 sm:h-8.5 sm:w-8.5 rounded-lg bg-neutral-900 hover:bg-neutral-800 text-neutral-300 hover:text-white border border-neutral-700 hover:border-neutral-600 flex items-center justify-center transition-all cursor-pointer shadow-sm active:scale-95 shrink-0"
+                      title="Add to Cart"
+                      aria-label="Add to Cart"
+                    >
+                      {addedStatus["full-dsa-init"] ? (
+                        <Check className="h-3.5 w-3.5 text-emerald-400 stroke-[2.5]" />
+                      ) : (
+                        <ShoppingCart className="h-3.5 w-3.5" />
+                      )}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setSelectedOption("FULL_BOOK");
+                        setLanguageError(null);
+                      }}
+                      aria-label="View Full DSA Book editions and languages"
+                      className="h-8 sm:h-8.5 px-3 sm:px-3.5 rounded-full bg-brand-red/15 border border-brand-red/40 flex items-center gap-1.5 text-white font-mono text-[11px] sm:text-xs font-bold shadow-sm hover:bg-brand-red hover:border-brand-red hover:shadow-brand transition-all duration-200 shrink-0 active:scale-95 cursor-pointer"
+                    >
+                      <span>Order Now</span>
+                      <ArrowRight className="h-3.5 w-3.5" />
+                    </button>
                   </div>
-                </button>
+                </div>
               </div>
             </div>
 
@@ -929,16 +1033,31 @@ export default function PurchaseClient({
                       onEnlarge={(idx) => handleOpenProductSample(book.title, book.slug, idx)}
                     />
 
-                    {/* Bottom bar with Sold count and Order Now button */}
-                    <div className="w-full pt-3 mt-1 border-t border-brand-border/60 flex items-center justify-between gap-2 text-xs font-mono">
+                    {/* Bottom bar with Sold count and Action buttons */}
+                    <div className="w-full pt-3 mt-1 border-t border-brand-border/60 flex items-center justify-between gap-1.5 text-xs font-mono">
                       <SoldCountBadge count={`${csSoldCount[book.slug] ?? 0} Units Sold`} size="sm" showIcon={false} />
-                      <button
-                        type="button"
-                        onClick={() => handleOpenCSOrder(book)}
-                        className="py-1.5 px-3 rounded-lg bg-brand-red hover:bg-brand-redHover text-white text-center font-mono text-[11px] sm:text-xs font-bold transition-all flex items-center justify-center cursor-pointer shadow-sm active:scale-95 shrink-0 whitespace-nowrap"
-                      >
-                        Order Now
-                      </button>
+                      <div className="flex items-center gap-1.5 shrink-0">
+                        <button
+                          type="button"
+                          onClick={() => handleAddCSToCart(book)}
+                          className="h-8 w-8 rounded-lg bg-neutral-900 hover:bg-neutral-800 text-neutral-300 hover:text-white border border-neutral-700 hover:border-neutral-600 flex items-center justify-center transition-all cursor-pointer shadow-sm active:scale-95 shrink-0"
+                          title="Add to Cart"
+                          aria-label={`Add ${book.title} to Cart`}
+                        >
+                          {addedStatus[book.slug] ? (
+                            <Check className="h-3.5 w-3.5 text-emerald-400 stroke-[2.5]" />
+                          ) : (
+                            <ShoppingCart className="h-3.5 w-3.5" />
+                          )}
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => handleOpenCSOrder(book)}
+                          className="h-8 px-2.5 sm:px-3 rounded-lg bg-brand-red hover:bg-brand-redHover text-white text-center font-mono text-[11px] sm:text-xs font-bold transition-all flex items-center justify-center cursor-pointer shadow-sm active:scale-95 shrink-0 whitespace-nowrap"
+                        >
+                          Order Now
+                        </button>
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -1002,16 +1121,31 @@ export default function PurchaseClient({
                       onEnlarge={(idx) => handleOpenProductSample(db.title, db.slug, idx)}
                     />
 
-                    {/* Bottom bar with Sold count and Order Now button */}
-                    <div className="w-full pt-3 mt-1 border-t border-brand-border/60 flex items-center justify-between gap-2 text-xs font-mono">
+                    {/* Bottom bar with Sold count and Action buttons */}
+                    <div className="w-full pt-3 mt-1 border-t border-brand-border/60 flex items-center justify-between gap-1.5 text-xs font-mono">
                       <SoldCountBadge count={`${dbSoldCount[db.slug] ?? 0} Units Sold`} size="sm" showIcon={false} />
-                      <button
-                        type="button"
-                        onClick={() => handleOpenCSOrder(db)}
-                        className="py-1.5 px-3 rounded-lg bg-brand-red hover:bg-brand-redHover text-white text-center font-mono text-[11px] sm:text-xs font-bold transition-all flex items-center justify-center cursor-pointer shadow-sm active:scale-95 shrink-0 whitespace-nowrap"
-                      >
-                        Order Now
-                      </button>
+                      <div className="flex items-center gap-1.5 shrink-0">
+                        <button
+                          type="button"
+                          onClick={() => handleAddCSToCart(db)}
+                          className="h-8 w-8 rounded-lg bg-neutral-900 hover:bg-neutral-800 text-neutral-300 hover:text-white border border-neutral-700 hover:border-neutral-600 flex items-center justify-center transition-all cursor-pointer shadow-sm active:scale-95 shrink-0"
+                          title="Add to Cart"
+                          aria-label={`Add ${db.title} to Cart`}
+                        >
+                          {addedStatus[db.slug] ? (
+                            <Check className="h-3.5 w-3.5 text-emerald-400 stroke-[2.5]" />
+                          ) : (
+                            <ShoppingCart className="h-3.5 w-3.5" />
+                          )}
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => handleOpenCSOrder(db)}
+                          className="h-8 px-2.5 sm:px-3 rounded-lg bg-brand-red hover:bg-brand-redHover text-white text-center font-mono text-[11px] sm:text-xs font-bold transition-all flex items-center justify-center cursor-pointer shadow-sm active:scale-95 shrink-0 whitespace-nowrap"
+                        >
+                          Order Now
+                        </button>
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -1058,20 +1192,39 @@ export default function PurchaseClient({
                     onEnlarge={(idx) => handleOpenProductSample("HR Interview (10 Pages)", "hr-interview", idx)}
                   />
 
-                  {/* Bottom bar with Sold count and Order Now button */}
-                  <div className="w-full pt-3 mt-1 border-t border-brand-border/60 flex items-center justify-between gap-2 text-xs font-mono">
+                  {/* Bottom bar with Sold count and Action buttons */}
+                  <div className="w-full pt-3 mt-1 border-t border-brand-border/60 flex items-center justify-between gap-1.5 text-xs font-mono">
                     <SoldCountBadge count="43 Units Sold" size="sm" showIcon={false} />
-                    <button
-                      type="button"
-                      onClick={() => handleOpenCSOrder({
-                        title: "HR Interview (10 Pages)",
-                        slug: "hr-interview",
-                        price: 149,
-                      })}
-                      className="py-1.5 px-3 rounded-lg bg-brand-red hover:bg-brand-redHover text-white text-center font-mono text-[11px] sm:text-xs font-bold transition-all flex items-center justify-center cursor-pointer shadow-sm active:scale-95 shrink-0 whitespace-nowrap"
-                    >
-                      Order Now
-                    </button>
+                    <div className="flex items-center gap-1.5 shrink-0">
+                      <button
+                        type="button"
+                        onClick={() => handleAddCSToCart({
+                          title: "HR Interview (10 Pages)",
+                          slug: "hr-interview",
+                          price: 149,
+                        })}
+                        className="h-8 w-8 rounded-lg bg-neutral-900 hover:bg-neutral-800 text-neutral-300 hover:text-white border border-neutral-700 hover:border-neutral-600 flex items-center justify-center transition-all cursor-pointer shadow-sm active:scale-95 shrink-0"
+                        title="Add to Cart"
+                        aria-label="Add HR Interview (10 Pages) to Cart"
+                      >
+                        {addedStatus["hr-interview"] ? (
+                          <Check className="h-3.5 w-3.5 text-emerald-400 stroke-[2.5]" />
+                        ) : (
+                          <ShoppingCart className="h-3.5 w-3.5" />
+                        )}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleOpenCSOrder({
+                          title: "HR Interview (10 Pages)",
+                          slug: "hr-interview",
+                          price: 149,
+                        })}
+                        className="h-8 px-2.5 sm:px-3 rounded-lg bg-brand-red hover:bg-brand-redHover text-white text-center font-mono text-[11px] sm:text-xs font-bold transition-all flex items-center justify-center cursor-pointer shadow-sm active:scale-95 shrink-0 whitespace-nowrap"
+                      >
+                        Order Now
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1206,11 +1359,31 @@ export default function PurchaseClient({
 
 
 
+                      {/* Add to Cart Option */}
+                      <button
+                        type="button"
+                        onClick={() => handleAddTopicToCart(cat)}
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 h-[34px] rounded-lg bg-neutral-900 hover:bg-neutral-800 text-neutral-200 hover:text-white border border-neutral-700 hover:border-neutral-600 text-xs font-mono font-bold shadow-sm transition-all active:scale-95 shrink-0 whitespace-nowrap cursor-pointer"
+                        title={`Add ${cat.title} to Cart`}
+                      >
+                        {addedStatus[`topic-${cat.id}`] ? (
+                          <>
+                            <Check className="h-3.5 w-3.5 text-emerald-400" />
+                            <span className="text-emerald-400">Added</span>
+                          </>
+                        ) : (
+                          <>
+                            <ShoppingCart className="h-3.5 w-3.5 text-neutral-400" />
+                            <span>Add to Cart</span>
+                          </>
+                        )}
+                      </button>
+
                       {/* Order Now Option */}
                       <button
                         type="button"
                         onClick={() => handleOpenTopicOrder(cat)}
-                        className="inline-flex items-center gap-1.5 px-3.5 py-1.5 h-[34px] rounded-lg bg-brand-red hover:bg-brand-redHover text-white text-xs font-mono font-bold shadow-sm transition-all active:scale-95"
+                        className="inline-flex items-center gap-1.5 px-3 sm:px-3.5 py-1.5 h-[34px] rounded-lg bg-brand-red hover:bg-brand-redHover text-white text-xs font-mono font-bold shadow-sm transition-all active:scale-95 shrink-0 whitespace-nowrap cursor-pointer"
                         title={`Order ${cat.title} printed book`}
                       >
                         <Package className="h-3.5 w-3.5" />
@@ -1404,16 +1577,39 @@ export default function PurchaseClient({
                       </div>
                     </div>
 
-                    {/* Bottom: Compact Order Button */}
-                    <div className="pt-2.5 mt-2 border-t border-brand-border/60 font-mono">
+                    {/* Bottom: Action Buttons (Add to Cart + Order Now) */}
+                    <div className="pt-2.5 mt-2 border-t border-brand-border/60 font-mono grid grid-cols-2 gap-2">
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleAddFullBookToCart(langItem.id);
+                        }}
+                        className="w-full py-1.5 px-2 rounded-lg font-bold text-xs font-mono transition-all flex items-center justify-center gap-1.5 bg-neutral-900 hover:bg-neutral-800 text-neutral-200 hover:text-white border border-neutral-700 hover:border-neutral-600 active:scale-95 cursor-pointer shadow-sm"
+                        title={`Add Full DSA Book (${langItem.name}) to Cart`}
+                      >
+                        {addedStatus[`full-book-${langItem.id}`] ? (
+                          <>
+                            <Check className="h-3.5 w-3.5 text-emerald-400" />
+                            <span className="text-emerald-400">Added</span>
+                          </>
+                        ) : (
+                          <>
+                            <ShoppingCart className="h-3.5 w-3.5 text-neutral-400" />
+                            <span>Add to Cart</span>
+                          </>
+                        )}
+                      </button>
+
                       <button
                         type="button"
                         onClick={(e) => {
                           e.stopPropagation();
                           setSelectedLanguage(langItem.id);
                           setLanguageError(null);
-                          setSelectedProduct({
+                          openCheckout({
                             productType: "COMPLETE_BOOK",
+                            slug: "full-dsa-book",
                             title: `Full DSA Book – ${langItem.name} (All 20 Sections, ~500 Pages)`,
                             description: `Physical spiral-bound printed DSA book containing computer-written ${langItem.name} solutions with Brute Force Solution, Optimal Solution, Time Complexity, and Space Complexity across all 20 DSA sections (~500 pages) delivered to your doorstep.`,
                             language: langItem.id,
@@ -1421,18 +1617,16 @@ export default function PurchaseClient({
                             originalPrice: bookOriginalPrice,
                             pages: 500,
                             sections: 20,
-                            deliveryCharge: 0,
-                            isFreeShipping: true,
+                            image: getBookImage("full-dsa-book", "COMPLETE_BOOK"),
                           });
-                          setIsOrderModalOpen(true);
                         }}
-                        className={`w-full py-1.5 px-2.5 rounded-lg font-bold text-xs font-mono shadow-sm transition-all flex items-center justify-center gap-1.5 active:scale-95 ${isSelected
+                        className={`w-full py-1.5 px-2 rounded-lg font-bold text-xs font-mono shadow-sm transition-all flex items-center justify-center gap-1.5 active:scale-95 cursor-pointer ${isSelected
                           ? "bg-brand-red hover:bg-brand-redHover text-white shadow-brand"
                           : "bg-neutral-900 hover:bg-brand-red text-neutral-200 hover:text-white border border-neutral-700 hover:border-brand-red"
                           }`}
                       >
                         <Package className="h-3.5 w-3.5" />
-                        <span>Order {langItem.name} Book</span>
+                        <span>Order Now</span>
                       </button>
                     </div>
                   </div>
@@ -1442,6 +1636,24 @@ export default function PurchaseClient({
           </div>
         )}
       </div>
+
+      {/* Toast Notification for Add to Cart */}
+      {toastMessage && (
+        <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3 px-4 py-3 rounded-2xl bg-neutral-900/95 border border-brand-red/50 text-white shadow-2xl backdrop-blur-md animate-in slide-in-from-bottom-5 fade-in duration-200">
+          <CheckCircle2 className="h-5 w-5 text-emerald-400 shrink-0" />
+          <div className="text-xs font-mono">
+            <span className="font-bold text-white block">{toastMessage}</span>
+            <span className="text-neutral-400 text-[11px]">Cart updated successfully</span>
+          </div>
+          <button
+            type="button"
+            onClick={openCart}
+            className="ml-2 px-3 py-1.5 rounded-lg bg-brand-red hover:bg-brand-redHover text-white text-xs font-mono font-bold transition shadow-sm cursor-pointer active:scale-95"
+          >
+            View Cart
+          </button>
+        </div>
+      )}
 
 
 

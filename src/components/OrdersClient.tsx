@@ -34,6 +34,7 @@ export interface PrintedOrderItem {
   country: string;
   trackingNumber?: string | null;
   carrier?: string | null;
+  items?: any;
   createdAt: string;
 }
 
@@ -178,6 +179,22 @@ export default function OrdersClient({ initialOrders, user }: OrdersClientProps)
                     <span className="text-neutral-400 text-[11px] block">
                       Order ID: <strong className="text-neutral-200">{order.orderNumber}</strong>
                     </span>
+                    {Array.isArray(order.items) && order.items.length > 0 && (
+                      <div className="pt-1.5 space-y-1">
+                        {order.items.map((it: any, i: number) => (
+                          <div key={i} className="text-[11px] text-neutral-300 flex items-center gap-1.5">
+                            <span className="text-brand-red">&bull;</span>
+                            <span className="text-white font-medium">{it.title}</span>
+                            {it.language && (
+                              <span className="text-[10px] text-brand-red bg-brand-red/10 px-1 rounded border border-brand-red/20 font-bold">
+                                {it.language}
+                              </span>
+                            )}
+                            <span className="text-neutral-400">&times; {it.quantity || 1}</span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
 
                   <div className="flex items-center gap-2 flex-wrap">

@@ -42,6 +42,8 @@ export async function GET() {
         state: true,
         postalCode: true,
         country: true,
+        language: true,
+        items: true,
         trackingNumber: true,
         carrier: true,
         createdAt: true,

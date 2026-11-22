@@ -190,16 +190,19 @@ model Purchase {
 }
 
 model PaymentTransaction {
-  id                String   @id @default(cuid())
-  purchaseId        String
-  purchase          Purchase @relation(fields: [purchaseId], references: [id], onDelete: Cascade)
+  id                String        @id @default(cuid())
+  purchaseId        String?
+  purchase          Purchase?     @relation(fields: [purchaseId], references: [id], onDelete: Cascade)
+  printedOrderId    String?
+  printedOrder      PrintedOrder? @relation(fields: [printedOrderId], references: [id], onDelete: Cascade)
   razorpayPaymentId String
   amount            Int
   status            String
   payload           Json?
-  createdAt         DateTime @default(now())
+  createdAt         DateTime      @default(now())
 
   @@index([purchaseId])
+  @@index([printedOrderId])
   @@map("payment_transactions")
 }
 
@@ -282,6 +285,10 @@ model PrintedOrder {
 
   requiresCertificate Boolean          @default(false)
   certificateStatus   String?
+
+  items               Json?
+
+  transactions        PaymentTransaction[]
 
   createdAt         DateTime           @default(now())
   updatedAt         DateTime           @updatedAt
