@@ -94,7 +94,7 @@ export default function TopicsClient({ initialCategories }: TopicsClientProps) {
       : 0;
 
   // Number of grid boxes in the LeetCode contribution-style tracker (single horizontal row)
-  const TOTAL_TRACKER_BOXES = 40;
+  const TOTAL_TRACKER_BOXES = 50;
   const completedBoxesCount = Math.min(
     TOTAL_TRACKER_BOXES,
     Math.max(
