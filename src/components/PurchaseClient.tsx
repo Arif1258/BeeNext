@@ -29,6 +29,7 @@ import {
   ShoppingCart,
   Sparkles,
   Clock,
+  Code,
 } from "lucide-react";
 
 export interface CategoryCardItem {
@@ -1322,6 +1323,129 @@ export default function PurchaseClient({
                           </span>
                           <span className="text-[10px] font-mono text-neutral-400">
                             Upcoming Edition
+                          </span>
+                        </div>
+                        <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-neutral-900 border border-neutral-800 text-brand-red my-1 group-hover:border-neutral-700 transition-colors">
+                          <BookOpen className="h-3.5 w-3.5" />
+                        </div>
+                        <span className="font-sans text-xs font-bold text-white line-clamp-1">
+                          {book.title}
+                        </span>
+                        <span className="text-[10px] font-mono text-neutral-400 mt-0.5 line-clamp-1">
+                          {book.subtitle}
+                        </span>
+                        <span className="mt-1 px-2 py-0.5 rounded text-[9px] font-mono bg-neutral-900/80 border border-neutral-800/80 text-amber-400/90 line-clamp-1 max-w-[85%] font-medium">
+                          {book.bullet}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Bottom bar with status - No Add to Cart, Order Now, or payment option */}
+                    <div className="w-full pt-3 mt-1 border-t border-brand-border/60 flex items-center justify-between gap-1.5 text-xs font-mono">
+                      <span className="text-[11px] font-mono text-neutral-400 flex items-center gap-1.5">
+                        <Clock className="h-3 w-3 text-amber-400" />
+                        <span>In Preparation</span>
+                      </span>
+                      <div className="h-8 px-3 rounded-lg bg-neutral-900 border border-neutral-800 text-amber-400 font-mono text-[11px] sm:text-xs font-bold flex items-center justify-center gap-1.5 select-none shrink-0 shadow-sm">
+                        <Clock className="h-3.5 w-3.5 text-amber-400" />
+                        <span>Coming Soon</span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Separator */}
+            <div className="border-t border-neutral-800 my-6" />
+
+            {/* Sixth Row – Language */}
+            <div className="space-y-4">
+              <div className="flex items-center gap-2">
+                <Code className="h-4 w-4 text-brand-red" />
+                <h3 className="text-sm sm:text-base font-bold text-white tracking-tight">
+                  Language
+                </h3>
+              </div>
+
+              {/* 4 Language Boxes in one row on desktop, using identical design to Upcoming Books */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-start">
+                {[
+                  {
+                    title: "C",
+                    tag: "C",
+                    description: "Pointers, memory management, data structures & standard library",
+                    subtitle: "Standard C Language Edition",
+                    bullet: "Pointers • Structs • Memory Allocation",
+                  },
+                  {
+                    title: "C++",
+                    tag: "C++",
+                    description: "Modern C++, STL containers, algorithms, templates & OOP",
+                    subtitle: "Modern C++ & STL Edition",
+                    bullet: "STL Vectors • Maps • Smart Pointers",
+                  },
+                  {
+                    title: "Java",
+                    tag: "JAVA",
+                    description: "Core Java, Collections Framework, multithreading & streams",
+                    subtitle: "Object-Oriented Java Edition",
+                    bullet: "Collections • Concurrency • Streams API",
+                  },
+                  {
+                    title: "Python",
+                    tag: "PYTHON",
+                    description: "Pythonic DSA, built-in data structures, OOP & clean syntax",
+                    subtitle: "Pythonic & Clean Syntax Edition",
+                    bullet: "Lists & Dicts • Generators • Complexity",
+                  },
+                ].map((book) => (
+                  <div
+                    key={book.title}
+                    className="w-full rounded-2xl border border-brand-border bg-brand-card p-3.5 sm:p-4 text-left flex flex-col justify-between shadow-card space-y-3.5 hover:border-neutral-700 transition-colors"
+                  >
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between">
+                        <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase bg-brand-red/10 border border-brand-red/30 text-brand-red inline-block">
+                          Book
+                        </span>
+                        <span className="font-mono text-xs sm:text-sm font-extrabold text-amber-400">
+                          Coming Soon
+                        </span>
+                      </div>
+                      <h4
+                        className="text-[12px] sm:text-[12.5px] xl:text-[13.5px] 2xl:text-sm font-extrabold text-white tracking-tight whitespace-nowrap"
+                        title={book.title}
+                      >
+                        {book.title}
+                      </h4>
+                      <p
+                        className="text-xs text-neutral-400 leading-relaxed line-clamp-1"
+                        title={book.description}
+                      >
+                        {book.description}
+                      </p>
+                    </div>
+
+                    {/* Preview Cover Card matching exact dimensions and style of Upcoming Books */}
+                    <div className="w-full space-y-1.5">
+                      <div className="flex items-center justify-between font-mono text-neutral-400 text-[11px]">
+                        <span className="flex items-center gap-1.5 font-medium text-neutral-300">
+                          <BookOpen className="h-3 w-3 text-brand-red" />
+                          <span>Book Overview</span>
+                        </span>
+                        <span className="text-neutral-500 font-mono text-[10px]">
+                          Preview
+                        </span>
+                      </div>
+
+                      <div className="relative w-full aspect-[16/11] rounded-xl bg-neutral-950 border border-neutral-800 overflow-hidden flex flex-col items-center justify-center p-3 text-center select-none group hover:border-neutral-700 transition-colors shadow-inner">
+                        <div className="flex items-center gap-1.5 mb-1">
+                          <span className="px-1.5 py-0.5 rounded text-[9px] font-mono font-bold uppercase bg-brand-red/10 border border-brand-red/30 text-brand-red">
+                            {book.tag}
+                          </span>
+                          <span className="text-[10px] font-mono text-neutral-400">
+                            Language Edition
                           </span>
                         </div>
                         <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-neutral-900 border border-neutral-800 text-brand-red my-1 group-hover:border-neutral-700 transition-colors">

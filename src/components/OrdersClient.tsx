@@ -77,9 +77,29 @@ export default function OrdersClient({ initialOrders, user }: OrdersClientProps)
       case "DELIVERED":
         return "bg-blue-950/60 border-blue-800 text-blue-400";
       case "PROCESSING":
+      case "PENDING":
         return "bg-amber-950/60 border-amber-800 text-amber-400";
       default:
         return "bg-neutral-900 border-neutral-700 text-neutral-300";
+    }
+  };
+
+  const formatOrderStatus = (status: string) => {
+    switch (status) {
+      case "PENDING":
+        return "Pending";
+      case "CONFIRMED":
+        return "Confirmed";
+      case "PROCESSING":
+        return "Processing";
+      case "SHIPPED":
+        return "Shipped";
+      case "DELIVERED":
+        return "Delivered";
+      case "CANCELLED":
+        return "Cancelled";
+      default:
+        return status;
     }
   };
 
@@ -204,7 +224,7 @@ export default function OrdersClient({ initialOrders, user }: OrdersClientProps)
                         order.paymentStatus
                       )}`}
                     >
-                      Payment: {order.paymentStatus === "COMPLETED" ? "Paid" : order.paymentStatus}
+                      Payment: {order.paymentStatus === "COMPLETED" ? "Successful" : order.paymentStatus}
                     </span>
 
                     {/* Delivery / Order Status Badge */}
@@ -213,7 +233,7 @@ export default function OrdersClient({ initialOrders, user }: OrdersClientProps)
                         order.orderStatus
                       )}`}
                     >
-                      Delivery: {order.orderStatus}
+                      Delivery: {formatOrderStatus(order.orderStatus)}
                     </span>
                   </div>
                 </div>

@@ -88,7 +88,7 @@ export async function POST(req: Request) {
         where: { id: printedOrderId },
         data: {
           paymentStatus: "COMPLETED",
-          orderStatus: "CONFIRMED",
+          orderStatus: "PENDING",
           razorpayPaymentId,
           razorpaySignature,
         },

@@ -68,12 +68,12 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Invalid payment signature." }, { status: 400 });
     }
 
-    // Update order status to CONFIRMED and payment to COMPLETED
+    // Update payment to COMPLETED while keeping orderStatus as PENDING
     const updated = await prisma.printedOrder.update({
       where: { id: printedOrderId },
       data: {
         paymentStatus: "COMPLETED",
-        orderStatus: "CONFIRMED",
+        orderStatus: "PENDING",
         razorpayPaymentId,
         razorpaySignature,
       },
