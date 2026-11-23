@@ -9,7 +9,6 @@ import {
   Package,
 } from "lucide-react";
 import { getTopicPrice } from "@/lib/pricing";
-import { getApnaTopicVideo } from "@/lib/apnaTopicVideos";
 
 export interface ProblemItem {
   id: string;
@@ -232,7 +231,6 @@ export default function VerticalTopicAccordion({
         const totalProblems = problems.length || topic._count?.problems || 0;
 
         const topicPrice = getTopicPrice(topic);
-        const apnaTopicVideo = getApnaTopicVideo(topic.slug || topic.title);
 
         // Calculate completed count for this topic
         const completedCount = problems.filter((p) => activeCompletedMap[p.id]).length;
@@ -273,32 +271,8 @@ export default function VerticalTopicAccordion({
                 </h3>
               </div>
 
-              {/* Right: Topic Actions (Apna + Book + Chevron) */}
+              {/* Right: Topic Actions (Book + Chevron) */}
               <div className="flex items-center space-x-2 sm:space-x-2.5 flex-shrink-0">
-                {apnaTopicVideo ? (
-                  <a
-                    href={apnaTopicVideo.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                    }}
-                    className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-neutral-900 border border-neutral-700 hover:border-red-600/60 text-white hover:text-red-400 text-[11px] sm:text-xs font-mono font-medium transition-all shadow-sm active:scale-95"
-                    title={`Watch Apna College video: ${apnaTopicVideo.videoTitle}`}
-                  >
-                    <YouTubeIcon className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
-                    <span>Apna</span>
-                  </a>
-                ) : (
-                  <span
-                    className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-neutral-900/40 border border-neutral-800/60 text-neutral-500 opacity-40 select-none cursor-not-allowed text-[11px] sm:text-xs font-mono font-medium"
-                    title="No Apna College video available for this topic"
-                  >
-                    <YouTubeIcon className="h-3 w-3 sm:h-3.5 sm:w-3.5 opacity-40 grayscale" />
-                    <span>Apna</span>
-                  </span>
-                )}
-
                 <Link
                   href={`/purchase?topic=${encodeURIComponent(topic.slug)}`}
                   onClick={(e) => {

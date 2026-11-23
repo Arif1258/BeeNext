@@ -8,7 +8,6 @@ import {
   Check,
   ExternalLink,
 } from "lucide-react";
-import { getApnaTopicVideo } from "@/lib/apnaTopicVideos";
 
 // YouTube Play Icon
 const YouTubeIcon = ({ className = "h-3.5 w-3.5" }: { className?: string }) => (
@@ -105,7 +104,6 @@ export default function CategoryDetailClient({
     : false;
 
   const completedCount = problems.filter((p) => completedMap[p.id]).length;
-  const apnaTopicVideo = getApnaTopicVideo(category?.slug || category?.title);
 
   return (
     <div className="min-h-screen bg-brand-black text-white py-10 px-4 sm:px-6 lg:px-8 selection:bg-brand-red selection:text-white">
@@ -129,27 +127,6 @@ export default function CategoryDetailClient({
             </div>
 
             <div className="flex items-center gap-3">
-              {apnaTopicVideo ? (
-                <a
-                  href={apnaTopicVideo.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-neutral-900 border border-neutral-700 hover:border-red-600/60 text-white hover:text-red-400 text-xs font-mono font-medium transition-all shadow-sm active:scale-95"
-                  title={`Watch Apna College video: ${apnaTopicVideo.videoTitle}`}
-                >
-                  <YouTubeIcon className="h-3.5 w-3.5" />
-                  <span>Apna</span>
-                </a>
-              ) : (
-                <span
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-neutral-900/40 border border-neutral-800/60 text-neutral-500 opacity-40 select-none cursor-not-allowed text-xs font-mono font-medium"
-                  title="No Apna College video available for this topic"
-                >
-                  <YouTubeIcon className="h-3.5 w-3.5 opacity-40 grayscale" />
-                  <span>Apna</span>
-                </span>
-              )}
-
               <span className="text-xs font-mono text-neutral-400">
                 Completed:{" "}
                 <span className="text-emerald-400 font-bold">
