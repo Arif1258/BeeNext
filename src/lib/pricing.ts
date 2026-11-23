@@ -66,6 +66,9 @@ export function getBookPrice(config?: { price?: number | null } | null): number 
   return config?.price ?? PRICING.COMPLETE_BOOK.price;
 }
 
+// Original price preserved for restoration after live testing
+export const ORIGINAL_SQL_BOOK_PRICE = 119;
+
 export const CS_FUNDAMENTAL_PRICES: Record<
   string,
   { slug: string; title: string; price: number; originalPrice: number; subtitle: string }
@@ -101,7 +104,7 @@ export const CS_FUNDAMENTAL_PRICES: Record<
   "learn-sql": {
     slug: "learn-sql",
     title: "Learn SQL",
-    price: 119,
+    price: 10, // Temporarily reduced to ₹10 for Razorpay live payment testing (original price: 119)
     originalPrice: 249,
     subtitle: "Complete SQL guide, queries, joins, window functions & indexing",
   },

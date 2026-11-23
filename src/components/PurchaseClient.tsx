@@ -1082,7 +1082,7 @@ export default function PurchaseClient({
                   {
                     title: "Learn SQL",
                     slug: "learn-sql",
-                    price: 119,
+                    price: 10,
                     description: "Complete SQL guide, queries, joins, window functions & indexing",
                   },
                   {
