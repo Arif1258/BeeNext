@@ -21,10 +21,12 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "BeeNext — DSA Notes & Computer-Written Java Solutions",
+  title: "BeeNext - DSA Sheet",
   description:
     "Master Data Structures and Algorithms with clean computer-written Java solutions, Brute Force and Optimal approaches, time and space complexity analysis, and LeetCode references. Free Sorting track included.",
   keywords: [
+    "BeeNext",
+    "DSA Sheet",
     "DSA Notes",
     "Computer-Written DSA",
     "Data Structures",
@@ -33,6 +35,17 @@ export const metadata: Metadata = {
     "LeetCode Solutions",
     "Sorting Algorithms",
   ],
+  openGraph: {
+    title: "BeeNext - DSA Sheet",
+    description:
+      "Master Data Structures and Algorithms with clean computer-written Java solutions, Brute Force and Optimal approaches, time and space complexity analysis, and LeetCode references.",
+    siteName: "BeeNext - DSA Sheet",
+  },
+  twitter: {
+    title: "BeeNext - DSA Sheet",
+    description:
+      "Master Data Structures and Algorithms with clean computer-written Java solutions, Brute Force and Optimal approaches, time and space complexity analysis, and LeetCode references.",
+  },
 };
 
 export default function RootLayout({

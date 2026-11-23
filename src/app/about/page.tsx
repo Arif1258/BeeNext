@@ -15,7 +15,7 @@ import {
 import { CUSTOMER_SUPPORT_EMAIL } from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "About BeeNext — Interview-Oriented DSA & CS Books",
+  title: "BeeNext - DSA Sheet",
   description:
     "BeeNext publishes interview-focused physical books for Data Structures & Algorithms, Computer Science fundamentals, databases, and HR interview preparation.",
 };
