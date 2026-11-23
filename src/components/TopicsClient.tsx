@@ -168,7 +168,7 @@ export default function TopicsClient({ initialCategories }: TopicsClientProps) {
             {/* Completed Problems Section */}
             <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-neutral-900 border border-neutral-800 text-xs font-mono shrink-0 shadow-sm">
               <span className="text-neutral-400">Completed:</span>
-              <span className="text-emerald-400 font-bold">
+              <span className="text-brand-red font-bold">
                 {completedCount} / {totalProblemsCount} Problems
               </span>
             </div>
