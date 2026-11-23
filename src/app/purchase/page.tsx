@@ -1,6 +1,7 @@
 import React from "react";
 import prisma from "@/lib/prisma";
 import PurchaseClient from "@/components/PurchaseClient";
+import { unstable_cache } from "next/cache";
 
 export const dynamic = "force-dynamic";
 
@@ -8,69 +9,77 @@ interface PurchaseMainPageProps {
   searchParams?: { [key: string]: string | string[] | undefined };
 }
 
-export default async function PurchaseMainPage({ searchParams }: PurchaseMainPageProps) {
-  const [categories, printedConfig, fullBookOrders, ratingsRaw, allCompletedPrintedOrders] = await Promise.all([
-    prisma.category.findMany({
-      where: { isPublished: true },
-      orderBy: { order: "asc" },
-      select: {
-        id: true,
-        title: true,
-        slug: true,
-        order: true,
-        price: true,
-        description: true,
-        _count: {
-          select: { problems: true },
+const getPurchaseData = unstable_cache(
+  async () => {
+    return Promise.all([
+      prisma.category.findMany({
+        where: { isPublished: true },
+        orderBy: { order: "asc" },
+        select: {
+          id: true,
+          title: true,
+          slug: true,
+          order: true,
+          price: true,
+          description: true,
+          _count: {
+            select: { problems: true },
+          },
         },
-      },
-    }),
-    prisma.printedProductConfig.findUnique({
-      where: { id: "default" },
-      select: {
-        title: true,
-        description: true,
-        price: true,
-        originalPrice: true,
-      },
-    }),
-    prisma.printedOrder.findMany({
-      where: {
-        paymentMethod: { not: "TEST_MODE" },
-        orderNumber: { not: { contains: "TEST" } },
-        customerName: { not: { contains: "[TEST]" } },
-        orderStatus: { not: "CANCELLED" },
-        OR: [
-          { productTitle: { contains: "Book", mode: "insensitive" } },
-          { productTitle: { contains: "Complete", mode: "insensitive" } },
-        ],
-      },
-      select: {
-        language: true,
-        quantity: true,
-        productTitle: true,
-      },
-    }),
-    prisma.bookRating.groupBy({
-      by: ["language"],
-      _avg: { rating: true },
-      _count: { rating: true },
-    }),
-    prisma.printedOrder.findMany({
-      where: {
-        paymentStatus: "COMPLETED",
-        paymentMethod: { not: "TEST_MODE" },
-        orderNumber: { not: { contains: "TEST" } },
-        customerName: { not: { contains: "[TEST]" } },
-        orderStatus: { not: "CANCELLED" },
-      },
-      select: {
-        productTitle: true,
-        notes: true,
-        quantity: true,
-      },
-    }),
-  ]);
+      }),
+      prisma.printedProductConfig.findUnique({
+        where: { id: "default" },
+        select: {
+          title: true,
+          description: true,
+          price: true,
+          originalPrice: true,
+        },
+      }),
+      prisma.printedOrder.findMany({
+        where: {
+          paymentMethod: { not: "TEST_MODE" },
+          orderNumber: { not: { contains: "TEST" } },
+          customerName: { not: { contains: "[TEST]" } },
+          orderStatus: { not: "CANCELLED" },
+          OR: [
+            { productTitle: { contains: "Book", mode: "insensitive" } },
+            { productTitle: { contains: "Complete", mode: "insensitive" } },
+          ],
+        },
+        select: {
+          language: true,
+          quantity: true,
+          productTitle: true,
+        },
+      }),
+      prisma.bookRating.groupBy({
+        by: ["language"],
+        _avg: { rating: true },
+        _count: { rating: true },
+      }),
+      prisma.printedOrder.findMany({
+        where: {
+          paymentStatus: "COMPLETED",
+          paymentMethod: { not: "TEST_MODE" },
+          orderNumber: { not: { contains: "TEST" } },
+          customerName: { not: { contains: "[TEST]" } },
+          orderStatus: { not: "CANCELLED" },
+        },
+        select: {
+          productTitle: true,
+          notes: true,
+          quantity: true,
+        },
+      }),
+    ]);
+  },
+  ["purchase-page-data"],
+  { revalidate: 60, tags: ["purchase"] }
+);
+
+export default async function PurchaseMainPage({ searchParams }: PurchaseMainPageProps) {
+  const [categories, printedConfig, fullBookOrders, ratingsRaw, allCompletedPrintedOrders] = await getPurchaseData();
 
   const byLanguage: Record<string, number> = {
     C: 0,

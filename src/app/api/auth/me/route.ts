@@ -1,13 +1,22 @@
 import { NextResponse } from "next/server";
-import { getCurrentUser } from "@/lib/auth";
+import { cookies } from "next/headers";
+import { verifyToken } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 
 export const dynamic = "force-dynamic";
 
+const COOKIE_NAME = process.env.SESSION_COOKIE_NAME || "beenext_token";
+
 export async function GET() {
   try {
-    const session = await getCurrentUser();
-    if (!session) {
+    const cookieStore = cookies();
+    const token = cookieStore.get(COOKIE_NAME)?.value;
+    if (!token) {
+      return NextResponse.json({ user: null });
+    }
+
+    const session = verifyToken(token);
+    if (!session?.id) {
       return NextResponse.json({ user: null });
     }
 

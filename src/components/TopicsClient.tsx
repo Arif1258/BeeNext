@@ -113,13 +113,13 @@ export default function TopicsClient({ initialCategories }: TopicsClientProps) {
               BEE<span className="text-brand-red">NEXT</span> – HERO TO INFINITY DSA SHEET
             </h1>
             <h2 className="text-base sm:text-lg font-bold text-white tracking-tight pt-1">
-              BeeNext&apos;s DSA Sheet
+              Sheet Details
             </h2>
             <p className="text-xs sm:text-sm text-neutral-300 font-normal leading-relaxed">
-              Prepare for technical interviews with BeeNext&apos;s carefully curated DSA Sheet, featuring problem-solving guidance from both <strong className="text-white font-semibold">Striver and Apna College</strong>. It focuses exclusively on interview-relevant problems and concepts — nothing unnecessary.
+              Prepare for technical interviews with BeeNext&apos;s carefully curated free DSA Sheet, featuring problem-solving guidance from Striver and Apna College. Developed in collaboration with senior faculty members of IIT Kharagpur, it focuses on interview-relevant problems and essential concepts, making quality DSA preparation accessible to every student.
             </p>
             <p className="text-xs sm:text-sm text-neutral-300 font-normal leading-relaxed">
-              Explore our topic-wise and complete DSA books, designed to help learners strengthen their problem-solving skills and prepare effectively for coding interviews. Each problem includes access to available video explanations from Striver and Apna College, helping you understand different approaches and improve your problem-solving skills.
+              Alongside our free DSA Sheet, visit the Purchase section to explore BeeNext&apos;s wide collection of books. Carefully researched and curated exclusively for coding interviews, our books cover important problems and concepts to strengthen problem-solving skills and help professionals prepare effectively for technical interviews.
             </p>
             <p className="text-xs sm:text-sm font-bold text-white tracking-wide pt-1">
               Learn what matters. Skip what doesn&apos;t.
@@ -213,11 +213,10 @@ export default function TopicsClient({ initialCategories }: TopicsClientProps) {
               return (
                 <div
                   key={index}
-                  className={`flex-1 aspect-square rounded-[2px] transition-colors duration-200 ${
-                    isCompleted
-                      ? "bg-[#16a34a] border border-[#16a34a]"
-                      : "bg-transparent border border-emerald-500/40"
-                  }`}
+                  className={`flex-1 aspect-square rounded-[2px] transition-colors duration-200 ${isCompleted
+                    ? "bg-[#16a34a] border border-[#16a34a]"
+                    : "bg-transparent border border-emerald-500/40"
+                    }`}
                   style={{ aspectRatio: "1 / 1" }}
                   title={
                     isCompleted
