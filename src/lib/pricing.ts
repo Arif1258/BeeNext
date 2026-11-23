@@ -67,14 +67,22 @@ export const PRICING = {
 } as const;
 
 export function getTopicPrice(category?: { slug?: string; price?: number | null } | null): number {
-  if (category?.slug && TOPIC_BOOK_PRICES[category.slug]) {
+  const numericPrice = typeof category?.price === "number" ? category.price : Number(category?.price);
+  if (!isNaN(numericPrice) && numericPrice > 0) {
+    return numericPrice;
+  }
+  if (category?.slug && typeof TOPIC_BOOK_PRICES[category.slug] === "number") {
     return TOPIC_BOOK_PRICES[category.slug];
   }
-  return category?.price ?? PRICING.TOPIC_SHEETS.defaultPrice;
+  return PRICING.TOPIC_SHEETS.defaultPrice;
 }
 
 export function getBookPrice(config?: { price?: number | null } | null): number {
-  return config?.price ?? PRICING.COMPLETE_BOOK.price;
+  const numericPrice = typeof config?.price === "number" ? config.price : Number(config?.price);
+  if (!isNaN(numericPrice) && numericPrice > 0) {
+    return numericPrice;
+  }
+  return PRICING.COMPLETE_BOOK.price;
 }
 
 export const CS_FUNDAMENTAL_PRICES: Record<
@@ -123,6 +131,13 @@ export const CS_FUNDAMENTAL_PRICES: Record<
     originalPrice: 249,
     subtitle: "NoSQL MongoDB, schema design, aggregation pipeline & indexing",
   },
+  "hr-interview": {
+    slug: "hr-interview",
+    title: "HR Interview Book",
+    price: 149,
+    originalPrice: 299,
+    subtitle: "Behavioral questions, situational answers & interview strategies",
+  },
 };
 
 export function getCsFundamentalPrice(
@@ -147,6 +162,9 @@ export function getCsFundamentalPrice(
   }
   if (lower.includes("mongo") || lower.includes("mongodb") || lower.includes("learn-mongodb")) {
     return CS_FUNDAMENTAL_PRICES["learn-mongodb"];
+  }
+  if (lower.includes("hr") || lower.includes("interview")) {
+    return CS_FUNDAMENTAL_PRICES["hr-interview"];
   }
   return null;
 }

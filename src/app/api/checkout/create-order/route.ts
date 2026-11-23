@@ -155,7 +155,7 @@ export async function POST(req: Request) {
       const qty = Math.max(1, Math.min(10, parseInt(String(it.quantity), 10) || 1));
       totalQuantity += qty;
 
-      let verifiedPrice = 1499; // fallback default
+      let verifiedPrice: number = PRICING.COMPLETE_BOOK.price; // fallback default (1499)
       let itemTitle = it.title || "DSA Book";
       const pType = it.productType || "COMPLETE_BOOK";
       const slug = (it.slug || "").toLowerCase();
@@ -182,7 +182,7 @@ export async function POST(req: Request) {
             select: { price: true, slug: true, title: true },
           });
           if (cat) {
-            verifiedPrice = (cat.slug && TOPIC_BOOK_PRICES[cat.slug]) || cat.price || 89;
+            verifiedPrice = (cat.slug && TOPIC_BOOK_PRICES[cat.slug]) || cat.price || PRICING.TOPIC_SHEETS.defaultPrice;
             itemTitle = `${cat.title}${langSuffix} – Book`;
           }
         }

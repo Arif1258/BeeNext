@@ -120,6 +120,8 @@ export default function CartDrawer() {
                             src={item.image || getBookImage(item.slug, item.productType)}
                             alt={item.title}
                             className="h-full w-full object-cover"
+                            loading="lazy"
+                            decoding="async"
                           />
                         </div>
                         <div className="space-y-1 flex-1 min-w-0">

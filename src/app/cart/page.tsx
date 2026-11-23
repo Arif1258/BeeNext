@@ -130,6 +130,8 @@ export default function CartPage() {
                             src={coverImage}
                             alt={item.title}
                             className="h-full w-full object-cover"
+                            loading="lazy"
+                            decoding="async"
                           />
                         </div>
 

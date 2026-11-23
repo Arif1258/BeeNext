@@ -94,7 +94,7 @@ export async function POST(req: Request) {
       productTitle = `${category.title}${langText} – Book`;
     } else {
       // Complete DSA Book (₹1,499 across all programming languages)
-      unitPrice = 1499;
+      unitPrice = PRICING.COMPLETE_BOOK.price;
       const langText = language ? ` (${language})` : "";
       productTitle = `Full DSA Book${langText} (All 20 Topics, ~500 Pages)`;
     }
