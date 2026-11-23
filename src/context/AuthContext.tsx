@@ -127,12 +127,27 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const logout = async () => {
     try {
-      await fetch("/api/auth/logout", { method: "POST" });
+      // Optimistically clear user state immediately for 0ms perceived latency
       setUser(null);
-      router.push("/");
+
+      const currentPath = typeof window !== "undefined" ? window.location.pathname : "";
+      const isProtectedRoute =
+        currentPath.startsWith("/profile") ||
+        currentPath.startsWith("/admin") ||
+        currentPath.startsWith("/orders") ||
+        currentPath.startsWith("/my-orders");
+
+      const logoutPromise = fetch("/api/auth/logout", { method: "POST" });
+
+      if (isProtectedRoute) {
+        router.push("/topics");
+      }
+
+      await logoutPromise;
       router.refresh();
     } catch (err) {
       console.error("Logout error", err);
+      setUser(null);
     }
   };
 

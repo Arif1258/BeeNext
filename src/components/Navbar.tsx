@@ -75,9 +75,9 @@ export default function Navbar() {
   };
 
   const handleLogout = async () => {
-    await logout();
     setProfileDropdownOpen(false);
     setMobileMenuOpen(false);
+    await logout();
   };
 
   return (
