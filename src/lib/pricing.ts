@@ -54,11 +54,11 @@ export const PRICING = {
   PHYSICAL_CERTIFICATE: {
     id: "physical-certificate",
     slug: "physical-certificate",
-    title: "BeeNext Physical Certificate of Achievement",
+    title: "BeeNext Physical Certificate of Achievement (Free)",
     description:
-      "Official printed physical Certificate of Achievement printed on premium certificate parchment paper, stamped with BeeNext official holographic authentication, delivered directly to your doorstep.",
-    price: 99,
-    originalPrice: 299,
+      "Official printed physical Certificate of Achievement included completely free with physical book orders for customers with 85%+ DSA progress.",
+    price: 0,
+    originalPrice: 0,
     deliveryCharge: 0,
     isFreeShipping: true,
   },

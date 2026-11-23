@@ -133,43 +133,6 @@ export async function POST(req: Request) {
       } catch (certErr: any) {
         console.warn("Certificate order already recorded or unique constraint caught:", certErr?.code);
       }
-    } else if (updated.userId) {
-      const userProfile = await prisma.user.findUnique({
-        where: { id: updated.userId },
-        select: { dsaQualifiedAt: true, certificateClaimedAt: true },
-      });
-      const existingCert = await prisma.certificateOrder.findFirst({
-        where: { userId: updated.userId, status: "CONFIRMED" },
-      });
-      if (userProfile?.dsaQualifiedAt && !userProfile.certificateClaimedAt && !existingCert) {
-        await Promise.all([
-          prisma.printedOrder.update({
-            where: { id: updated.id },
-            data: { requiresCertificate: true, certificateStatus: "PENDING" },
-          }),
-          prisma.user.update({
-            where: { id: updated.userId },
-            data: { certificateClaimedAt: new Date() },
-          }),
-        ]);
-        try {
-          await prisma.certificateOrder.create({
-            data: {
-              userId: updated.userId,
-              certificateUserKey: updated.userId, // Database UNIQUE constraint
-              printedOrderId: updated.id,
-              orderNumber: updated.orderNumber,
-              customerName: updated.customerName,
-              customerEmail: updated.customerEmail,
-              status: "CONFIRMED",
-              deliveryStatus: "PENDING",
-              isReplacement: false,
-            },
-          });
-        } catch (certErr: any) {
-          console.warn("Certificate order already recorded:", certErr?.code);
-        }
-      }
     }
 
     return NextResponse.json({

@@ -147,8 +147,8 @@ export async function GET() {
       user.certificateClaimedAt || confirmedCertOrder || confirmedPrintedCert
     );
 
-    // If both criteria are met: 85% DSA completion + qualifying physical book order
-    const isEligible = is85Completed && hasQualifyingOrder;
+    // Eligible if >=85% completed and has not yet claimed their free one-time physical certificate
+    const isEligible = is85Completed && !hasOrderedCertificate;
 
     return NextResponse.json({
       isLoggedIn: true,

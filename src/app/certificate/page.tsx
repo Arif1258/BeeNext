@@ -5,7 +5,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { CheckCircle2, Lock, ArrowRight, Award, Package, ShieldCheck } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
-import { useCart } from "@/context/CartContext";
 
 interface CertificateStatusData {
   isLoggedIn: boolean;
@@ -44,7 +43,6 @@ interface CertificateStatusData {
 export default function CertificatePage() {
   const router = useRouter();
   const { user } = useAuth();
-  const { openCheckout } = useCart();
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState<CertificateStatusData>({
     isLoggedIn: false,
@@ -89,10 +87,10 @@ export default function CertificatePage() {
 
   // Criteria statuses
   const criteria1Fulfilled = is85Completed;
-  const criteria2Fulfilled = is85Completed && hasQualifyingOrder;
+  const criteria2Fulfilled = Boolean(data.hasOrderedCertificate || data.certificateClaimedAt);
 
   // One-Time Physical Certificate Status
-  const hasAlreadyOrdered = Boolean(data.hasOrderedCertificate || data.certificateClaimedAt);
+  const hasAlreadyOrdered = criteria2Fulfilled;
 
   // Ordering button state logic:
   let buttonDisabled = false;
@@ -101,31 +99,18 @@ export default function CertificatePage() {
   if (hasAlreadyOrdered) {
     buttonDisabled = true;
     buttonHelperText =
-      "You have already ordered your physical certificate. This option is available only once per customer.";
+      "You have already claimed your one-time physical certificate. This benefit is available only once per customer.";
   } else if (!user) {
     buttonDisabled = false;
-    buttonHelperText = "Please log in to your account to order your physical certificate.";
-  } else {
+    buttonHelperText = "Please log in to your account to check your DSA sheet progress and certificate qualification.";
+  } else if (is85Completed) {
     buttonDisabled = false;
     buttonHelperText =
-      "Click to order your authentic physical Certificate of Achievement delivered to your doorstep.";
+      "Congratulations! You qualify for a 100% FREE Physical Certificate. It will automatically be included with your next physical book order at no extra cost.";
+  } else {
+    buttonDisabled = true;
+    buttonHelperText = `Complete at least 85% of the DSA Sheet to qualify for your free physical certificate (Current: ${completionPercentage}% / 85%).`;
   }
-
-  const handleOrderCertificate = () => {
-    if (hasAlreadyOrdered) return;
-    if (!user) {
-      router.push("/login?redirect=/certificate");
-      return;
-    }
-    openCheckout({
-      id: "physical-certificate",
-      slug: "physical-certificate",
-      productType: "CERTIFICATE" as any,
-      title: "BeeNext Physical Certificate of Achievement",
-      price: 99,
-      quantity: 1,
-    });
-  };
 
   return (
     <div className="min-h-screen bg-brand-black text-white py-10 sm:py-14 px-4 sm:px-6 lg:px-8 selection:bg-brand-red selection:text-white">
@@ -206,27 +191,45 @@ export default function CertificatePage() {
         </section>
 
         {/* ========================================================= */}
-        {/* CERTIFICATE ORDERING BUTTON                               */}
+        {/* CERTIFICATE ORDERING / QUALIFICATION ACTION               */}
         {/* ========================================================= */}
         <section className="rounded-xl border border-neutral-800 bg-neutral-900/70 p-5 sm:p-6 space-y-3.5 text-center shadow-md">
           {hasAlreadyOrdered ? (
             <button
               type="button"
               disabled
-              className="w-full py-3.5 px-6 rounded-xl font-mono font-bold text-xs sm:text-sm uppercase tracking-wider bg-neutral-800/80 text-neutral-500 border border-neutral-700/60 cursor-not-allowed transition flex items-center justify-center gap-2"
+              className="w-full py-3.5 px-6 rounded-xl font-mono font-bold text-xs sm:text-sm uppercase tracking-wider bg-neutral-800/80 text-neutral-400 border border-neutral-700/60 cursor-not-allowed transition flex items-center justify-center gap-2"
             >
               <CheckCircle2 className="h-4 w-4 text-emerald-500" />
-              <span>Already Ordered</span>
+              <span>Already Claimed (Included with Book Order)</span>
             </button>
-          ) : (
-            <button
-              type="button"
-              onClick={handleOrderCertificate}
+          ) : !user ? (
+            <Link
+              href="/login?redirect=/certificate"
               className="w-full py-3.5 px-6 rounded-xl font-mono font-bold text-xs sm:text-sm uppercase tracking-wider bg-brand-red hover:bg-brand-red/90 text-white border border-brand-red transition shadow-glow flex items-center justify-center gap-2"
             >
               <Award className="h-4 w-4" />
-              <span>Order Physical Certificate</span>
-            </button>
+              <span>Log In to Check Qualification</span>
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          ) : is85Completed ? (
+            <Link
+              href="/purchase"
+              className="w-full py-3.5 px-6 rounded-xl font-mono font-bold text-xs sm:text-sm uppercase tracking-wider bg-emerald-600 hover:bg-emerald-500 text-white border border-emerald-500 transition shadow-glow flex items-center justify-center gap-2"
+            >
+              <Award className="h-4 w-4" />
+              <span>Order a Physical Book (Free Certificate Included)</span>
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          ) : (
+            <Link
+              href="/topics"
+              className="w-full py-3.5 px-6 rounded-xl font-mono font-bold text-xs sm:text-sm uppercase tracking-wider bg-neutral-800/90 hover:bg-neutral-800 text-neutral-300 border border-neutral-700 transition flex items-center justify-center gap-2"
+            >
+              <Lock className="h-4 w-4 text-amber-500" />
+              <span>Solve Problems to Reach 85% ({completionPercentage}% / 85%)</span>
+              <ArrowRight className="h-4 w-4" />
+            </Link>
           )}
 
           {/* Helper Text */}
@@ -255,20 +258,6 @@ export default function CertificatePage() {
                   </span>
                 </>
               )}
-            </div>
-          )}
-
-          {/* Quick action to order book if Criteria 1 is met but Criteria 2 is pending */}
-          {!hasAlreadyOrdered && criteria1Fulfilled && !criteria2Fulfilled && (
-            <div className="pt-1">
-              <Link
-                href="/purchase"
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-brand-red text-white text-xs font-mono font-bold hover:bg-brand-red/90 transition shadow-sm"
-              >
-                <Package className="h-3.5 w-3.5" />
-                <span>Browse &amp; Order BeeNext Physical Books</span>
-                <ArrowRight className="h-3.5 w-3.5" />
-              </Link>
             </div>
           )}
         </section>

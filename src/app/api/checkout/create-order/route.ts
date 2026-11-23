@@ -77,8 +77,8 @@ export async function POST(req: Request) {
       if (existingUser) targetUserId = existingUser.id;
     }
 
-    // Check if the order contains a physical certificate purchase
-    const isCertificateOrder = itemsList.some(
+    // Check if the request explicitly asks for a physical certificate
+    const hasCertificateItem = itemsList.some(
       (it) =>
         it.productType === "CERTIFICATE" ||
         it.slug === "physical-certificate" ||
@@ -86,31 +86,51 @@ export async function POST(req: Request) {
         (it.title && it.title.toLowerCase().includes("certificate"))
     );
 
-    // One-Time Physical Certificate Enforcement
-    if (isCertificateOrder) {
-      if (!targetUserId) {
-        return NextResponse.json(
-          { error: "Please log in with your registered account to order your physical certificate." },
-          { status: 401 }
-        );
-      }
+    const explicitlyRequestedCert =
+      hasCertificateItem || Boolean(body.requiresCertificate) || Boolean(body.claimCertificate);
 
-      // Check if this registered customer has already ordered/claimed a certificate
+    // Filter book items (Complete Book, CS Fundamentals, or Topic Books)
+    const bookItems = itemsList.filter(
+      (it) =>
+        it.productType !== "CERTIFICATE" &&
+        it.slug !== "physical-certificate" &&
+        !(it.slug && it.slug.includes("certificate")) &&
+        !(it.title && it.title.toLowerCase().includes("certificate"))
+    );
+
+    // Requirement 1: Make Physical Certificate Completely Free.
+    // The physical certificate cannot be ordered or checked out separately.
+    // It must be included inside a physical book order at no extra cost.
+    if (bookItems.length === 0) {
+      return NextResponse.json(
+        {
+          error:
+            "Physical certificates cannot be ordered separately. Eligible customers (85%+ DSA sheet completed) automatically receive a free physical certificate included with any physical book order.",
+        },
+        { status: 400 }
+      );
+    }
+
+    // One-Time Physical Certificate Restriction & Direct API Bypass Prevention
+    if (targetUserId) {
       const [existingClaim, existingCertOrder] = await Promise.all([
         prisma.user.findUnique({
           where: { id: targetUserId },
-          select: { certificateClaimedAt: true },
+          select: { certificateClaimedAt: true, dsaQualifiedAt: true },
         }),
         prisma.certificateOrder.findFirst({
           where: { userId: targetUserId, status: "CONFIRMED" },
         }),
       ]);
 
-      if (existingClaim?.certificateClaimedAt || existingCertOrder) {
+      const hasAlreadyClaimed = Boolean(existingClaim?.certificateClaimedAt || existingCertOrder);
+
+      // Scenario 6: Direct API attempt to claim a second certificate is rejected
+      if (hasAlreadyClaimed && explicitlyRequestedCert) {
         return NextResponse.json(
           {
             error:
-              "You have already ordered your physical certificate. This option is available only once per customer.",
+              "You have already received your free physical certificate. This benefit is available only once per customer.",
           },
           { status: 400 }
         );
@@ -146,8 +166,8 @@ export async function POST(req: Request) {
         verifiedPrice = PRICING.COMPLETE_BOOK.price; // 1499
         itemTitle = `Full DSA Book${langSuffix} (All 20 Topics, ~500 Pages)`;
       } else if (pType === "CERTIFICATE" || slug === "physical-certificate" || slug.includes("certificate") || (it.title && it.title.toLowerCase().includes("certificate"))) {
-        verifiedPrice = PRICING.PHYSICAL_CERTIFICATE.price; // 99
-        itemTitle = "BeeNext Physical Certificate of Achievement";
+        verifiedPrice = 0; // 100% Free Physical Certificate
+        itemTitle = "BeeNext Physical Certificate of Achievement (Free)";
       } else if (pType === "CS_FUNDAMENTAL" || getCsFundamentalPrice(slug || it.title)) {
         const cs = getCsFundamentalPrice(slug || it.title);
         verifiedPrice = cs?.price || 149;
@@ -219,11 +239,11 @@ export async function POST(req: Request) {
       },
     });
 
-    // Check certificate qualification
-    let requiresCertificate = isCertificateOrder;
-    let certificateStatus: string | null = isCertificateOrder ? "PENDING" : null;
+    // Check certificate qualification for physical book orders
+    let requiresCertificate = false;
+    let certificateStatus: string | null = null;
 
-    if (!requiresCertificate && targetUserId) {
+    if (targetUserId) {
       const userProfile = await prisma.user.findUnique({
         where: { id: targetUserId },
         select: { dsaQualifiedAt: true, certificateClaimedAt: true },
@@ -233,27 +253,37 @@ export async function POST(req: Request) {
         where: { userId: targetUserId, status: "CONFIRMED" },
       });
 
-      if (userProfile && !userProfile.certificateClaimedAt && !existingCertOrder) {
-        let isQualified = Boolean(userProfile.dsaQualifiedAt);
-        if (!isQualified) {
-          const [totalProblems, completedProblems] = await Promise.all([
-            prisma.problem.count({ where: { isPublished: true } }),
-            prisma.userProgress.count({
-              where: { userId: targetUserId, status: ProgressStatus.COMPLETED },
-            }),
-          ]);
-          if (totalProblems > 0 && completedProblems / totalProblems >= 0.85) {
-            isQualified = true;
+      const hasAlreadyClaimed = Boolean(userProfile?.certificateClaimedAt || existingCertOrder);
+
+      if (!hasAlreadyClaimed) {
+        // Calculate exact DSA completion ratio
+        const [totalProblems, completedProblems] = await Promise.all([
+          prisma.problem.count({ where: { isPublished: true } }),
+          prisma.userProgress.count({
+            where: { userId: targetUserId, status: ProgressStatus.COMPLETED },
+          }),
+        ]);
+
+        const completionRatio = totalProblems > 0 ? completedProblems / totalProblems : 0;
+        const is85Completed = completionRatio >= 0.85;
+
+        if (is85Completed) {
+          // Automatic free physical certificate inclusion with book shipment
+          requiresCertificate = true;
+          certificateStatus = "PENDING";
+          if (!userProfile?.dsaQualifiedAt) {
             await prisma.user.update({
               where: { id: targetUserId },
               data: { dsaQualifiedAt: new Date() },
             });
           }
-        }
-
-        if (isQualified) {
-          requiresCertificate = true;
-          certificateStatus = "PENDING";
+        } else if (explicitlyRequestedCert) {
+          return NextResponse.json(
+            {
+              error: `You must complete at least 85% of the DSA sheet to qualify for the free physical certificate. Current progress: ${Math.round(completionRatio * 100)}%.`,
+            },
+            { status: 400 }
+          );
         }
       }
     }

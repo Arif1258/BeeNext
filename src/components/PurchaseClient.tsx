@@ -1316,28 +1316,7 @@ export default function PurchaseClient({
                         </span>
                       </div>
 
-                      <div className="relative w-full aspect-[16/11] rounded-xl bg-neutral-950 border border-neutral-800 overflow-hidden flex flex-col items-center justify-center p-3 text-center select-none group hover:border-neutral-700 transition-colors shadow-inner">
-                        <div className="flex items-center gap-1.5 mb-1">
-                          <span className="px-1.5 py-0.5 rounded text-[9px] font-mono font-bold uppercase bg-brand-red/10 border border-brand-red/30 text-brand-red">
-                            {book.tag}
-                          </span>
-                          <span className="text-[10px] font-mono text-neutral-400">
-                            Upcoming Edition
-                          </span>
-                        </div>
-                        <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-neutral-900 border border-neutral-800 text-brand-red my-1 group-hover:border-neutral-700 transition-colors">
-                          <BookOpen className="h-3.5 w-3.5" />
-                        </div>
-                        <span className="font-sans text-xs font-bold text-white line-clamp-1">
-                          {book.title}
-                        </span>
-                        <span className="text-[10px] font-mono text-neutral-400 mt-0.5 line-clamp-1">
-                          {book.subtitle}
-                        </span>
-                        <span className="mt-1 px-2 py-0.5 rounded text-[9px] font-mono bg-neutral-900/80 border border-neutral-800/80 text-amber-400/90 line-clamp-1 max-w-[85%] font-medium">
-                          {book.bullet}
-                        </span>
-                      </div>
+                      <div className="w-full aspect-[16/11] rounded-xl bg-black border border-neutral-800" />
                     </div>
 
                     {/* Bottom bar with status - No Add to Cart, Order Now, or payment option */}
