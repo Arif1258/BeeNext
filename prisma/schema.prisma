@@ -73,6 +73,7 @@ model User {
   bookmarks     Bookmark[]
   progress      UserProgress[]
   bookRatings   BookRating[]
+  certificateOrders CertificateOrder[]
 
   @@map("users")
 }
@@ -290,6 +291,7 @@ model PrintedOrder {
   items               Json?
 
   transactions        PaymentTransaction[]
+  certificateOrder    CertificateOrder?
 
   createdAt         DateTime           @default(now())
   updatedAt         DateTime           @updatedAt
@@ -339,4 +341,35 @@ model BookRating {
 
   @@index([language])
   @@map("book_ratings")
+}
+
+model CertificateOrder {
+  id                 String        @id @default(cuid())
+  userId             String
+  user               User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Database-level uniqueness constraint: prevents duplicate confirmed purchases for this user
+  certificateUserKey String?       @unique
+
+  printedOrderId     String?       @unique
+  printedOrder       PrintedOrder? @relation(fields: [printedOrderId], references: [id], onDelete: SetNull)
+
+  orderNumber        String
+  customerName       String
+  customerEmail      String
+  status             String        @default("CONFIRMED") // CONFIRMED, CANCELLED
+  deliveryStatus     String        @default("PENDING")   // PENDING, PRINTED, PACKED, SHIPPED, DELIVERED
+  trackingNumber     String?
+  carrier            String?
+
+  isReplacement      Boolean       @default(false)
+  replacementNote    String?       @db.Text
+  recordedByAdmin    String?       // Email/name of admin who recorded replacement
+
+  createdAt          DateTime      @default(now())
+  updatedAt          DateTime      @updatedAt
+
+  @@index([userId])
+  @@index([deliveryStatus])
+  @@map("certificate_orders")
 }

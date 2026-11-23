@@ -3,8 +3,9 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { CheckCircle2, Lock, ArrowRight, Award, Package } from "lucide-react";
+import { CheckCircle2, Lock, ArrowRight, Award, Package, ShieldCheck } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
+import { useCart } from "@/context/CartContext";
 
 interface CertificateStatusData {
   isLoggedIn: boolean;
@@ -27,12 +28,23 @@ interface CertificateStatusData {
     createdAt: string;
   } | null;
   certificateClaimedAt: string | null;
+  hasOrderedCertificate?: boolean;
+  certificateOrder?: {
+    id: string;
+    orderNumber: string;
+    deliveryStatus: string;
+    trackingNumber?: string | null;
+    carrier?: string | null;
+    isReplacement?: boolean;
+    createdAt: string;
+  } | null;
   isEligible: boolean;
 }
 
 export default function CertificatePage() {
   const router = useRouter();
   const { user } = useAuth();
+  const { openCheckout } = useCart();
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState<CertificateStatusData>({
     isLoggedIn: false,
@@ -44,6 +56,8 @@ export default function CertificatePage() {
     hasQualifyingOrder: false,
     qualifyingOrder: null,
     certificateClaimedAt: null,
+    hasOrderedCertificate: false,
+    certificateOrder: null,
     isEligible: false,
   });
 
@@ -77,28 +91,40 @@ export default function CertificatePage() {
   const criteria1Fulfilled = is85Completed;
   const criteria2Fulfilled = is85Completed && hasQualifyingOrder;
 
+  // One-Time Physical Certificate Status
+  const hasAlreadyOrdered = Boolean(data.hasOrderedCertificate || data.certificateClaimedAt);
+
   // Ordering button state logic:
-  // 1. Before 85%: Disabled + "Complete 85% of the DSA Sheet to unlock this option."
-  // 2. After 85%, but before qualifying book order: Disabled + "Place an order for any BeeNext physical book to receive your certificate."
-  // 3. After both criteria fulfilled: Enabled -> navigates to /purchase.
-  let buttonDisabled = true;
+  let buttonDisabled = false;
   let buttonHelperText = "";
 
-  if (!criteria1Fulfilled) {
+  if (hasAlreadyOrdered) {
     buttonDisabled = true;
-    buttonHelperText = "Complete 85% of the DSA Sheet to unlock this option.";
-  } else if (!criteria2Fulfilled) {
-    buttonDisabled = true;
-    buttonHelperText = "Place an order for any BeeNext physical book to receive your certificate.";
+    buttonHelperText =
+      "You have already ordered your physical certificate. This option is available only once per customer.";
+  } else if (!user) {
+    buttonDisabled = false;
+    buttonHelperText = "Please log in to your account to order your physical certificate.";
   } else {
     buttonDisabled = false;
-    buttonHelperText = "Both criteria fulfilled! Click to order your physical book with your included certificate.";
+    buttonHelperText =
+      "Click to order your authentic physical Certificate of Achievement delivered to your doorstep.";
   }
 
   const handleOrderCertificate = () => {
-    if (!buttonDisabled) {
-      router.push("/purchase");
+    if (hasAlreadyOrdered) return;
+    if (!user) {
+      router.push("/login?redirect=/certificate");
+      return;
     }
+    openCheckout({
+      id: "physical-certificate",
+      slug: "physical-certificate",
+      productType: "CERTIFICATE" as any,
+      title: "BeeNext Physical Certificate of Achievement",
+      price: 99,
+      quantity: 1,
+    });
   };
 
   return (
@@ -183,13 +209,14 @@ export default function CertificatePage() {
         {/* CERTIFICATE ORDERING BUTTON                               */}
         {/* ========================================================= */}
         <section className="rounded-xl border border-neutral-800 bg-neutral-900/70 p-5 sm:p-6 space-y-3.5 text-center shadow-md">
-          {buttonDisabled ? (
+          {hasAlreadyOrdered ? (
             <button
               type="button"
               disabled
-              className="w-full py-3.5 px-6 rounded-xl font-mono font-bold text-xs sm:text-sm uppercase tracking-wider bg-neutral-800/80 text-neutral-500 border border-neutral-700/60 cursor-not-allowed transition"
+              className="w-full py-3.5 px-6 rounded-xl font-mono font-bold text-xs sm:text-sm uppercase tracking-wider bg-neutral-800/80 text-neutral-500 border border-neutral-700/60 cursor-not-allowed transition flex items-center justify-center gap-2"
             >
-              ORDER PHYSICAL CERTIFICATE
+              <CheckCircle2 className="h-4 w-4 text-emerald-500" />
+              <span>Already Ordered</span>
             </button>
           ) : (
             <button
@@ -198,17 +225,41 @@ export default function CertificatePage() {
               className="w-full py-3.5 px-6 rounded-xl font-mono font-bold text-xs sm:text-sm uppercase tracking-wider bg-brand-red hover:bg-brand-red/90 text-white border border-brand-red transition shadow-glow flex items-center justify-center gap-2"
             >
               <Award className="h-4 w-4" />
-              <span>ORDER PHYSICAL CERTIFICATE</span>
+              <span>Order Physical Certificate</span>
             </button>
           )}
 
           {/* Helper Text */}
-          <p className="text-xs font-mono text-neutral-400">
+          <p
+            className={`text-xs font-mono leading-relaxed max-w-xl mx-auto ${
+              hasAlreadyOrdered ? "text-neutral-300 font-medium" : "text-neutral-400"
+            }`}
+          >
             {buttonHelperText}
           </p>
 
+          {/* If already ordered, show order confirmation details & delivery status */}
+          {hasAlreadyOrdered && data.certificateOrder && (
+            <div className="pt-2 flex flex-wrap items-center justify-center gap-2 text-xs font-mono">
+              <span className="text-neutral-400">Order: #{data.certificateOrder.orderNumber}</span>
+              <span className="text-neutral-600">•</span>
+              <span className="text-neutral-400">Delivery:</span>
+              <span className="px-2 py-0.5 rounded text-[11px] font-bold uppercase bg-brand-red/20 text-brand-red border border-brand-red/30">
+                {data.certificateOrder.deliveryStatus || "PENDING"}
+              </span>
+              {data.certificateOrder.trackingNumber && (
+                <>
+                  <span className="text-neutral-600">•</span>
+                  <span className="text-neutral-400">
+                    Carrier: {data.certificateOrder.carrier || "Courier"} ({data.certificateOrder.trackingNumber})
+                  </span>
+                </>
+              )}
+            </div>
+          )}
+
           {/* Quick action to order book if Criteria 1 is met but Criteria 2 is pending */}
-          {criteria1Fulfilled && !criteria2Fulfilled && (
+          {!hasAlreadyOrdered && criteria1Fulfilled && !criteria2Fulfilled && (
             <div className="pt-1">
               <Link
                 href="/purchase"

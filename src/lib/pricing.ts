@@ -51,6 +51,17 @@ export const PRICING = {
     deliveryCharge: 0,
     isFreeShipping: true,
   },
+  PHYSICAL_CERTIFICATE: {
+    id: "physical-certificate",
+    slug: "physical-certificate",
+    title: "BeeNext Physical Certificate of Achievement",
+    description:
+      "Official printed physical Certificate of Achievement printed on premium certificate parchment paper, stamped with BeeNext official holographic authentication, delivered directly to your doorstep.",
+    price: 99,
+    originalPrice: 299,
+    deliveryCharge: 0,
+    isFreeShipping: true,
+  },
   CURRENCY: "INR",
   CURRENCY_SYMBOL: "₹",
 } as const;

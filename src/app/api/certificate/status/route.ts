@@ -24,6 +24,8 @@ export async function GET() {
         hasQualifyingOrder: false,
         qualifyingOrder: null,
         certificateClaimedAt: null,
+        hasOrderedCertificate: false,
+        certificateOrder: null,
         isEligible: false,
       });
     }
@@ -51,6 +53,8 @@ export async function GET() {
         hasQualifyingOrder: false,
         qualifyingOrder: null,
         certificateClaimedAt: null,
+        hasOrderedCertificate: false,
+        certificateOrder: null,
         isEligible: false,
       });
     }
@@ -121,6 +125,28 @@ export async function GET() {
       }
     }
 
+    // Check if customer has already successfully purchased/ordered a physical certificate
+    const confirmedCertOrder = await prisma.certificateOrder.findFirst({
+      where: {
+        userId: user.id,
+        status: "CONFIRMED",
+      },
+      orderBy: { createdAt: "desc" },
+    });
+
+    const confirmedPrintedCert = await prisma.printedOrder.findFirst({
+      where: {
+        userId: user.id,
+        requiresCertificate: true,
+        paymentStatus: "COMPLETED",
+      },
+      orderBy: { createdAt: "desc" },
+    });
+
+    const hasOrderedCertificate = Boolean(
+      user.certificateClaimedAt || confirmedCertOrder || confirmedPrintedCert
+    );
+
     // If both criteria are met: 85% DSA completion + qualifying physical book order
     const isEligible = is85Completed && hasQualifyingOrder;
 
@@ -139,6 +165,28 @@ export async function GET() {
       hasQualifyingOrder,
       qualifyingOrder,
       certificateClaimedAt: user.certificateClaimedAt,
+      hasOrderedCertificate,
+      certificateOrder: confirmedCertOrder
+        ? {
+            id: confirmedCertOrder.id,
+            orderNumber: confirmedCertOrder.orderNumber,
+            deliveryStatus: confirmedCertOrder.deliveryStatus,
+            trackingNumber: confirmedCertOrder.trackingNumber,
+            carrier: confirmedCertOrder.carrier,
+            isReplacement: confirmedCertOrder.isReplacement,
+            createdAt: confirmedCertOrder.createdAt,
+          }
+        : confirmedPrintedCert
+        ? {
+            id: confirmedPrintedCert.id,
+            orderNumber: confirmedPrintedCert.orderNumber,
+            deliveryStatus: confirmedPrintedCert.certificateStatus || "PENDING",
+            trackingNumber: confirmedPrintedCert.trackingNumber,
+            carrier: confirmedPrintedCert.carrier,
+            isReplacement: false,
+            createdAt: confirmedPrintedCert.createdAt,
+          }
+        : null,
       isEligible,
     });
   } catch (err) {

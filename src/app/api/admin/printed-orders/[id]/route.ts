@@ -29,7 +29,7 @@ export async function PATCH(req: Request, { params }: { params: { id: string } }
       );
     }
 
-    const validCertificateStatuses = ["PENDING", "PRINTED", "PACKED"];
+    const validCertificateStatuses = ["PENDING", "PRINTED", "PACKED", "SHIPPED", "DELIVERED"];
     if (certificateStatus && !validCertificateStatuses.includes(certificateStatus)) {
       return NextResponse.json(
         { error: `Invalid certificate status. Must be one of: ${validCertificateStatuses.join(", ")}` },
@@ -47,6 +47,23 @@ export async function PATCH(req: Request, { params }: { params: { id: string } }
         ...(requiresCertificate !== undefined ? { requiresCertificate } : {}),
       },
     });
+
+    if (certificateStatus) {
+      await prisma.certificateOrder.updateMany({
+        where: {
+          OR: [
+            { printedOrderId: id },
+            { orderNumber: existing.orderNumber },
+            ...(existing.userId ? [{ userId: existing.userId }] : []),
+          ],
+        },
+        data: {
+          deliveryStatus: certificateStatus,
+          ...(trackingNumber ? { trackingNumber } : {}),
+          ...(carrier ? { carrier } : {}),
+        },
+      });
+    }
 
     return NextResponse.json({ order: updated });
   } catch (err) {

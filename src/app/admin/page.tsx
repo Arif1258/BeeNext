@@ -31,7 +31,34 @@ import {
   Award,
 } from "lucide-react";
 
-type TabKey = "OVERVIEW" | "USERS" | "ORDERS";
+type TabKey = "OVERVIEW" | "USERS" | "ORDERS" | "CERTIFICATES";
+
+interface CertificateOrderItem {
+  id: string;
+  orderNumber: string;
+  customerName: string;
+  customerEmail: string;
+  status: string;
+  deliveryStatus: string;
+  trackingNumber?: string | null;
+  carrier?: string | null;
+  isReplacement: boolean;
+  replacementNote?: string | null;
+  recordedByAdmin?: string | null;
+  createdAt: string;
+  user?: {
+    id: string;
+    name: string;
+    email: string;
+    certificateClaimedAt?: string | null;
+  } | null;
+  printedOrder?: {
+    id: string;
+    orderNumber: string;
+    orderStatus: string;
+    paymentStatus: string;
+  } | null;
+}
 
 interface UserItem {
   id: string;
@@ -113,6 +140,7 @@ export default function AdminDashboardPage() {
   const [metrics, setMetrics] = useState<any>(null);
   const [usersList, setUsersList] = useState<UserItem[]>([]);
   const [ordersList, setOrdersList] = useState<OrderItem[]>([]);
+  const [certificatesList, setCertificatesList] = useState<CertificateOrderItem[]>([]);
 
   // Action status toasts
   const [actionSuccess, setActionSuccess] = useState<string | null>(null);
@@ -128,6 +156,26 @@ export default function AdminDashboardPage() {
   const [orderStatusFilter, setOrderStatusFilter] = useState<string>("ALL");
   const [orderPaymentFilter, setOrderPaymentFilter] = useState<string>("ALL");
 
+  // Certificates Filters & Replacement Modal
+  const [certSearch, setCertSearch] = useState("");
+  const [certFilter, setCertFilter] = useState("ALL");
+  const [updatingCertId, setUpdatingCertId] = useState<string | null>(null);
+  const [replacementModal, setReplacementModal] = useState<{
+    isOpen: boolean;
+    userId: string;
+    customerName: string;
+    customerEmail: string;
+    note: string;
+    submitting: boolean;
+  }>({
+    isOpen: false,
+    userId: "",
+    customerName: "",
+    customerEmail: "",
+    note: "",
+    submitting: false,
+  });
+
   // Order editing states
   const [updatingOrderId, setUpdatingOrderId] = useState<string | null>(null);
   const [editingOrders, setEditingOrders] = useState<{
@@ -142,10 +190,11 @@ export default function AdminDashboardPage() {
   // Load real admin data from DB
   const loadDashboardData = async () => {
     try {
-      const [metricsRes, usersRes, ordRes] = await Promise.all([
+      const [metricsRes, usersRes, ordRes, certsRes] = await Promise.all([
         fetch("/api/admin/metrics"),
         fetch("/api/admin/users"),
         fetch("/api/admin/printed-orders"),
+        fetch("/api/admin/certificates"),
       ]);
 
       if (metricsRes.ok) {
@@ -156,6 +205,11 @@ export default function AdminDashboardPage() {
       if (usersRes.ok) {
         const u = await usersRes.json();
         setUsersList(u.users || []);
+      }
+
+      if (certsRes.ok) {
+        const c = await certsRes.json();
+        setCertificatesList(c.certificateOrders || []);
       }
 
       if (ordRes.ok) {
@@ -257,6 +311,67 @@ export default function AdminDashboardPage() {
     }
   };
 
+  // Update certificate delivery status
+  const handleUpdateCertStatus = async (certId: string, deliveryStatus: string) => {
+    setUpdatingCertId(certId);
+    setActionError(null);
+    setActionSuccess(null);
+    try {
+      const res = await fetch(`/api/admin/certificates/${certId}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ deliveryStatus }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Failed to update certificate");
+      setActionSuccess(`Certificate status updated to: ${deliveryStatus}`);
+      await loadDashboardData();
+    } catch (err: any) {
+      setActionError(err.message || "Failed to update certificate status");
+    } finally {
+      setUpdatingCertId(null);
+    }
+  };
+
+  // Record legitimate replacement certificate with audit trail
+  const handleRecordReplacement = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!replacementModal.userId || !replacementModal.note.trim()) {
+      setActionError("Please select a customer and provide a legitimate audit reason.");
+      return;
+    }
+    setReplacementModal((prev) => ({ ...prev, submitting: true }));
+    setActionError(null);
+    setActionSuccess(null);
+    try {
+      const res = await fetch("/api/admin/certificates/replacement", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          userId: replacementModal.userId,
+          customerName: replacementModal.customerName,
+          customerEmail: replacementModal.customerEmail,
+          replacementNote: replacementModal.note.trim(),
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Failed to record replacement");
+      setActionSuccess("Replacement certificate recorded in audit history!");
+      setReplacementModal({
+        isOpen: false,
+        userId: "",
+        customerName: "",
+        customerEmail: "",
+        note: "",
+        submitting: false,
+      });
+      await loadDashboardData();
+    } catch (err: any) {
+      setActionError(err.message || "Failed to record replacement certificate");
+      setReplacementModal((prev) => ({ ...prev, submitting: false }));
+    }
+  };
+
   // Filtered users
   const filteredUsers = useMemo(() => {
     return usersList.filter((u) => {
@@ -287,6 +402,21 @@ export default function AdminDashboardPage() {
       return matchesSearch && matchesStatus && matchesPayment;
     });
   }, [ordersList, orderSearch, orderStatusFilter, orderPaymentFilter]);
+
+  // Filtered certificates
+  const filteredCertificates = useMemo(() => {
+    return certificatesList.filter((c) => {
+      const q = certSearch.toLowerCase();
+      const matchesSearch =
+        c.orderNumber.toLowerCase().includes(q) ||
+        c.customerName.toLowerCase().includes(q) ||
+        c.customerEmail.toLowerCase().includes(q) ||
+        (c.trackingNumber && c.trackingNumber.toLowerCase().includes(q)) ||
+        (c.carrier && c.carrier.toLowerCase().includes(q));
+      const matchesFilter = certFilter === "ALL" || c.deliveryStatus === certFilter;
+      return matchesSearch && matchesFilter;
+    });
+  }, [certificatesList, certSearch, certFilter]);
 
   if (authLoading || loading) {
     return (
@@ -363,6 +493,7 @@ export default function AdminDashboardPage() {
                 { key: "OVERVIEW", label: "Overview", icon: LayoutDashboard },
                 { key: "USERS", label: `Users (${usersList.length})`, icon: Users },
                 { key: "ORDERS", label: `Orders (${ordersList.length})`, icon: ShoppingBag },
+                { key: "CERTIFICATES", label: `Physical Certificates (${certificatesList.length})`, icon: Award },
               ].map((tab) => {
                 const Icon = tab.icon;
                 const isActive = activeTab === tab.key;
@@ -890,12 +1021,15 @@ export default function AdminDashboardPage() {
                             <div className="flex items-center gap-1.5">
                               <span className="px-2.5 py-1 rounded-md text-[11px] font-mono font-bold uppercase bg-brand-red/20 text-brand-red border border-brand-red/40 flex items-center gap-1.5 shadow-sm">
                                 <Award className="h-3.5 w-3.5 text-brand-red" />
-                                <span>Certificate Required</span>
+                                <span>Physical Certificate Required</span>
                               </span>
                               <span
                                 className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase border ${
-                                  (editState.certificateStatus || ord.certificateStatus) === "PACKED"
+                                  (editState.certificateStatus || ord.certificateStatus) === "DELIVERED"
                                     ? "bg-emerald-500/20 text-emerald-400 border-emerald-500/30"
+                                    : (editState.certificateStatus || ord.certificateStatus) === "PACKED" ||
+                                      (editState.certificateStatus || ord.certificateStatus) === "SHIPPED"
+                                    ? "bg-purple-500/20 text-purple-400 border-purple-500/30"
                                     : (editState.certificateStatus || ord.certificateStatus) === "PRINTED"
                                     ? "bg-blue-500/20 text-blue-400 border-blue-500/30"
                                     : "bg-amber-500/20 text-amber-400 border-amber-500/30"
@@ -1164,6 +1298,8 @@ export default function AdminDashboardPage() {
                                   <option value="PENDING">PENDING &mdash; Not Printed</option>
                                   <option value="PRINTED">PRINTED &mdash; Printed, Ready to Pack</option>
                                   <option value="PACKED">PACKED &mdash; Included in Parcel</option>
+                                  <option value="SHIPPED">SHIPPED &mdash; Dispatched</option>
+                                  <option value="DELIVERED">DELIVERED &mdash; Delivered to Customer</option>
                                 </select>
                               </div>
                             )}
@@ -1188,6 +1324,279 @@ export default function AdminDashboardPage() {
                     </div>
                   );
                 })}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* ============================================================== */}
+        {/* 4. PHYSICAL CERTIFICATES TAB                                   */}
+        {/* ============================================================== */}
+        {activeTab === "CERTIFICATES" && (
+          <div className="space-y-6">
+            {/* Header with Title + Record Replacement Button */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 rounded-2xl bg-brand-card border border-brand-border">
+              <div>
+                <h2 className="text-base sm:text-lg font-bold text-white flex items-center gap-2">
+                  <Award className="h-5 w-5 text-brand-red" />
+                  <span>Physical Certificate Orders &amp; Audit Records</span>
+                </h2>
+                <p className="text-xs text-brand-muted mt-0.5">
+                  View one-time customer certificates, update delivery statuses, or record audited replacement certificates.
+                </p>
+              </div>
+
+              <button
+                type="button"
+                onClick={() =>
+                  setReplacementModal({
+                    isOpen: true,
+                    userId: usersList[0]?.id || "",
+                    customerName: usersList[0]?.name || "",
+                    customerEmail: usersList[0]?.email || "",
+                    note: "",
+                    submitting: false,
+                  })
+                }
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-brand-red hover:bg-brand-red/90 text-white text-xs font-mono font-bold transition shadow-sm active:scale-95 self-start sm:self-auto"
+              >
+                <Award className="h-4 w-4" />
+                <span>+ Record Replacement Certificate</span>
+              </button>
+            </div>
+
+            {/* Metrics Row */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <div className="p-4 rounded-xl bg-brand-card border border-brand-border">
+                <span className="text-[10px] font-mono uppercase text-brand-subtle block">Total Certificates</span>
+                <span className="text-xl font-bold font-mono text-white mt-1 block">
+                  {certificatesList.length}
+                </span>
+              </div>
+              <div className="p-4 rounded-xl bg-brand-card border border-brand-border">
+                <span className="text-[10px] font-mono uppercase text-brand-subtle block">Pending Printing</span>
+                <span className="text-xl font-bold font-mono text-amber-400 mt-1 block">
+                  {certificatesList.filter((c) => c.deliveryStatus === "PENDING").length}
+                </span>
+              </div>
+              <div className="p-4 rounded-xl bg-brand-card border border-brand-border">
+                <span className="text-[10px] font-mono uppercase text-brand-subtle block">Delivered</span>
+                <span className="text-xl font-bold font-mono text-emerald-400 mt-1 block">
+                  {certificatesList.filter((c) => c.deliveryStatus === "DELIVERED").length}
+                </span>
+              </div>
+              <div className="p-4 rounded-xl bg-brand-card border border-brand-border">
+                <span className="text-[10px] font-mono uppercase text-brand-subtle block">Replacements</span>
+                <span className="text-xl font-bold font-mono text-purple-400 mt-1 block">
+                  {certificatesList.filter((c) => c.isReplacement).length}
+                </span>
+              </div>
+            </div>
+
+            {/* Filters Row */}
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 p-4 rounded-xl bg-brand-card border border-brand-border">
+              <div className="relative flex-1">
+                <Search className="h-4 w-4 absolute left-3 top-1/2 -translate-y-1/2 text-brand-subtle" />
+                <input
+                  type="text"
+                  placeholder="Search by customer name, email, order #, or tracking..."
+                  value={certSearch}
+                  onChange={(e) => setCertSearch(e.target.value)}
+                  className="w-full pl-9 pr-3 py-1.5 rounded-lg bg-brand-black border border-brand-border text-xs text-white placeholder-brand-subtle font-mono focus:outline-none focus:border-brand-red"
+                />
+              </div>
+
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-mono text-brand-subtle">Status:</span>
+                <select
+                  value={certFilter}
+                  onChange={(e) => setCertFilter(e.target.value)}
+                  className="px-2.5 py-1.5 rounded-lg bg-brand-black border border-brand-border text-xs text-white font-mono focus:outline-none focus:border-brand-red"
+                >
+                  <option value="ALL">ALL ({certificatesList.length})</option>
+                  <option value="PENDING">PENDING</option>
+                  <option value="PRINTED">PRINTED</option>
+                  <option value="PACKED">PACKED</option>
+                  <option value="SHIPPED">SHIPPED</option>
+                  <option value="DELIVERED">DELIVERED</option>
+                </select>
+              </div>
+            </div>
+
+            {/* Certificates List */}
+            {filteredCertificates.length === 0 ? (
+              <div className="py-12 text-center rounded-2xl bg-brand-card border border-brand-border space-y-2">
+                <Award className="h-10 w-10 text-brand-subtle mx-auto opacity-50" />
+                <p className="text-sm font-mono text-brand-muted">No physical certificate orders found matching the filter.</p>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {filteredCertificates.map((cert) => {
+                  return (
+                    <div
+                      key={cert.id}
+                      className="p-4 sm:p-5 rounded-2xl bg-brand-card border border-brand-border space-y-3"
+                    >
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-brand-border/60 pb-3">
+                        <div className="flex flex-wrap items-center gap-2">
+                          <span className="font-mono text-xs sm:text-sm font-bold text-white">
+                            #{cert.orderNumber}
+                          </span>
+                          {cert.isReplacement && (
+                            <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase bg-purple-500/20 text-purple-300 border border-purple-500/30">
+                              Replacement Certificate
+                            </span>
+                          )}
+                          <span
+                            className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase border ${
+                              cert.deliveryStatus === "DELIVERED"
+                                ? "bg-emerald-500/20 text-emerald-400 border-emerald-500/30"
+                                : cert.deliveryStatus === "SHIPPED" || cert.deliveryStatus === "PACKED"
+                                ? "bg-purple-500/20 text-purple-400 border-purple-500/30"
+                                : cert.deliveryStatus === "PRINTED"
+                                ? "bg-blue-500/20 text-blue-400 border-blue-500/30"
+                                : "bg-amber-500/20 text-amber-400 border-amber-500/30"
+                            }`}
+                          >
+                            {cert.deliveryStatus}
+                          </span>
+                        </div>
+
+                        <span className="text-[11px] font-mono text-brand-subtle">
+                          {formatDateTime(cert.createdAt)}
+                        </span>
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs font-mono">
+                        <div>
+                          <span className="text-[10px] text-brand-subtle block uppercase">Customer</span>
+                          <span className="font-bold text-white block">{cert.customerName}</span>
+                          <span className="text-brand-muted block">{cert.customerEmail}</span>
+                        </div>
+
+                        <div>
+                          <span className="text-[10px] text-brand-subtle block uppercase">Tracking Details</span>
+                          <span className="text-brand-muted block">
+                            Carrier: {cert.carrier || "Courier"}
+                          </span>
+                          <span className="text-brand-muted block">
+                            AWB: {cert.trackingNumber || "Not Assigned"}
+                          </span>
+                        </div>
+
+                        <div>
+                          <span className="text-[10px] text-brand-subtle block uppercase">Update Delivery Status</span>
+                          <div className="flex items-center gap-2 mt-1">
+                            <select
+                              value={cert.deliveryStatus}
+                              disabled={updatingCertId === cert.id}
+                              onChange={(e) => handleUpdateCertStatus(cert.id, e.target.value)}
+                              className="px-2.5 py-1 rounded bg-brand-black border border-brand-border text-xs text-white focus:outline-none focus:border-brand-red font-mono"
+                            >
+                              <option value="PENDING">PENDING</option>
+                              <option value="PRINTED">PRINTED</option>
+                              <option value="PACKED">PACKED</option>
+                              <option value="SHIPPED">SHIPPED</option>
+                              <option value="DELIVERED">DELIVERED</option>
+                            </select>
+                            {updatingCertId === cert.id && (
+                              <Loader2 className="h-3.5 w-3.5 text-brand-red animate-spin" />
+                            )}
+                          </div>
+                        </div>
+                      </div>
+
+                      {cert.isReplacement && cert.replacementNote && (
+                        <div className="p-2.5 rounded-lg bg-neutral-900 border border-neutral-800 text-xs font-mono text-neutral-300">
+                          <span className="text-purple-400 font-bold">Audit Note: </span>
+                          <span>{cert.replacementNote}</span>
+                          {cert.recordedByAdmin && (
+                            <span className="text-neutral-500 ml-2">({cert.recordedByAdmin})</span>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+
+            {/* Replacement Modal */}
+            {replacementModal.isOpen && (
+              <div className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4">
+                <div className="bg-brand-card border border-brand-border rounded-2xl max-w-lg w-full p-6 space-y-4 shadow-xl">
+                  <div className="flex items-center justify-between border-b border-brand-border pb-3">
+                    <h3 className="text-base font-bold text-white flex items-center gap-2">
+                      <Award className="h-5 w-5 text-brand-red" />
+                      <span>Record Replacement Certificate</span>
+                    </h3>
+                    <button
+                      onClick={() => setReplacementModal((prev) => ({ ...prev, isOpen: false }))}
+                      className="text-neutral-400 hover:text-white"
+                    >
+                      <X className="h-5 w-5" />
+                    </button>
+                  </div>
+
+                  <form onSubmit={handleRecordReplacement} className="space-y-4 text-xs font-mono">
+                    <div>
+                      <label className="text-neutral-300 block mb-1">Select Customer Account *</label>
+                      <select
+                        value={replacementModal.userId}
+                        onChange={(e) => {
+                          const u = usersList.find((usr) => usr.id === e.target.value);
+                          setReplacementModal((prev) => ({
+                            ...prev,
+                            userId: e.target.value,
+                            customerName: u?.name || prev.customerName,
+                            customerEmail: u?.email || prev.customerEmail,
+                          }));
+                        }}
+                        className="w-full px-3 py-2 rounded-lg bg-brand-black border border-brand-border text-white focus:outline-none focus:border-brand-red font-mono"
+                      >
+                        {usersList.map((u) => (
+                          <option key={u.id} value={u.id}>
+                            {u.name} ({u.email})
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="text-neutral-300 block mb-1">Audit Reason / Justification *</label>
+                      <textarea
+                        required
+                        rows={3}
+                        placeholder="State the legitimate reason for this replacement (e.g., Courier parcel damaged in transit, postal loss confirmed)..."
+                        value={replacementModal.note}
+                        onChange={(e) =>
+                          setReplacementModal((prev) => ({ ...prev, note: e.target.value }))
+                        }
+                        className="w-full px-3 py-2 rounded-lg bg-brand-black border border-brand-border text-white placeholder-neutral-600 focus:outline-none focus:border-brand-red font-mono"
+                      />
+                    </div>
+
+                    <div className="flex items-center justify-end gap-2 pt-2">
+                      <button
+                        type="button"
+                        onClick={() => setReplacementModal((prev) => ({ ...prev, isOpen: false }))}
+                        className="px-4 py-2 rounded-lg bg-neutral-900 border border-neutral-700 text-neutral-300 hover:text-white"
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        type="submit"
+                        disabled={replacementModal.submitting}
+                        className="px-4 py-2 rounded-lg bg-brand-red hover:bg-brand-red/90 text-white font-bold transition flex items-center gap-1.5"
+                      >
+                        {replacementModal.submitting && (
+                          <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                        )}
+                        <span>Save Replacement Certificate</span>
+                      </button>
+                    </div>
+                  </form>
+                </div>
               </div>
             )}
           </div>

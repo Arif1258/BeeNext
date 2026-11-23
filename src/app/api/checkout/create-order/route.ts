@@ -10,7 +10,7 @@ export const dynamic = "force-dynamic";
 interface OrderItemInput {
   id?: string;
   slug?: string;
-  productType?: "COMPLETE_BOOK" | "TOPIC" | "CS_FUNDAMENTAL";
+  productType?: "COMPLETE_BOOK" | "TOPIC" | "CS_FUNDAMENTAL" | "CERTIFICATE";
   title?: string;
   language?: string;
   quantity?: number;
@@ -67,6 +67,56 @@ export async function POST(req: Request) {
           },
         ];
 
+    // Identify target user ID early for one-time verification
+    let targetUserId = user ? user.id : null;
+    if (!targetUserId && customerEmail) {
+      const existingUser = await prisma.user.findFirst({
+        where: { email: { equals: customerEmail.trim(), mode: "insensitive" } },
+        select: { id: true },
+      });
+      if (existingUser) targetUserId = existingUser.id;
+    }
+
+    // Check if the order contains a physical certificate purchase
+    const isCertificateOrder = itemsList.some(
+      (it) =>
+        it.productType === "CERTIFICATE" ||
+        it.slug === "physical-certificate" ||
+        (it.slug && it.slug.includes("certificate")) ||
+        (it.title && it.title.toLowerCase().includes("certificate"))
+    );
+
+    // One-Time Physical Certificate Enforcement
+    if (isCertificateOrder) {
+      if (!targetUserId) {
+        return NextResponse.json(
+          { error: "Please log in with your registered account to order your physical certificate." },
+          { status: 401 }
+        );
+      }
+
+      // Check if this registered customer has already ordered/claimed a certificate
+      const [existingClaim, existingCertOrder] = await Promise.all([
+        prisma.user.findUnique({
+          where: { id: targetUserId },
+          select: { certificateClaimedAt: true },
+        }),
+        prisma.certificateOrder.findFirst({
+          where: { userId: targetUserId, status: "CONFIRMED" },
+        }),
+      ]);
+
+      if (existingClaim?.certificateClaimedAt || existingCertOrder) {
+        return NextResponse.json(
+          {
+            error:
+              "You have already ordered your physical certificate. This option is available only once per customer.",
+          },
+          { status: 400 }
+        );
+      }
+    }
+
     // Compute verified prices on backend
     const verifiedItems: Array<{
       slug: string;
@@ -95,6 +145,9 @@ export async function POST(req: Request) {
       if (pType === "COMPLETE_BOOK" || slug.includes("full-dsa") || slug.includes("complete")) {
         verifiedPrice = PRICING.COMPLETE_BOOK.price; // 1499
         itemTitle = `Full DSA Book${langSuffix} (All 20 Topics, ~500 Pages)`;
+      } else if (pType === "CERTIFICATE" || slug === "physical-certificate" || slug.includes("certificate") || (it.title && it.title.toLowerCase().includes("certificate"))) {
+        verifiedPrice = PRICING.PHYSICAL_CERTIFICATE.price; // 99
+        itemTitle = "BeeNext Physical Certificate of Achievement";
       } else if (pType === "CS_FUNDAMENTAL" || getCsFundamentalPrice(slug || it.title)) {
         const cs = getCsFundamentalPrice(slug || it.title);
         verifiedPrice = cs?.price || 149;
@@ -167,25 +220,20 @@ export async function POST(req: Request) {
     });
 
     // Check certificate qualification
-    let requiresCertificate = false;
-    let certificateStatus: string | null = null;
+    let requiresCertificate = isCertificateOrder;
+    let certificateStatus: string | null = isCertificateOrder ? "PENDING" : null;
 
-    let targetUserId = user ? user.id : null;
-    if (!targetUserId && customerEmail) {
-      const existingUser = await prisma.user.findFirst({
-        where: { email: { equals: customerEmail.trim(), mode: "insensitive" } },
-        select: { id: true },
-      });
-      if (existingUser) targetUserId = existingUser.id;
-    }
-
-    if (targetUserId) {
+    if (!requiresCertificate && targetUserId) {
       const userProfile = await prisma.user.findUnique({
         where: { id: targetUserId },
         select: { dsaQualifiedAt: true, certificateClaimedAt: true },
       });
 
-      if (userProfile && !userProfile.certificateClaimedAt) {
+      const existingCertOrder = await prisma.certificateOrder.findFirst({
+        where: { userId: targetUserId, status: "CONFIRMED" },
+      });
+
+      if (userProfile && !userProfile.certificateClaimedAt && !existingCertOrder) {
         let isQualified = Boolean(userProfile.dsaQualifiedAt);
         if (!isQualified) {
           const [totalProblems, completedProblems] = await Promise.all([

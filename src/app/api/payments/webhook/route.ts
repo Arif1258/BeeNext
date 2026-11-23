@@ -59,12 +59,30 @@ export async function POST(req: Request) {
             }),
           ]);
 
-          // Handle certificate eligibility
+          // Handle certificate eligibility with database-level uniqueness constraint
           if (printedOrder.userId && printedOrder.requiresCertificate) {
             await prisma.user.update({
               where: { id: printedOrder.userId },
               data: { certificateClaimedAt: new Date() },
             });
+
+            try {
+              await prisma.certificateOrder.create({
+                data: {
+                  userId: printedOrder.userId,
+                  certificateUserKey: printedOrder.userId, // Database UNIQUE constraint
+                  printedOrderId: printedOrder.id,
+                  orderNumber: printedOrder.orderNumber,
+                  customerName: printedOrder.customerName,
+                  customerEmail: printedOrder.customerEmail,
+                  status: "CONFIRMED",
+                  deliveryStatus: "PENDING",
+                  isReplacement: false,
+                },
+              });
+            } catch (certErr: any) {
+              console.warn("Certificate order already recorded or unique constraint caught:", certErr?.code);
+            }
           }
         }
 
