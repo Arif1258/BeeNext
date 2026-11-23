@@ -8,6 +8,7 @@ import {
   Check,
   ExternalLink,
 } from "lucide-react";
+import DifficultyBadge from "@/components/DifficultyBadge";
 
 // YouTube Play Icon
 const YouTubeIcon = ({ className = "h-3.5 w-3.5" }: { className?: string }) => (
@@ -154,8 +155,8 @@ export default function CategoryDetailClient({
                     key={prob.id}
                     className="flex flex-col sm:flex-row sm:items-center justify-between py-2.5 px-2 hover:bg-neutral-900/60 rounded-md transition-colors gap-2"
                   >
-                    {/* Left: Checkbox + Problem Name + LeetCode Icon */}
-                    <div className="flex items-center space-x-2.5 min-w-0 flex-1">
+                    {/* Left: Checkbox + Problem Name + Difficulty */}
+                    <div className="flex items-center space-x-2 sm:space-x-2.5 min-w-0 flex-1">
                       {/* Checkbox */}
                       <button
                         type="button"
@@ -184,6 +185,9 @@ export default function CategoryDetailClient({
                         </span>
                         <span>{prob.title}</span>
                       </Link>
+
+                      {/* Difficulty Label directly after the title */}
+                      <DifficultyBadge difficulty={prob.difficulty} />
                     </div>
 
                     {/* Right: Striver | Apna | LeetCode | Brute | Optimal | Handwritten */}

@@ -9,6 +9,7 @@ import {
   Package,
 } from "lucide-react";
 import { getTopicPrice } from "@/lib/pricing";
+import DifficultyBadge from "@/components/DifficultyBadge";
 
 export interface ProblemItem {
   id: string;
@@ -308,8 +309,8 @@ export default function VerticalTopicAccordion({
                         key={problem.id}
                         className="flex flex-col sm:flex-row sm:items-center justify-between py-2.5 px-2 hover:bg-neutral-900/60 rounded-md transition-colors gap-2"
                       >
-                        {/* Left: Checkbox + Problem Name */}
-                        <div className="flex items-center space-x-2.5 min-w-0 flex-1">
+                        {/* Left: Checkbox + Problem Name + Difficulty */}
+                        <div className="flex items-center space-x-2 sm:space-x-2.5 min-w-0 flex-1">
                           {/* 1. Completion Checkbox */}
                           <button
                             type="button"
@@ -338,6 +339,9 @@ export default function VerticalTopicAccordion({
                             </span>
                             <span>{problem.title}</span>
                           </Link>
+
+                          {/* Difficulty Label directly after the title */}
+                          <DifficultyBadge difficulty={problem.difficulty} />
                         </div>
 
                         {/* Right: Striver | Apna | LeetCode | Brute | Optimal | Handwritten */}

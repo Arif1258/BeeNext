@@ -11,6 +11,7 @@ import {
   Bookmark,
   CheckCircle2,
 } from "lucide-react";
+import DifficultyBadge from "@/components/DifficultyBadge";
 
 // YouTube Play Icon
 const YouTubeIcon = ({ className = "h-3.5 w-3.5" }: { className?: string }) => (
@@ -130,9 +131,12 @@ export default function ProblemDetailClient({
               <span>Back to DSA Topics</span>
             </Link>
             <span className="text-neutral-700 hidden sm:inline">|</span>
-            <h1 className="text-base sm:text-xl font-bold text-white tracking-tight">
-              {problem?.title}
-            </h1>
+            <div className="flex items-center gap-2.5 flex-wrap">
+              <h1 className="text-base sm:text-xl font-bold text-white tracking-tight">
+                {problem?.title}
+              </h1>
+              <DifficultyBadge difficulty={problem?.difficulty} size="sm" />
+            </div>
           </div>
 
           <div className="flex items-center space-x-2">
