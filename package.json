@@ -24,6 +24,7 @@
     "lucide-react": "^1.76.0",
     "next": "14.2.35",
     "pdf-lib": "^1.17.1",
+    "pdfjs-dist": "^3.11.174",
     "razorpay": "^2.9.8",
     "react": "^18",
     "react-dom": "^18",

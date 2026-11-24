@@ -405,7 +405,7 @@ export default function AdminDashboardPage() {
                   </span>
                 </div>
                 <div className="p-4 rounded-xl bg-brand-card border border-brand-border">
-                  <span className="text-[10px] font-mono uppercase text-brand-subtle block">Yearly (₹299)</span>
+                  <span className="text-[10px] font-mono uppercase text-brand-subtle block">Yearly (₹599)</span>
                   <span className="text-xl font-bold font-mono text-emerald-400 block mt-1">
                     {metrics?.yearlyPlansCount ?? 0}
                   </span>
@@ -461,7 +461,7 @@ export default function AdminDashboardPage() {
 
                 <div className="p-5 rounded-2xl bg-brand-card border border-brand-border">
                   <span className="text-[11px] font-mono uppercase tracking-wider text-brand-subtle block">
-                    Yearly Revenue (₹299)
+                    Yearly Revenue (₹599)
                   </span>
                   <span className="text-2xl font-bold font-mono text-emerald-400 mt-1 block">
                     {formatCurrency(metrics?.yearlyRevenue ?? 0)}

@@ -101,7 +101,7 @@ export default function AboutPage() {
             <div className="rounded-2xl border border-neutral-800 bg-brand-card p-6 space-y-3 shadow-sm">
               <div className="flex items-center justify-between border-b border-neutral-800 pb-2.5">
                 <h3 className="font-bold text-white text-base">BeeNext Plus</h3>
-                <span className="font-mono text-xs text-neutral-300">₹79/mo or ₹299/yr</span>
+                <span className="font-mono text-xs text-neutral-300">₹79/mo or ₹599/yr</span>
               </div>
               <ul className="space-y-2 text-xs text-neutral-300">
                 <li className="flex items-center gap-2">

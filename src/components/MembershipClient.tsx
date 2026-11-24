@@ -20,6 +20,13 @@ import {
 } from "lucide-react";
 import confetti from "canvas-confetti";
 
+const NORMAL_ACCOUNT_FEATURES = [
+  "Access to all 495 Striver DSA Sheet Problems",
+  "Curated Striver YouTube Video Walkthroughs",
+  "Interactive Monaco Code Editor (View & Type Code)",
+  "Personal Progress Tracking & Problem Status",
+];
+
 export default function MembershipClient() {
   const router = useRouter();
   const { user, isPlusMember, refreshUser } = useAuth();
@@ -244,10 +251,6 @@ export default function MembershipClient() {
 
         {/* Header */}
         <div className="text-center space-y-4 max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-neutral-900 border border-brand-border text-xs font-mono text-neutral-300">
-            <Sparkles className="h-3.5 w-3.5 text-brand-red" />
-            <span>Elevate Your DSA Preparation</span>
-          </div>
           <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white">
             Choose Your <span className="text-brand-red">BeeNext</span> Plan
           </h1>
@@ -277,135 +280,161 @@ export default function MembershipClient() {
           </div>
         )}
 
-        {/* Pricing Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto items-stretch">
-          {/* Monthly Plan */}
-          <div
-            onClick={() => setSelectedPlan("MONTHLY")}
-            className={`rounded-2xl border p-6 sm:p-8 flex flex-col justify-between cursor-pointer transition-all ${
-              selectedPlan === "MONTHLY"
-                ? "border-brand-red bg-brand-card shadow-brand/20 ring-1 ring-brand-red"
-                : "border-brand-border bg-brand-card hover:border-neutral-700"
-            }`}
-          >
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h3 className="text-xl font-bold text-white">Monthly Plan</h3>
-                  <p className="text-xs text-neutral-400 font-mono">30 Days Full Access</p>
-                </div>
-                <div className="h-5 w-5 rounded-full border border-neutral-600 flex items-center justify-center">
-                  {selectedPlan === "MONTHLY" && <div className="h-2.5 w-2.5 rounded-full bg-brand-red" />}
-                </div>
+        {/* Three Plan Boxes Container */}
+        <div className="space-y-6 sm:space-y-8 max-w-4xl mx-auto">
+          {/* First Box: Normal Account (First row, full width, yellow outline) */}
+          <div className="rounded-2xl border-2 border-yellow-500 bg-brand-card p-6 sm:p-8 transition-all">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4">
+              <div>
+                <h3 className="text-xl font-bold text-white">Normal Account</h3>
+                <p className="text-xs text-neutral-400 font-mono">Standard Free Access</p>
               </div>
-
-              <div className="pt-2 flex items-baseline gap-1">
-                <span className="text-4xl font-extrabold text-white">₹79</span>
-                <span className="text-neutral-400 text-sm font-mono">/ month</span>
-              </div>
-
-              <p className="text-xs text-neutral-400">
-                {MEMBERSHIP_PLANS.MONTHLY.tagline}
-              </p>
-
-              <div className="pt-4 border-t border-brand-border/60 space-y-2.5">
-                {MEMBERSHIP_PLANS.MONTHLY.features.map((feature, i) => (
-                  <div key={i} className="flex items-start gap-2.5 text-xs text-neutral-300">
-                    <Check className="h-4 w-4 text-brand-red shrink-0 mt-0.5" />
-                    <span>{feature}</span>
-                  </div>
-                ))}
+              <div className="flex items-baseline gap-1">
+                <span className="text-3xl sm:text-4xl font-extrabold text-white">₹0</span>
+                <span className="text-neutral-400 text-sm font-mono">/ free forever</span>
               </div>
             </div>
 
-            <div className="pt-6">
-              <button
-                disabled={loading}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleCheckout("MONTHLY");
-                }}
-                className="w-full py-3 px-4 rounded-xl bg-neutral-900 hover:bg-neutral-800 border border-brand-border text-white font-mono font-bold text-xs sm:text-sm transition-all flex items-center justify-center gap-2"
-              >
-                {loading && selectedPlan === "MONTHLY" ? (
-                  <span>Processing...</span>
-                ) : (
-                  <>
-                    <span>{isPlusMember ? "Extend for ₹79" : "Get Monthly Access"}</span>
-                    <ArrowRight className="h-4 w-4 text-brand-red" />
-                  </>
-                )}
-              </button>
+            <div className="pt-4 border-t border-brand-border/60 grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {NORMAL_ACCOUNT_FEATURES.map((feature, i) => (
+                <div key={i} className="flex items-start gap-2.5 text-xs text-neutral-300">
+                  <Check className="h-4 w-4 text-yellow-400 shrink-0 mt-0.5" />
+                  <span>{feature}</span>
+                </div>
+              ))}
             </div>
           </div>
 
-          {/* Yearly Plan (Recommended) */}
-          <div
-            onClick={() => setSelectedPlan("YEARLY")}
-            className={`rounded-2xl border-2 p-6 sm:p-8 flex flex-col justify-between cursor-pointer transition-all relative overflow-hidden ${
-              selectedPlan === "YEARLY"
-                ? "border-brand-red bg-brand-card shadow-brand ring-2 ring-brand-red/30"
-                : "border-neutral-700 bg-brand-card hover:border-brand-red/60"
-            }`}
-          >
-            <div className="absolute top-0 right-0 bg-brand-red text-white text-[10px] font-mono font-bold uppercase tracking-wider px-3.5 py-1 rounded-bl-xl shadow">
-              Best Value • Save 68%
+          {/* Second & Third Boxes: Monthly Plus & Yearly Plus (Side by side on desktop, stacked on mobile, green outline) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 items-stretch">
+            {/* Second Box: Monthly Plus (Left, green outline) */}
+            <div
+              onClick={() => setSelectedPlan("MONTHLY")}
+              className={`rounded-2xl border-2 border-green-500 bg-brand-card p-6 sm:p-8 flex flex-col justify-between cursor-pointer transition-all ${
+                selectedPlan === "MONTHLY"
+                  ? "ring-2 ring-green-500/30 shadow-lg"
+                  : "hover:border-green-400"
+              }`}
+            >
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h3 className="text-xl font-bold text-white">Monthly Plan</h3>
+                    <p className="text-xs text-neutral-400 font-mono">30 Days Full Access</p>
+                  </div>
+                  <div className="h-5 w-5 rounded-full border border-neutral-600 flex items-center justify-center">
+                    {selectedPlan === "MONTHLY" && <div className="h-2.5 w-2.5 rounded-full bg-brand-red" />}
+                  </div>
+                </div>
+
+                <div className="pt-2 flex items-baseline gap-1">
+                  <span className="text-4xl font-extrabold text-white">₹79</span>
+                  <span className="text-neutral-400 text-sm font-mono">/ month</span>
+                </div>
+
+                <p className="text-xs text-neutral-400">
+                  {MEMBERSHIP_PLANS.MONTHLY.tagline}
+                </p>
+
+                <div className="pt-4 border-t border-brand-border/60 space-y-2.5">
+                  {MEMBERSHIP_PLANS.MONTHLY.features.map((feature, i) => (
+                    <div key={i} className="flex items-start gap-2.5 text-xs text-neutral-300">
+                      <Check className="h-4 w-4 text-brand-red shrink-0 mt-0.5" />
+                      <span>{feature}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="pt-6">
+                <button
+                  disabled={loading}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleCheckout("MONTHLY");
+                  }}
+                  className="w-full py-3 px-4 rounded-xl bg-neutral-900 hover:bg-neutral-800 border border-brand-border text-white font-mono font-bold text-xs sm:text-sm transition-all flex items-center justify-center gap-2"
+                >
+                  {loading && selectedPlan === "MONTHLY" ? (
+                    <span>Processing...</span>
+                  ) : (
+                    <>
+                      <span>{isPlusMember ? "Extend for ₹79" : "Get Monthly Access"}</span>
+                      <ArrowRight className="h-4 w-4 text-brand-red" />
+                    </>
+                  )}
+                </button>
+              </div>
             </div>
 
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <div className="flex items-center gap-2">
-                    <h3 className="text-xl font-bold text-white">Yearly Plan</h3>
-                    <Sparkles className="h-4 w-4 text-brand-red" />
+            {/* Third Box: Yearly Plus (Right, green outline) */}
+            <div
+              onClick={() => setSelectedPlan("YEARLY")}
+              className={`rounded-2xl border-2 border-green-500 bg-brand-card p-6 sm:p-8 flex flex-col justify-between cursor-pointer transition-all relative overflow-hidden ${
+                selectedPlan === "YEARLY"
+                  ? "ring-2 ring-green-500/30 shadow-lg"
+                  : "hover:border-green-400"
+              }`}
+            >
+              <div className="absolute top-0 right-0 bg-brand-red text-white text-[10px] font-mono font-bold uppercase tracking-wider px-3.5 py-1 rounded-bl-xl shadow">
+                Best Value • Save 37%
+              </div>
+
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <h3 className="text-xl font-bold text-white">Yearly Plan</h3>
+                      <Sparkles className="h-4 w-4 text-brand-red" />
+                    </div>
+                    <p className="text-xs text-neutral-400 font-mono">365 Days Full Access</p>
                   </div>
-                  <p className="text-xs text-neutral-400 font-mono">365 Days Full Access</p>
-                </div>
-                <div className="h-5 w-5 rounded-full border border-neutral-600 flex items-center justify-center">
-                  {selectedPlan === "YEARLY" && <div className="h-2.5 w-2.5 rounded-full bg-brand-red" />}
-                </div>
-              </div>
-
-              <div className="pt-2 flex items-baseline gap-2">
-                <span className="text-4xl font-extrabold text-white">₹299</span>
-                <span className="text-neutral-400 text-sm font-mono">/ year</span>
-                <span className="text-[11px] font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded">
-                  ≈ ₹25 / month
-                </span>
-              </div>
-
-              <p className="text-xs text-neutral-300">
-                {MEMBERSHIP_PLANS.YEARLY.tagline}
-              </p>
-
-              <div className="pt-4 border-t border-brand-border/60 space-y-2.5">
-                {MEMBERSHIP_PLANS.YEARLY.features.map((feature, i) => (
-                  <div key={i} className="flex items-start gap-2.5 text-xs text-neutral-200">
-                    <Check className="h-4 w-4 text-brand-red shrink-0 mt-0.5" />
-                    <span>{feature}</span>
+                  <div className="h-5 w-5 rounded-full border border-neutral-600 flex items-center justify-center">
+                    {selectedPlan === "YEARLY" && <div className="h-2.5 w-2.5 rounded-full bg-brand-red" />}
                   </div>
-                ))}
-              </div>
-            </div>
+                </div>
 
-            <div className="pt-6">
-              <button
-                disabled={loading}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleCheckout("YEARLY");
-                }}
-                className="w-full py-3 px-4 rounded-xl bg-brand-red hover:bg-brand-redHover text-white font-mono font-bold text-xs sm:text-sm transition-all shadow-brand flex items-center justify-center gap-2"
-              >
-                {loading && selectedPlan === "YEARLY" ? (
-                  <span>Processing...</span>
-                ) : (
-                  <>
-                    <span>{isPlusMember ? "Extend for ₹299 (Yearly)" : "Upgrade to Plus Yearly"}</span>
-                    <ArrowRight className="h-4 w-4" />
-                  </>
-                )}
-              </button>
+                <div className="pt-2 flex items-baseline gap-2">
+                  <span className="text-4xl font-extrabold text-white">₹599</span>
+                  <span className="text-neutral-400 text-sm font-mono">/ year</span>
+                  <span className="text-[11px] font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded">
+                    ≈ ₹50 / month
+                  </span>
+                </div>
+
+                <p className="text-xs text-neutral-300">
+                  {MEMBERSHIP_PLANS.YEARLY.tagline}
+                </p>
+
+                <div className="pt-4 border-t border-brand-border/60 space-y-2.5">
+                  {MEMBERSHIP_PLANS.YEARLY.features.map((feature, i) => (
+                    <div key={i} className="flex items-start gap-2.5 text-xs text-neutral-200">
+                      <Check className="h-4 w-4 text-brand-red shrink-0 mt-0.5" />
+                      <span>{feature}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="pt-6">
+                <button
+                  disabled={loading}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleCheckout("YEARLY");
+                  }}
+                  className="w-full py-3 px-4 rounded-xl bg-brand-red hover:bg-brand-redHover text-white font-mono font-bold text-xs sm:text-sm transition-all shadow-brand flex items-center justify-center gap-2"
+                >
+                  {loading && selectedPlan === "YEARLY" ? (
+                    <span>Processing...</span>
+                  ) : (
+                    <>
+                      <span>{isPlusMember ? "Extend for ₹599 (Yearly)" : "Upgrade to Plus Yearly"}</span>
+                      <ArrowRight className="h-4 w-4" />
+                    </>
+                  )}
+                </button>
+              </div>
             </div>
           </div>
         </div>

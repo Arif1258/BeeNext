@@ -48,3 +48,5 @@ scripts/*_neon*.mjs
 scripts/*vercel*.mjs
 scripts/verify_live*.mjs
 scripts/capture_live*.mjs
+/protected_notes/
+/BEENEXT_DSA_NOTES/

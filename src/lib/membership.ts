@@ -19,14 +19,14 @@ export const MEMBERSHIP_PLANS = {
   YEARLY: {
     id: "YEARLY",
     name: "Yearly Plan",
-    price: 299,
+    price: 599,
     durationDays: 365,
     tagline: "Best value — complete roadmap for a full year",
-    discount: "Save 68%",
+    discount: "Save 37%",
     features: [
       "Everything in Monthly Plan",
       "365 days of uninterrupted access",
-      "Lowest price per month (₹25/mo equivalent)",
+      "Lowest price per month (≈ ₹50/mo equivalent)",
     ],
   },
 } as const;

@@ -120,7 +120,7 @@ export default function TopicsClient({ initialCategories }: TopicsClientProps) {
         <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 sm:gap-4 border-b border-brand-border pb-3 sm:pb-4">
           <div className="space-y-1.5 sm:space-y-2 max-w-3xl lg:max-w-4xl">
             <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-[2rem] font-extrabold tracking-tight leading-tight sm:whitespace-nowrap text-white">
-              BEE<span className="text-brand-red">NEXT</span> – ZERO TO INFINITY DSA SHEET
+              BEE<span className="text-brand-red">NEXT</span> – HERO TO INFINITY DSA SHEET
             </h1>
             <h2 className="text-sm sm:text-base font-bold text-white tracking-tight">
               Sheet Details

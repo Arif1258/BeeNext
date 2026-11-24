@@ -14,6 +14,7 @@ import {
   Maximize2,
   Minimize2,
 } from "lucide-react";
+import ProtectedPdfViewer from "@/components/ProtectedPdfViewer";
 
 interface NoteItem {
   id: string;
@@ -23,7 +24,7 @@ interface NoteItem {
 
 const DSA_TOPICS_NOTES: NoteItem[] = [
   { id: "beginner", title: "1. Beginner Problems", pdfFile: "sorting-mastery.pdf" },
-  { id: "sorting", title: "2. Sorting Techniques", pdfFile: "sorting-mastery.pdf" },
+  { id: "sorting", title: "2. Sorting Techniques", pdfFile: "Sorting_Algorithms.pdf" },
   { id: "arrays", title: "3. Arrays", pdfFile: "strivers-a2z-dsa-notes.pdf" },
   { id: "hashing", title: "4. Hashing", pdfFile: "strivers-a2z-dsa-notes.pdf" },
   { id: "binary-search", title: "5. Binary Search", pdfFile: "strivers-a2z-dsa-notes.pdf" },
@@ -45,31 +46,44 @@ const DSA_TOPICS_NOTES: NoteItem[] = [
 ];
 
 const CS_FUNDAMENTALS_NOTES: NoteItem[] = [
-  { id: "os", title: "Operating Systems", pdfFile: "strivers-a2z-dsa-notes.pdf" },
-  { id: "cn", title: "Computer Networks", pdfFile: "strivers-a2z-dsa-notes.pdf" },
-  { id: "dbms", title: "DBMS", pdfFile: "strivers-a2z-dsa-notes.pdf" },
-  { id: "oop", title: "OOP", pdfFile: "strivers-a2z-dsa-notes.pdf" },
-];
-
-const DATABASE_NOTES: NoteItem[] = [
-  { id: "sql", title: "SQL", pdfFile: "strivers-a2z-dsa-notes.pdf" },
-  { id: "nosql", title: "NoSQL", pdfFile: "strivers-a2z-dsa-notes.pdf" },
-  { id: "mongodb", title: "MongoDB", pdfFile: "strivers-a2z-dsa-notes.pdf" },
-  { id: "postgres", title: "PostgreSQL", pdfFile: "strivers-a2z-dsa-notes.pdf" },
+  { id: "dbms", title: "DBMS", pdfFile: "DBMS.pdf" },
+  { id: "os", title: "Operating System", pdfFile: "Operating_Systems.pdf" },
+  { id: "cn", title: "Computer Networks", pdfFile: "Computer_Networks.pdf" },
+  { id: "oops", title: "OOPS", pdfFile: "OOPS.pdf" },
 ];
 
 const PROGRAMMING_LANG_NOTES: NoteItem[] = [
-  { id: "c-lang", title: "C", pdfFile: "strivers-a2z-dsa-notes.pdf" },
-  { id: "cpp-lang", title: "C++", pdfFile: "strivers-a2z-dsa-notes.pdf" },
-  { id: "java-lang", title: "Java", pdfFile: "sorting-mastery.pdf" },
-  { id: "python-lang", title: "Python", pdfFile: "strivers-a2z-dsa-notes.pdf" },
+  { id: "c-lang", title: "C", pdfFile: "C_Programming.pdf" },
+  { id: "cpp-lang", title: "C++", pdfFile: "C++_Programming.pdf" },
+  { id: "java-lang", title: "Java", pdfFile: "Java_Programming.pdf" },
+  { id: "python-lang", title: "Python", pdfFile: "Python_Programming.pdf" },
 ];
 
-const ADVANCED_DEV_NOTES: NoteItem[] = [
-  { id: "js", title: "JavaScript", pdfFile: "strivers-a2z-dsa-notes.pdf" },
-  { id: "react", title: "React", pdfFile: "strivers-a2z-dsa-notes.pdf" },
-  { id: "system-design", title: "System Design", pdfFile: "strivers-a2z-dsa-notes.pdf" },
-  { id: "spring-boot", title: "Spring Boot", pdfFile: "strivers-a2z-dsa-notes.pdf" },
+const FRONTEND_DEV_NOTES: NoteItem[] = [
+  { id: "html", title: "HTML", pdfFile: "HTML.pdf" },
+  { id: "css", title: "CSS", pdfFile: "CSS.pdf" },
+  { id: "javascript", title: "JavaScript", pdfFile: "JavaScript.pdf" },
+  { id: "react", title: "React", pdfFile: "React.pdf" },
+];
+
+const BACKEND_DEV_NOTES: NoteItem[] = [
+  { id: "nodejs", title: "Node.js", pdfFile: "Node_js.pdf" },
+  { id: "expressjs", title: "Express.js", pdfFile: "Express_js.pdf" },
+  { id: "springboot", title: "Spring Boot", pdfFile: "Spring_Boot.pdf" },
+];
+
+const DATABASE_NOTES: NoteItem[] = [
+  { id: "mysql", title: "MySQL", pdfFile: "MySQL.pdf" },
+  { id: "mongodb", title: "MongoDB", pdfFile: "MongoDB.pdf" },
+];
+
+const DEVOPS_NOTES: NoteItem[] = [
+  { id: "docker", title: "Docker", pdfFile: "Docker.pdf" },
+  { id: "kubernetes", title: "Kubernetes", pdfFile: "Kubernetes.pdf" },
+];
+
+const VERSION_CONTROL_NOTES: NoteItem[] = [
+  { id: "git-github", title: "Git & GitHub", pdfFile: "Git_and_GitHub.pdf" },
 ];
 
 // Authentic macOS Finder Style Subtle Dull Red Folder SVG
@@ -139,17 +153,17 @@ export default function NotesClient() {
   }, []);
 
   const toggleFullscreen = () => {
-    if (!document.fullscreenElement) {
+    if (!isFullscreen && !document.fullscreenElement) {
       if (viewerContainerRef.current?.requestFullscreen) {
         viewerContainerRef.current.requestFullscreen().catch(() => {
-          setIsFullscreen((prev) => !prev);
+          setIsFullscreen(true);
         });
       } else {
-        setIsFullscreen((prev) => !prev);
+        setIsFullscreen(true);
       }
     } else {
-      if (document.exitFullscreen) {
-        document.exitFullscreen().catch(() => {});
+      if (document.fullscreenElement && document.exitFullscreen) {
+        document.exitFullscreen().catch(() => { });
       }
       setIsFullscreen(false);
     }
@@ -157,7 +171,7 @@ export default function NotesClient() {
 
   const handleCloseViewer = () => {
     if (document.fullscreenElement) {
-      document.exitFullscreen().catch(() => {});
+      document.exitFullscreen().catch(() => { });
     }
     setIsFullscreen(false);
     setSelectedNote(null);
@@ -190,7 +204,14 @@ export default function NotesClient() {
 
   return (
     <div className="min-h-screen bg-brand-black text-white py-10 px-4 sm:px-6 lg:px-8 selection:bg-brand-red selection:text-white">
-      <div className="mx-auto max-w-7xl space-y-12">
+      <div className="mx-auto max-w-7xl space-y-8 sm:space-y-10">
+        {/* Top Security & Copyright Warning Banner */}
+        <div className="rounded-xl border border-emerald-600/30 bg-emerald-950/80 px-4 py-2.5 text-center text-xs sm:text-sm font-medium text-emerald-400 shadow-sm">
+          <p className="leading-relaxed md:whitespace-nowrap">
+            ⚠ Copying, downloading, or taking screenshots of any notes may result in account suspension and permanent access restriction from BeeNext.
+          </p>
+        </div>
+
         {/* Header Hero */}
         <div className="space-y-3">
           <div className="flex flex-wrap items-center justify-between gap-4">
@@ -211,7 +232,7 @@ export default function NotesClient() {
             )}
           </div>
           <p className="text-neutral-400 text-xs sm:text-sm max-w-3xl leading-relaxed">
-            Curated engineering notes across 5 collections. Plus members can access and view all documents.
+            Curated engineering notes across 8 collections. Plus members can access and view all documents.
           </p>
         </div>
 
@@ -238,7 +259,7 @@ export default function NotesClient() {
               2
             </span>
             <h2 className="text-base sm:text-lg font-bold text-white tracking-tight">
-              Section 2: Computer Science Fundamentals
+              Section 2: CS Fundamentals
             </h2>
           </div>
 
@@ -247,30 +268,14 @@ export default function NotesClient() {
           </div>
         </section>
 
-        {/* SECTION 3: DATABASE */}
+        {/* SECTION 3: PROGRAMMING LANGUAGES */}
         <section className="space-y-4 pt-4">
           <div className="flex items-center gap-2 border-b border-neutral-800 pb-2">
             <span className="flex h-5 w-5 items-center justify-center rounded bg-brand-red text-white font-mono font-bold text-[11px]">
               3
             </span>
             <h2 className="text-base sm:text-lg font-bold text-white tracking-tight">
-              Section 3: Database
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-9 gap-x-2 sm:gap-x-4 gap-y-6 sm:gap-y-8 pt-1">
-            {DATABASE_NOTES.map(renderMacFolder)}
-          </div>
-        </section>
-
-        {/* SECTION 4: PROGRAMMING LANGUAGES */}
-        <section className="space-y-4 pt-4">
-          <div className="flex items-center gap-2 border-b border-neutral-800 pb-2">
-            <span className="flex h-5 w-5 items-center justify-center rounded bg-brand-red text-white font-mono font-bold text-[11px]">
-              4
-            </span>
-            <h2 className="text-base sm:text-lg font-bold text-white tracking-tight">
-              Section 4: Programming Languages
+              Section 3: Programming Languages
             </h2>
           </div>
 
@@ -279,208 +284,286 @@ export default function NotesClient() {
           </div>
         </section>
 
-        {/* SECTION 5: ADVANCED DEVELOPMENT */}
+        {/* SECTION 4: FRONTEND DEVELOPMENT */}
+        <section className="space-y-4 pt-4">
+          <div className="flex items-center gap-2 border-b border-neutral-800 pb-2">
+            <span className="flex h-5 w-5 items-center justify-center rounded bg-brand-red text-white font-mono font-bold text-[11px]">
+              4
+            </span>
+            <h2 className="text-base sm:text-lg font-bold text-white tracking-tight">
+              Section 4: Frontend Development
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-9 gap-x-2 sm:gap-x-4 gap-y-6 sm:gap-y-8 pt-1">
+            {FRONTEND_DEV_NOTES.map(renderMacFolder)}
+          </div>
+        </section>
+
+        {/* SECTION 5: BACKEND DEVELOPMENT */}
         <section className="space-y-4 pt-4">
           <div className="flex items-center gap-2 border-b border-neutral-800 pb-2">
             <span className="flex h-5 w-5 items-center justify-center rounded bg-brand-red text-white font-mono font-bold text-[11px]">
               5
             </span>
             <h2 className="text-base sm:text-lg font-bold text-white tracking-tight">
-              Section 5: Advanced Development
+              Section 5: Backend Development
             </h2>
           </div>
 
           <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-9 gap-x-2 sm:gap-x-4 gap-y-6 sm:gap-y-8 pt-1">
-            {ADVANCED_DEV_NOTES.map(renderMacFolder)}
+            {BACKEND_DEV_NOTES.map(renderMacFolder)}
           </div>
         </section>
-      </div>
 
-      {/* Protected Embedded PDF Viewer Modal for Plus Users */}
-      {selectedNote && isPlusMember && (
-        <div
-          ref={viewerContainerRef}
-          className={
-            isFullscreen
-              ? "fixed inset-0 z-50 bg-black flex flex-col w-screen h-screen max-w-none rounded-none overflow-hidden"
-              : "fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-2 sm:p-4"
-          }
-        >
-          <div
-            className={
-              isFullscreen
-                ? "bg-neutral-950 w-full h-full flex flex-col overflow-hidden relative"
-                : "bg-neutral-950 border border-brand-border rounded-2xl w-full max-w-5xl h-[92vh] flex flex-col shadow-2xl overflow-hidden relative"
-            }
-          >
-            {/* Viewer Header */}
-            <div className="flex items-center justify-between border-b border-brand-border px-4 sm:px-5 py-3 bg-neutral-900/90 shrink-0">
-              <div className="flex items-center gap-2.5 sm:gap-3 truncate mr-2">
-                <BookOpen className="h-5 w-5 text-brand-red shrink-0" />
-                <div className="truncate">
-                  <h3 className="text-sm sm:text-base font-bold text-white truncate">
-                    {selectedNote.title}
-                  </h3>
-                  <span className="text-[10px] sm:text-[11px] font-mono text-neutral-400 block truncate">
-                    BeeNext Plus Protected Viewer • Read-Only
-                  </span>
-                </div>
-              </div>
+        {/* SECTION 6: DATABASE */}
+        <section className="space-y-4 pt-4">
+          <div className="flex items-center gap-2 border-b border-neutral-800 pb-2">
+            <span className="flex h-5 w-5 items-center justify-center rounded bg-brand-red text-white font-mono font-bold text-[11px]">
+              6
+            </span>
+            <h2 className="text-base sm:text-lg font-bold text-white tracking-tight">
+              Section 6: Database
+            </h2>
+          </div>
 
-              <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-                <span className="hidden md:inline-flex items-center gap-1 text-[11px] font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-1 rounded-full">
-                  <ShieldCheck className="h-3 w-3" />
-                  <span>Licensed to {user?.email}</span>
-                </span>
+          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-9 gap-x-2 sm:gap-x-4 gap-y-6 sm:gap-y-8 pt-1">
+            {DATABASE_NOTES.map(renderMacFolder)}
+          </div>
+        </section>
 
-                {/* Full Screen / Exit Full Screen Button */}
-                <button
-                  type="button"
-                  onClick={toggleFullscreen}
-                  className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-neutral-700 bg-neutral-800 text-neutral-300 hover:text-white hover:border-neutral-500 font-mono text-xs transition-colors"
-                  title={isFullscreen ? "Exit Full Screen" : "Full Screen"}
-                  aria-label={isFullscreen ? "Exit Full Screen" : "Full Screen"}
-                >
-                  {isFullscreen ? (
-                    <>
-                      <Minimize2 className="h-3.5 w-3.5 text-brand-red" />
-                      <span className="hidden sm:inline">Exit Full Screen</span>
-                    </>
-                  ) : (
-                    <>
-                      <Maximize2 className="h-3.5 w-3.5 text-neutral-400" />
-                      <span className="hidden sm:inline">Full Screen</span>
-                    </>
-                  )}
-                </button>
+        {/* SECTION 7: DEVOPS */}
+        <section className="space-y-4 pt-4">
+          <div className="flex items-center gap-2 border-b border-neutral-800 pb-2">
+            <span className="flex h-5 w-5 items-center justify-center rounded bg-brand-red text-white font-mono font-bold text-[11px]">
+              7
+            </span>
+            <h2 className="text-base sm:text-lg font-bold text-white tracking-tight">
+              Section 7: DevOps
+            </h2>
+          </div>
 
-                {/* Close Button */}
-                <button
-                  type="button"
-                  onClick={handleCloseViewer}
-                  className="p-1.5 rounded-lg border border-neutral-700 bg-neutral-800 text-neutral-300 hover:text-white hover:border-neutral-500 transition-colors"
-                  title="Close Viewer"
-                  aria-label="Close Viewer"
-                >
-                  <X className="h-4 w-4" />
-                </button>
-              </div>
-            </div>
+          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-9 gap-x-2 sm:gap-x-4 gap-y-6 sm:gap-y-8 pt-1">
+            {DEVOPS_NOTES.map(renderMacFolder)}
+          </div>
+        </section>
 
-            {/* Embedded Iframe Container with Watermark */}
-            <div className="flex-1 relative bg-neutral-900 w-full h-full">
-              {/* Semi-transparent protective watermark overlay */}
-              <div className="absolute inset-0 pointer-events-none flex items-center justify-center z-10 opacity-15 select-none">
-                <div className="rotate-[-25deg] text-center font-mono font-bold text-white text-xl sm:text-3xl leading-relaxed">
-                  <div>BEENEXT PLUS LICENSED COPY</div>
-                  <div className="text-base sm:text-xl font-normal text-neutral-300">
-                    {user?.email}
-                  </div>
-                  <div className="text-xs text-neutral-400">
-                    UNAUTHORIZED DISTRIBUTION PROHIBITED
-                  </div>
-                </div>
-              </div>
+        {/* SECTION 8: VERSION CONTROL */}
+        <section className="space-y-4 pt-4">
+          <div className="flex items-center gap-2 border-b border-neutral-800 pb-2">
+            <span className="flex h-5 w-5 items-center justify-center rounded bg-brand-red text-white font-mono font-bold text-[11px]">
+              8
+            </span>
+            <h2 className="text-base sm:text-lg font-bold text-white tracking-tight">
+              Section 8: Version Control
+            </h2>
+          </div>
 
-              {/* Secure iframe streaming via protected backend route without native toolbar */}
-              <iframe
-                src={`/api/notes/stream?file=${encodeURIComponent(
-                  selectedNote.pdfFile || "strivers-a2z-dsa-notes.pdf"
-                )}#toolbar=0&navpanes=0&scrollbar=1`}
-                className="w-full h-full border-none"
-                title={selectedNote.title}
-              />
+          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-9 gap-x-2 sm:gap-x-4 gap-y-6 sm:gap-y-8 pt-1">
+            {VERSION_CONTROL_NOTES.map(renderMacFolder)}
+          </div>
+        </section>
+
+        {/* COMING SOON & FEEDBACK FOOTER MESSAGE */}
+        <div className="pt-6 sm:pt-8 pb-4 border-t border-neutral-800/80">
+            <div className="max-w-2xl mx-auto rounded-2xl border border-emerald-600/30 bg-emerald-950/80 p-4 sm:p-5 text-center shadow-sm">
+              <p className="text-xs sm:text-sm text-neutral-400 leading-relaxed">
+                Stay tuned! More notes and learning resources are coming soon. Have any suggestions or feedback? Feel free to share them with us at our Support Email.
+              </p>
             </div>
           </div>
         </div>
-      )}
 
-      {/* Upgrade Prompt Modal in Center of Screen for Normal Users */}
-      {showUpgradeModal && selectedNote && !isPlusMember && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          onClick={() => {
-            setShowUpgradeModal(false);
-            setSelectedNote(null);
-          }}
-          className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 animate-fadeIn"
-        >
+        {/* Protected Embedded PDF Viewer Modal for Plus Users */}
+        {selectedNote && isPlusMember && (
           <div
-            onClick={(e) => e.stopPropagation()}
-            className="bg-brand-card border border-brand-border rounded-2xl max-w-md w-full p-6 space-y-5 shadow-2xl relative text-left"
+            ref={viewerContainerRef}
+            className={
+              isFullscreen
+                ? "fixed inset-0 z-50 bg-black flex flex-col w-screen h-screen max-w-none rounded-none overflow-hidden"
+                : "fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-1 sm:p-2 md:p-3"
+            }
           >
-            <button
-              type="button"
-              onClick={() => {
-                setShowUpgradeModal(false);
-                setSelectedNote(null);
-              }}
-              className="absolute top-4 right-4 rounded-lg p-1.5 text-neutral-400 hover:text-white hover:bg-neutral-800 transition-colors"
-              aria-label="Close modal"
+            <div
+              className={
+                isFullscreen
+                  ? "bg-neutral-950 w-full h-full flex flex-col overflow-hidden relative"
+                  : "bg-neutral-950 border border-brand-border rounded-2xl w-full max-w-6xl xl:max-w-7xl h-[97vh] flex flex-col shadow-2xl overflow-hidden relative"
+              }
             >
-              <X className="h-4 w-4" />
-            </button>
+              {/* Viewer Header - Slim & Unified */}
+              <div className="flex items-center justify-between border-b border-brand-border px-3 sm:px-4 py-1.5 sm:py-2 bg-neutral-900/95 shrink-0">
+                <div className="flex items-center gap-2 truncate mr-2">
+                  <BookOpen className="h-4 w-4 text-brand-red shrink-0" />
+                  <div className="flex items-center gap-2 truncate">
+                    <h3 className="text-xs sm:text-sm font-bold text-white truncate">
+                      {selectedNote.title}
+                    </h3>
+                    <span className="hidden sm:inline-block text-[10px] font-mono text-neutral-400 truncate">
+                      &bull; BeeNext Plus Protected Viewer
+                    </span>
+                  </div>
+                </div>
 
-            <div className="flex items-center gap-3 pr-8">
-              <div className="h-10 w-10 rounded-xl bg-brand-red/15 border border-brand-red/30 flex items-center justify-center text-brand-red shrink-0">
-                <Lock className="h-5 w-5" />
+                <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+                  <span className="hidden md:inline-flex items-center gap-1 text-[10px] sm:text-[11px] font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full">
+                    <ShieldCheck className="h-3 w-3" />
+                    <span className="truncate max-w-[180px]">Licensed to {user?.email}</span>
+                  </span>
+
+                  {/* Single Fullscreen Control */}
+                  <button
+                    type="button"
+                    onClick={toggleFullscreen}
+                    className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg border border-neutral-700 bg-neutral-800 text-neutral-200 hover:text-white hover:border-neutral-500 font-mono text-xs transition-colors"
+                    title={isFullscreen ? "Exit Fullscreen" : "Fullscreen"}
+                    aria-label={isFullscreen ? "Exit Fullscreen" : "Fullscreen"}
+                  >
+                    {isFullscreen ? (
+                      <>
+                        <Minimize2 className="h-3.5 w-3.5 text-brand-red" />
+                        <span className="hidden sm:inline text-xs">Exit Fullscreen</span>
+                      </>
+                    ) : (
+                      <>
+                        <Maximize2 className="h-3.5 w-3.5 text-neutral-300" />
+                        <span className="hidden sm:inline text-xs">Fullscreen</span>
+                      </>
+                    )}
+                  </button>
+
+                  {/* Close Button */}
+                  <button
+                    type="button"
+                    onClick={handleCloseViewer}
+                    className="p-1 rounded-lg border border-neutral-700 bg-neutral-800 text-neutral-300 hover:text-white hover:border-neutral-500 transition-colors"
+                    title="Close Viewer"
+                    aria-label="Close Viewer"
+                  >
+                    <X className="h-4 w-4" />
+                  </button>
+                </div>
               </div>
-              <div>
-                <h3 className="text-base font-bold text-white tracking-tight">
-                  Plus Membership Required
-                </h3>
-                <p className="text-xs text-brand-red font-mono font-medium">
-                  {selectedNote.title}
-                </p>
+
+              {/* Embedded Container */}
+              <div className="flex-1 relative bg-neutral-900 w-full h-full overflow-hidden">
+                {selectedNote.pdfFile ? (
+                  <ProtectedPdfViewer
+                    file={selectedNote.pdfFile}
+                    title={selectedNote.title}
+                    userEmail={user?.email || "Licensed Member"}
+                    isFullscreen={isFullscreen}
+                    onToggleFullscreen={toggleFullscreen}
+                    onClose={handleCloseViewer}
+                  />
+                ) : (
+                  <div className="flex flex-col items-center justify-center h-full text-center px-4 py-12 select-none">
+                    <div className="h-16 w-16 rounded-2xl bg-neutral-800/60 border border-neutral-700/60 flex items-center justify-center text-neutral-400 mb-4 shadow-inner">
+                      <BookOpen className="h-8 w-8 text-brand-red" />
+                    </div>
+                    <h4 className="text-lg sm:text-xl font-bold text-white mb-2">
+                      {selectedNote.title} Notes
+                    </h4>
+                    <p className="text-xs sm:text-sm text-neutral-400 max-w-md leading-relaxed mb-4">
+                      This study guide is currently being prepared and will be available for Plus members soon.
+                    </p>
+                    <span className="inline-flex items-center gap-1.5 text-xs font-mono text-neutral-300 bg-neutral-900 border border-neutral-800 px-3 py-1.5 rounded-full">
+                      <Sparkles className="h-3.5 w-3.5 text-brand-red" />
+                      <span>Included in your Plus Membership</span>
+                    </span>
+                  </div>
+                )}
               </div>
             </div>
+          </div>
+        )}
 
-            <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed">
-              Access to curated engineering notes, PDF guides, and topic breakdowns is available exclusively to <strong className="text-white">BeeNext Plus</strong> members.
-            </p>
-
-            <div className="space-y-2 rounded-xl bg-neutral-900 border border-neutral-800 p-3.5 text-xs text-neutral-300">
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="h-3.5 w-3.5 text-brand-red shrink-0" />
-                <span>All 20 DSA Topic Guides</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="h-3.5 w-3.5 text-brand-red shrink-0" />
-                <span>CS Fundamentals (OS, Networks, DBMS, OOP)</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="h-3.5 w-3.5 text-brand-red shrink-0" />
-                <span>Database, Programming Languages &amp; Advanced Dev</span>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3 pt-1">
+        {/* Upgrade Prompt Modal in Center of Screen for Normal Users */}
+        {showUpgradeModal && selectedNote && !isPlusMember && (
+          <div
+            role="dialog"
+            aria-modal="true"
+            onClick={() => {
+              setShowUpgradeModal(false);
+              setSelectedNote(null);
+            }}
+            className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 animate-fadeIn"
+          >
+            <div
+              onClick={(e) => e.stopPropagation()}
+              className="bg-brand-card border border-brand-border rounded-2xl max-w-md w-full p-6 space-y-5 shadow-2xl relative text-left"
+            >
               <button
                 type="button"
                 onClick={() => {
                   setShowUpgradeModal(false);
                   setSelectedNote(null);
                 }}
-                className="flex-1 py-2.5 px-4 rounded-xl border border-neutral-800 bg-neutral-900 hover:bg-neutral-800 text-neutral-300 text-xs font-mono font-medium transition-colors text-center"
+                className="absolute top-4 right-4 rounded-lg p-1.5 text-neutral-400 hover:text-white hover:bg-neutral-800 transition-colors"
+                aria-label="Close modal"
               >
-                Close
+                <X className="h-4 w-4" />
               </button>
-              <Link
-                href="/membership"
-                onClick={() => {
-                  setShowUpgradeModal(false);
-                  setSelectedNote(null);
-                }}
-                className="flex-1 py-2.5 px-4 rounded-xl bg-brand-red hover:bg-brand-redHover text-white text-xs font-mono font-bold transition-all shadow-brand flex items-center justify-center gap-1.5 text-center"
-              >
-                <span>Upgrade to Plus</span>
-                <ArrowRight className="h-3.5 w-3.5" />
-              </Link>
+
+              <div className="flex items-center gap-3 pr-8">
+                <div className="h-10 w-10 rounded-xl bg-brand-red/15 border border-brand-red/30 flex items-center justify-center text-brand-red shrink-0">
+                  <Lock className="h-5 w-5" />
+                </div>
+                <div>
+                  <h3 className="text-base font-bold text-white tracking-tight">
+                    Plus Membership Required
+                  </h3>
+                  <p className="text-xs text-brand-red font-mono font-medium">
+                    {selectedNote.title}
+                  </p>
+                </div>
+              </div>
+
+              <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed">
+                Access to curated engineering notes, PDF guides, and topic breakdowns is available exclusively to <strong className="text-white">BeeNext Plus</strong> members.
+              </p>
+
+              <div className="space-y-2 rounded-xl bg-neutral-900 border border-neutral-800 p-3.5 text-xs text-neutral-300">
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="h-3.5 w-3.5 text-brand-red shrink-0" />
+                  <span>All 20 DSA Topic Guides</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="h-3.5 w-3.5 text-brand-red shrink-0" />
+                  <span>CS Fundamentals &amp; Programming Languages</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="h-3.5 w-3.5 text-brand-red shrink-0" />
+                  <span>Frontend, Backend, Database, DevOps &amp; Version Control</span>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3 pt-1">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowUpgradeModal(false);
+                    setSelectedNote(null);
+                  }}
+                  className="flex-1 py-2.5 px-4 rounded-xl border border-neutral-800 bg-neutral-900 hover:bg-neutral-800 text-neutral-300 text-xs font-mono font-medium transition-colors text-center"
+                >
+                  Close
+                </button>
+                <Link
+                  href="/membership"
+                  onClick={() => {
+                    setShowUpgradeModal(false);
+                    setSelectedNote(null);
+                  }}
+                  className="flex-1 py-2.5 px-4 rounded-xl bg-brand-red hover:bg-brand-redHover text-white text-xs font-mono font-bold transition-all shadow-brand flex items-center justify-center gap-1.5 text-center"
+                >
+                  <span>Upgrade to Plus</span>
+                  <ArrowRight className="h-3.5 w-3.5" />
+                </Link>
+              </div>
             </div>
           </div>
-        </div>
-      )}
-    </div>
-  );
+        )}
+      </div>
+      );
 }
