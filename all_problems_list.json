@@ -1,0 +1,3012 @@
+{
+  "beginner-problems": [
+    {
+      "id": "cmwolljqi0001o76vago9d0g3",
+      "slug": "breaking-the-myth",
+      "title": "Breaking The Myth",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljqn0005o76vxf8cbjvq",
+      "slug": "programming-and-what-are-computers",
+      "title": "Programming and What Are Computers?",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljqp0009o76vujo7hysh",
+      "slug": "how-to-think-like-a-programmer",
+      "title": "How to Think Like a Programmer",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljqq000do76v4xi0euk1",
+      "slug": "flowcharts-and-pseudocode",
+      "title": "Flowcharts and Pseudocode",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljqs000ho76vrsgiukxp",
+      "slug": "flowchart-problem-solving",
+      "title": "Flowchart Problem-Solving ",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljqu000lo76v165l1w6o",
+      "slug": "dry-runs-edge-cases-and-debugging",
+      "title": "Dry Runs, Edge Cases and Debugging",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljqv000po76vy5c3vgn9",
+      "slug": "programming-languages-and-choosing-a-path",
+      "title": "Programming Languages and Choosing a Path",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljqw000to76vd5e1ooui",
+      "slug": "learn-cpp",
+      "title": "Learn C++",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljqy000xo76vird8xngk",
+      "slug": "learn-java",
+      "title": "Learn Java",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljqz0011o76v6qlrekqi",
+      "slug": "learn-python",
+      "title": "Learn Python",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljr00015o76vwqe6kf8m",
+      "slug": "easy-and-medium",
+      "title": "Easy and Medium",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljr20019o76vivwls7s6",
+      "slug": "hard",
+      "title": "Hard",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwolljr3001do76vz0wtv661",
+      "slug": "pattern-1",
+      "title": "Pattern 1",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljr4001ho76vfpb1gm6q",
+      "slug": "pattern-2",
+      "title": "Pattern 2",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljr6001lo76v8k103oge",
+      "slug": "pattern-3",
+      "title": "Pattern 3",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljr7001po76vdysac7b1",
+      "slug": "pattern-4",
+      "title": "Pattern 4",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljr8001to76vrbws4mhj",
+      "slug": "pattern-5",
+      "title": "Pattern 5",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljr9001xo76vyvwxdc17",
+      "slug": "pattern-6",
+      "title": "Pattern 6",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljrb0021o76v2if54fmw",
+      "slug": "pattern-7",
+      "title": "Pattern 7",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljrc0025o76v50t8zs1y",
+      "slug": "pattern-8",
+      "title": "Pattern 8",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljrd0029o76v78ypgu40",
+      "slug": "pattern-9",
+      "title": "Pattern 9",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljrf002do76v6yj19ewo",
+      "slug": "pattern-10",
+      "title": "Pattern 10",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljrg002ho76vx6vzh55n",
+      "slug": "pattern-11",
+      "title": "Pattern 11",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljrh002lo76vhp8cj7zs",
+      "slug": "pattern-12",
+      "title": "Pattern 12",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljri002po76vafppl9ym",
+      "slug": "pattern-13",
+      "title": "Pattern 13",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljrk002to76vaozb5edh",
+      "slug": "pattern-14",
+      "title": "Pattern 14",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljrl002xo76vevpvta9e",
+      "slug": "pattern-15",
+      "title": "Pattern 15",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljrm0031o76v3vdjcarc",
+      "slug": "pattern-16",
+      "title": "Pattern 16",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljrn0035o76vcp53mh2v",
+      "slug": "pattern-17",
+      "title": "Pattern 17",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljrp0039o76vkpac0aop",
+      "slug": "pattern-18",
+      "title": "Pattern 18",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljrq003do76vm05rf487",
+      "slug": "pattern-19",
+      "title": "Pattern 19",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljrr003ho76v6cndc838",
+      "slug": "pattern-20",
+      "title": "Pattern 20",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljrt003lo76v2g6cx7dl",
+      "slug": "pattern-21",
+      "title": "Pattern 21",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljru003po76vwec4mwpr",
+      "slug": "pattern-22",
+      "title": "Pattern 22",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljrv003to76vlbge2zja",
+      "slug": "theory-with-examples",
+      "title": "Theory with examples",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljrw003xo76vre8834o3",
+      "slug": "stl",
+      "title": "STL",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljrx0041o76vruyoprwx",
+      "slug": "java-collections",
+      "title": "Java Collections",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljrz0045o76vcx2zk2ny",
+      "slug": "python-libraries-part-1",
+      "title": "Python Libraries Part 1",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljs00049o76v42ehvh5e",
+      "slug": "python-libraries-part-2",
+      "title": "Python Libraries Part 2",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljs1004do76vht1asl2c",
+      "slug": "basic-maths",
+      "title": "Basic Maths",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljs3004ho76vfnsb0lf7",
+      "slug": "basic-arrays-hashing-and-strings",
+      "title": "Basic Arrays",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljs4004lo76vaqfc5g8x",
+      "slug": "beginner-basic-hashing",
+      "title": "Basic Hashing",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljs5004po76v7m02bgh2",
+      "slug": "basic-string",
+      "title": "Basic String",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljs6004to76v8bke12ve",
+      "slug": "count-all-digits-of-a-number",
+      "title": "Count all Digits of a Number",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljs7004xo76vb8u28o5p",
+      "slug": "count-number-of-odd-digits-in-a-number",
+      "title": "Count number of odd digits in a number",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljs90051o76vi9ryl4of",
+      "slug": "reverse-a-number",
+      "title": "Reverse a number",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljsa0055o76v6oe8t55k",
+      "slug": "palindrome-number",
+      "title": "Palindrome Number",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljsb0059o76v0lr69gs9",
+      "slug": "return-the-largest-digit-in-a-number",
+      "title": "Return the Largest Digit in a Number",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljsc005do76v62tucety",
+      "slug": "factorial-of-a-given-number-i",
+      "title": "Factorial of a given number",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljse005ho76v7gx35c0u",
+      "slug": "check-if-the-number-if-armstrong",
+      "title": "Check if the Number is Armstrong",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljsf005lo76vbikrr79w",
+      "slug": "check-for-perfect-number",
+      "title": "Check for Perfect Number",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljsg005po76vl16i9q90",
+      "slug": "check-for-prime-number",
+      "title": "Check for Prime Number",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljsh005to76v6bcan6fa",
+      "slug": "count-of-prime-numbers-till-n",
+      "title": "Count of Prime Numbers till N",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljsj005xo76vopazkmra",
+      "slug": "gcd-of-two-numbers",
+      "title": "GCD of Two Numbers",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljsk0061o76v5aqzv6k5",
+      "slug": "lcm-of-two-numbers",
+      "title": "LCM of two numbers",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljsl0065o76vovkusu2o",
+      "slug": "divisors-of-a-number",
+      "title": "Divisors of a Number",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljsn0069o76vj040eg3k",
+      "slug": "sum-of-array-elements",
+      "title": "Sum of Array Elements",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljso006do76vkwtugqr1",
+      "slug": "count-of-odd-numbers-in-array",
+      "title": "Count of odd numbers in Array",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljsp006ho76v2mkv17vc",
+      "slug": "check-if-the-array-is-sorted-i",
+      "title": "Check if the Array is Sorted I",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljsq006lo76v3xehpe5h",
+      "slug": "reverse-an-array",
+      "title": "Reverse an array",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljsr006po76v1uwdknt0",
+      "slug": "highest-occurring-element-in-an-array",
+      "title": "Highest Occurring Element in an Array",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljst006to76vd3zgnzau",
+      "slug": "second-highest-occurring-element",
+      "title": "Second Highest Occurring Element",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljsu006xo76v1ae3fmju",
+      "slug": "sum-of-highest-and-lowest-frequency",
+      "title": "Sum of Highest and Lowest Frequency",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljsv0071o76vyaujhbys",
+      "slug": "reverse-a-string-ii",
+      "title": "Reverse a String II",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljsx0075o76vkkcfinx8",
+      "slug": "palindrome-check",
+      "title": "Palindrome Check",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljsy0079o76vuccbly7u",
+      "slug": "largest-odd-number-in-a-string",
+      "title": "Largest Odd Number in a String",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljsz007do76vo4w1qx8o",
+      "slug": "longest-common-prefix",
+      "title": "Longest Common Prefix",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljt0007ho76vmroaz0mx",
+      "slug": "isomorphic-string",
+      "title": "Isomorphic Strings",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljt1007lo76vahj8cypq",
+      "slug": "rotate-string",
+      "title": "Rotate String",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljt3007po76vfz7d106o",
+      "slug": "valid-anagram",
+      "title": "Valid Anagram",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljt4007to76v6a4rbyqy",
+      "slug": "sort-characters-by-frequency",
+      "title": "Sort Characters by Frequency",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljt5007xo76v5478xboa",
+      "slug": "recursion-theory",
+      "title": "Recursion Theory",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljt70081o76vk8vlask5",
+      "slug": "recursion-concepts-with-parameters",
+      "title": "Recursion Concepts with Parameters",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljt80085o76v9tbalxbt",
+      "slug": "sum-of-first-n-numbers",
+      "title": "Sum of First N Numbers",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljt90089o76vk8ij8eta",
+      "slug": "factorial-of-a-given-number-ii",
+      "title": "Factorial of a Given Number",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljta008do76vq0a5ln7a",
+      "slug": "sum-of-array-elements-ii",
+      "title": "Sum of Array Elements II",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljtb008ho76vp2iv2it7",
+      "slug": "reverse-a-string-i",
+      "title": "Reverse a String I",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljtc008lo76vhw2kaiug",
+      "slug": "check-if-string-is-palindrome-or-not-",
+      "title": "Check if String is Palindrome or Not ",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljte008po76vvey7bs0k",
+      "slug": "check-if-a-number-is-prime-or-not",
+      "title": "Check if a Number is Prime or Not",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljtf008to76vw2ihh4l8",
+      "slug": "reverse-an-array-ii",
+      "title": "Reverse an array 2",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljth008xo76vly927qr3",
+      "slug": "check-if-the-array-is-sorted-ii",
+      "title": "Check if the Array is Sorted II",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljti0091o76vtrtgiycj",
+      "slug": "sum-of-digits-in-a-given-number",
+      "title": "Sum of Digits in a Given Number",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljtj0095o76vq0en0kox",
+      "slug": "fibonacci-number",
+      "title": "Fibonacci Number",
+      "difficulty": "MEDIUM"
+    }
+  ],
+  "sorting": [
+    {
+      "id": "cmwn97dm3001ho4zidgu5v6qg",
+      "slug": "selection-sort",
+      "title": "Selection Sort",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwn97dm00019o4zi6ztbp2yo",
+      "slug": "bubble-sort",
+      "title": "Bubble Sort",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwn97dm6001po4zimaulkps1",
+      "slug": "insertion-sort",
+      "title": "Insertion Sort",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwn97dlw000xo4zizrecqcxt",
+      "slug": "merge-sort",
+      "title": "Merge Sort",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwn97dll000lo4zi9yry1x2b",
+      "slug": "quick-sort",
+      "title": "Quick Sort",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwnkk8t1001ijqrhfqg7fe5n",
+      "slug": "recursive-bubble-sort",
+      "title": "Recursive Bubble Sort",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwnkk8t4001qjqrh96vw10wg",
+      "slug": "recursive-insertion-sort",
+      "title": "Recursive Insertion Sort",
+      "difficulty": "EASY"
+    }
+  ],
+  "arrays": [
+    {
+      "id": "cmwolljtl0099o76v09jlw9jd",
+      "slug": "linear-search",
+      "title": "Linear Search",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljtm009do76vc0rv8jhy",
+      "slug": "largest-element",
+      "title": "Largest Element ",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljto009ho76vghz68x7q",
+      "slug": "second-largest-element",
+      "title": "Second Largest Element",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljtp009lo76vnwn3q5fc",
+      "slug": "maximum-consecutive-ones",
+      "title": "Maximum Consecutive Ones",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljtq009po76v8o534rh7",
+      "slug": "left-rotate-array-by-one",
+      "title": "Left Rotate Array by One",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljtr009to76v010htmw7",
+      "slug": "left-rotate-array",
+      "title": "Left Rotate Array by K Places",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljts009xo76vjvhord1v",
+      "slug": "move-zeros-to-end",
+      "title": "Move Zeros to End",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljtu00a1o76vy0ttloda",
+      "slug": "remove-duplicates-from-sorted-array",
+      "title": "Remove duplicates from sorted array",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljtv00a5o76vegkiaahq",
+      "slug": "find-missing-number",
+      "title": "Find missing number",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljtw00a9o76v8vsih342",
+      "slug": "union-of-two-sorted-arrays",
+      "title": "Union of two sorted arrays",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljtx00ado76vtqgi0vfb",
+      "slug": "intersection-of-two-sorted-arrays",
+      "title": "Intersection of two sorted arrays",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljtz00aho76vyu8v89hd",
+      "slug": "majority-element-i",
+      "title": "Majority Element-I",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollju000alo76vlfujhcs7",
+      "slug": "leaders-in-an-array",
+      "title": "Leaders in an Array",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollju100apo76vk1ovc0lj",
+      "slug": "rearrange-array-elements-by-sign",
+      "title": "Rearrange array elements by sign",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollju200ato76vpz24b7ng",
+      "slug": "print-the-matrix-in-spiral-manner",
+      "title": "Print the matrix in spiral manner",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollju300axo76v7imndenh",
+      "slug": "pascals-triangle-i",
+      "title": "Pascal's Triangle I",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollju400b1o76vyifbp4g6",
+      "slug": "pascals-triangle-ii",
+      "title": "Pascal's Triangle II",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollju500b5o76v4r6r62jm",
+      "slug": "pascals-triangle-iii",
+      "title": "Pascal's Triangle III",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollju600b9o76vj0nodzgx",
+      "slug": "rotate-matrix-by-90-degrees",
+      "title": "Rotate matrix by 90 degrees",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollju700bdo76vzxcd2isl",
+      "slug": "set-matrix-zeroes",
+      "title": "Set Matrix Zeroes",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollju800bho76v0ryu6e0s",
+      "slug": "two-sum",
+      "title": "Two Sum",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwollju900blo76vw5lqhow7",
+      "slug": "3-sum",
+      "title": "3 Sum",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljua00bpo76v6w7els7w",
+      "slug": "4-sum",
+      "title": "4 Sum",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwolljub00bto76vbvc6dr14",
+      "slug": "sort-an-array-of-0's-1's-and-2's",
+      "title": "Sort an array of 0's 1's and 2's",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljuc00bxo76vce5v9q16",
+      "slug": "kadane's-algorithm",
+      "title": "Kadane's Algorithm",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljud00c1o76vluyydv97",
+      "slug": "next-permutation",
+      "title": "Next Permutation",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljue00c5o76vyf23hitl",
+      "slug": "majority-element-ii",
+      "title": "Majority Element-II",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljug00c9o76v5fpkb3v0",
+      "slug": "find-the-repeating-and-missing-number",
+      "title": "Find the repeating and missing number",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljuh00cdo76vvfck9stb",
+      "slug": "count-inversions",
+      "title": "Count Inversions",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwolljui00cho76vd54yn5le",
+      "slug": "reverse-pairs",
+      "title": "Reverse Pairs",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwolljuj00clo76vyl5nq7wr",
+      "slug": "maximum-product-subarray-in-an-array",
+      "title": "Maximum Product Subarray in an Array",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljuk00cpo76vwh7cka25",
+      "slug": "merge-two-sorted-arrays-without-extra-space",
+      "title": "Merge two sorted arrays without extra space",
+      "difficulty": "MEDIUM"
+    }
+  ],
+  "hashing": [
+    {
+      "id": "cmwolljul00cto76v8n5jgesv",
+      "slug": "basic-hashing",
+      "title": "Basic Hashing",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljum00cxo76vbgd6kx5f",
+      "slug": "longest-consecutive-sequence-in-an-array",
+      "title": "Longest Consecutive Sequence in an Array",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljun00d1o76vfebefnze",
+      "slug": "longest-subarray-with-sum-k",
+      "title": "Longest subarray with sum K",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljuo00d5o76ve7cw4vl5",
+      "slug": "largest-subarray-with-sum-0",
+      "title": "Largest Subarray with Sum 0",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljup00d9o76vo0if8bev",
+      "slug": "count-subarrays-with-given-sum",
+      "title": "Count subarrays with given sum",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljuq00ddo76v286lwnr2",
+      "slug": "count-subarrays-with-given-xor-k",
+      "title": "Count subarrays with given xor K",
+      "difficulty": "HARD"
+    }
+  ],
+  "binary-search": [
+    {
+      "id": "cmwolljus00dho76v2dg0yppw",
+      "slug": "search-x-in-sorted-array",
+      "title": "Search X in sorted array",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljut00dlo76va8knugfm",
+      "slug": "lower-bound-",
+      "title": "Lower Bound ",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljut00dpo76vz6725rnk",
+      "slug": "upper-bound",
+      "title": "Upper Bound",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljuu00dto76v0cudfq0d",
+      "slug": "search-insert-position",
+      "title": "Search insert position",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljuv00dxo76vxqnt5oap",
+      "slug": "floor-and-ceil-in-sorted-array",
+      "title": "Floor and Ceil in Sorted Array",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljuw00e1o76ve4dqlm2j",
+      "slug": "first-and-last-occurrence",
+      "title": "First and last occurrence",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljux00e5o76vdpyx44fc",
+      "slug": "search-in-rotated-sorted-array-i",
+      "title": "Search in rotated sorted array-I",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljuy00e9o76v7mpmmqof",
+      "slug": "search-in-rotated-sorted-array-2",
+      "title": "Search in rotated sorted array-II",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljuz00edo76vkvpr9m9u",
+      "slug": "find-minimum-in-rotated-sorted-array",
+      "title": "Find minimum in Rotated Sorted Array",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljuz00eho76vre5th2qg",
+      "slug": "find-out-how-many-times-the-array-is-rotated",
+      "title": "Find out how many times the array is rotated",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljv000elo76v2ak1q0ln",
+      "slug": "single-element-in-sorted-array",
+      "title": "Single element in sorted array",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljv100epo76v2ds9rt8x",
+      "slug": "count-occurrences-in-a-sorted-array",
+      "title": "Count Occurrences in a Sorted Array",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljv200eto76vzqkq3vx3",
+      "slug": "find-square-root-of-a-number",
+      "title": "Find square root of a number",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljv300exo76vnxqt0tac",
+      "slug": "find-nth-root-of-a-number",
+      "title": "Find Nth root of a number",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljv400f1o76vbtc9w4px",
+      "slug": "find-the-smallest-divisor",
+      "title": "Find the smallest divisor",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljv500f5o76v8um8qzhy",
+      "slug": "koko-eating-bananas",
+      "title": "Koko eating bananas",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwolljv600f9o76vntkssyo2",
+      "slug": "minimum-days-to-make-m-bouquets",
+      "title": "Minimum days to make M bouquets",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwolljv700fdo76vi1o57l1v",
+      "slug": "capacity-to-ship-packages-within-d-days",
+      "title": "Capacity to Ship Packages Within D Days",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwolljv700fho76vu5t0fo3n",
+      "slug": "kth-missing-positive-number",
+      "title": "Kth Missing Positive Number",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwolljv800flo76vzr1jtz7e",
+      "slug": "painters-partition",
+      "title": "Painter's Partition",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwolljv900fpo76vu0ve92it",
+      "slug": "aggressive-cows",
+      "title": "Aggressive Cows",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwolljva00fto76v2danoy5r",
+      "slug": "book-allocation-problem",
+      "title": "Book Allocation Problem",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwolljvb00fxo76vwk9ynrw0",
+      "slug": "find-peak-element",
+      "title": "Find peak element",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljvc00g1o76vqsqn7c5h",
+      "slug": "median-of-2-sorted-arrays",
+      "title": "Median of 2 sorted arrays",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwolljvd00g5o76vywf6893b",
+      "slug": "kth-element-of-2-sorted-arrays",
+      "title": "Kth element of 2 sorted arrays",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwolljvd00g9o76v5qnrh2oe",
+      "slug": "minimise-max-distance-to-gas-stations",
+      "title": "Minimize Max Distance to Gas Station",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwolljve00gdo76vejsq4y3m",
+      "slug": "split-array---largest-sum",
+      "title": "Split array - largest sum",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwolljvf00gho76vnrx8jac3",
+      "slug": "find-row-with-maximum-1's",
+      "title": "Find row with maximum 1's",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljvg00glo76vlmokcs9n",
+      "slug": "search-in-a-2d-matrix",
+      "title": "Search in a 2D Matrix",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljvh00gpo76vect8l4ie",
+      "slug": "search-in-2d-matrix-ii",
+      "title": "Search in 2D matrix - II",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljvh00gto76vsohs5mh1",
+      "slug": "find-peak-element-ii",
+      "title": "Find Peak Element - II",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljvi00gxo76vuumo5d8c",
+      "slug": "matrix-median",
+      "title": "Matrix Median",
+      "difficulty": "HARD"
+    }
+  ],
+  "strings-basic-and-medium": [
+    {
+      "id": "cmwolljvj00h1o76va294iw50",
+      "slug": "remove-outermost-parentheses",
+      "title": "Remove Outermost Parentheses",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljvk00h5o76vl9mtd6ui",
+      "slug": "maximum-nesting-depth-of-the-parentheses",
+      "title": "Maximum Nesting Depth of the Parentheses",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljvl00h9o76v4p8uh1lr",
+      "slug": "roman-to-integer",
+      "title": "Roman to Integer",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljvm00hdo76v0cbwh4y2",
+      "slug": "string-to-integer-atoi",
+      "title": "String to Integer (atoi)",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljvm00hho76vhqtwialz",
+      "slug": "count-number-of-substring",
+      "title": "Count Number of Substrings",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljvn00hlo76v0b4ais75",
+      "slug": "longest-palindromic-substring",
+      "title": "Longest Palindromic Substring",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljvo00hpo76vjln27hny",
+      "slug": "sum-of-beauty-of-all-substrings",
+      "title": "Sum of Beauty of All Substrings",
+      "difficulty": "MEDIUM"
+    }
+  ],
+  "recursion": [
+    {
+      "id": "cmwolljvp00hto76v2nvecybt",
+      "slug": "pow(x,n)",
+      "title": "Pow(x,n)",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljvp00hxo76v535yg9v5",
+      "slug": "generate-parentheses",
+      "title": "Generate Parentheses",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljvq00i1o76v8a4yytyt",
+      "slug": "power-set",
+      "title": "Power Set",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljvr00i5o76vjcm5v9q8",
+      "slug": "count-good-numbers",
+      "title": "Count Good Numbers",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljvs00i9o76vzu70l3gd",
+      "slug": "reverse-a-stack",
+      "title": "Reverse a Stack",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljvt00ido76v05efq8os",
+      "slug": "learn-all-patterns-of-subsequences",
+      "title": "Learn All Patterns of Subsequences (Theory)",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljvt00iho76v5dx04031",
+      "slug": "check-if-there-exists-a-subsequence-with-sum-k",
+      "title": "Check if there exists a subsequence with sum K",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljvu00ilo76vdh4znqxq",
+      "slug": "count-all-subsequences-with-sum-k",
+      "title": "Count all subsequences with sum K",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljvv00ipo76vq2llivv1",
+      "slug": "generate-binary-strings-without-consecutive-1s",
+      "title": "Generate Binary Strings Without Consecutive 1s",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljvw00ito76v55a89ity",
+      "slug": "combination-sum",
+      "title": "Combination Sum",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljvx00ixo76vywyc8ym3",
+      "slug": "combination-sum-ii",
+      "title": "Combination Sum II",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljvy00j1o76vmrodjedj",
+      "slug": "subsets-i",
+      "title": "Subsets I",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljvz00j5o76vt0fpo5ps",
+      "slug": "subsets-ii",
+      "title": "Subsets II",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljw100j9o76vxmta6f99",
+      "slug": "combination-sum-iii",
+      "title": "Combination Sum III",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwolljw200jdo76v21vow2m9",
+      "slug": "letter-combinations-of-a-phone-number",
+      "title": "Letter Combinations of a Phone Number",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwolljw300jho76vy4ygg2xt",
+      "slug": "palindrome-partitioning",
+      "title": "Palindrome partitioning",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwolljw500jlo76vdwt7cfh9",
+      "slug": "word-search",
+      "title": "Word Search",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwolljw600jpo76vrn5h2bap",
+      "slug": "n-queen",
+      "title": "N Queen",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwolljw700jto76vl6ghwxzd",
+      "slug": "rat-in-a-maze",
+      "title": "Rat in a Maze",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwolljw800jxo76v82opu61q",
+      "slug": "m-coloring-problem",
+      "title": "M Coloring Problem",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwolljwa00k1o76v6afvdjjo",
+      "slug": "sudoko-solver",
+      "title": "Sudoku Solver",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwolljwb00k5o76vwl1b6slg",
+      "slug": "expression-add-operators",
+      "title": "Expression Add Operators",
+      "difficulty": "HARD"
+    }
+  ],
+  "linked-list": [
+    {
+      "id": "cmwolljwc00k9o76vvcv6xfya",
+      "slug": "introduction-to-singly-linkedlist",
+      "title": "Introduction to Singly LinkedList",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljwe00kdo76vxgxp9ip7",
+      "slug": "traversal-in-linked-list",
+      "title": "Traversal in Linked List",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljwf00kho76vcfvkugz2",
+      "slug": "deletion-in-linked-list",
+      "title": "Deletion in Linked List",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljwg00klo76v8z9vf1l6",
+      "slug": "insertion-in-linked-list",
+      "title": "Insertion in Linked List",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljwi00kpo76v4r7wgaoz",
+      "slug": "deletion-of-the-head-of-ll",
+      "title": "Deletion of the head of LL",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljwj00kto76vidum266h",
+      "slug": "deletion-of-the-tail-of-ll",
+      "title": "Deletion of the tail of Linked List",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljwk00kxo76vehtrfdj8",
+      "slug": "deletion-of-the-kth-element-of-ll",
+      "title": "Deletion of the Kth element of Linked List",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljwl00l1o76vmlskvg1t",
+      "slug": "delete-the-element-with-value-x",
+      "title": "Delete the element with value X",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljwm00l5o76v7xv2922h",
+      "slug": "insertion-at-the-head-of-ll",
+      "title": "Insertion at the head of Linked List",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljwo00l9o76v9u0o7dhs",
+      "slug": "insertion-at-the-tail-of-ll",
+      "title": "Insertion at the tail of Linked List",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljwp00ldo76vl4h4kjm9",
+      "slug": "insertion-at-the-kth-position-of-ll",
+      "title": "Insertion at the Kth position of Linked List",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljwq00lho76v6ou7pa6z",
+      "slug": "insertion-before-the-value-x-in-ll",
+      "title": "Insertion before the value X in Linked List",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljwr00llo76vznorewrv",
+      "slug": "find-the-length-of-the-linked-list",
+      "title": "Find the length of the Linked List",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljws00lpo76vrdmlqo3f",
+      "slug": "search-in-linked-list",
+      "title": "Search in Linked List",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljwt00lto76vljkb82qi",
+      "slug": "introduction-to-doubly-ll",
+      "title": "Introduction to Doubly LL",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljwt00lxo76v70n3gwr9",
+      "slug": "deletion-in-doubly-ll",
+      "title": "Deletion in Doubly LL",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljwu00m1o76vai0ls7ic",
+      "slug": "insertion-in-dll",
+      "title": "Insertion in DLL",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljwv00m5o76v2j7lrtcb",
+      "slug": "convert-array-to-dll",
+      "title": "Convert Array to Doubly Linked List",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljww00m9o76veq3yv49a",
+      "slug": "delete-tail-of-dll",
+      "title": "Delete Tail of Doubly Linked List",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljww00mdo76vtbjq3ly2",
+      "slug": "delete-kth-element-of-dll",
+      "title": "Delete Kth Element of Doubly Linked List",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljwx00mho76vyzdk4ek0",
+      "slug": "removing-given-node-in-dll",
+      "title": "Removing given node in Doubly Linked List",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljwy00mlo76vpzy9dwq7",
+      "slug": "insert-node-before-head-in-dll",
+      "title": "Insert node before head in Doubly Linked List",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljwz00mpo76vqiw4a0ti",
+      "slug": "insert-node-before-tail-in-dll",
+      "title": "Insert node before tail in Doubly Linked List",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljx000mto76v65kpuur4",
+      "slug": "insert-node-before-kth-node-in-dll",
+      "title": "Insert node before (kth node) in Doubly Linked List",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljx000mxo76vq18c7hla",
+      "slug": "insert-before-given-node-in-dll",
+      "title": "Insert before given node in Doubly Linked List",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljx100n1o76vny51ahfi",
+      "slug": "delete-head-of-dll",
+      "title": "Delete head of Doubly Linked List",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljx200n5o76v7rdyf7ml",
+      "slug": "reverse-a-doubly-linked-list",
+      "title": "Reverse a Doubly Linked List",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljx300n9o76vq94qnbnm",
+      "slug": "add-two-numbers-in-ll",
+      "title": "Add two numbers in Linked List",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljx300ndo76vc0htiscv",
+      "slug": "segregate-odd-and-even-nodes-in-ll",
+      "title": "Segregate odd and even nodes in Linked List",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljx400nho76vbctb1g3w",
+      "slug": "sort-a-ll-of-0's-1's-and-2's",
+      "title": "Sort a Linked List of 0's 1's and 2's",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljx500nlo76vcc5e9g7d",
+      "slug": "remove-nth-node-from-the-back-of-the-ll",
+      "title": "Remove Nth node from the back of the LL",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljx500npo76v8qf5rt0m",
+      "slug": "reverse-a-ll",
+      "title": "Reverse a LL",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljx600nto76vtg1idgf0",
+      "slug": "add-one-to-a-number-represented-by-ll",
+      "title": "Add one to a number represented by LL",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljx700nxo76v1666j015",
+      "slug": "find-middle-of-linked-list",
+      "title": "Find Middle of Linked List",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljx800o1o76v1h4ql050",
+      "slug": "delete-the-middle-node-in-ll",
+      "title": "Delete the middle node in LL",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljx900o5o76v0sei8mla",
+      "slug": "check-if-ll-is-palindrome-or-not",
+      "title": "Check if LL is palindrome or not",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljx900o9o76vba1e31lb",
+      "slug": "find-the-intersection-point-of-y-ll",
+      "title": "Find the intersection point of Y LL",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljxa00odo76vta8olkll",
+      "slug": "detect-a-loop-in-ll",
+      "title": "Detect a loop in LL",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljxb00oho76viwfq4zzh",
+      "slug": "find-the-starting-point-in-ll",
+      "title": "Find the starting point in LL",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljxc00olo76v8n6w4lew",
+      "slug": "length-of-loop-in-ll",
+      "title": "Length of loop in LL",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljxd00opo76vciz8566j",
+      "slug": "reverse-ll-in-group-of-given-size-k",
+      "title": "Reverse LL in group of given size K",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwolljxf00oto76vgnbdaffs",
+      "slug": "rotate-a-ll",
+      "title": "Rotate a LL",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljxg00oxo76vb9fblzod",
+      "slug": "merge-sorted-lists-",
+      "title": "Merge two Sorted Lists ",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljxh00p1o76vm03l1cna",
+      "slug": "flattening-of-ll",
+      "title": "Flattening of LL",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwolljxj00p5o76vn0fyfx6h",
+      "slug": "sort-ll",
+      "title": "Sort LL",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljxk00p9o76voxn4d3r0",
+      "slug": "clone-a-ll-with-random-and-next-pointer",
+      "title": "Clone a LL with random and next pointer",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwolljxl00pdo76vqycm2sgc",
+      "slug": "delete-all-occurrences-of-a-key-in-dll",
+      "title": "Delete all occurrences of a key in DLL",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljxn00pho76vvl1jqmaa",
+      "slug": "remove-duplicated-from-sorted-dll",
+      "title": "Remove duplicates from sorted DLL",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljxo00plo76vd6vfnq2a",
+      "slug": "find-pairs-with-given-sum-in-doubly-linked-list",
+      "title": "Find Pairs with Given Sum in Doubly Linked List",
+      "difficulty": "MEDIUM"
+    }
+  ],
+  "bit-manipulation": [
+    {
+      "id": "cmwolljxp00ppo76v2lll71gp",
+      "slug": "introduction-to-bits-and-tricks",
+      "title": "Introduction to Bits and Tricks",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljxr00pto76v7sr2hzgx",
+      "slug": "check-if-the-i-th-bit-is-set-or-not",
+      "title": "Check if the i-th bit is Set or Not",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljxs00pxo76vyokjo7a5",
+      "slug": "check-if-a-number-is-odd-or-not",
+      "title": "Check if a Number is Odd or Not",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljxt00q1o76vy4xhsu0i",
+      "slug": "check-if-a-number-is-power-of-2-or-not",
+      "title": "Check if a Number is Power of 2 or Not",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljxv00q5o76vbau850qx",
+      "slug": "count-the-number-of-set-bits",
+      "title": "Count the Number of Set Bits",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljxw00q9o76vm7wtc30t",
+      "slug": "set-the-rightmost-unset-bit",
+      "title": "Set the Rightmost Unset Bit",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljxx00qdo76ve0u4l2e5",
+      "slug": "swap-two-numbers",
+      "title": "Swap Two Numbers",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljxy00qho76vujp5z5sl",
+      "slug": "minimum-bit-flips-to-convert-number",
+      "title": "Minimum Bit Flips to Convert Number",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljy000qlo76vaa282sug",
+      "slug": "single-number---i",
+      "title": "Single Number - I",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwolljy100qpo76v91npumf4",
+      "slug": "single-number---ii",
+      "title": "Single Number - II",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljy200qto76v9anpe9ph",
+      "slug": "single-number---iii",
+      "title": "Single Number - III",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwolljy400qxo76v98a7mnv4",
+      "slug": "divide-two-numbers-without-multiplication-and-division",
+      "title": "Divide two numbers without multiplication and division",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljy500r1o76vb4qy8bbq",
+      "slug": "power-set-bit-manipulation",
+      "title": "Power Set Bit Manipulation",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljy600r5o76vrkquy1c9",
+      "slug": "xor-of-numbers-in-a-given-range",
+      "title": "XOR of numbers in a given range",
+      "difficulty": "MEDIUM"
+    }
+  ],
+  "greedy-algorithms": [
+    {
+      "id": "cmwolljy800r9o76ve89jkb19",
+      "slug": "assign-cookies",
+      "title": "Assign Cookies",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljy900rdo76vrnsf9bz5",
+      "slug": "lemonade-change",
+      "title": "Lemonade Change",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljyb00rho76vczj47a98",
+      "slug": "fractional-knapsack",
+      "title": "Fractional Knapsack",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljyc00rlo76vzn85oxfu",
+      "slug": "jump-game---i",
+      "title": "Jump Game - I",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljyd00rpo76vo94w5icq",
+      "slug": "shortest-job-first",
+      "title": "Shortest Job First",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljye00rto76vldjoe0m9",
+      "slug": "job-sequencing-problem",
+      "title": "Job sequencing Problem",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljyg00rxo76vm9jczh1z",
+      "slug": "n-meetings-in-one-room",
+      "title": "N meetings in one room",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljyh00s1o76vc5dha2g6",
+      "slug": "non-overlapping-intervals",
+      "title": "Non-overlapping Intervals",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljyi00s5o76vnzgfhc2f",
+      "slug": "insert-interval",
+      "title": "Insert Interval",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljyk00s9o76vi0ccdwwd",
+      "slug": "merge-intervals",
+      "title": "Merge Intervals",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljyl00sdo76v19wcfqkb",
+      "slug": "minimum-number-of-platforms-required-for-a-railway",
+      "title": "Minimum number of platforms required for a railway",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljym00sho76vzqdex4o5",
+      "slug": "valid-paranthesis-checker",
+      "title": "Valid Parenthesis Checker",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwolljyn00slo76v809x1xe6",
+      "slug": "candy",
+      "title": "Candy",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwolljyp00spo76v4orolvl2",
+      "slug": "jump-game-ii",
+      "title": "Jump Game II",
+      "difficulty": "HARD"
+    }
+  ],
+  "sliding-window-2-pointer": [
+    {
+      "id": "cmwolljyq00sto76vbaturc2m",
+      "slug": "theory",
+      "title": "Theory",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljys00sxo76vlgng2xxx",
+      "slug": "maximum-points-you-can-obtain-from-cards-",
+      "title": "Maximum Points You Can Obtain from Cards ",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljyt00t1o76v2kxic8i7",
+      "slug": "longest-substring-without-repeating-characters",
+      "title": "Longest Substring Without Repeating Characters",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljyu00t5o76v2tyv2d2i",
+      "slug": "max-consecutive-ones-iii",
+      "title": " Max Consecutive Ones III",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljyv00t9o76v4vauxdhs",
+      "slug": "fruit-into-baskets",
+      "title": " Fruit Into Baskets",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljyx00tdo76v8bboaiu5",
+      "slug": "longest-substring-with-at-most-k-distinct-characters",
+      "title": "Longest Substring With At Most K Distinct Characters",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwolljyy00tho76v33zhnhxf",
+      "slug": "longest-repeating-character-replacement",
+      "title": "Longest Repeating Character Replacement",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwolljyz00tlo76vc7mpbvf0",
+      "slug": "minimum-window-substring-",
+      "title": "Minimum Window Substring ",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwolljz100tpo76v7i0lozg0",
+      "slug": "minimum-window-subsequence",
+      "title": "Minimum Window Subsequence",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwolljz200tto76vtu2ycjak",
+      "slug": "number-of-substrings-containing-all-three-characters",
+      "title": "Number of Substrings Containing All Three Characters",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljz300txo76vs8posyuj",
+      "slug": "binary-subarrays-with-sum",
+      "title": "Binary Subarrays With Sum",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljz400u1o76vq3sqtj2m",
+      "slug": "count-number-of-nice-subarrays",
+      "title": "Count number of Nice subarrays",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwolljz600u5o76v2w5ge6x3",
+      "slug": "subarrays-with-k-different-integers",
+      "title": "Subarrays with K Different Integers",
+      "difficulty": "HARD"
+    }
+  ],
+  "stack-queues": [
+    {
+      "id": "cmwolljz600u9o76vnly61wpz",
+      "slug": "implementation-using-different-ds",
+      "title": "Implementation using different DS",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljz700udo76vo0l8jfo2",
+      "slug": "implement-stack-using-arrays",
+      "title": "Implement Stack using Arrays",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljz800uho76vdji7oytx",
+      "slug": "implement-queue-using-arrays",
+      "title": "Implement Queue using Arrays",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljz900ulo76vasinfbuv",
+      "slug": "implement-stack-using-queue",
+      "title": "Implement Stack using Queue",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljza00upo76vg0zzagpq",
+      "slug": "implement-queue-using-stack",
+      "title": "Implement Queue using Stack",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljza00uto76vrk0thttq",
+      "slug": "implement-stack-using-linkedlist",
+      "title": "Implement stack using Linkedlist",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljzb00uxo76vcq79oisp",
+      "slug": "implement-queue-using-linkedlist",
+      "title": "Implement queue using Linkedlist",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljzc00v1o76vdum608s6",
+      "slug": "balanced-paranthesis",
+      "title": "Balanced Paranthesis",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljzd00v5o76vmtww9l43",
+      "slug": "infix-to-postfix-conversion",
+      "title": "Infix to Postfix Conversion",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljze00v9o76vqltpf4d6",
+      "slug": "infix-to-prefix-conversion",
+      "title": "Infix to Prefix Conversion",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljze00vdo76vo885k9rk",
+      "slug": "prefix-to-infix-conversion",
+      "title": "Prefix to Infix Conversion",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljzf00vho76vb11ji1d3",
+      "slug": "prefix-to-postfix-conversion",
+      "title": "Prefix to Postfix Conversion",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljzg00vlo76vsldpzoph",
+      "slug": "postfix-to-infix-conversion",
+      "title": "Postfix to Infix Conversion",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljzh00vpo76v6sf7glzk",
+      "slug": "postfix-to-prefix-conversion",
+      "title": "Postfix to Prefix Conversion",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljzi00vto76vkhc5xvlz",
+      "slug": "next-greater-element",
+      "title": "Next Greater Element",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljzj00vxo76vaafrkqsd",
+      "slug": "next-greater-element---2",
+      "title": "Next Greater Element - 2",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljzk00w1o76vmd4enjby",
+      "slug": "asteroid-collision",
+      "title": "Asteroid Collision",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljzl00w5o76vlchc2vp2",
+      "slug": "sum-of-subarray-minimums",
+      "title": "Sum of Subarray Minimums",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljzn00w9o76vff5xwvms",
+      "slug": "sum-of-subarray-ranges",
+      "title": "Sum of Subarray Ranges",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljzo00wdo76vkb1wkpbr",
+      "slug": "remove-k-digits",
+      "title": "Remove K Digits",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljzp00who76vklzjrnwd",
+      "slug": "next-smaller-element",
+      "title": "Next Smaller Element",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljzr00wlo76viehiv5jr",
+      "slug": "implement-min-stack",
+      "title": "Implement Min Stack",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljzs00wpo76vck5e9qn6",
+      "slug": "sliding-window-maximum",
+      "title": "Sliding Window Maximum",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwolljzt00wto76vuxzvc2hi",
+      "slug": "trapping-rainwater",
+      "title": "Trapping Rainwater",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwolljzu00wxo76vw5jq9w8h",
+      "slug": "largest-rectangle-in-a-histogram",
+      "title": "Largest rectangle in a histogram",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwolljzw00x1o76vxr1005p4",
+      "slug": "maximum-rectangles",
+      "title": "Maximum Rectangles",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwolljzx00x5o76vurithlq6",
+      "slug": "stock-span-problem",
+      "title": "Stock span problem",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwolljzy00x9o76vz4bvj33d",
+      "slug": "celebrity-problem",
+      "title": "Celebrity Problem",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk0000xdo76vumha640s",
+      "slug": "lru-cache",
+      "title": "LRU Cache",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwollk0100xho76v96uj9iqc",
+      "slug": "lfu-cache",
+      "title": "LFU Cache",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwollk0200xlo76vkte8w00w",
+      "slug": "number-of-greater-elements-to-the-right",
+      "title": "Number of Greater Elements to the Right",
+      "difficulty": "MEDIUM"
+    }
+  ],
+  "binary-trees": [
+    {
+      "id": "cmwollk0400xpo76vfjelnm4p",
+      "slug": "introduction-",
+      "title": "Introduction ",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwollk0500xto76v2p2mo3b2",
+      "slug": "inorder-traversal",
+      "title": "Inorder Traversal",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwollk0600xxo76vl9iv48dz",
+      "slug": "preorder-traversal",
+      "title": "Preorder Traversal",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwollk0800y1o76vdr94qsq0",
+      "slug": "postorder-traversal",
+      "title": "Postorder Traversal",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwollk0900y5o76vr7ocbmur",
+      "slug": "level-order-traversal",
+      "title": "Level Order Traversal",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk0a00y9o76vh30z5uib",
+      "slug": "pre,-post,-inorder-in-one-traversal",
+      "title": "Pre, Post, Inorder in one traversal",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk0b00ydo76v6ju7pdxo",
+      "slug": "maximum-depth-in-bt",
+      "title": "Maximum Depth in BT",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk0d00yho76v64iczcfz",
+      "slug": "check-if-two-trees-are-identical-or-not",
+      "title": "Check if two trees are identical or not",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk0e00ylo76viw6f3emx",
+      "slug": "check-for-balanced-binary-tree",
+      "title": "Check for balanced binary tree",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk0g00ypo76vuf826o7x",
+      "slug": "diameter-of-binary-tree",
+      "title": "Diameter of Binary Tree",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk0h00yto76vb1ett0lo",
+      "slug": "maximum-path-sum-",
+      "title": "Maximum path sum ",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwollk0i00yxo76vddoe0fwj",
+      "slug": "check-for-symmetrical-bts",
+      "title": "Check for symmetrical BTs",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk0j00z1o76vs4kobg62",
+      "slug": "children-sum-property-in-binary-tree",
+      "title": "Children Sum Property in Binary Tree",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk0k00z5o76v7vdqxad0",
+      "slug": "zig-zag-or-spiral-traversal",
+      "title": "Zig Zag or Spiral Traversal",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk0l00z9o76vf9oiczkz",
+      "slug": "boundary-traversal",
+      "title": "Boundary Traversal",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk0m00zdo76vh8qjb4g4",
+      "slug": "vertical-order-traversal",
+      "title": "Vertical Order Traversal",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwollk0n00zho76vv95qwkvl",
+      "slug": "top-view-of-bt",
+      "title": "Top View of BT",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk0o00zlo76vtkk963wv",
+      "slug": "bottom-view-of-bt",
+      "title": "Bottom view of BT",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk0p00zpo76ve7186by0",
+      "slug": "right-left-view-of-bt",
+      "title": "Right/Left View of BT",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk0r00zto76v6zemw39e",
+      "slug": "print-root-to-leaf-path-in-bt",
+      "title": "Print root to leaf path in BT",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk0t00zxo76vabsoojb2",
+      "slug": "lca-in-bt",
+      "title": "Lowest Common Ancestor in BT",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwollk0u0101o76v4klyshdh",
+      "slug": "maximum-width-of-bt",
+      "title": "Maximum Width of BT",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwollk0v0105o76v32gec7o3",
+      "slug": "print-all-nodes-at-a-distance-of-k-in-bt",
+      "title": "Print all nodes at a distance of K in BT",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwollk0w0109o76vmdgj03rs",
+      "slug": "minimum-time-taken-to-burn-the-bt-from-a-given-node",
+      "title": "Minimum time taken to burn the BT from a given Node",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwollk0x010do76va0gcyhne",
+      "slug": "count-total-nodes-in-a-complete-bt",
+      "title": "Count total nodes in a complete BT",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk0y010ho76v4xyy4ygp",
+      "slug": "flatten-binary-tree-to-linked-list",
+      "title": "Flatten Binary Tree to Linked List",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwollk0z010lo76vasskvo7k",
+      "slug": "requirements-needed-to-construct-a-unique-bt",
+      "title": "Requirements needed to construct a unique BT",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk10010po76vdz8ykhxw",
+      "slug": "construct-a-bt-from-preorder-and-inorder",
+      "title": "Construct a BT from Preorder and Inorder",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk11010to76vkbv82njz",
+      "slug": "construct-a-bt-from-postorder-and-inorder",
+      "title": "Construct a BT from Postorder and Inorder",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk13010xo76vymrg3ecg",
+      "slug": "serialize-and-de-serialize-bt",
+      "title": "Serialize and De-serialize BT",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwollk140111o76vbenvuiql",
+      "slug": "morris-inorder-traversal-",
+      "title": "Morris Inorder Traversal ",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwollk150115o76v8i3a3cj0",
+      "slug": "morris-preorder-traversal-",
+      "title": "Morris Preorder Traversal ",
+      "difficulty": "HARD"
+    }
+  ],
+  "binary-search-trees": [
+    {
+      "id": "cmwollk160119o76v94qirk5o",
+      "slug": "introduction-to-bst",
+      "title": "Introduction to BST",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwollk17011do76vemzigi9f",
+      "slug": "search-in-bst",
+      "title": "Search in BST",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwollk18011ho76vncew3pqn",
+      "slug": "floor-and-ceil-in-a-bst",
+      "title": "Floor and Ceil in a BST",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk19011lo76vluytfix1",
+      "slug": "minimum-and-maximum-in-bst",
+      "title": "Minimum and Maximum in BST",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk1a011po76v9y06jsuz",
+      "slug": "insert-a-given-node-in-bst",
+      "title": "Insert a given node in BST",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk1b011to76vkyt4rx6k",
+      "slug": "delete-a-node-in-bst",
+      "title": "Delete a node in BST",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk1d011xo76vr04my7gt",
+      "slug": "kth-smallest-and-largest-element-in-bst",
+      "title": "Kth Smallest and Largest element in BST",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk1d0121o76vect6w0i5",
+      "slug": "check-if-a-tree-is-a-bst-or-not",
+      "title": "Check if a tree is a BST or not",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk1e0125o76v6er62nj2",
+      "slug": "lca-in-bst",
+      "title": "LCA in BST",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk1f0129o76v3evzffrd",
+      "slug": "construct-a-bst-from-a-preorder-traversal",
+      "title": "Construct a BST from a preorder traversal",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk1g012do76vn54tn8b1",
+      "slug": "inorder-successor-and-predecessor-in-bst",
+      "title": "Inorder successor and predecessor in BST",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk1h012ho76vetuubyfv",
+      "slug": "bst-iterator",
+      "title": "BST iterator",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk1h012lo76viewkgxxd",
+      "slug": "two-sum-in-bst",
+      "title": "Two sum in BST",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk1i012po76vmr7ls8fp",
+      "slug": "correct-bst-with-two-nodes-swapped",
+      "title": "Correct BST with two nodes swapped",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwollk1j012to76vllqlzxqs",
+      "slug": "largest-bst-in-binary-tree",
+      "title": "Largest BST in Binary Tree",
+      "difficulty": "HARD"
+    }
+  ],
+  "heaps": [
+    {
+      "id": "cmwollk1k012xo76vtjh3uqcw",
+      "slug": "heaps-theory",
+      "title": "Heaps (Theory Video)",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk1l0131o76vzvxrpxid",
+      "slug": "heapify-algorithm",
+      "title": "Heapify Algorithm",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk1m0135o76v29qbo0dm",
+      "slug": "build-heap-from-a-given-array",
+      "title": "Build heap from a given Array",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk1n0139o76vde63bfjq",
+      "slug": "implement-min-heap",
+      "title": "Implement Min Heap",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk1o013do76vqdfyan2o",
+      "slug": "implement-max-heap",
+      "title": "Implement Max Heap",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk1p013ho76v3qsl06uy",
+      "slug": "check-if-an-array-represents-a-min-heap-",
+      "title": "Check if an array represents a min heap ",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk1q013lo76vp4yn3g2g",
+      "slug": "convert-min-heap-to-max-heap",
+      "title": "Convert Min Heap to Max Heap",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk1r013po76ve41ss3zm",
+      "slug": "heap-sort",
+      "title": "Heap Sort",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwollk1s013to76vdgfk52ts",
+      "slug": "k-th-largest-element-in-an-array",
+      "title": "K-th Largest element in an array",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwollk1t013xo76voeidwftp",
+      "slug": "kth-largest-element-in-a-stream-of-running-integers",
+      "title": "Kth largest element in a stream of running integers",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwollk1u0141o76vsyjt9lqg",
+      "slug": "sort-a-k-sorted-array",
+      "title": "Sort a K-Sorted Array",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk1v0145o76vwvgn680a",
+      "slug": "merge-k-sorted-lists",
+      "title": "Merge K sorted Lists",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwollk1x0149o76v2sk2s7ub",
+      "slug": "replace-elements-by-their-rank",
+      "title": "Replace Elements by Their Rank",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk1y014do76v8u2iu8k5",
+      "slug": "task-scheduler",
+      "title": "Task Scheduler",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk1z014ho76vcxemrun9",
+      "slug": "hand-of-straights",
+      "title": "Hand of Straights",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk20014lo76v29cmwd2w",
+      "slug": "design-twitter",
+      "title": "Design Twitter",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk21014po76vt3s9k7dh",
+      "slug": "minimum-cost-to-connect-sticks",
+      "title": "Minimum Cost to Connect Sticks",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk22014to76vf8n1yc4m",
+      "slug": "maximum-sum-combination",
+      "title": "Maximum Sum Combination",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk23014xo76vaebncy0u",
+      "slug": "find-median-from-data-stream",
+      "title": "Find Median from Data Stream",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwollk250151o76voiw9jdu6",
+      "slug": "top-k-frequent-elements",
+      "title": "Top K Frequent Elements",
+      "difficulty": "MEDIUM"
+    }
+  ],
+  "graphs": [
+    {
+      "id": "cmwollk260155o76ve4pa6v2m",
+      "slug": "introduction-to-graph",
+      "title": "Introduction to Graph",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwollk270159o76v3moy0ytw",
+      "slug": "traversal-techniques",
+      "title": "Traversal Techniques",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk28015do76vb45y8h75",
+      "slug": "connected-components",
+      "title": "Connected Components",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk29015ho76vabnzm6r4",
+      "slug": "number-of-provinces",
+      "title": "Number of provinces",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk2a015lo76vhd6jjcwf",
+      "slug": "number-of-islands",
+      "title": "Number of islands",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk2b015po76vq5ykmrzl",
+      "slug": "flood-fill-algorithm",
+      "title": "Flood fill algorithm",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk2d015to76v70xvahu7",
+      "slug": "number-of-enclaves",
+      "title": "Number of enclaves",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk2e015xo76vb2b9o1lc",
+      "slug": "rotten-oranges",
+      "title": "Rotten Oranges",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk2f0161o76v50oxmp3w",
+      "slug": "distance-of-nearest-cell-having-one",
+      "title": "Distance of nearest cell having one",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk2g0165o76vh6cw1i72",
+      "slug": "surrounded-regions",
+      "title": "Surrounded Regions",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk2h0169o76v0rksgfh7",
+      "slug": "number-of-distinct-islands",
+      "title": "Number of distinct islands",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk2i016do76vqjxnleud",
+      "slug": "detect-a-cycle-in-an-undirected-graph",
+      "title": "Detect a cycle in an undirected graph",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk2j016ho76v1jeleoc1",
+      "slug": "bipartite-graph",
+      "title": "Bipartite graph",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk2k016lo76v9moj1yle",
+      "slug": "topological-sort-or-kahns-algorithm",
+      "title": "Topological sort or Kahn's algorithm",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk2l016po76vn6ac1you",
+      "slug": "detect-a-cycle-in-a-directed-graph",
+      "title": "Detect a cycle in a directed graph",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk2m016to76v8ogkh14t",
+      "slug": "find-eventual-safe-states",
+      "title": "Find eventual safe states",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwollk2o016xo76vqh8x3beb",
+      "slug": "course-schedule-i",
+      "title": "Course Schedule I",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwollk2p0171o76vusljb8v1",
+      "slug": "course-schedule-ii",
+      "title": "Course Schedule II",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwollk2q0175o76vk95vocfv",
+      "slug": "alient-dictionary",
+      "title": "Alien Dictionary",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwollk2r0179o76v60amvf0x",
+      "slug": "shortest-path-in-dag",
+      "title": "Shortest path in DAG",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk2s017do76vkvjky3i7",
+      "slug": "shortest-path-in-undirected-graph-with-unit-weights",
+      "title": "Shortest path in undirected graph with unit weights",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk2t017ho76v7lv5n5f1",
+      "slug": "word-ladder-i",
+      "title": "Word ladder I",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwollk2u017lo76vnf6lvrbz",
+      "slug": "word-ladder-ii",
+      "title": "Word ladder II",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwollk2w017po76v0jk4ji62",
+      "slug": "dijkstra's-algorithm",
+      "title": "Dijkstra's algorithm",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk2w017to76v6y75f2h2",
+      "slug": "print-shortest-path-",
+      "title": "Print Shortest Path ",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk2y017xo76v47f023od",
+      "slug": "shortest-path-with-minimum-effort",
+      "title": "Shortest Distance in a Binary Maze",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk2z0181o76vbjfed4u0",
+      "slug": "path-with-minimum-effort",
+      "title": "Path with minimum effort",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk300185o76vlwibzfv6",
+      "slug": "cheapest-flight-within-k-stops",
+      "title": "Cheapest flight within K stops",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwollk310189o76vb02ku8q3",
+      "slug": "minimum-multiplications-to-reach-end",
+      "title": "Minimum multiplications to reach end",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwollk32018do76vv1e0pvfn",
+      "slug": "number-of-ways-to-arrive-at-destination",
+      "title": "Number of ways to arrive at destination",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwollk33018ho76v1g2f1tv7",
+      "slug": "bellman-ford-algorithm",
+      "title": "Bellman ford algorithm",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwollk34018lo76vk06awcps",
+      "slug": "floyd-warshall-algorithm",
+      "title": "Floyd warshall algorithm",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwollk35018po76v7yxmrwli",
+      "slug": "find-the-city-with-the-smallest-number-of-neighbors",
+      "title": "Find the city with the smallest number of neighbors",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwollk36018to76v3a60zi29",
+      "slug": "network-delay-time",
+      "title": "Network Delay Time",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk38018xo76vmfqd098k",
+      "slug": "swim-in-rising-water",
+      "title": "Swim in Rising Water",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwollk390191o76vthrnkl3o",
+      "slug": "mst-theory",
+      "title": "MST theory",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk3a0195o76vhvly48vi",
+      "slug": "disjoint-set-",
+      "title": "Disjoint Set ",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk3b0199o76vwfdb2kdn",
+      "slug": "find-the-mst-weight",
+      "title": "Find the MST weight",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk3c019do76vtahgjddg",
+      "slug": "number-of-operations-to-make-network-connected",
+      "title": "Number of operations to make network connected",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk3d019ho76vlsn2aj39",
+      "slug": "accounts-merge",
+      "title": "Accounts merge",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk3f019lo76vrdnsqv3d",
+      "slug": "number-of-islands-ii",
+      "title": "Number of islands II",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwollk3g019po76v4br5x4y5",
+      "slug": "making-a-large-island",
+      "title": "Making a large island",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwollk3h019to76vr07xqcr1",
+      "slug": "most-stones-removed-with-same-row-or-column",
+      "title": "Most stones removed with same row or column",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwollk3i019xo76vsmjxw0d8",
+      "slug": "kosaraju's-algorithm",
+      "title": "Kosaraju's algorithm",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwollk3k01a1o76vz5gab8tf",
+      "slug": "bridges-in-graph",
+      "title": "Bridges in graph",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwollk3k01a5o76voyoykqmo",
+      "slug": "articulation-point-in-graph",
+      "title": "Articulation point in graph",
+      "difficulty": "HARD"
+    }
+  ],
+  "dynamic-programming": [
+    {
+      "id": "cmwollk3l01a9o76vpyqakn8h",
+      "slug": "introduction-to-dp",
+      "title": "Introduction to DP",
+      "difficulty": "EASY"
+    },
+    {
+      "id": "cmwollk3m01ado76v9kohythj",
+      "slug": "climbing-stairs",
+      "title": "Climbing stairs",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk3n01aho76volypbjbk",
+      "slug": "frog-jump",
+      "title": "Frog Jump",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk3o01alo76vzztvrt35",
+      "slug": "frog-jump-with-k-distances",
+      "title": "Frog jump with K distances",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk3p01apo76v9t4fxmmg",
+      "slug": "maximum-sum-of-non-adjacent-elements",
+      "title": "Maximum sum of non adjacent elements",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk3p01ato76vf7y1hgfy",
+      "slug": "house-robber",
+      "title": "House robber",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk3q01axo76vnscctzln",
+      "slug": "ninja's-training",
+      "title": "Ninja's training",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk3r01b1o76vdvj1uhv0",
+      "slug": "grid-unique-paths",
+      "title": "Grid unique paths",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk3s01b5o76vspr71pfq",
+      "slug": "unique-paths-ii",
+      "title": "Unique paths II",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwollk3s01b9o76vi0mq677u",
+      "slug": "minimum-falling-path-sum",
+      "title": "Minimum Falling Path Sum",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk3t01bdo76ves05p6t3",
+      "slug": "triangle",
+      "title": "Triangle",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk3u01bho76vellie500",
+      "slug": "cherry-pickup-ii",
+      "title": "Cherry pickup II",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwollk3v01blo76vtn9s0vc2",
+      "slug": "count-square-submatrices-with-all-one",
+      "title": "Count Square Submatrices with All Ones",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk3w01bpo76vwaltrw29",
+      "slug": "best-time-to-buy-and-sell-stock",
+      "title": "Best time to buy and sell stock",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk3x01bto76v5gargyfa",
+      "slug": "best-time-to-buy-and-sell-stock-ii",
+      "title": "Best time to buy and sell stock II",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk3y01bxo76vohab0id9",
+      "slug": "best-time-to-buy-and-sell-stock-iii",
+      "title": "Best time to buy and sell stock III",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwollk3z01c1o76vk8dymdhi",
+      "slug": "best-time-to-buy-and-sell-stock-iv",
+      "title": "Best time to buy and sell stock IV",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwollk4001c5o76vnljl1imx",
+      "slug": "best-time-to-buy-and-sell-stock-with-cooldown-and-transaction-fees",
+      "title": "Best time to buy and sell stock with transaction fees",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk4101c9o76vfar3gq0i",
+      "slug": "best-time-to-buy-and-sell-stock-with-cooldown",
+      "title": "Best Time to Buy and Sell Stock with Cooldown",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk4201cdo76vo9mjxfy5",
+      "slug": "subset-sum-equals-to-target",
+      "title": "Subset sum equals to target",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk4301cho76vy4bzchx4",
+      "slug": "partition-equal-subset-sum",
+      "title": "Partition equal subset sum",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk4501clo76vzx8wrb7w",
+      "slug": "partition-a-set-into-two-subsets-with-minimum-absolute-sum-difference",
+      "title": "Partition a set into two subsets with minimum absolute sum difference",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwollk4601cpo76vy6e7e752",
+      "slug": "count-subsets-with-sum-k",
+      "title": "Count subsets with sum K",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk4701cto76v7hho9vrj",
+      "slug": "count-partitions-with-given-difference",
+      "title": "Count partitions with given difference",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk4801cxo76vops6fra7",
+      "slug": "0-and-1-knapsack",
+      "title": "0 and 1 Knapsack",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk4901d1o76vyt880awx",
+      "slug": "minimum-coins",
+      "title": "Minimum coins",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk4a01d5o76v7819r33d",
+      "slug": "target-sum",
+      "title": "Target sum",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk4b01d9o76vammzymwq",
+      "slug": "coin-change-ii",
+      "title": "Coin change II",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwollk4c01ddo76vendhmzsb",
+      "slug": "unbounded-knapsack",
+      "title": "Unbounded knapsack",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk4d01dho76vz4u5jl69",
+      "slug": "rod-cutting-problem",
+      "title": "Rod cutting problem",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwollk4f01dlo76vndbqw6hz",
+      "slug": "longest-increasing-subsequence",
+      "title": "Longest Increasing Subsequence",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk4g01dpo76v0r4m0dne",
+      "slug": "print-longest-increasing-subsequence",
+      "title": "Print Longest Increasing Subsequence",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwollk4h01dto76vk8g1gmov",
+      "slug": "largest-divisible-subset",
+      "title": "Largest Divisible Subset",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk4i01dxo76vncjbyd5q",
+      "slug": "longest-string-chain",
+      "title": "Longest String Chain",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk4k01e1o76v9l1delic",
+      "slug": "longest-bitonic-subsequence",
+      "title": "Longest Bitonic Subsequence",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk4l01e5o76v6rnoz6e9",
+      "slug": "number-of-longest-increasing-subsequences",
+      "title": "Number of Longest Increasing Subsequences",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk4m01e9o76v88njjgyi",
+      "slug": "longest-common-subsequence",
+      "title": "Longest common subsequence",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk4n01edo76vgdxyxg2p",
+      "slug": "longest-common-substring",
+      "title": "Longest common substring",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk4o01eho76vqst0jiev",
+      "slug": "longest-palindromic-subsequence",
+      "title": "Longest palindromic subsequence",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk4p01elo76vb97i11y0",
+      "slug": "minimum-insertions-to-make-string-palindrome",
+      "title": "Minimum insertions to make string palindrome",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwollk4q01epo76v5hp0k7v2",
+      "slug": "minimum-insertions-or-deletions-to-convert-string-a-to-b",
+      "title": "Minimum insertions or deletions to convert string A to B",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk4r01eto76v4e9y0z8k",
+      "slug": "shortest-common-supersequence",
+      "title": "Shortest common supersequence",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwollk4s01exo76v6rnibbgk",
+      "slug": "distinct-subsequences",
+      "title": "Distinct subsequences",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwollk4t01f1o76vul2uie66",
+      "slug": "edit-distance",
+      "title": "Edit distance",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwollk4u01f5o76v4kz27yfo",
+      "slug": "wildcard-matching",
+      "title": "Wildcard matching",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwollk4v01f9o76vfbyvf484",
+      "slug": "word-break",
+      "title": "Word Break",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk4w01fdo76voxageb5j",
+      "slug": "count-palindromic-subsequences",
+      "title": "Count Palindromic Subsequences",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwollk4x01fho76vyp9jp1ec",
+      "slug": "matrix-chain-multiplication",
+      "title": "Matrix chain multiplication",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwollk4y01flo76v3h3eggmw",
+      "slug": "burst-balloons",
+      "title": "Burst balloons",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwollk4z01fpo76v9wfojg91",
+      "slug": "palindrome-partitioning-ii-",
+      "title": "Palindrome partitioning II ",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwollk5001fto76vldu3vich",
+      "slug": "partition-array-for-maximum-sum",
+      "title": "Partition Array for Maximum Sum",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwollk5101fxo76vgyrdsiik",
+      "slug": "minimum-cost-to-cut-the-stick",
+      "title": "Minimum cost to cut the stick",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwollk5201g1o76vtr48o4y8",
+      "slug": "different-ways-to-evaluate-a-boolean-expression",
+      "title": "Different Ways to Evaluate a Boolean Expression",
+      "difficulty": "HARD"
+    }
+  ],
+  "tries": [
+    {
+      "id": "cmwollk5301g5o76vrcbamu9p",
+      "slug": "bit-prerequisites-for-trie-problems",
+      "title": "Bit PreRequisites for TRIE Problems",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk5401g9o76vtv8a3tr9",
+      "slug": "trie-implementation-and-operations",
+      "title": "Trie Implementation and Operations",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk5501gdo76vw1mc3486",
+      "slug": "trie-implementation-and-advanced-operations",
+      "title": "Trie Implementation and Advanced Operations",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk5601gho76vqwzaynwc",
+      "slug": "longest-word-with-all-prefixes",
+      "title": "Longest Word with All Prefixes",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk5701glo76v1gjrdduy",
+      "slug": "number-of-distinct-substrings-in-a-string",
+      "title": "Number of distinct substrings in a string",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwollk5801gpo76vhb7xuhi7",
+      "slug": "maximum-xor-of-two-numbers-in-an-array",
+      "title": "Maximum XOR of two numbers in an array",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk5901gto76vhimk89aw",
+      "slug": "maximum-xor-with-an-element-from-an-array",
+      "title": "Maximum Xor with an element from an array",
+      "difficulty": "HARD"
+    }
+  ],
+  "strings-advanced-algo": [
+    {
+      "id": "cmwollk5b01gxo76v0xopvwjq",
+      "slug": "reverse-every-word-in-a-string",
+      "title": "Reverse every word in a string",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk5c01h1o76vfh4i1quo",
+      "slug": "minimum-number-of-bracket-reversals-to-make-an-expression-balanced",
+      "title": "Minimum number of bracket reversals to make an expression balanced",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk5d01h5o76v13qofa1l",
+      "slug": "count-and-say",
+      "title": "Count and say",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk5e01h9o76vdux1afz4",
+      "slug": "hashing-in-strings-theory",
+      "title": "Hashing In Strings | Theory",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk5f01hdo76vnpryd1bb",
+      "slug": "rabin-karp-algorithm",
+      "title": "Rabin Karp Algorithm",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwollk5g01hho76v715fqxzz",
+      "slug": "z-function",
+      "title": "Z function",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwollk5h01hlo76vlg29mni6",
+      "slug": "kmp-algorithm-or-lps-array",
+      "title": "KMP Algorithm or LPS array",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwollk5h01hpo76vuu5wbfc2",
+      "slug": "shortest-palindrome",
+      "title": "Shortest Palindrome",
+      "difficulty": "HARD"
+    },
+    {
+      "id": "cmwollk5i01hto76v4wfvtc55",
+      "slug": "longest-happy-prefix",
+      "title": "Longest happy prefix",
+      "difficulty": "HARD"
+    }
+  ],
+  "maths": [
+    {
+      "id": "cmwollk5j01hxo76va4izqt2m",
+      "slug": "print-all-primes-till-n",
+      "title": "Print all primes till N",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk5k01i1o76vb0lkvegf",
+      "slug": "prime-factorisation-of-a-number",
+      "title": "Prime factorisation of a Number",
+      "difficulty": "MEDIUM"
+    },
+    {
+      "id": "cmwollk5l01i5o76vz6w1gn44",
+      "slug": "count-primes-in-range-l-to-r",
+      "title": "Count primes in range L to R",
+      "difficulty": "HARD"
+    }
+  ]
+}

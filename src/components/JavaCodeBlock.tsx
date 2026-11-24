@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import { Copy, Check, Lock } from "lucide-react";
+import Link from "next/link";
+import { Copy, Check, Lock, Sparkles } from "lucide-react";
 
 interface JavaCodeBlockProps {
   code: string;
@@ -32,19 +33,20 @@ export default function JavaCodeBlock({
           <Lock className="h-6 w-6" />
         </div>
         <div className="space-y-1">
-          <h4 className="text-base font-bold text-white">Java Solution Protected</h4>
+          <h4 className="text-base font-bold text-white">Solution Locked with BeeNext Plus</h4>
           <p className="text-xs text-neutral-400 max-w-md mx-auto">
-            This solution code is part of our verified premium roadmap. Unlock this problem to view the complete implementation.
+            Brute Force &amp; Optimal computer-written solutions with complexity breakdowns are exclusive to BeeNext Plus members.
           </p>
         </div>
-        {onUnlockClick && (
-          <button
-            onClick={onUnlockClick}
+        <div className="pt-2">
+          <Link
+            href="/membership"
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-brand-red hover:bg-brand-redHover text-white text-xs font-bold font-mono transition-all shadow-brand"
           >
-            <span>Unlock Solution {price ? `(₹${price})` : ""}</span>
-          </button>
-        )}
+            <Sparkles className="h-3.5 w-3.5" />
+            <span>Upgrade to Plus (from ₹79)</span>
+          </Link>
+        </div>
       </div>
     );
   }

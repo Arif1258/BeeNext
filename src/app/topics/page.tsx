@@ -32,7 +32,6 @@ const getCachedCategories = unstable_cache(
             price: true,
             leetcodeUrl: true,
             youtubeUrl: true,
-            apnaYoutubeUrl: true,
             _count: { select: { notes: true } },
           },
         },

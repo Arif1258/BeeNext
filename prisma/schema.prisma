@@ -13,6 +13,24 @@ enum Role {
   ADMIN
 }
 
+enum MembershipType {
+  NORMAL
+  PLUS
+}
+
+enum MembershipPlan {
+  MONTHLY
+  YEARLY
+}
+
+enum SubmissionStatus {
+  ACCEPTED
+  WRONG_ANSWER
+  COMPILATION_ERROR
+  RUNTIME_ERROR
+  TIME_LIMIT_EXCEEDED
+}
+
 enum Difficulty {
   EASY
   MEDIUM
@@ -68,12 +86,19 @@ model User {
   dsaQualifiedAt       DateTime?
   certificateClaimedAt DateTime?
 
-  purchases     Purchase[]
-  printedOrders PrintedOrder[]
-  bookmarks     Bookmark[]
-  progress      UserProgress[]
-  bookRatings   BookRating[]
+  membershipType       MembershipType @default(NORMAL)
+  membershipPlan       MembershipPlan?
+  membershipStartedAt  DateTime?
+  membershipExpiresAt  DateTime?
+
+  purchases         Purchase[]
+  printedOrders     PrintedOrder[]
+  bookmarks         Bookmark[]
+  progress          UserProgress[]
+  bookRatings       BookRating[]
   certificateOrders CertificateOrder[]
+  membershipOrders  MembershipOrder[]
+  codeSubmissions   CodeSubmission[]
 
   @@map("users")
 }
@@ -125,6 +150,8 @@ model Problem {
   purchases    Purchase[]
   bookmarks    Bookmark[]
   progress     UserProgress[]
+  testCases    TestCase[]
+  submissions  CodeSubmission[]
 
   @@index([categoryId])
   @@map("problems")
@@ -372,4 +399,61 @@ model CertificateOrder {
   @@index([userId])
   @@index([deliveryStatus])
   @@map("certificate_orders")
+}
+
+model MembershipOrder {
+  id                String          @id @default(cuid())
+  userId            String
+  user              User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  plan              MembershipPlan
+  amount            Int             // in INR (79 or 299)
+  currency          String          @default("INR")
+  status            PurchaseStatus  @default(PENDING) // PENDING, COMPLETED, FAILED
+  razorpayOrderId   String?         @unique
+  razorpayPaymentId String?         @unique
+  razorpaySignature String?
+  startsAt          DateTime?
+  expiresAt         DateTime?
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+
+  @@index([userId])
+  @@index([status])
+  @@map("membership_orders")
+}
+
+model TestCase {
+  id             String   @id @default(cuid())
+  problemId      String
+  problem        Problem  @relation(fields: [problemId], references: [id], onDelete: Cascade)
+  input          String   @db.Text
+  expectedOutput String   @db.Text
+  isSample       Boolean  @default(false)
+  order          Int      @default(0)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([problemId])
+  @@map("test_cases")
+}
+
+model CodeSubmission {
+  id            String           @id @default(cuid())
+  userId        String
+  user          User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  problemId     String?
+  problem       Problem?         @relation(fields: [problemId], references: [id], onDelete: SetNull)
+  language      String           // java, cpp, python, javascript
+  code          String           @db.Text
+  status        SubmissionStatus
+  executionTime Float?           // in seconds
+  memoryUsage   Int?             // in KB
+  passedTests   Int              @default(0)
+  totalTests    Int              @default(0)
+  errorOutput   String?          @db.Text
+  createdAt     DateTime         @default(now())
+
+  @@index([userId])
+  @@index([problemId])
+  @@map("code_submissions")
 }

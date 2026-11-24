@@ -7,8 +7,10 @@ import {
   ChevronLeft,
   Check,
   ExternalLink,
+  Code2,
 } from "lucide-react";
 import DifficultyBadge from "@/components/DifficultyBadge";
+import SolutionUpgradeModal from "@/components/SolutionUpgradeModal";
 
 // YouTube Play Icon
 const YouTubeIcon = ({ className = "h-3.5 w-3.5" }: { className?: string }) => (
@@ -42,10 +44,14 @@ export default function CategoryDetailClient({
   initialCategory,
   initialProblems,
 }: CategoryDetailClientProps) {
-  const { user, hasCategoryAccess, refreshUser } = useAuth();
+  const { user, isPlusMember, hasCategoryAccess, refreshUser } = useAuth();
   const [category] = useState<any>(initialCategory);
   const [problems] = useState<any[]>(initialProblems);
   const [modalOpen, setModalOpen] = useState(false);
+  const [upgradeModal, setUpgradeModal] = useState<{
+    isOpen: boolean;
+    type: "Brute Force" | "Optimal";
+  }>({ isOpen: false, type: "Brute Force" });
 
   // Completed map
   const [completedMap, setCompletedMap] = useState<{ [id: string]: boolean }>({});
@@ -171,14 +177,15 @@ export default function CategoryDetailClient({
                         <Check className="h-3 w-3 stroke-[3]" />
                       </button>
 
-                      {/* Problem Title Link */}
+                      {/* Problem Title Link - Navigates directly to dedicated Coding Playground */}
                       <Link
-                        href={`/problem/${prob.slug}/optimal`}
+                        href={`/problem/${prob.slug}/code`}
                         className={`text-xs sm:text-sm font-medium transition-colors truncate ${
                           isCompleted
                             ? "text-neutral-500 line-through decoration-neutral-600 hover:text-neutral-300"
                             : "text-neutral-100 hover:text-brand-red"
                         }`}
+                        title={`Open Coding Playground for ${prob.title}`}
                       >
                         <span className="font-mono text-neutral-500 mr-2">
                           {problemNum}.
@@ -190,9 +197,19 @@ export default function CategoryDetailClient({
                       <DifficultyBadge difficulty={prob.difficulty} />
                     </div>
 
-                    {/* Right: Striver | Apna | LeetCode | Brute | Optimal | Handwritten */}
+                    {/* Right: Code | Striver | LeetCode | Brute | Optimal */}
                     <div className="flex flex-wrap items-center space-x-2 sm:space-x-3 text-xs font-mono flex-shrink-0 pl-6 sm:pl-0">
-                      <span className="text-neutral-700 select-none hidden sm:inline">|</span>
+                      {/* 1. Code */}
+                      <Link
+                        href={`/problem/${prob.slug}/code`}
+                        className="text-neutral-300 hover:text-brand-red font-medium transition-colors inline-flex items-center gap-1.5"
+                        title="Open dedicated Coding Playground for this problem"
+                      >
+                        <Code2 className="h-3.5 w-3.5 text-brand-red" />
+                        <span>Code</span>
+                      </Link>
+
+                      <span className="text-neutral-700 select-none">|</span>
 
                       {/* 2. Striver YouTube */}
                       {prob.youtubeUrl ? (
@@ -213,30 +230,6 @@ export default function CategoryDetailClient({
                         >
                           <YouTubeIcon className="h-3 w-3 opacity-40 grayscale" />
                           <span>Striver</span>
-                        </span>
-                      )}
-
-                      <span className="text-neutral-700 select-none">|</span>
-
-                      {/* 3. Apna College YouTube */}
-                      {prob.apnaYoutubeUrl ? (
-                        <a
-                          href={prob.apnaYoutubeUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-white hover:text-brand-red font-medium transition-colors inline-flex items-center gap-1.5"
-                          title="Watch Apna College YouTube explanation video"
-                        >
-                          <YouTubeIcon />
-                          <span>Apna</span>
-                        </a>
-                      ) : (
-                        <span
-                          className="text-neutral-500 opacity-40 select-none inline-flex items-center gap-1.5 cursor-not-allowed font-medium"
-                          title="No Apna College video available for this problem"
-                        >
-                          <YouTubeIcon className="h-3 w-3 opacity-40 grayscale" />
-                          <span>Apna</span>
                         </span>
                       )}
 
@@ -267,24 +260,50 @@ export default function CategoryDetailClient({
                       <span className="text-neutral-700 select-none">|</span>
 
                       {/* 4. Brute */}
-                      <Link
-                        href={`/problem/${prob.slug}/brute-force`}
-                        className="text-neutral-300 hover:text-white hover:underline transition-colors font-medium"
-                        title="Open Brute Force solution"
-                      >
-                        Brute
-                      </Link>
+                      {isPlusMember ? (
+                        <Link
+                          href={`/problem/${prob.slug}/brute-force`}
+                          className="text-neutral-300 hover:text-white hover:underline transition-colors font-medium"
+                          title="Open Brute Force solution"
+                        >
+                          Brute
+                        </Link>
+                      ) : (
+                        <button
+                          type="button"
+                          onClick={() =>
+                            setUpgradeModal({ isOpen: true, type: "Brute Force" })
+                          }
+                          className="text-neutral-300 hover:text-white hover:underline transition-colors font-medium"
+                          title="Brute Force solution (Plus required)"
+                        >
+                          Brute
+                        </button>
+                      )}
 
                       <span className="text-neutral-700 select-none">|</span>
 
                       {/* 5. Optimal */}
-                      <Link
-                        href={`/problem/${prob.slug}/optimal`}
-                        className="text-neutral-300 hover:text-white hover:underline transition-colors font-medium"
-                        title="Open Optimal solution"
-                      >
-                        Optimal
-                      </Link>
+                      {isPlusMember ? (
+                        <Link
+                          href={`/problem/${prob.slug}/optimal`}
+                          className="text-neutral-300 hover:text-white hover:underline transition-colors font-medium"
+                          title="Open Optimal solution"
+                        >
+                          Optimal
+                        </Link>
+                      ) : (
+                        <button
+                          type="button"
+                          onClick={() =>
+                            setUpgradeModal({ isOpen: true, type: "Optimal" })
+                          }
+                          className="text-neutral-300 hover:text-white hover:underline transition-colors font-medium"
+                          title="Optimal solution (Plus required)"
+                        >
+                          Optimal
+                        </button>
+                      )}
                     </div>
                   </div>
                 );
@@ -293,6 +312,13 @@ export default function CategoryDetailClient({
           )}
         </div>
       </div>
+
+      {/* Solution Upgrade Modal for Normal Users */}
+      <SolutionUpgradeModal
+        isOpen={upgradeModal.isOpen}
+        solutionType={upgradeModal.type}
+        onClose={() => setUpgradeModal({ isOpen: false, type: "Brute Force" })}
+      />
     </div>
   );
 }

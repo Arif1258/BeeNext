@@ -1,7 +1,13 @@
-import { redirect } from "next/navigation";
+import React from "react";
+import type { Metadata } from "next";
+import NotesClient from "@/components/NotesClient";
 
-export const dynamic = "force-dynamic";
+export const metadata: Metadata = {
+  title: "Engineering Notes - BeeNext Plus",
+  description:
+    "Comprehensive interview notes across 5 collections: DSA Topics, CS Fundamentals, Database Mastery, Programming Languages, and Advanced Development.",
+};
 
-export default function NotesPageRedirect() {
-  redirect("/purchase/pdf");
+export default function NotesPage() {
+  return <NotesClient />;
 }

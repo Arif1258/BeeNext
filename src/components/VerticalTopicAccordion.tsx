@@ -6,10 +6,11 @@ import {
   ChevronDown,
   Check,
   ExternalLink,
-  Package,
+  Code2,
 } from "lucide-react";
-import { getTopicPrice } from "@/lib/pricing";
 import DifficultyBadge from "@/components/DifficultyBadge";
+import { useAuth } from "@/context/AuthContext";
+import SolutionUpgradeModal from "@/components/SolutionUpgradeModal";
 
 export interface ProblemItem {
   id: string;
@@ -21,7 +22,6 @@ export interface ProblemItem {
   order: number;
   leetcodeUrl?: string | null;
   youtubeUrl?: string | null;
-  apnaYoutubeUrl?: string | null;
   _count?: { notes: number };
   notes?: Array<{ id: string; title: string; fileType: string }>;
 }
@@ -86,6 +86,11 @@ export default function VerticalTopicAccordion({
   onToggleProgress: propToggleProgress,
   forceExpandAll = false,
 }: VerticalTopicAccordionProps) {
+  const { isPlusMember } = useAuth();
+  const [upgradeModal, setUpgradeModal] = useState<{
+    isOpen: boolean;
+    type: "Brute Force" | "Optimal";
+  }>({ isOpen: false, type: "Brute Force" });
   // Map of topicId -> boolean to allow multiple topics to stay open independently until manually closed
   const [expandedTopicIds, setExpandedTopicIds] = useState<{ [id: string]: boolean }>({});
 
@@ -231,8 +236,6 @@ export default function VerticalTopicAccordion({
         const problems = topic.problems || [];
         const totalProblems = problems.length || topic._count?.problems || 0;
 
-        const topicPrice = getTopicPrice(topic);
-
         // Calculate completed count for this topic
         const completedCount = problems.filter((p) => activeCompletedMap[p.id]).length;
 
@@ -272,20 +275,8 @@ export default function VerticalTopicAccordion({
                 </h3>
               </div>
 
-              {/* Right: Topic Actions (Book + Chevron) */}
+              {/* Right: Chevron */}
               <div className="flex items-center space-x-2 sm:space-x-2.5 flex-shrink-0">
-                <Link
-                  href={`/purchase?topic=${encodeURIComponent(topic.slug)}`}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                  }}
-                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-neutral-900 border border-brand-red/40 hover:border-brand-red text-brand-red hover:bg-brand-red hover:text-white text-[11px] sm:text-xs font-mono font-bold transition-all shadow-sm active:scale-95"
-                  title={`Buy book for ${topic.title} – ₹${topicPrice}`}
-                >
-                  <Package className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
-                  <span>Buy Book – ₹{topicPrice}</span>
-                </Link>
-
                 <ChevronDown
                   className={`h-4 w-4 text-neutral-400 transition-transform duration-200 ${
                     isExpanded ? "rotate-180 text-white" : ""
@@ -325,14 +316,15 @@ export default function VerticalTopicAccordion({
                             <Check className="h-3 w-3 stroke-[3]" />
                           </button>
 
-                          {/* Problem Title Link */}
+                          {/* Problem Title Link - Navigates directly to dedicated Coding Playground */}
                           <Link
-                            href={`/problem/${problem.slug}`}
+                            href={`/problem/${problem.slug}/code`}
                             className={`text-xs sm:text-sm font-medium transition-colors truncate ${
                               isCompleted
                                 ? "text-neutral-500 line-through decoration-neutral-600 hover:text-neutral-300"
                                 : "text-neutral-100 hover:text-brand-red"
                             }`}
+                            title={`Open Coding Playground for ${problem.title}`}
                           >
                             <span className="font-mono text-neutral-500 mr-2">
                               {problemNumber}.
@@ -344,9 +336,19 @@ export default function VerticalTopicAccordion({
                           <DifficultyBadge difficulty={problem.difficulty} />
                         </div>
 
-                        {/* Right: Striver | Apna | LeetCode | Brute | Optimal | Handwritten */}
+                        {/* Right: Code | Striver | LeetCode | Brute | Optimal */}
                         <div className="flex flex-wrap items-center space-x-2 sm:space-x-3 text-xs font-mono flex-shrink-0 pl-6 sm:pl-0">
-                          <span className="text-neutral-700 select-none hidden sm:inline">|</span>
+                          {/* 1. Code (Dedicated Problem Coding Playground) */}
+                          <Link
+                            href={`/problem/${problem.slug}/code`}
+                            className="text-neutral-300 hover:text-brand-red font-medium transition-colors inline-flex items-center gap-1.5"
+                            title="Open dedicated Coding Playground for this problem"
+                          >
+                            <Code2 className="h-3.5 w-3.5 text-brand-red" />
+                            <span>Code</span>
+                          </Link>
+
+                          <span className="text-neutral-700 select-none">|</span>
 
                           {/* 2. Striver YouTube */}
                           {problem.youtubeUrl ? (
@@ -367,30 +369,6 @@ export default function VerticalTopicAccordion({
                             >
                               <YouTubeIcon className="h-3 w-3 opacity-40 grayscale" />
                               <span>Striver</span>
-                            </span>
-                          )}
-
-                          <span className="text-neutral-700 select-none">|</span>
-
-                          {/* 3. Apna College YouTube */}
-                          {problem.apnaYoutubeUrl ? (
-                            <a
-                              href={problem.apnaYoutubeUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-white hover:text-brand-red font-medium transition-colors inline-flex items-center gap-1.5"
-                              title="Watch Apna College YouTube explanation video"
-                            >
-                              <YouTubeIcon />
-                              <span>Apna</span>
-                            </a>
-                          ) : (
-                            <span
-                              className="text-neutral-500 opacity-40 select-none inline-flex items-center gap-1.5 cursor-not-allowed font-medium"
-                              title="No Apna College video available for this problem"
-                            >
-                              <YouTubeIcon className="h-3 w-3 opacity-40 grayscale" />
-                              <span>Apna</span>
                             </span>
                           )}
 
@@ -421,24 +399,50 @@ export default function VerticalTopicAccordion({
                           <span className="text-neutral-700 select-none">|</span>
 
                           {/* 4. Brute */}
-                          <Link
-                            href={`/problem/${problem.slug}/brute-force`}
-                            className="text-neutral-300 hover:text-white hover:underline transition-colors font-medium"
-                            title="Open Brute Force solution"
-                          >
-                            Brute
-                          </Link>
+                          {isPlusMember ? (
+                            <Link
+                              href={`/problem/${problem.slug}/brute-force`}
+                              className="text-neutral-300 hover:text-white hover:underline transition-colors font-medium"
+                              title="Open Brute Force solution"
+                            >
+                              Brute
+                            </Link>
+                          ) : (
+                            <button
+                              type="button"
+                              onClick={() =>
+                                setUpgradeModal({ isOpen: true, type: "Brute Force" })
+                              }
+                              className="text-neutral-300 hover:text-white hover:underline transition-colors font-medium"
+                              title="Brute Force solution (Plus required)"
+                            >
+                              Brute
+                            </button>
+                          )}
 
                           <span className="text-neutral-700 select-none">|</span>
 
                           {/* 5. Optimal */}
-                          <Link
-                            href={`/problem/${problem.slug}/optimal`}
-                            className="text-neutral-300 hover:text-white hover:underline transition-colors font-medium"
-                            title="Open Optimal solution"
-                          >
-                            Optimal
-                          </Link>
+                          {isPlusMember ? (
+                            <Link
+                              href={`/problem/${problem.slug}/optimal`}
+                              className="text-neutral-300 hover:text-white hover:underline transition-colors font-medium"
+                              title="Open Optimal solution"
+                            >
+                              Optimal
+                            </Link>
+                          ) : (
+                            <button
+                              type="button"
+                              onClick={() =>
+                                setUpgradeModal({ isOpen: true, type: "Optimal" })
+                              }
+                              className="text-neutral-300 hover:text-white hover:underline transition-colors font-medium"
+                              title="Optimal solution (Plus required)"
+                            >
+                              Optimal
+                            </button>
+                          )}
                         </div>
                       </div>
                     );
@@ -449,6 +453,13 @@ export default function VerticalTopicAccordion({
           </div>
         );
       })}
+
+      {/* Solution Upgrade Modal for Normal Users */}
+      <SolutionUpgradeModal
+        isOpen={upgradeModal.isOpen}
+        solutionType={upgradeModal.type}
+        onClose={() => setUpgradeModal({ isOpen: false, type: "Brute Force" })}
+      />
     </div>
   );
 }

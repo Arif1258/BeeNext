@@ -1,5 +1,8 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Mail } from "lucide-react";
 
 export const CUSTOMER_SUPPORT_EMAIL = "supportbeenext@gmail.com";
@@ -7,6 +10,16 @@ export const COMPANY_ADDRESS =
   "C5, 104, 1st Floor, Larica, Barasat, Kolkata, West Bengal – 700126, India.";
 
 export default function Footer() {
+  const pathname = usePathname();
+
+  // On coding playground pages, the full viewport is dedicated to the IDE without vertical document scroll
+  if (
+    pathname === "/playground" ||
+    (pathname?.startsWith("/problem/") && pathname?.endsWith("/code"))
+  ) {
+    return null;
+  }
+
   return (
     <footer className="w-full border-t border-brand-border bg-brand-black text-brand-muted text-xs py-10 mt-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-8">
@@ -22,7 +35,7 @@ export default function Footer() {
               </span>
             </Link>
             <p className="text-xs text-neutral-400 leading-relaxed max-w-sm">
-              Data Structures and Algorithms notes and computer-written Java solution books for students and working professionals.
+              Data Structures and Algorithms learning platform with interactive coding playground, video solutions, curated notes, and interview preparation.
             </p>
             <div className="pt-1">
               <Link
@@ -64,12 +77,12 @@ export default function Footer() {
               DSA Topics
             </Link>
             <span>•</span>
-            <Link href="/purchase" className="hover:text-neutral-300 transition-colors">
-              Purchase
+            <Link href="/notes" className="hover:text-neutral-300 transition-colors">
+              Notes
             </Link>
             <span>•</span>
-            <Link href="/orders" className="hover:text-neutral-300 transition-colors">
-              My Orders
+            <Link href="/membership" className="hover:text-neutral-300 transition-colors">
+              Membership
             </Link>
             <span>•</span>
             <Link href="/about" className="hover:text-neutral-300 transition-colors">

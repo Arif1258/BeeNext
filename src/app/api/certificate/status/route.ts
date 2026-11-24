@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth";
+import { isUserActivePlus } from "@/lib/membership";
 import { ProgressStatus } from "@prisma/client";
 
 export const dynamic = "force-dynamic";
@@ -8,9 +9,8 @@ export const dynamic = "force-dynamic";
 export async function GET() {
   try {
     const session = await getCurrentUser();
-
-    // Default total problems in Striver's A to Z Sheet
-    const totalProblems = (await prisma.problem.count({ where: { isPublished: true } })) || 495;
+    const totalProblems =
+      (await prisma.problem.count({ where: { isPublished: true } })) || 495;
 
     if (!session) {
       return NextResponse.json({
@@ -20,9 +20,7 @@ export async function GET() {
         completedProblems: 0,
         completionPercentage: 0,
         is85Completed: false,
-        dsaQualifiedAt: null,
-        hasQualifyingOrder: false,
-        qualifyingOrder: null,
+        isActivePlus: false,
         certificateClaimedAt: null,
         hasOrderedCertificate: false,
         certificateOrder: null,
@@ -36,6 +34,9 @@ export async function GET() {
         id: true,
         name: true,
         email: true,
+        role: true,
+        membershipType: true,
+        membershipExpiresAt: true,
         dsaQualifiedAt: true,
         certificateClaimedAt: true,
       },
@@ -49,9 +50,7 @@ export async function GET() {
         completedProblems: 0,
         completionPercentage: 0,
         is85Completed: false,
-        dsaQualifiedAt: null,
-        hasQualifyingOrder: false,
-        qualifyingOrder: null,
+        isActivePlus: false,
         certificateClaimedAt: null,
         hasOrderedCertificate: false,
         certificateOrder: null,
@@ -67,11 +66,18 @@ export async function GET() {
       },
     });
 
-    const completionPercentage = totalProblems > 0
-      ? Math.round((completedProblems / totalProblems) * 100)
-      : 0;
+    const completionPercentage =
+      totalProblems > 0
+        ? Math.round((completedProblems / totalProblems) * 100)
+        : 0;
 
-    const is85Completed = totalProblems > 0 && (completedProblems / totalProblems) >= 0.85;
+    // Strict requirements:
+    // 1. >= 85% DSA sheet completed (for 495 problems, >= 421)
+    // 2. Active Plus membership (valid PLUS type and membershipExpiresAt > now)
+    const is85Completed =
+      totalProblems > 0 && completedProblems / totalProblems >= 0.85;
+
+    const isActivePlus = isUserActivePlus(user);
 
     let dsaQualifiedAt = user.dsaQualifiedAt;
     if (is85Completed && !dsaQualifiedAt) {
@@ -82,51 +88,8 @@ export async function GET() {
       });
     }
 
-    // Find any qualifying physical book order placed after achieving 85%
-    let qualifyingOrder = null;
-    let hasQualifyingOrder = false;
-
-    if (is85Completed || dsaQualifiedAt) {
-      const qualifyingOrderRecord = await prisma.printedOrder.findFirst({
-        where: {
-          OR: [
-            { userId: user.id },
-            { customerEmail: { equals: user.email, mode: "insensitive" } },
-          ],
-          paymentStatus: "COMPLETED",
-          orderStatus: { not: "CANCELLED" },
-          ...(dsaQualifiedAt
-            ? {
-                createdAt: {
-                  // Allow orders placed at or after dsaQualifiedAt (with a 5-minute buffer for clock drift)
-                  gte: new Date(new Date(dsaQualifiedAt).getTime() - 5 * 60 * 1000),
-                },
-              }
-            : {}),
-        },
-        orderBy: { createdAt: "desc" },
-        select: {
-          id: true,
-          orderNumber: true,
-          productTitle: true,
-          quantity: true,
-          totalAmount: true,
-          orderStatus: true,
-          paymentStatus: true,
-          requiresCertificate: true,
-          certificateStatus: true,
-          createdAt: true,
-        },
-      });
-
-      if (qualifyingOrderRecord) {
-        hasQualifyingOrder = true;
-        qualifyingOrder = qualifyingOrderRecord;
-      }
-    }
-
-    // Check if customer has already successfully purchased/ordered a physical certificate
-    const confirmedCertOrder = await prisma.certificateOrder.findFirst({
+    // Check existing certificate order
+    const existingCertOrder = await prisma.certificateOrder.findFirst({
       where: {
         userId: user.id,
         status: "CONFIRMED",
@@ -134,21 +97,12 @@ export async function GET() {
       orderBy: { createdAt: "desc" },
     });
 
-    const confirmedPrintedCert = await prisma.printedOrder.findFirst({
-      where: {
-        userId: user.id,
-        requiresCertificate: true,
-        paymentStatus: "COMPLETED",
-      },
-      orderBy: { createdAt: "desc" },
-    });
-
     const hasOrderedCertificate = Boolean(
-      user.certificateClaimedAt || confirmedCertOrder || confirmedPrintedCert
+      user.certificateClaimedAt || existingCertOrder
     );
 
-    // Eligible if >=85% completed and has not yet claimed their free one-time physical certificate
-    const isEligible = is85Completed && !hasOrderedCertificate;
+    // Eligible only when BOTH conditions are satisfied
+    const isEligible = is85Completed && isActivePlus;
 
     return NextResponse.json({
       isLoggedIn: true,
@@ -161,36 +115,139 @@ export async function GET() {
       completedProblems,
       completionPercentage,
       is85Completed,
+      isActivePlus,
       dsaQualifiedAt,
-      hasQualifyingOrder,
-      qualifyingOrder,
       certificateClaimedAt: user.certificateClaimedAt,
       hasOrderedCertificate,
-      certificateOrder: confirmedCertOrder
+      certificateOrder: existingCertOrder
         ? {
-            id: confirmedCertOrder.id,
-            orderNumber: confirmedCertOrder.orderNumber,
-            deliveryStatus: confirmedCertOrder.deliveryStatus,
-            trackingNumber: confirmedCertOrder.trackingNumber,
-            carrier: confirmedCertOrder.carrier,
-            isReplacement: confirmedCertOrder.isReplacement,
-            createdAt: confirmedCertOrder.createdAt,
-          }
-        : confirmedPrintedCert
-        ? {
-            id: confirmedPrintedCert.id,
-            orderNumber: confirmedPrintedCert.orderNumber,
-            deliveryStatus: confirmedPrintedCert.certificateStatus || "PENDING",
-            trackingNumber: confirmedPrintedCert.trackingNumber,
-            carrier: confirmedPrintedCert.carrier,
-            isReplacement: false,
-            createdAt: confirmedPrintedCert.createdAt,
+            id: existingCertOrder.id,
+            orderNumber: existingCertOrder.orderNumber,
+            deliveryStatus: existingCertOrder.deliveryStatus,
+            trackingNumber: existingCertOrder.trackingNumber,
+            carrier: existingCertOrder.carrier,
+            isReplacement: existingCertOrder.isReplacement,
+            createdAt: existingCertOrder.createdAt,
           }
         : null,
       isEligible,
     });
   } catch (err) {
     console.error("Certificate status API error:", err);
-    return NextResponse.json({ error: "Failed to determine certificate status" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to determine certificate status" },
+      { status: 500 }
+    );
+  }
+}
+
+export async function POST(req: Request) {
+  try {
+    const session = await getCurrentUser();
+    if (!session) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const user = await prisma.user.findUnique({
+      where: { id: session.id },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        role: true,
+        membershipType: true,
+        membershipExpiresAt: true,
+        certificateClaimedAt: true,
+      },
+    });
+
+    if (!user) {
+      return NextResponse.json({ error: "User not found" }, { status: 404 });
+    }
+
+    const totalProblems =
+      (await prisma.problem.count({ where: { isPublished: true } })) || 495;
+    const completedProblems = await prisma.userProgress.count({
+      where: {
+        userId: user.id,
+        status: ProgressStatus.COMPLETED,
+      },
+    });
+
+    const is85Completed =
+      totalProblems > 0 && completedProblems / totalProblems >= 0.85;
+    const isActivePlus = user.role === "ADMIN" || isUserActivePlus(user);
+
+    if (!is85Completed) {
+      return NextResponse.json(
+        {
+          error: `Criterion 1 not met: You have completed ${completedProblems}/${totalProblems} problems. 85% completion is required.`,
+        },
+        { status: 400 }
+      );
+    }
+
+    if (!isActivePlus) {
+      return NextResponse.json(
+        {
+          error:
+            "Criterion 2 not met: Active BeeNext Plus membership is required to claim your completion certificate.",
+        },
+        { status: 400 }
+      );
+    }
+
+    // Check duplicate
+    const existingCertOrder = await prisma.certificateOrder.findFirst({
+      where: {
+        userId: user.id,
+        status: "CONFIRMED",
+      },
+    });
+
+    if (user.certificateClaimedAt || existingCertOrder) {
+      return NextResponse.json(
+        { error: "You have already claimed your completion certificate." },
+        { status: 400 }
+      );
+    }
+
+    const body = await req.json().catch(() => ({}));
+    const customerName = body.fullName?.trim() || user.name || "BeeNext Scholar";
+
+    const orderNumber = `BN-CERT-${Date.now().toString().slice(-6)}-${Math.floor(
+      100 + Math.random() * 900
+    )}`;
+
+    const [certOrder] = await prisma.$transaction([
+      prisma.certificateOrder.create({
+        data: {
+          userId: user.id,
+          orderNumber,
+          customerName,
+          customerEmail: user.email,
+          status: "CONFIRMED",
+          deliveryStatus: "PENDING",
+        },
+      }),
+      prisma.user.update({
+        where: { id: user.id },
+        data: {
+          certificateClaimedAt: new Date(),
+        },
+      }),
+    ]);
+
+    return NextResponse.json({
+      success: true,
+      message: "Certificate claimed successfully at no cost!",
+      certificateOrder: certOrder,
+    });
+  } catch (error) {
+    console.error("Certificate claim error:", error);
+    return NextResponse.json(
+      { error: "Failed to process certificate claim." },
+      { status: 500 }
+    );
   }
 }

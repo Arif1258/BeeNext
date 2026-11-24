@@ -104,37 +104,34 @@ export default function TopicsClient({ initialCategories }: TopicsClientProps) {
   );
 
   return (
-    <div className="min-h-screen bg-brand-black text-white pt-6 pb-10 px-4 sm:px-6 lg:px-8 selection:bg-brand-red selection:text-white">
-      <div className="mx-auto max-w-7xl space-y-6">
+    <div className="min-h-screen bg-brand-black text-white pt-3 sm:pt-5 pb-8 px-4 sm:px-6 lg:px-8 selection:bg-brand-red selection:text-white">
+      <div className="mx-auto max-w-7xl space-y-3 sm:space-y-3.5">
         {/* Clean Page Header (Title + Subtitle + Description + Circular Progress Graph & Completed Problems) */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-brand-border pb-6">
-          <div className="space-y-3 max-w-3xl lg:max-w-4xl">
+        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 sm:gap-4 border-b border-brand-border pb-3 sm:pb-4">
+          <div className="space-y-1.5 sm:space-y-2 max-w-3xl lg:max-w-4xl">
             <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-[2rem] font-extrabold tracking-tight leading-tight sm:whitespace-nowrap text-white">
               BEE<span className="text-brand-red">NEXT</span> – HERO TO INFINITY DSA SHEET
             </h1>
-            <h2 className="text-base sm:text-lg font-bold text-white tracking-tight pt-1">
+            <h2 className="text-sm sm:text-base font-bold text-white tracking-tight">
               Sheet Details
             </h2>
-            <p className="text-xs sm:text-sm text-neutral-300 font-normal leading-relaxed">
-              Prepare for technical interviews with BeeNext&apos;s carefully curated free DSA Sheet, featuring problem-solving guidance from Striver and Apna College. Developed in collaboration with senior faculty members of IIT Kharagpur, it focuses on interview-relevant problems and essential concepts, making quality DSA preparation accessible to every student.
+            <p className="text-xs sm:text-sm text-neutral-300 font-normal leading-relaxed max-w-2xl">
+              Curated free DSA Sheet with Striver guidance, featuring notes developed under the guidance of faculty members from <strong className="text-white font-semibold">IIT Kharagpur</strong>. Master interview-relevant problems with Brute Force and Optimal solutions, and practice coding interactively.
             </p>
-            <p className="text-xs sm:text-sm text-neutral-300 font-normal leading-relaxed">
-              Alongside our free DSA Sheet, visit the Purchase section to explore BeeNext&apos;s wide collection of books. Carefully researched and curated exclusively for coding interviews, our books cover important problems and concepts to strengthen problem-solving skills and help professionals prepare effectively for technical interviews.
-            </p>
-            <p className="text-xs sm:text-sm font-bold text-white tracking-wide pt-1">
+            <p className="text-xs sm:text-sm font-semibold text-white tracking-wide">
               Learn what matters. Skip what doesn&apos;t.
             </p>
           </div>
 
           {/* Circular Progress Graph & Completed Problems Section */}
-          <div className="flex flex-col items-stretch gap-2.5 shrink-0 self-start sm:self-auto w-fit">
+          <div className="flex flex-col items-stretch gap-2 shrink-0 self-start sm:self-auto w-fit">
             {/* Circular Progress Graph (above Completed Problems section) */}
             <div
-              className="relative flex items-center justify-center w-full h-44 sm:h-48 rounded-2xl bg-neutral-900 border border-neutral-800 shadow-card"
+              className="relative flex items-center justify-center w-full h-28 sm:h-32 rounded-xl bg-neutral-900 border border-neutral-800 shadow-card px-4"
               title={`Overall Completion: ${progressPercentage}% (${completedCount}/${totalProblemsCount} problems)`}
             >
               <svg
-                className="w-32 h-32 sm:w-36 sm:h-36 transform -rotate-90"
+                className="w-20 h-20 sm:w-24 sm:h-24 transform -rotate-90"
                 viewBox="0 0 36 36"
                 aria-label={`Overall problem completion progress: ${progressPercentage}%`}
               >
@@ -159,14 +156,14 @@ export default function TopicsClient({ initialCategories }: TopicsClientProps) {
               </svg>
               {/* Overall percentage inside circle */}
               <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                <span className="font-mono text-2xl sm:text-3xl font-black text-brand-red">
+                <span className="font-mono text-lg sm:text-xl font-black text-brand-red">
                   {progressPercentage}%
                 </span>
               </div>
             </div>
 
             {/* Completed Problems Section */}
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-neutral-900 border border-neutral-800 text-xs font-mono shrink-0 shadow-sm">
+            <div className="flex items-center gap-2 px-3 py-1 rounded-lg bg-neutral-900 border border-neutral-800 text-[11px] sm:text-xs font-mono shrink-0 shadow-sm">
               <span className="text-neutral-400">Completed:</span>
               <span className="text-brand-red font-bold">
                 {completedCount} / {totalProblemsCount} Problems
@@ -176,30 +173,27 @@ export default function TopicsClient({ initialCategories }: TopicsClientProps) {
             {/* Performance Tracker - Dedicated Certificate Button */}
             <Link
               href="/certificate"
-              className="flex items-center justify-center gap-2 px-3.5 py-2 rounded-xl bg-brand-red/10 hover:bg-brand-red text-white border border-brand-red/30 hover:border-brand-red text-xs font-mono font-bold transition-all shadow-sm group"
+              className="flex items-center justify-center gap-2 px-3 py-1.5 rounded-lg bg-brand-red/10 hover:bg-brand-red text-white border border-brand-red/30 hover:border-brand-red text-[11px] sm:text-xs font-mono font-bold transition-all shadow-sm group"
               title="BeeNext Physical Certificate Requirements"
             >
-              <Award className="h-4 w-4 text-brand-red group-hover:text-white transition-colors" />
+              <Award className="h-3.5 w-3.5 text-brand-red group-hover:text-white transition-colors" />
               <span>Certificate</span>
             </Link>
           </div>
         </div>
 
         {/* OVERALL DSA COMPLETION PROGRESS BAR (DIRECTLY ABOVE TOPICS) */}
-        <div className="rounded-xl border border-brand-border bg-brand-card p-4 space-y-2.5 shadow-sm">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-xs sm:text-sm font-mono">
+        <div className="rounded-xl border border-brand-border bg-brand-card px-3.5 py-2 sm:py-2.5 space-y-1.5 shadow-sm">
+          <div className="flex items-center justify-between gap-1 text-xs font-mono">
             <div>
               <span className="font-bold text-white">Your Progress: </span>
               <span className="font-extrabold text-emerald-400">
                 {progressPercentage}% Completed
               </span>
             </div>
-            <div className="text-xs text-neutral-400 font-mono">
-              {completedCount} of {totalProblemsCount} solved
-            </div>
           </div>
 
-          {/* LeetCode Contribution-Style Grid Tracker (Single Row of Small Square Boxes) */}
+          {/* Square LeetCode Contribution-Style Grid Tracker */}
           <div
             className="w-full flex items-center gap-0.5 sm:gap-1 lg:gap-1.5"
             role="progressbar"
@@ -213,11 +207,10 @@ export default function TopicsClient({ initialCategories }: TopicsClientProps) {
               return (
                 <div
                   key={index}
-                  className={`flex-1 aspect-square rounded-[2px] transition-colors duration-200 ${isCompleted
-                    ? "bg-[#16a34a] border border-[#16a34a]"
-                    : "bg-transparent border border-emerald-500/40"
+                  className={`flex-1 aspect-square rounded-[1px] sm:rounded-[2px] transition-colors duration-200 ${isCompleted
+                    ? "bg-[#16a34a]"
+                    : "bg-neutral-800/80 border border-emerald-500/30"
                     }`}
-                  style={{ aspectRatio: "1 / 1" }}
                   title={
                     isCompleted
                       ? `Box ${index + 1} of ${TOTAL_TRACKER_BOXES} (Completed)`

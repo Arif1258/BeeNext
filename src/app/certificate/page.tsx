@@ -3,8 +3,19 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { CheckCircle2, Lock, ArrowRight, Award, Package, ShieldCheck } from "lucide-react";
+import {
+  CheckCircle2,
+  Lock,
+  ArrowRight,
+  Award,
+  Sparkles,
+  ShieldCheck,
+  Calendar,
+  AlertCircle,
+  Download,
+} from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
+import confetti from "canvas-confetti";
 
 interface CertificateStatusData {
   isLoggedIn: boolean;
@@ -12,20 +23,8 @@ interface CertificateStatusData {
   completedProblems: number;
   completionPercentage: number;
   is85Completed: boolean;
+  isActivePlus: boolean;
   dsaQualifiedAt: string | null;
-  hasQualifyingOrder: boolean;
-  qualifyingOrder: {
-    id: string;
-    orderNumber: string;
-    productTitle: string;
-    quantity: number;
-    totalAmount: number;
-    orderStatus: string;
-    paymentStatus: string;
-    requiresCertificate?: boolean;
-    certificateStatus?: string | null;
-    createdAt: string;
-  } | null;
   certificateClaimedAt: string | null;
   hasOrderedCertificate?: boolean;
   certificateOrder?: {
@@ -44,15 +43,18 @@ export default function CertificatePage() {
   const router = useRouter();
   const { user } = useAuth();
   const [loading, setLoading] = useState(true);
+  const [downloading, setDownloading] = useState(false);
+  const [claimError, setClaimError] = useState<string | null>(null);
+  const [claimSuccess, setClaimSuccess] = useState<string | null>(null);
+
   const [data, setData] = useState<CertificateStatusData>({
     isLoggedIn: false,
     totalProblems: 495,
     completedProblems: 0,
     completionPercentage: 0,
     is85Completed: false,
+    isActivePlus: false,
     dsaQualifiedAt: null,
-    hasQualifyingOrder: false,
-    qualifyingOrder: null,
     certificateClaimedAt: null,
     hasOrderedCertificate: false,
     certificateOrder: null,
@@ -82,194 +84,309 @@ export default function CertificatePage() {
     totalProblems,
     completionPercentage,
     is85Completed,
-    hasQualifyingOrder,
+    isActivePlus,
+    hasOrderedCertificate,
+    isEligible,
   } = data;
 
-  // Criteria statuses
-  const criteria1Fulfilled = is85Completed;
-  const criteria2Fulfilled = Boolean(data.hasOrderedCertificate || data.certificateClaimedAt);
+  const handleDownload = async () => {
+    setClaimError(null);
+    setDownloading(true);
 
-  // One-Time Physical Certificate Status
-  const hasAlreadyOrdered = criteria2Fulfilled;
+    try {
+      const res = await fetch("/api/certificate/download");
+      if (!res.ok) {
+        const resData = await res.json().catch(() => ({}));
+        throw new Error(resData.error || "Failed to download certificate.");
+      }
 
-  // Ordering button state logic:
-  let buttonDisabled = false;
-  let buttonHelperText = "";
+      const blob = await res.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `BeeNext-Certificate-${(user?.name || "achievement")
+        .replace(/[^a-zA-Z0-9_-]/g, "_")}.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
 
-  if (hasAlreadyOrdered) {
-    buttonDisabled = true;
-    buttonHelperText =
-      "You have already claimed your one-time physical certificate. This benefit is available only once per customer.";
-  } else if (!user) {
-    buttonDisabled = false;
-    buttonHelperText = "Please log in to your account to check your DSA sheet progress and certificate qualification.";
-  } else if (is85Completed) {
-    buttonDisabled = false;
-    buttonHelperText =
-      "Congratulations! You qualify for a 100% FREE Physical Certificate. It will automatically be included with your next physical book order at no extra cost.";
-  } else {
-    buttonDisabled = true;
-    buttonHelperText = `Complete at least 85% of the DSA Sheet to qualify for your free physical certificate (Current: ${completionPercentage}% / 85%).`;
-  }
+      setClaimSuccess("🎉 Your official certificate PDF has been generated and downloaded!");
+      try {
+        confetti({
+          particleCount: 120,
+          spread: 80,
+          origin: { y: 0.6 },
+        });
+      } catch {}
+      await fetchStatus();
+    } catch (err: unknown) {
+      setClaimError(err instanceof Error ? err.message : "Error downloading certificate.");
+    } finally {
+      setDownloading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-brand-black text-white py-10 sm:py-14 px-4 sm:px-6 lg:px-8 selection:bg-brand-red selection:text-white">
-      <div className="mx-auto max-w-7xl space-y-6 sm:space-y-8">
-        {/* ========================================================= */}
-        {/* CERTIFICATE HEADING                                       */}
-        {/* ========================================================= */}
+      <div className="mx-auto max-w-5xl space-y-8">
+        {/* CERTIFICATE HEADING */}
         <header className="border-b border-neutral-800 pb-6 space-y-2.5">
-          <h1 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-white tracking-tight uppercase md:whitespace-nowrap">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-neutral-900 border border-brand-border text-xs font-mono text-neutral-300">
+            <Award className="h-3.5 w-3.5 text-brand-red" />
+            <span>Official Credential</span>
+          </div>
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight uppercase">
             BEENEXT CERTIFICATE OF ACHIEVEMENT
           </h1>
-          <p className="text-neutral-300 text-xs sm:text-sm leading-relaxed max-w-3xl lg:max-w-4xl">
-            Earn your BeeNext Certificate of Achievement by completing the required DSA preparation milestones and ordering a BeeNext physical book.
+          <p className="text-neutral-400 text-xs sm:text-sm leading-relaxed max-w-3xl">
+            Recognizing software engineers who master the comprehensive 495-problem Striver-aligned DSA curriculum with dedicated perseverance.
           </p>
         </header>
 
-        {/* ========================================================= */}
-        {/* TWO SEPARATE, CLEAN CRITERIA BOXES                        */}
-        {/* ========================================================= */}
-        <section className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {/* CRITERIA 1 BOX */}
-          <div
-            className={`p-4 sm:p-5 rounded-xl border transition shadow-sm ${
-              criteria1Fulfilled
-                ? "bg-neutral-900/90 border-emerald-500/30"
-                : "bg-neutral-900 border-neutral-800"
-            }`}
-          >
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-1.5">
-              <h2 className="text-xs sm:text-sm font-bold text-white uppercase tracking-wide">
-                CRITERIA 1 – COMPLETE 85% OF THE DSA SHEET
-              </h2>
-              {criteria1Fulfilled ? (
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-mono font-semibold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 self-start sm:self-auto shrink-0">
-                  <CheckCircle2 className="h-3.5 w-3.5" />
-                  <span>Completed ({completionPercentage}%)</span>
-                </span>
-              ) : (
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-mono font-semibold bg-neutral-800 text-neutral-400 border border-neutral-700 self-start sm:self-auto shrink-0">
-                  <Lock className="h-3 w-3" />
-                  <span>Pending ({completionPercentage}% / 85%)</span>
-                </span>
-              )}
-            </div>
-            <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed">
-              Complete at least 85% of the BeeNext DSA Sheet to qualify for the certificate.
-            </p>
+        {/* Success or Error Banner */}
+        {claimSuccess && (
+          <div className="rounded-xl border border-emerald-500/50 bg-emerald-500/10 p-4 text-emerald-300 text-sm">
+            {claimSuccess}
+          </div>
+        )}
+        {claimError && (
+          <div className="rounded-xl border border-brand-red/50 bg-brand-red/10 p-4 text-brand-red text-sm flex items-center gap-2">
+            <AlertCircle className="h-4 w-4 shrink-0" />
+            <span>{claimError}</span>
+          </div>
+        )}
+
+        {/* TWO STRICT ELIGIBILITY REQUIREMENTS */}
+        <section className="space-y-3">
+          <div className="flex items-center gap-2">
+            <h2 className="text-sm font-mono font-bold text-neutral-300 uppercase tracking-wider">
+              Eligibility Requirements (Both Required • No Additional Fee)
+            </h2>
           </div>
 
-          {/* CRITERIA 2 BOX */}
-          <div
-            className={`p-4 sm:p-5 rounded-xl border transition shadow-sm ${
-              criteria2Fulfilled
-                ? "bg-neutral-900/90 border-emerald-500/30"
-                : "bg-neutral-900 border-neutral-800"
-            }`}
-          >
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-1.5">
-              <h2 className="text-xs sm:text-sm font-bold text-white uppercase tracking-wide">
-                CRITERIA 2 – ORDER ANY BEENEXT PHYSICAL BOOK
-              </h2>
-              {criteria2Fulfilled ? (
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-mono font-semibold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 self-start sm:self-auto shrink-0">
-                  <CheckCircle2 className="h-3.5 w-3.5" />
-                  <span>Completed</span>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* CRITERION 1: 85% SOLVED */}
+            <div
+              className={`p-5 rounded-2xl border transition-all ${
+                is85Completed
+                  ? "bg-neutral-900/90 border-emerald-500/40 shadow-sm"
+                  : "bg-neutral-900 border-neutral-800"
+              }`}
+            >
+              <div className="flex items-center justify-between gap-2 mb-2">
+                <span className="font-mono text-xs font-bold uppercase tracking-wider text-brand-red">
+                  Requirement 1
                 </span>
-              ) : (
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-mono font-semibold bg-neutral-800 text-neutral-400 border border-neutral-700 self-start sm:self-auto shrink-0">
-                  <Lock className="h-3 w-3" />
-                  <span>Pending</span>
-                </span>
-              )}
-            </div>
-            <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed">
-              After achieving 85% DSA completion, place an order for any physical book from BeeNext.
-            </p>
-          </div>
-        </section>
-
-        {/* ========================================================= */}
-        {/* CERTIFICATE ORDERING / QUALIFICATION ACTION               */}
-        {/* ========================================================= */}
-        <section className="rounded-xl border border-neutral-800 bg-neutral-900/70 p-5 sm:p-6 space-y-3.5 text-center shadow-md">
-          {hasAlreadyOrdered ? (
-            <button
-              type="button"
-              disabled
-              className="w-full py-3.5 px-6 rounded-xl font-mono font-bold text-xs sm:text-sm uppercase tracking-wider bg-neutral-800/80 text-neutral-400 border border-neutral-700/60 cursor-not-allowed transition flex items-center justify-center gap-2"
-            >
-              <CheckCircle2 className="h-4 w-4 text-emerald-500" />
-              <span>Already Claimed (Included with Book Order)</span>
-            </button>
-          ) : !user ? (
-            <Link
-              href="/login?redirect=/certificate"
-              className="w-full py-3.5 px-6 rounded-xl font-mono font-bold text-xs sm:text-sm uppercase tracking-wider bg-brand-red hover:bg-brand-red/90 text-white border border-brand-red transition shadow-glow flex items-center justify-center gap-2"
-            >
-              <Award className="h-4 w-4" />
-              <span>Log In to Check Qualification</span>
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-          ) : is85Completed ? (
-            <Link
-              href="/purchase"
-              className="w-full py-3.5 px-6 rounded-xl font-mono font-bold text-xs sm:text-sm uppercase tracking-wider bg-emerald-600 hover:bg-emerald-500 text-white border border-emerald-500 transition shadow-glow flex items-center justify-center gap-2"
-            >
-              <Award className="h-4 w-4" />
-              <span>Order a Physical Book (Free Certificate Included)</span>
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-          ) : (
-            <Link
-              href="/topics"
-              className="w-full py-3.5 px-6 rounded-xl font-mono font-bold text-xs sm:text-sm uppercase tracking-wider bg-neutral-800/90 hover:bg-neutral-800 text-neutral-300 border border-neutral-700 transition flex items-center justify-center gap-2"
-            >
-              <Lock className="h-4 w-4 text-amber-500" />
-              <span>Solve Problems to Reach 85% ({completionPercentage}% / 85%)</span>
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-          )}
-
-          {/* Helper Text */}
-          <p
-            className={`text-xs font-mono leading-relaxed max-w-xl mx-auto ${
-              hasAlreadyOrdered ? "text-neutral-300 font-medium" : "text-neutral-400"
-            }`}
-          >
-            {buttonHelperText}
-          </p>
-
-          {/* If already ordered, show order confirmation details & delivery status */}
-          {hasAlreadyOrdered && data.certificateOrder && (
-            <div className="pt-2 flex flex-wrap items-center justify-center gap-2 text-xs font-mono">
-              <span className="text-neutral-400">Order: #{data.certificateOrder.orderNumber}</span>
-              <span className="text-neutral-600">•</span>
-              <span className="text-neutral-400">Delivery:</span>
-              <span className="px-2 py-0.5 rounded text-[11px] font-bold uppercase bg-brand-red/20 text-brand-red border border-brand-red/30">
-                {data.certificateOrder.deliveryStatus || "PENDING"}
-              </span>
-              {data.certificateOrder.trackingNumber && (
-                <>
-                  <span className="text-neutral-600">•</span>
-                  <span className="text-neutral-400">
-                    Carrier: {data.certificateOrder.carrier || "Courier"} ({data.certificateOrder.trackingNumber})
+                {is85Completed ? (
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-mono font-semibold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                    <CheckCircle2 className="h-3.5 w-3.5" />
+                    <span>Completed ({completionPercentage}%)</span>
                   </span>
-                </>
+                ) : (
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-mono font-semibold bg-neutral-800 text-neutral-400 border border-neutral-700">
+                    <Lock className="h-3 w-3" />
+                    <span>Pending ({completionPercentage}% / 85%)</span>
+                  </span>
+                )}
+              </div>
+
+              <h3 className="text-base font-bold text-white mb-1">
+                Complete &ge;85% of DSA Sheet
+              </h3>
+              <p className="text-xs text-neutral-400 leading-relaxed">
+                Solve and mark at least 421 of the 495 problems across all 20 categories.
+              </p>
+              <div className="mt-3 pt-3 border-t border-neutral-800/80 text-[11px] font-mono text-neutral-400">
+                Current progress: <strong className="text-white">{completedProblems}</strong> / {totalProblems} questions solved.
+              </div>
+            </div>
+
+            {/* CRITERION 2: ACTIVE PLUS MEMBERSHIP */}
+            <div
+              className={`p-5 rounded-2xl border transition-all ${
+                isActivePlus
+                  ? "bg-neutral-900/90 border-emerald-500/40 shadow-sm"
+                  : "bg-neutral-900 border-neutral-800"
+              }`}
+            >
+              <div className="flex items-center justify-between gap-2 mb-2">
+                <span className="font-mono text-xs font-bold uppercase tracking-wider text-brand-red">
+                  Requirement 2
+                </span>
+                {isActivePlus ? (
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-mono font-semibold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                    <CheckCircle2 className="h-3.5 w-3.5" />
+                    <span>Active Plus Member</span>
+                  </span>
+                ) : (
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-mono font-semibold bg-neutral-800 text-neutral-400 border border-neutral-700">
+                    <Lock className="h-3 w-3" />
+                    <span>Plus Required</span>
+                  </span>
+                )}
+              </div>
+
+              <h3 className="text-base font-bold text-white mb-1">
+                Active BeeNext Plus Membership
+              </h3>
+              <p className="text-xs text-neutral-400 leading-relaxed">
+                Hold an active Monthly or Yearly BeeNext Plus membership at the time of certificate issuance.
+              </p>
+              <div className="mt-3 pt-3 border-t border-neutral-800/80 text-[11px] font-mono text-neutral-400">
+                {isActivePlus ? (
+                  <span className="text-emerald-400">Active Plus subscription verified.</span>
+                ) : (
+                  <Link href="/membership" className="text-brand-red hover:underline font-semibold">
+                    Upgrade to Plus (from ₹79) &rarr;
+                  </Link>
+                )}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* DOWNLOAD CERTIFICATE ACTION SECTION */}
+        <section className="rounded-2xl border border-brand-border bg-brand-card p-6 sm:p-8 space-y-5 text-center shadow-card">
+          {!user ? (
+            <div className="space-y-4">
+              <button
+                type="button"
+                disabled
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 py-3.5 px-8 rounded-xl font-mono font-bold text-xs sm:text-sm uppercase tracking-wider bg-neutral-800 text-neutral-500 border border-neutral-700/80 cursor-not-allowed opacity-60"
+              >
+                <Lock className="h-4 w-4" />
+                <span>Download Certificate (Disabled)</span>
+              </button>
+              <div className="space-y-2">
+                <p className="text-xs text-neutral-400 font-mono">
+                  Please log in to your account to verify qualification and download your certificate.
+                </p>
+                <Link
+                  href="/login?redirect=/certificate"
+                  className="inline-flex items-center justify-center gap-2 py-2.5 px-6 rounded-xl font-mono font-bold text-xs uppercase tracking-wider bg-brand-red hover:bg-brand-redHover text-white shadow-brand transition-all"
+                >
+                  <span>Log In to Account</span>
+                  <ArrowRight className="h-3.5 w-3.5" />
+                </Link>
+              </div>
+            </div>
+          ) : is85Completed && isActivePlus ? (
+            <div className="space-y-4">
+              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-emerald-500/20 border border-emerald-500 text-emerald-400">
+                <Award className="h-6 w-6" />
+              </div>
+              <div className="space-y-1">
+                <h3 className="text-lg font-bold text-white">
+                  🎉 You are Fully Qualified!
+                </h3>
+                <p className="text-xs text-neutral-300 max-w-xl mx-auto">
+                  Both requirements satisfied: &ge;85% of DSA sheet solved and active Plus membership. Download your official verified certificate PDF below.
+                </p>
+              </div>
+
+              {data.certificateOrder && (
+                <div className="inline-flex items-center gap-2 p-3 rounded-xl bg-neutral-900 border border-neutral-800 text-xs font-mono text-neutral-300">
+                  <span>Serial: #{data.certificateOrder.orderNumber}</span>
+                  <span className="text-neutral-600">•</span>
+                  <span className="text-emerald-400 font-semibold uppercase">
+                    {data.certificateOrder.deliveryStatus}
+                  </span>
+                </div>
+              )}
+
+              <div>
+                <button
+                  type="button"
+                  disabled={downloading}
+                  onClick={handleDownload}
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 py-3.5 px-8 rounded-xl font-mono font-bold text-xs sm:text-sm uppercase tracking-wider bg-emerald-600 hover:bg-emerald-500 text-white shadow-brand transition-all cursor-pointer"
+                >
+                  <Download className="h-4 w-4" />
+                  <span>{downloading ? "Generating PDF..." : "Download Certificate (PDF)"}</span>
+                </button>
+              </div>
+              <p className="text-[11px] text-neutral-500 font-mono">
+                Official credential verified with unique serial number • 100% Free
+              </p>
+            </div>
+          ) : (
+            <div className="space-y-4">
+              <div>
+                <button
+                  type="button"
+                  disabled
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 py-3.5 px-8 rounded-xl font-mono font-bold text-xs sm:text-sm uppercase tracking-wider bg-neutral-800 text-neutral-500 border border-neutral-700/80 cursor-not-allowed opacity-60"
+                >
+                  <Lock className="h-4 w-4" />
+                  <span>Download Certificate (Disabled)</span>
+                </button>
+              </div>
+
+              {/* Requirement Missing indicator */}
+              {!is85Completed && !isActivePlus ? (
+                <div className="space-y-3">
+                  <div className="inline-block px-3 py-1.5 rounded-lg bg-brand-red/10 border border-brand-red/30 text-xs font-mono text-brand-red">
+                    Missing: 85% DSA sheet completion ({completedProblems}/{totalProblems} solved) AND Active Plus membership
+                  </div>
+                  <p className="text-xs text-neutral-400 font-mono">
+                    Solve problems in DSA Topics and activate Plus membership to unlock your certificate.
+                  </p>
+                  <div className="flex flex-wrap items-center justify-center gap-3">
+                    <Link
+                      href="/topics"
+                      className="py-2.5 px-5 rounded-xl bg-neutral-900 hover:bg-neutral-800 border border-neutral-700 text-white font-mono text-xs font-semibold"
+                    >
+                      Solve DSA Topics
+                    </Link>
+                    <Link
+                      href="/membership"
+                      className="py-2.5 px-5 rounded-xl bg-brand-red hover:bg-brand-redHover text-white font-mono text-xs font-bold shadow-brand"
+                    >
+                      Upgrade to Plus
+                    </Link>
+                  </div>
+                </div>
+              ) : !is85Completed ? (
+                <div className="space-y-3">
+                  <div className="inline-block px-3 py-1.5 rounded-lg bg-amber-500/10 border border-amber-500/30 text-xs font-mono text-amber-400">
+                    Missing: Complete at least 85% of DSA sheet ({completedProblems}/{totalProblems} solved, {Math.max(0, Math.ceil(totalProblems * 0.85) - completedProblems)} more needed)
+                  </div>
+                  <p className="text-xs text-neutral-400 font-mono">
+                    You have active Plus! Complete the remaining questions to reach 85% and unlock download.
+                  </p>
+                  <div>
+                    <Link
+                      href="/topics"
+                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 py-2.5 px-6 rounded-xl bg-neutral-900 hover:bg-neutral-800 border border-neutral-700 text-white font-mono text-xs font-semibold"
+                    >
+                      <span>Continue Solving Problems</span>
+                      <ArrowRight className="h-4 w-4 text-brand-red" />
+                    </Link>
+                  </div>
+                </div>
+              ) : (
+                <div className="space-y-3">
+                  <div className="inline-block px-3 py-1.5 rounded-lg bg-amber-500/10 border border-amber-500/30 text-xs font-mono text-amber-400">
+                    Missing: Active BeeNext Plus membership required
+                  </div>
+                  <p className="text-xs text-neutral-400 font-mono">
+                    You have solved 85% of the DSA sheet! Activate Plus membership to unlock certificate download.
+                  </p>
+                  <div>
+                    <Link
+                      href="/membership"
+                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 py-3 px-8 rounded-xl bg-brand-red hover:bg-brand-redHover text-white font-mono text-xs sm:text-sm font-bold shadow-brand"
+                    >
+                      <Sparkles className="h-4 w-4" />
+                      <span>Activate Plus Membership (from ₹79)</span>
+                    </Link>
+                  </div>
+                </div>
               )}
             </div>
           )}
         </section>
-
-        {/* ========================================================= */}
-        {/* HORIZONTALLY WIDE INFORMATION BOX DIRECTLY BELOW BUTTON   */}
-        {/* ========================================================= */}
-        <div className="w-full px-4 py-4 sm:px-6 sm:py-4.5 rounded-xl border border-brand-red bg-neutral-900/80 shadow-sm text-center">
-          <p className="text-xs sm:text-sm text-neutral-200 font-medium leading-relaxed max-w-5xl mx-auto">
-            Complete 85% of the DSA Sheet, and the next time you order a BeeNext book, your physical certificate will be delivered along with it.
-          </p>
-        </div>
       </div>
     </div>
   );

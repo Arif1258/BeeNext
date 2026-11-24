@@ -22,7 +22,7 @@ export default async function ProblemPage({ params }: ProblemPageProps) {
     <ProblemDetailClient
       initialProblem={result.problem}
       initialAccess={result.access}
-      initialTab="OPTIMAL"
+      initialTab="BRUTE_FORCE"
     />
   );
 }

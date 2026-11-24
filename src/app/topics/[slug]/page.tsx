@@ -39,7 +39,6 @@ const getCachedCategory = unstable_cache(
             price: true,
             leetcodeUrl: true,
             youtubeUrl: true,
-            apnaYoutubeUrl: true,
           },
         },
       },

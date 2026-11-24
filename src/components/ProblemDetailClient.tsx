@@ -10,8 +10,11 @@ import {
   ChevronLeft,
   Bookmark,
   CheckCircle2,
+  Lock,
+  Sparkles,
 } from "lucide-react";
 import DifficultyBadge from "@/components/DifficultyBadge";
+import SolutionUpgradeModal from "@/components/SolutionUpgradeModal";
 
 // YouTube Play Icon
 const YouTubeIcon = ({ className = "h-3.5 w-3.5" }: { className?: string }) => (
@@ -39,11 +42,24 @@ interface ProblemDetailClientProps {
 export default function ProblemDetailClient({
   initialProblem,
   initialAccess,
-  initialTab = "OPTIMAL",
+  initialTab = "BRUTE_FORCE",
 }: ProblemDetailClientProps) {
-  const { user, refreshUser } = useAuth();
+  const { user, isPlusMember, refreshUser } = useAuth();
   const [problem] = useState<any>(initialProblem);
   const [activeTab, setActiveTab] = useState<"BRUTE_FORCE" | "OPTIMAL">(initialTab);
+  const [upgradeModal, setUpgradeModal] = useState<{
+    isOpen: boolean;
+    type: "Brute Force" | "Optimal";
+  }>({ isOpen: false, type: "Brute Force" });
+
+  useEffect(() => {
+    if (!isPlusMember && (initialTab === "BRUTE_FORCE" || initialTab === "OPTIMAL")) {
+      setUpgradeModal({
+        isOpen: true,
+        type: initialTab === "BRUTE_FORCE" ? "Brute Force" : "Optimal",
+      });
+    }
+  }, [isPlusMember, initialTab]);
 
   const isBookmarked = user?.bookmarks?.some((b: any) => b.problemId === problem?.id);
   const progressRecord = user?.progress?.find((p: any) => p.problemId === problem?.id);
@@ -66,6 +82,13 @@ export default function ProblemDetailClient({
   }, [problem]);
 
   const handleTabChange = (newTab: "BRUTE_FORCE" | "OPTIMAL") => {
+    if (!isPlusMember) {
+      setUpgradeModal({
+        isOpen: true,
+        type: newTab === "BRUTE_FORCE" ? "Brute Force" : "Optimal",
+      });
+      return;
+    }
     setActiveTab(newTab);
     if (typeof window !== "undefined") {
       const path =
@@ -217,36 +240,52 @@ export default function ProblemDetailClient({
         </div>
 
         {/* ========================================================= */}
-        {/* SOLUTION TABS: BRUTE FORCE | OPTIMAL                     */}
+        {/* TABS: BRUTE FORCE | OPTIMAL                               */}
         {/* ========================================================= */}
-        <div className="flex items-center gap-2 border-b border-brand-border pb-3">
-          <button
-            type="button"
-            onClick={() => handleTabChange("BRUTE_FORCE")}
-            className={`px-4 py-2 rounded-lg text-xs sm:text-sm font-mono font-bold transition-all ${
-              activeTab === "BRUTE_FORCE"
-                ? "bg-brand-red text-white shadow-brand"
-                : "bg-brand-card text-neutral-400 hover:text-white hover:bg-neutral-800 border border-brand-border"
-            }`}
-          >
-            Brute Force
-          </button>
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-brand-border pb-3">
+          <div className="flex items-center gap-2">
+            {/* 1. Brute Force */}
+            <button
+              type="button"
+              onClick={() => handleTabChange("BRUTE_FORCE")}
+              className={`px-4 py-2 rounded-lg text-xs sm:text-sm font-mono font-bold transition-all flex items-center gap-1.5 ${
+                activeTab === "BRUTE_FORCE"
+                  ? "bg-brand-red text-white shadow-brand"
+                  : "bg-brand-card text-neutral-400 hover:text-white hover:bg-neutral-800 border border-brand-border"
+              }`}
+            >
+              <span>Brute Force</span>
+              {!isPlusMember && <Lock className="h-3 w-3 text-neutral-400" />}
+            </button>
 
-          <button
-            type="button"
-            onClick={() => handleTabChange("OPTIMAL")}
-            className={`px-4 py-2 rounded-lg text-xs sm:text-sm font-mono font-bold transition-all ${
-              activeTab === "OPTIMAL"
-                ? "bg-brand-red text-white shadow-brand"
-                : "bg-brand-card text-neutral-400 hover:text-white hover:bg-neutral-800 border border-brand-border"
-            }`}
-          >
-            Optimal
-          </button>
+            {/* 2. Optimal */}
+            <button
+              type="button"
+              onClick={() => handleTabChange("OPTIMAL")}
+              className={`px-4 py-2 rounded-lg text-xs sm:text-sm font-mono font-bold transition-all flex items-center gap-1.5 ${
+                activeTab === "OPTIMAL"
+                  ? "bg-brand-red text-white shadow-brand"
+                  : "bg-brand-card text-neutral-400 hover:text-white hover:bg-neutral-800 border border-brand-border"
+              }`}
+            >
+              <span>Optimal</span>
+              {!isPlusMember && <Lock className="h-3 w-3 text-neutral-400" />}
+            </button>
+          </div>
+
+          {!isPlusMember && (
+            <Link
+              href="/membership"
+              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-brand-red/10 border border-brand-red/40 hover:bg-brand-red/20 text-brand-red text-xs font-mono font-semibold transition-colors"
+            >
+              <Sparkles className="h-3.5 w-3.5" />
+              <span>Unlock Plus Solutions</span>
+            </Link>
+          )}
         </div>
 
         {/* ========================================================= */}
-        {/* ACTIVE TAB CONTENT: ONLY CODE + TC + SC                   */}
+        {/* ACTIVE TAB CONTENT                                        */}
         {/* ========================================================= */}
         {activeTab === "BRUTE_FORCE" ? (
           <div className="space-y-3">
@@ -254,7 +293,7 @@ export default function ProblemDetailClient({
             {bruteForceCode ? (
               <JavaCodeBlock
                 code={bruteForceCode.javaCode}
-                isLocked={false}
+                isLocked={!isPlusMember}
               />
             ) : (
               <div className="p-6 text-center text-neutral-400 bg-[#111111] rounded-xl border border-neutral-800 font-mono text-xs">
@@ -263,10 +302,17 @@ export default function ProblemDetailClient({
             )}
 
             {/* Time & Space Complexity */}
-            <div className="space-y-1 font-mono text-xs sm:text-sm text-neutral-200">
-              <p>Time Complexity: {bruteForceCode?.timeComplexity || "O(N²)"}</p>
-              <p>Space Complexity: {bruteForceCode?.spaceComplexity || "O(1)"}</p>
-            </div>
+            {isPlusMember ? (
+              <div className="space-y-1 font-mono text-xs sm:text-sm text-neutral-200">
+                <p>Time Complexity: {bruteForceCode?.timeComplexity || "O(N²)"}</p>
+                <p>Space Complexity: {bruteForceCode?.spaceComplexity || "O(1)"}</p>
+              </div>
+            ) : (
+              <div className="p-3 rounded-lg bg-neutral-900 border border-neutral-800 text-xs text-neutral-500 font-mono flex items-center gap-2">
+                <Lock className="h-3.5 w-3.5 text-neutral-500" />
+                <span>Time &amp; Space Complexity locked with BeeNext Plus</span>
+              </div>
+            )}
           </div>
         ) : (
           <div className="space-y-3">
@@ -274,7 +320,7 @@ export default function ProblemDetailClient({
             {optimalCode ? (
               <JavaCodeBlock
                 code={optimalCode.javaCode}
-                isLocked={false}
+                isLocked={!isPlusMember}
               />
             ) : (
               <div className="p-6 text-center text-neutral-400 bg-[#111111] rounded-xl border border-neutral-800 font-mono text-xs">
@@ -283,13 +329,27 @@ export default function ProblemDetailClient({
             )}
 
             {/* Time & Space Complexity */}
-            <div className="space-y-1 font-mono text-xs sm:text-sm text-neutral-200">
-              <p>Time Complexity: {optimalCode?.timeComplexity || "O(N)"}</p>
-              <p>Space Complexity: {optimalCode?.spaceComplexity || "O(1)"}</p>
-            </div>
+            {isPlusMember ? (
+              <div className="space-y-1 font-mono text-xs sm:text-sm text-neutral-200">
+                <p>Time Complexity: {optimalCode?.timeComplexity || "O(N)"}</p>
+                <p>Space Complexity: {optimalCode?.spaceComplexity || "O(1)"}</p>
+              </div>
+            ) : (
+              <div className="p-3 rounded-lg bg-neutral-900 border border-neutral-800 text-xs text-neutral-500 font-mono flex items-center gap-2">
+                <Lock className="h-3.5 w-3.5 text-neutral-500" />
+                <span>Time &amp; Space Complexity locked with BeeNext Plus</span>
+              </div>
+            )}
           </div>
         )}
       </div>
+
+      {/* Solution Upgrade Modal for Normal Users */}
+      <SolutionUpgradeModal
+        isOpen={upgradeModal.isOpen}
+        solutionType={upgradeModal.type}
+        onClose={() => setUpgradeModal({ isOpen: false, type: "Brute Force" })}
+      />
     </div>
   );
 }

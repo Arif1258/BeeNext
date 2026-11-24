@@ -23,6 +23,11 @@ export interface User {
   progress?: Array<{ problemId: string; status: "IN_PROGRESS" | "COMPLETED" }>;
   dsaQualifiedAt?: string | null;
   certificateClaimedAt?: string | null;
+  membershipType?: "NORMAL" | "PLUS";
+  membershipPlan?: "MONTHLY" | "YEARLY" | null;
+  membershipStartedAt?: string | null;
+  membershipExpiresAt?: string | null;
+  isActivePlus?: boolean;
   printedOrders?: Array<{
     id: string;
     orderNumber: string;
@@ -53,6 +58,7 @@ interface AuthContextType {
   register: (name: string, email: string, password: string) => Promise<{ success: boolean; error?: string }>;
   logout: () => Promise<void>;
   refreshUser: () => Promise<void>;
+  isPlusMember: boolean;
   hasBundleAccess: boolean;
   hasPdfAccess: boolean;
   hasCategoryAccess: (categoryId: string, isFree?: boolean) => boolean;
@@ -152,8 +158,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   // Permission helpers
+  const isPlusMember =
+    user?.role === "ADMIN" ||
+    Boolean(
+      user?.isActivePlus ??
+        (user?.membershipType === "PLUS" &&
+          (!user?.membershipExpiresAt ||
+            new Date(user.membershipExpiresAt).getTime() > Date.now()))
+    );
+
   const hasBundleAccess =
     user?.role === "ADMIN" ||
+    isPlusMember ||
     Boolean(user?.purchases?.some((p) => p.purchaseType === "BUNDLE" && p.status === "COMPLETED"));
 
   const hasPdfAccess = hasBundleAccess;
@@ -171,6 +187,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         register,
         logout,
         refreshUser,
+        isPlusMember,
         hasBundleAccess,
         hasPdfAccess,
         hasCategoryAccess,

@@ -7,9 +7,8 @@ import { useAuth } from "@/context/AuthContext";
 import { useCart } from "@/context/CartContext";
 import {
   BookOpen,
-  ShoppingBag,
-  ShoppingCart,
-  Package,
+  FileText,
+  Sparkles,
   Info,
   User,
   LogOut,
@@ -17,6 +16,7 @@ import {
   Menu,
   X,
   Shield,
+  Award,
 } from "lucide-react";
 
 export default function Navbar() {
@@ -26,6 +26,13 @@ export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const isPlusActive = Boolean(
+    user &&
+    (user.isActivePlus ??
+      (user.membershipType === "PLUS" &&
+        (!user.membershipExpiresAt || new Date(user.membershipExpiresAt).getTime() > Date.now())))
+  );
 
   // Close dropdown on click outside
   useEffect(() => {
@@ -102,7 +109,7 @@ export default function Navbar() {
               </div>
             </Link>
 
-            {/* Left Navigation: 1. DSA Topics, 2. Purchase, 3. My Orders, 4. About */}
+            {/* Left Navigation: 1. DSA Topics, 2. Notes, 3. Membership, 4. About */}
             <nav className="hidden md:flex items-center space-x-1 lg:space-x-2">
               {/* 1. DSA Topics */}
               <Link
@@ -116,28 +123,28 @@ export default function Navbar() {
                 <span>DSA Topics</span>
               </Link>
 
-              {/* 2. Purchase */}
+              {/* 2. Notes */}
               <Link
-                href="/purchase"
-                className={`flex items-center gap-1.5 px-3 py-2 text-sm font-medium rounded-md transition-colors ${isActive("/purchase")
+                href="/notes"
+                className={`flex items-center gap-1.5 px-3 py-2 text-sm font-medium rounded-md transition-colors ${isActive("/notes")
                   ? "text-brand-red bg-brand-redMuted font-semibold"
                   : "text-brand-muted hover:text-white hover:bg-brand-card"
                   }`}
               >
-                <ShoppingBag className="h-4 w-4" />
-                <span>Purchase</span>
+                <FileText className="h-4 w-4" />
+                <span>Notes</span>
               </Link>
 
-              {/* 3. My Orders */}
+              {/* 3. Membership */}
               <Link
-                href="/orders"
-                className={`flex items-center gap-1.5 px-3 py-2 text-sm font-medium rounded-md transition-colors ${isActive("/orders")
+                href="/membership"
+                className={`flex items-center gap-1.5 px-3 py-2 text-sm font-medium rounded-md transition-colors ${isActive("/membership")
                   ? "text-brand-red bg-brand-redMuted font-semibold"
                   : "text-brand-muted hover:text-white hover:bg-brand-card"
                   }`}
               >
-                <Package className="h-4 w-4" />
-                <span>My Orders</span>
+                <Sparkles className="h-4 w-4 text-brand-red" />
+                <span>Membership</span>
               </Link>
 
               {/* 4. About */}
@@ -154,25 +161,10 @@ export default function Navbar() {
             </nav>
           </div>
 
-          {/* Far Right: Shopping Cart + Profile / User Icon */}
+          {/* Far Right: Profile / User Icon & Account Type */}
           <div className="flex items-center space-x-2 sm:space-x-3">
-            {/* Shopping Cart Button */}
-            <button
-              type="button"
-              onClick={openCart}
-              className="relative flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-xl border bg-neutral-900 border-neutral-800 hover:border-neutral-700 text-neutral-300 hover:text-white transition-all focus:outline-none"
-              aria-label={`View shopping cart (${totalItems} items)`}
-              title="Shopping Cart"
-            >
-              <ShoppingCart className="h-4 w-4 sm:h-5 sm:w-5" />
-              {totalItems > 0 && (
-                <span className="absolute -top-1.5 -right-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-brand-red text-[10px] font-mono font-bold text-white shadow-sm ring-2 ring-brand-black animate-in zoom-in-75 duration-150">
-                  {totalItems}
-                </span>
-              )}
-            </button>
-
-            <div ref={dropdownRef} className="relative">
+            {/* Profile Avatar / Logo with Dropdown */}
+            <div ref={dropdownRef} className="relative flex items-center">
               <button
                 type="button"
                 onClick={() => setProfileDropdownOpen((prev) => !prev)}
@@ -187,9 +179,9 @@ export default function Navbar() {
                 <User className="h-4 w-4 sm:h-5 sm:w-5" />
               </button>
 
-              {/* Compact Dropdown Menu directly below icon */}
+              {/* Compact Dropdown Menu directly below avatar button */}
               {profileDropdownOpen && (
-                <div className="absolute right-0 mt-2 w-48 sm:w-52 rounded-xl border border-brand-border bg-brand-card p-1.5 shadow-2xl z-50 animate-in fade-in zoom-in-95 duration-150 font-mono text-xs">
+                <div className="absolute right-0 top-full mt-2 w-48 sm:w-52 rounded-xl border border-brand-border bg-brand-card p-1.5 shadow-2xl z-50 animate-in fade-in zoom-in-95 duration-150 font-mono text-xs">
                   {user ? (
                     <>
                       {/* User Info Header */}
@@ -215,6 +207,19 @@ export default function Navbar() {
                         <span>My Profile</span>
                       </Link>
 
+                      {/* 2. Certificate */}
+                      <Link
+                        href="/certificate"
+                        onClick={() => setProfileDropdownOpen(false)}
+                        className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors ${isActive("/certificate")
+                          ? "bg-brand-redMuted text-brand-red font-semibold"
+                          : "text-neutral-200 hover:text-white hover:bg-neutral-900"
+                          }`}
+                      >
+                        <Award className="h-3.5 w-3.5 text-brand-red" />
+                        <span>Certificate</span>
+                      </Link>
+
                       {/* Admin Dashboard (if admin) */}
                       {user.role === "ADMIN" && (
                         <Link
@@ -227,7 +232,7 @@ export default function Navbar() {
                         </Link>
                       )}
 
-                      {/* 2. Logout */}
+                      {/* Logout */}
                       <button
                         type="button"
                         onClick={handleLogout}
@@ -248,11 +253,34 @@ export default function Navbar() {
                         <LogIn className="h-3.5 w-3.5 text-brand-red" />
                         <span className="font-bold">Login</span>
                       </Link>
+
+                      {/* 2. Register */}
+                      <Link
+                        href="/register"
+                        onClick={() => setProfileDropdownOpen(false)}
+                        className="flex items-center gap-2 px-3 py-2 rounded-lg text-neutral-300 hover:text-white hover:bg-neutral-900 transition-colors"
+                      >
+                        <span>Create Account</span>
+                      </Link>
                     </>
                   )}
                 </div>
               )}
             </div>
+
+            {/* Account Type Badge (NORMAL / PLUS) immediately AFTER profile avatar/logo */}
+            {user && (
+              <span
+                className={`inline-flex items-center px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-md text-[10px] sm:text-xs font-mono font-bold tracking-wider uppercase border transition-colors select-none ${
+                  isPlusActive
+                    ? "bg-emerald-950/40 border-emerald-500/50 text-emerald-400 shadow-sm shadow-emerald-950/50"
+                    : "bg-neutral-900 border-neutral-700/60 text-neutral-300"
+                }`}
+                title={isPlusActive ? "BeeNext Plus Member" : "Normal Member"}
+              >
+                {isPlusActive ? "PLUS" : "NORMAL"}
+              </span>
+            )}
 
             {/* Mobile Menu Hamburger Toggle */}
             <div className="flex md:hidden items-center">
@@ -267,7 +295,7 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* Mobile Drawer (Topics, Purchase, My Orders, About) */}
+        {/* Mobile Drawer (Topics, Notes, Membership, About) */}
         {mobileMenuOpen && (
           <div className="md:hidden border-t border-brand-border bg-brand-black px-4 pt-3 pb-6 space-y-2">
             {/* 1. DSA Topics */}
@@ -283,50 +311,30 @@ export default function Navbar() {
               <span>DSA Topics</span>
             </Link>
 
-            {/* 2. Purchase */}
+            {/* 2. Notes */}
             <Link
-              href="/purchase"
+              href="/notes"
               onClick={() => setMobileMenuOpen(false)}
-              className={`flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm font-medium ${isActive("/purchase")
+              className={`flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm font-medium ${isActive("/notes")
                 ? "bg-brand-redMuted text-brand-red font-semibold"
                 : "text-brand-muted hover:text-white hover:bg-brand-card"
                 }`}
             >
-              <ShoppingBag className="h-4 w-4" />
-              <span>Purchase</span>
+              <FileText className="h-4 w-4" />
+              <span>Notes</span>
             </Link>
 
-            {/* 3. My Cart */}
-            <button
-              type="button"
-              onClick={() => {
-                setMobileMenuOpen(false);
-                openCart();
-              }}
-              className="w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium text-brand-muted hover:text-white hover:bg-brand-card transition text-left"
-            >
-              <div className="flex items-center gap-2">
-                <ShoppingCart className="h-4 w-4" />
-                <span>My Cart</span>
-              </div>
-              {totalItems > 0 && (
-                <span className="px-2 py-0.5 rounded-full bg-brand-red text-white text-[11px] font-mono font-bold">
-                  {totalItems}
-                </span>
-              )}
-            </button>
-
-            {/* 4. My Orders */}
+            {/* 3. Membership */}
             <Link
-              href="/orders"
+              href="/membership"
               onClick={() => setMobileMenuOpen(false)}
-              className={`flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm font-medium ${isActive("/orders")
+              className={`flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm font-medium ${isActive("/membership")
                 ? "bg-brand-redMuted text-brand-red font-semibold"
                 : "text-brand-muted hover:text-white hover:bg-brand-card"
                 }`}
             >
-              <Package className="h-4 w-4" />
-              <span>My Orders</span>
+              <Sparkles className="h-4 w-4 text-brand-red" />
+              <span>Membership</span>
             </Link>
 
             {/* 4. About */}

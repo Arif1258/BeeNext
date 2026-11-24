@@ -8,6 +8,7 @@ import { formatCurrency, formatDate } from "@/lib/utils";
 import {
   Shield,
   Users,
+  User,
   ShoppingBag,
   CheckCircle2,
   AlertCircle,
@@ -29,6 +30,9 @@ import {
   Copy,
   Check,
   Award,
+  Sparkles,
+  CreditCard,
+  Zap,
 } from "lucide-react";
 
 type TabKey = "OVERVIEW" | "USERS" | "ORDERS";
@@ -38,6 +42,9 @@ interface UserItem {
   name: string;
   email: string;
   role: "ADMIN" | "USER";
+  membershipType?: "NORMAL" | "PLUS";
+  membershipPlan?: string | null;
+  membershipExpiresAt?: string | null;
   avatar?: string | null;
   createdAt: string;
   updatedAt: string;
@@ -55,28 +62,15 @@ interface OrderItem {
   orderNumber: string;
   customerName: string;
   customerEmail: string;
-  customerPhone: string;
-  addressLine1: string;
-  addressLine2?: string | null;
-  city: string;
-  state: string;
-  postalCode: string;
-  country: string;
-  notes?: string | null;
-  language?: string | null;
+  customerPhone?: string;
+  membershipPlan?: string;
   productTitle: string;
-  quantity?: number;
   totalAmount: number;
-  paymentStatus: "PENDING" | "COMPLETED" | "FAILED";
-  orderStatus: "PENDING" | "CONFIRMED" | "PROCESSING" | "SHIPPED" | "DELIVERED" | "CANCELLED";
+  paymentStatus: "PENDING" | "COMPLETED" | "FAILED" | "REFUNDED";
   paymentMethod?: string;
   razorpayOrderId?: string | null;
   razorpayPaymentId?: string | null;
-  items?: any;
-  carrier?: string | null;
-  trackingNumber?: string | null;
-  requiresCertificate?: boolean;
-  certificateStatus?: string | null;
+  isManualGrant?: boolean;
   createdAt: string;
   user?: {
     id: string;
@@ -125,19 +119,8 @@ export default function AdminDashboardPage() {
 
   // Orders Filters
   const [orderSearch, setOrderSearch] = useState("");
-  const [orderStatusFilter, setOrderStatusFilter] = useState<string>("ALL");
   const [orderPaymentFilter, setOrderPaymentFilter] = useState<string>("ALL");
-
-  // Order editing states
-  const [updatingOrderId, setUpdatingOrderId] = useState<string | null>(null);
-  const [editingOrders, setEditingOrders] = useState<{
-    [id: string]: {
-      orderStatus: string;
-      carrier: string;
-      trackingNumber: string;
-      certificateStatus?: string;
-    };
-  }>({});
+  const [orderPlanFilter, setOrderPlanFilter] = useState<string>("ALL");
 
   // Load real admin data from DB
   const loadDashboardData = async () => {
@@ -160,18 +143,7 @@ export default function AdminDashboardPage() {
 
       if (ordRes.ok) {
         const o = await ordRes.json();
-        const orders = o.orders || [];
-        setOrdersList(orders);
-
-        const initialEditing: any = {};
-        orders.forEach((ord: OrderItem) => {
-          initialEditing[ord.id] = {
-            orderStatus: ord.orderStatus,
-            carrier: ord.carrier || "",
-            trackingNumber: ord.trackingNumber || "",
-          };
-        });
-        setEditingOrders(initialEditing);
+        setOrdersList(o.orders || []);
       }
     } catch (err) {
       console.error("Failed to load admin data:", err);
@@ -212,50 +184,6 @@ export default function AdminDashboardPage() {
     }
   };
 
-  // Copy full delivery address to clipboard
-  const handleCopyAddress = (ord: OrderItem) => {
-    const fullAddress = [
-      ord.customerName,
-      `Phone: ${ord.customerPhone}`,
-      ord.addressLine1,
-      ord.addressLine2,
-      `${ord.city}, ${ord.state} - ${ord.postalCode}`,
-      ord.country || "India",
-      ord.notes ? `Note: ${ord.notes}` : "",
-    ]
-      .filter(Boolean)
-      .join("\n");
-
-    navigator.clipboard.writeText(fullAddress);
-    setCopiedId(ord.id);
-    setTimeout(() => {
-      setCopiedId((prev) => (prev === ord.id ? null : prev));
-    }, 2000);
-  };
-
-  // Update order delivery status & tracking
-  const handleUpdateOrderStatus = async (orderId: string) => {
-    setUpdatingOrderId(orderId);
-    setActionError(null);
-    setActionSuccess(null);
-    try {
-      const details = editingOrders[orderId] || {};
-      const res = await fetch(`/api/admin/printed-orders/${orderId}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(details),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Failed to update order");
-
-      setActionSuccess(`Order ${data.order?.orderNumber} status updated to: ${data.order?.orderStatus}`);
-      await loadDashboardData();
-    } catch (err: any) {
-      setActionError(err.message || "Failed to update order status");
-    } finally {
-      setUpdatingOrderId(null);
-    }
-  };
 
   // Filtered users
   const filteredUsers = useMemo(() => {
@@ -273,20 +201,23 @@ export default function AdminDashboardPage() {
     return ordersList.filter((o) => {
       const q = orderSearch.toLowerCase();
       const matchesSearch =
+        !q ||
         o.orderNumber.toLowerCase().includes(q) ||
         o.customerName.toLowerCase().includes(q) ||
         o.customerEmail.toLowerCase().includes(q) ||
-        o.customerPhone.includes(orderSearch) ||
-        o.city.toLowerCase().includes(q) ||
-        o.state.toLowerCase().includes(q) ||
-        o.postalCode.includes(q) ||
+        (o.razorpayPaymentId && o.razorpayPaymentId.toLowerCase().includes(q)) ||
         o.productTitle.toLowerCase().includes(q);
 
-      const matchesStatus = orderStatusFilter === "ALL" || o.orderStatus === orderStatusFilter;
-      const matchesPayment = orderPaymentFilter === "ALL" || o.paymentStatus === orderPaymentFilter;
-      return matchesSearch && matchesStatus && matchesPayment;
+      const matchesPayment =
+        orderPaymentFilter === "ALL" || o.paymentStatus === orderPaymentFilter;
+      const matchesPlan =
+        orderPlanFilter === "ALL" ||
+        (orderPlanFilter === "YEARLY" && o.membershipPlan === "YEARLY") ||
+        (orderPlanFilter === "MONTHLY" && o.membershipPlan === "MONTHLY");
+
+      return matchesSearch && matchesPayment && matchesPlan;
     });
-  }, [ordersList, orderSearch, orderStatusFilter, orderPaymentFilter]);
+  }, [ordersList, orderSearch, orderPaymentFilter, orderPlanFilter]);
 
   if (authLoading || loading) {
     return (
@@ -432,65 +363,172 @@ export default function AdminDashboardPage() {
         {/* 1. OVERVIEW TAB                                                */}
         {/* ============================================================== */}
         {activeTab === "OVERVIEW" && (
-          <div className="space-y-6">
-            {/* Metric Cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              {/* Stat 1: Registered Users */}
-              <div className="p-5 rounded-2xl bg-brand-card border border-brand-border flex items-center gap-4">
-                <div className="h-12 w-12 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center flex-shrink-0">
-                  <Users className="h-6 w-6 text-blue-400" />
-                </div>
-                <div>
-                  <span className="text-[11px] font-mono uppercase tracking-wider text-brand-subtle block">
-                    Registered Users
-                  </span>
-                  <span className="text-2xl font-bold font-mono text-white mt-0.5 block">
+          <div className="space-y-8">
+            {/* PLATFORM OVERVIEW */}
+            <div className="space-y-3">
+              <div className="flex items-center gap-2">
+                <Users className="h-4 w-4 text-brand-red" />
+                <h2 className="text-sm font-bold uppercase tracking-wider font-mono text-white">
+                  Platform Overview
+                </h2>
+              </div>
+
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+                <div className="p-4 rounded-xl bg-brand-card border border-brand-border">
+                  <span className="text-[10px] font-mono uppercase text-brand-subtle block">Total Users</span>
+                  <span className="text-xl font-bold font-mono text-white block mt-1">
                     {metrics?.totalUsers ?? usersList.length}
                   </span>
-                  <span className="text-[11px] text-brand-muted block mt-0.5">
-                    1 Admin &bull; 1 Customer
+                </div>
+                <div className="p-4 rounded-xl bg-brand-card border border-brand-border">
+                  <span className="text-[10px] font-mono uppercase text-brand-subtle block">Normal (Free)</span>
+                  <span className="text-xl font-bold font-mono text-neutral-300 block mt-1">
+                    {metrics?.normalUsersCount ?? 0}
                   </span>
                 </div>
-              </div>
-
-              {/* Stat 2: Customer Orders */}
-              <div className="p-5 rounded-2xl bg-brand-card border border-brand-border flex items-center gap-4">
-                <div className="h-12 w-12 rounded-xl bg-brand-red/10 border border-brand-red/20 flex items-center justify-center flex-shrink-0">
-                  <ShoppingBag className="h-6 w-6 text-brand-red" />
-                </div>
-                <div>
-                  <span className="text-[11px] font-mono uppercase tracking-wider text-brand-subtle block">
-                    Customer Orders
-                  </span>
-                  <span className="text-2xl font-bold font-mono text-white mt-0.5 block">
-                    {metrics?.actualOrdersCount ?? 0}
-                  </span>
-                  <span className="text-[11px] text-brand-muted block mt-0.5">
-                    {metrics?.actualOrdersCount === 0
-                      ? "0 Customer Orders"
-                      : `${metrics?.actualOrdersCount} Customer Orders`}
+                <div className="p-4 rounded-xl bg-brand-card border border-brand-red/30 bg-brand-red/5">
+                  <span className="text-[10px] font-mono uppercase text-brand-red block">Active Plus</span>
+                  <span className="text-xl font-bold font-mono text-brand-red block mt-1">
+                    {metrics?.activePlusCount ?? 0}
                   </span>
                 </div>
-              </div>
-
-              {/* Stat 3: Total Revenue */}
-              <div className="p-5 rounded-2xl bg-brand-card border border-brand-border flex items-center gap-4">
-                <div className="h-12 w-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center flex-shrink-0">
-                  <Package className="h-6 w-6 text-emerald-400" />
+                <div className="p-4 rounded-xl bg-brand-card border border-brand-border">
+                  <span className="text-[10px] font-mono uppercase text-brand-subtle block">Expired Plus</span>
+                  <span className="text-xl font-bold font-mono text-neutral-400 block mt-1">
+                    {metrics?.expiredPlusCount ?? 0}
+                  </span>
                 </div>
-                <div>
-                  <span className="text-[11px] font-mono uppercase tracking-wider text-brand-subtle block">
-                    Total Revenue
+                <div className="p-4 rounded-xl bg-brand-card border border-brand-border">
+                  <span className="text-[10px] font-mono uppercase text-brand-subtle block">Monthly (₹79)</span>
+                  <span className="text-xl font-bold font-mono text-sky-400 block mt-1">
+                    {metrics?.monthlyPlansCount ?? 0}
                   </span>
-                  <span className="text-2xl font-bold font-mono text-emerald-400 mt-0.5 block">
-                    {formatCurrency(metrics?.totalRevenue ?? 0)}
-                  </span>
-                  <span className="text-[11px] text-brand-subtle font-mono block mt-0.5">
-                    Real paid revenue
+                </div>
+                <div className="p-4 rounded-xl bg-brand-card border border-brand-border">
+                  <span className="text-[10px] font-mono uppercase text-brand-subtle block">Yearly (₹299)</span>
+                  <span className="text-xl font-bold font-mono text-emerald-400 block mt-1">
+                    {metrics?.yearlyPlansCount ?? 0}
                   </span>
                 </div>
               </div>
             </div>
+
+            {/* REVENUE OVERVIEW */}
+            <div className="space-y-3">
+              <div className="flex items-center gap-2">
+                <CreditCard className="h-4 w-4 text-emerald-400" />
+                <h2 className="text-sm font-bold uppercase tracking-wider font-mono text-white">
+                  Revenue Overview
+                </h2>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
+                <div className="p-5 rounded-2xl bg-brand-card border border-emerald-500/30 bg-emerald-500/5">
+                  <span className="text-[11px] font-mono uppercase tracking-wider text-emerald-400 block">
+                    Total Verified Revenue
+                  </span>
+                  <span className="text-2xl font-bold font-mono text-white mt-1 block">
+                    {formatCurrency(metrics?.totalRevenue ?? 0)}
+                  </span>
+                  <span className="text-[10px] text-neutral-400 font-mono mt-1 block">
+                    Excludes pending &amp; test transactions
+                  </span>
+                </div>
+
+                <div className="p-5 rounded-2xl bg-brand-card border border-brand-border">
+                  <span className="text-[11px] font-mono uppercase tracking-wider text-brand-subtle block">
+                    Membership Revenue
+                  </span>
+                  <span className="text-2xl font-bold font-mono text-brand-red mt-1 block">
+                    {formatCurrency(metrics?.membershipRevenue ?? 0)}
+                  </span>
+                  <span className="text-[10px] text-neutral-400 font-mono mt-1 block">
+                    From active subscriptions
+                  </span>
+                </div>
+
+                <div className="p-5 rounded-2xl bg-brand-card border border-brand-border">
+                  <span className="text-[11px] font-mono uppercase tracking-wider text-brand-subtle block">
+                    Monthly Revenue (₹79)
+                  </span>
+                  <span className="text-2xl font-bold font-mono text-sky-400 mt-1 block">
+                    {formatCurrency(metrics?.monthlyRevenue ?? 0)}
+                  </span>
+                  <span className="text-[10px] text-neutral-400 font-mono mt-1 block">
+                    {metrics?.monthlyPlansCount ?? 0} Monthly Subscriptions
+                  </span>
+                </div>
+
+                <div className="p-5 rounded-2xl bg-brand-card border border-brand-border">
+                  <span className="text-[11px] font-mono uppercase tracking-wider text-brand-subtle block">
+                    Yearly Revenue (₹299)
+                  </span>
+                  <span className="text-2xl font-bold font-mono text-emerald-400 mt-1 block">
+                    {formatCurrency(metrics?.yearlyRevenue ?? 0)}
+                  </span>
+                  <span className="text-[10px] text-neutral-400 font-mono mt-1 block">
+                    {metrics?.yearlyPlansCount ?? 0} Yearly Subscriptions
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* RECENT MEMBERSHIP TRANSACTIONS */}
+            {metrics?.recentMembershipOrders && metrics.recentMembershipOrders.length > 0 && (
+              <div className="rounded-2xl border border-brand-border bg-brand-card p-5 space-y-4">
+                <div className="flex items-center justify-between border-b border-brand-border pb-3">
+                  <div className="flex items-center gap-2">
+                    <Sparkles className="h-4 w-4 text-brand-red" />
+                    <h3 className="text-sm font-bold text-white font-mono">
+                      Recent Membership Transactions
+                    </h3>
+                  </div>
+                  <span className="text-xs text-neutral-400 font-mono">
+                    Verified Paid Only
+                  </span>
+                </div>
+
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left text-xs font-mono">
+                    <thead>
+                      <tr className="border-b border-neutral-800 text-neutral-400 text-[11px]">
+                        <th className="py-2.5 px-3">Subscriber</th>
+                        <th className="py-2.5 px-3">Plan</th>
+                        <th className="py-2.5 px-3">Amount</th>
+                        <th className="py-2.5 px-3">Status</th>
+                        <th className="py-2.5 px-3">Date</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-neutral-800/60 text-neutral-300">
+                      {metrics.recentMembershipOrders.map((ord: any) => (
+                        <tr key={ord.id} className="hover:bg-neutral-900/50">
+                          <td className="py-2.5 px-3">
+                            <span className="font-bold text-white block">{ord.user?.name || "Customer"}</span>
+                            <span className="text-[10px] text-neutral-400">{ord.user?.email}</span>
+                          </td>
+                          <td className="py-2.5 px-3">
+                            <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-brand-red/20 text-brand-red border border-brand-red/30">
+                              {ord.plan}
+                            </span>
+                          </td>
+                          <td className="py-2.5 px-3 font-bold text-white">
+                            ₹{ord.amount}
+                          </td>
+                          <td className="py-2.5 px-3">
+                            <span className="text-emerald-400 font-bold text-[10px]">
+                              {ord.status}
+                            </span>
+                          </td>
+                          <td className="py-2.5 px-3 text-neutral-400 text-[10px]">
+                            {formatDate(ord.createdAt)}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
 
             {/* Quick Overview Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -518,7 +556,7 @@ export default function AdminDashboardPage() {
                 ) : (
                   <div className="space-y-3">
                     {ordersList.slice(0, 4).map((ord) => {
-                      const isTest = ord.orderNumber.includes("TEST");
+                      const isPaid = ord.paymentStatus === "COMPLETED";
                       return (
                         <div
                           key={ord.id}
@@ -529,41 +567,29 @@ export default function AdminDashboardPage() {
                               <span className="font-mono font-bold text-white">
                                 {ord.orderNumber}
                               </span>
-                              {isTest ? (
-                                <span className="px-1.5 py-0.5 rounded text-[10px] font-mono bg-amber-500/20 text-amber-400 border border-amber-500/30">
-                                  TEST ORDER
-                                </span>
-                              ) : (
-                                <span
-                                  className={`px-1.5 py-0.5 rounded text-[10px] font-mono ${
-                                    ord.paymentStatus === "COMPLETED"
-                                      ? "bg-emerald-500/20 text-emerald-400"
-                                      : "bg-amber-500/20 text-amber-400"
-                                  }`}
-                                >
-                                  {ord.paymentStatus}
-                                </span>
-                              )}
-                              {ord.requiresCertificate && (
-                                <span className="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold uppercase bg-brand-red/20 text-brand-red border border-brand-red/40 flex items-center gap-1">
-                                  <Award className="h-2.5 w-2.5" />
-                                  <span>Cert Req</span>
-                                </span>
-                              )}
+                              <span
+                                className={`px-1.5 py-0.5 rounded text-[10px] font-mono ${
+                                  isPaid
+                                    ? "bg-emerald-500/20 text-emerald-400"
+                                    : "bg-amber-500/20 text-amber-400"
+                                }`}
+                              >
+                                {isPaid ? "Paid" : ord.paymentStatus}
+                              </span>
+                              <span className="px-1.5 py-0.5 rounded text-[10px] font-mono text-neutral-300 bg-neutral-900 border border-neutral-800">
+                                {ord.membershipPlan === "YEARLY" ? "Yearly" : "Monthly"}
+                              </span>
                             </div>
                             <span className="font-medium text-brand-text block truncate">
-                              {ord.customerName} &bull; {ord.customerPhone}
+                              {ord.customerName} &bull; {ord.customerEmail}
                             </span>
                             <span className="text-[11px] text-brand-subtle block truncate">
-                              {ord.city}, {ord.state} &bull; {formatDate(ord.createdAt)}
+                              {formatDate(ord.createdAt)} &bull; {ord.isManualGrant ? "Admin Granted" : ord.razorpayPaymentId || "Payment ID N/A"}
                             </span>
                           </div>
                           <div className="sm:text-right flex-shrink-0 flex sm:flex-col items-center sm:items-end justify-between border-t sm:border-t-0 pt-2 sm:pt-0 border-brand-border/40">
-                            <span className={`font-mono font-bold text-sm ${isTest ? "text-amber-400" : "text-emerald-400"}`}>
+                            <span className="font-mono font-bold text-sm text-emerald-400">
                               ₹{ord.totalAmount}
-                            </span>
-                            <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-brand-card border border-brand-border text-brand-subtle mt-1">
-                              {ord.orderStatus}
                             </span>
                           </div>
                         </div>
@@ -619,6 +645,15 @@ export default function AdminDashboardPage() {
                           }`}
                         >
                           {u.role === "ADMIN" ? "Admin" : "Customer"}
+                        </span>
+                        <span
+                          className={`ml-1 px-1.5 py-0.5 rounded text-[10px] font-mono uppercase inline-block mb-1 ${
+                            u.membershipType === "PLUS"
+                              ? "bg-brand-red text-white font-bold"
+                              : "bg-neutral-800 text-neutral-400"
+                          }`}
+                        >
+                          {u.membershipType || "NORMAL"}
                         </span>
                         <span className="text-[10px] text-brand-subtle font-mono block">
                           Registered: {formatDate(u.createdAt)}
@@ -714,6 +749,15 @@ export default function AdminDashboardPage() {
                               >
                                 {u.role === "ADMIN" ? "Admin" : "Customer"}
                               </span>
+                              <span
+                                className={`ml-1 px-1.5 py-0.5 rounded text-[10px] font-mono uppercase inline-block ${
+                                  u.membershipType === "PLUS"
+                                    ? "bg-brand-red text-white font-bold"
+                                    : "bg-neutral-800 text-neutral-400"
+                                }`}
+                              >
+                                {u.membershipType || "NORMAL"}
+                              </span>
                             </td>
                             <td className="py-3 px-4 font-mono text-brand-muted">
                               {formatDate(u.createdAt)}
@@ -740,7 +784,7 @@ export default function AdminDashboardPage() {
         )}
 
         {/* ============================================================== */}
-        {/* 3. ORDERS TAB (Clean Card-Based Customer Order Management)     */}
+        {/* 3. ORDERS TAB (Membership & Verified Payment Management)       */}
         {/* ============================================================== */}
         {activeTab === "ORDERS" && (
           <div className="space-y-4">
@@ -750,30 +794,26 @@ export default function AdminDashboardPage() {
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-brand-subtle" />
                 <input
                   type="text"
-                  placeholder="Search by order #, customer, phone, city, state..."
+                  placeholder="Search by customer name, email, order #, payment ID..."
                   value={orderSearch}
                   onChange={(e) => setOrderSearch(e.target.value)}
-                  className="w-full pl-9 pr-4 py-2 rounded-xl bg-brand-black border border-brand-border text-xs text-white placeholder-brand-subtle focus:outline-none focus:border-brand-red"
+                  className="w-full pl-9 pr-4 py-2 rounded-xl bg-brand-black border border-brand-border text-xs text-white placeholder-brand-subtle focus:outline-none focus:border-brand-red font-mono"
                 />
               </div>
 
               <div className="flex items-center gap-2 flex-wrap">
-                <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none">
-                  {["ALL", "CONFIRMED", "PROCESSING", "SHIPPED", "DELIVERED", "PENDING", "CANCELLED"].map((st) => (
-                    <button
-                      key={st}
-                      onClick={() => setOrderStatusFilter(st)}
-                      className={`px-2.5 py-1.5 rounded-lg text-xs font-mono uppercase whitespace-nowrap transition ${
-                        orderStatusFilter === st
-                          ? "bg-brand-red text-white font-semibold"
-                          : "bg-brand-black border border-brand-border text-brand-muted hover:text-white"
-                      }`}
-                    >
-                      {st}
-                    </button>
-                  ))}
-                </div>
+                {/* Plan Filter */}
+                <select
+                  value={orderPlanFilter}
+                  onChange={(e) => setOrderPlanFilter(e.target.value)}
+                  className="px-3 py-1.5 rounded-lg bg-brand-black border border-brand-border text-xs text-white font-mono focus:outline-none focus:border-brand-red"
+                >
+                  <option value="ALL">All Membership Plans</option>
+                  <option value="YEARLY">Yearly Plan</option>
+                  <option value="MONTHLY">Monthly Plan</option>
+                </select>
 
+                {/* Payment Status Filter */}
                 <select
                   value={orderPaymentFilter}
                   onChange={(e) => setOrderPaymentFilter(e.target.value)}
@@ -781,8 +821,9 @@ export default function AdminDashboardPage() {
                 >
                   <option value="ALL">Payment: All</option>
                   <option value="COMPLETED">Paid / Completed</option>
-                  <option value="PENDING">Payment Pending / Test</option>
+                  <option value="PENDING">Payment Pending</option>
                   <option value="FAILED">Payment Failed</option>
+                  <option value="REFUNDED">Refunded</option>
                 </select>
               </div>
             </div>
@@ -790,54 +831,29 @@ export default function AdminDashboardPage() {
             {/* Orders List / Cards */}
             {filteredOrders.length === 0 ? (
               <div className="p-12 rounded-2xl border border-brand-border bg-brand-card text-center text-xs text-brand-muted space-y-2">
-                <Package className="h-10 w-10 text-brand-border mx-auto" />
+                <CreditCard className="h-10 w-10 text-brand-border mx-auto" />
                 <p className="text-sm font-semibold text-white">
-                  {ordersList.length === 0 ? "No customer orders yet" : "No orders match your filter"}
+                  {ordersList.length === 0 ? "No membership orders yet" : "No orders match your filter"}
                 </p>
                 <p className="text-brand-subtle">
                   {ordersList.length === 0
-                    ? "The orders section is currently empty. Genuine customer orders will appear here automatically with complete details."
-                    : "No actual orders match your current filter criteria."}
+                    ? "Membership and payment records will appear here automatically with verified details."
+                    : "No membership orders match your current filter criteria."}
                 </p>
               </div>
             ) : (
               <div className="space-y-4">
                 {filteredOrders.map((ord) => {
-                  const editState = editingOrders[ord.id] || {
-                    orderStatus: ord.orderStatus,
-                    carrier: ord.carrier || "",
-                    trackingNumber: ord.trackingNumber || "",
-                    certificateStatus: ord.certificateStatus || "PENDING",
-                  };
-                  const isUpdating = updatingOrderId === ord.id;
                   const isCopied = copiedId === ord.id;
-                  const isTestOrder =
-                    ord.orderNumber.includes("TEST") || ord.customerName.includes("[TEST]");
+                  const isPaid = ord.paymentStatus === "COMPLETED";
+                  const isFailed = ord.paymentStatus === "FAILED";
+                  const isRefunded = ord.paymentStatus === "REFUNDED";
 
                   return (
                     <div
                       key={ord.id}
-                      className={`rounded-2xl border bg-brand-card overflow-hidden transition shadow-sm ${
-                        isTestOrder
-                          ? "border-amber-500/40 hover:border-amber-500/60"
-                          : "border-brand-border hover:border-brand-border/90"
-                      }`}
+                      className="rounded-2xl border border-brand-border bg-brand-card overflow-hidden transition shadow-sm hover:border-brand-border/90"
                     >
-                      {/* Test Order Notification Banner */}
-                      {isTestOrder && (
-                        <div className="bg-amber-500/10 border-b border-amber-500/20 px-4 py-2 flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-amber-400 text-xs font-mono">
-                          <div className="flex items-center gap-2">
-                            <AlertCircle className="h-4 w-4 text-amber-400 flex-shrink-0" />
-                            <span className="font-bold tracking-wide">
-                              TEST ORDER &mdash; FOR TESTING DASHBOARD FEATURES ONLY
-                            </span>
-                          </div>
-                          <span className="text-[10px] text-amber-300/80 bg-amber-500/20 px-2 py-0.5 rounded font-mono">
-                            Excluded from revenue &bull; Unpaid Test
-                          </span>
-                        </div>
-                      )}
-
                       {/* Order Card Header */}
                       <div className="p-4 sm:p-5 border-b border-brand-border/70 bg-brand-black/50 flex flex-wrap items-center justify-between gap-3">
                         <div className="flex items-center gap-3">
@@ -852,342 +868,110 @@ export default function AdminDashboardPage() {
 
                         <div className="flex items-center gap-2">
                           {/* Payment Status Badge */}
-                          {isTestOrder ? (
-                            <span className="px-2.5 py-1 rounded-md text-[11px] font-mono font-bold uppercase bg-amber-500/20 text-amber-400 border border-amber-500/30">
-                              TEST ORDER &bull; PENDING
-                            </span>
-                          ) : (
-                            <span
-                              className={`px-2.5 py-1 rounded-md text-[11px] font-mono font-semibold uppercase ${
-                                ord.paymentStatus === "COMPLETED"
-                                  ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30"
-                                  : ord.paymentStatus === "FAILED"
-                                  ? "bg-red-500/20 text-red-400 border border-red-500/30"
-                                  : "bg-amber-500/20 text-amber-400 border border-amber-500/30"
-                              }`}
-                            >
-                              Payment: {ord.paymentStatus}
-                            </span>
-                          )}
-
-                          {/* Current Delivery Status Badge */}
                           <span
                             className={`px-2.5 py-1 rounded-md text-[11px] font-mono font-semibold uppercase ${
-                              ord.orderStatus === "DELIVERED"
+                              isPaid
                                 ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30"
-                                : ord.orderStatus === "SHIPPED"
-                                ? "bg-blue-500/20 text-blue-400 border border-blue-500/30"
-                                : ord.orderStatus === "CANCELLED"
+                                : isFailed
                                 ? "bg-red-500/20 text-red-400 border border-red-500/30"
-                                : "bg-brand-red/20 text-brand-red border border-brand-red/30"
+                                : isRefunded
+                                ? "bg-purple-500/20 text-purple-400 border border-purple-500/30"
+                                : "bg-amber-500/20 text-amber-400 border border-amber-500/30"
                             }`}
                           >
-                            {ord.orderStatus}
+                            Payment: {isPaid ? "Paid" : isFailed ? "Failed" : isRefunded ? "Refunded" : "Pending"}
                           </span>
-
-                          {/* Certificate Required Status Badge */}
-                          {ord.requiresCertificate && (
-                            <div className="flex items-center gap-1.5">
-                              <span className="px-2.5 py-1 rounded-md text-[11px] font-mono font-bold uppercase bg-brand-red/20 text-brand-red border border-brand-red/40 flex items-center gap-1.5 shadow-sm">
-                                <Award className="h-3.5 w-3.5 text-brand-red" />
-                                <span>Physical Certificate Required</span>
-                              </span>
-                              <span
-                                className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase border ${
-                                  (editState.certificateStatus || ord.certificateStatus) === "DELIVERED"
-                                    ? "bg-emerald-500/20 text-emerald-400 border-emerald-500/30"
-                                    : (editState.certificateStatus || ord.certificateStatus) === "PACKED" ||
-                                      (editState.certificateStatus || ord.certificateStatus) === "SHIPPED"
-                                    ? "bg-purple-500/20 text-purple-400 border-purple-500/30"
-                                    : (editState.certificateStatus || ord.certificateStatus) === "PRINTED"
-                                    ? "bg-blue-500/20 text-blue-400 border-blue-500/30"
-                                    : "bg-amber-500/20 text-amber-400 border-amber-500/30"
-                                }`}
-                              >
-                                Cert: {editState.certificateStatus || ord.certificateStatus || "PENDING"}
-                              </span>
-                            </div>
-                          )}
                         </div>
                       </div>
 
-                      {/* Order Card Main Content */}
-                      <div className="p-4 sm:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
-                        {/* Column 1 (5 cols): Customer Name & Complete Delivery Address */}
-                        <div className="lg:col-span-5 space-y-4">
-                          <div>
-                            <span className="text-[10px] font-mono uppercase tracking-wider text-brand-subtle block mb-1">
-                              Customer Information
-                            </span>
-                            <h3 className="text-base sm:text-lg font-bold text-white flex items-center gap-2">
-                              <span>{ord.customerName}</span>
-                              {isTestOrder && (
-                                <span className="text-[10px] font-mono text-amber-400 bg-amber-500/10 px-1.5 py-0.5 rounded border border-amber-500/20 font-normal">
-                                  Test Persona
-                                </span>
-                              )}
-                            </h3>
-                            <div className="mt-1.5 space-y-1 text-xs font-mono">
-                              <a
-                                href={`tel:${ord.customerPhone}`}
-                                className="flex items-center gap-2 text-brand-text hover:text-white transition"
-                              >
-                                <Phone className="h-3.5 w-3.5 text-brand-red flex-shrink-0" />
-                                <span className="font-semibold text-white">{ord.customerPhone}</span>
-                              </a>
-                              <a
-                                href={`mailto:${ord.customerEmail}`}
-                                className="flex items-center gap-2 text-brand-subtle hover:text-white transition truncate"
-                              >
-                                <Mail className="h-3.5 w-3.5 text-brand-subtle flex-shrink-0" />
-                                <span className="truncate">{ord.customerEmail}</span>
-                              </a>
-                            </div>
-                          </div>
+                      {/* Order Details Body */}
+                      <div className="p-4 sm:p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-start">
+                        {/* 1. User Name & Email */}
+                        <div className="space-y-1.5">
+                          <span className="text-[10px] font-mono uppercase tracking-wider text-brand-subtle block">
+                            User / Subscriber
+                          </span>
+                          <h3 className="text-sm sm:text-base font-bold text-white flex items-center gap-2">
+                            <User className="h-4 w-4 text-brand-red flex-shrink-0" />
+                            <span>{ord.customerName}</span>
+                          </h3>
+                          <a
+                            href={`mailto:${ord.customerEmail}`}
+                            className="text-xs text-brand-subtle hover:text-white transition font-mono flex items-center gap-1.5 truncate"
+                          >
+                            <Mail className="h-3.5 w-3.5 text-neutral-500 flex-shrink-0" />
+                            <span className="truncate">{ord.customerEmail}</span>
+                          </a>
+                        </div>
 
-                          {/* Complete Delivery Address Box */}
-                          <div className="p-4 rounded-xl bg-brand-black/90 border border-brand-border space-y-2">
-                            <div className="flex items-center justify-between">
-                              <span className="text-[10px] font-mono uppercase tracking-wider text-brand-subtle flex items-center gap-1.5 font-bold">
-                                <MapPin className="h-3.5 w-3.5 text-brand-red" />
-                                <span>Complete Delivery Address</span>
-                              </span>
+                        {/* 2. Membership Plan Purchased */}
+                        <div className="space-y-1.5">
+                          <span className="text-[10px] font-mono uppercase tracking-wider text-brand-subtle block">
+                            Membership Plan
+                          </span>
+                          <div className="flex items-center gap-2">
+                            <Sparkles className="h-4 w-4 text-brand-red flex-shrink-0" />
+                            <span className="text-sm font-bold text-white">
+                              {ord.membershipPlan === "YEARLY"
+                                ? "Yearly Membership"
+                                : ord.membershipPlan === "MONTHLY"
+                                ? "Monthly Membership"
+                                : ord.productTitle}
+                            </span>
+                          </div>
+                          <span className="inline-block px-2 py-0.5 rounded text-[10px] font-mono font-semibold uppercase bg-neutral-900 border border-neutral-800 text-neutral-300">
+                            {ord.membershipPlan === "YEARLY" ? "365-Day Access" : "30-Day Access"}
+                          </span>
+                        </div>
+
+                        {/* 3. Order Amount */}
+                        <div className="space-y-1.5">
+                          <span className="text-[10px] font-mono uppercase tracking-wider text-brand-subtle block">
+                            Order Amount
+                          </span>
+                          <div className="text-xl sm:text-2xl font-bold font-mono text-emerald-400">
+                            ₹{ord.totalAmount}
+                          </div>
+                          <span className="text-[10px] text-brand-subtle font-mono block">
+                            Currency: INR (₹)
+                          </span>
+                        </div>
+
+                        {/* 4. Razorpay Payment ID */}
+                        <div className="space-y-1.5">
+                          <span className="text-[10px] font-mono uppercase tracking-wider text-brand-subtle block">
+                            Razorpay Payment ID
+                          </span>
+                          {ord.razorpayPaymentId ? (
+                            <div className="flex items-center gap-1.5">
+                              <code className="text-xs font-mono font-semibold text-neutral-200 bg-neutral-900 px-2 py-1 rounded border border-neutral-800 truncate max-w-[180px]">
+                                {ord.razorpayPaymentId}
+                              </code>
                               <button
-                                onClick={() => handleCopyAddress(ord)}
-                                className="text-[11px] text-brand-subtle hover:text-brand-red flex items-center gap-1 font-mono transition bg-brand-card px-2 py-0.5 rounded border border-brand-border/60"
-                                title="Copy full address"
+                                onClick={() => {
+                                  navigator.clipboard.writeText(ord.razorpayPaymentId || "");
+                                  setCopiedId(ord.id);
+                                  setTimeout(() => setCopiedId(null), 2000);
+                                }}
+                                className="p-1 rounded bg-neutral-800 hover:bg-neutral-700 text-neutral-400 hover:text-white transition"
+                                title="Copy Payment ID"
                               >
-                                {isCopied ? (
-                                  <>
-                                    <Check className="h-3 w-3 text-emerald-400" />
-                                    <span className="text-emerald-400">Copied!</span>
-                                  </>
-                                ) : (
-                                  <>
-                                    <Copy className="h-3 w-3" />
-                                    <span>Copy</span>
-                                  </>
-                                )}
+                                {isCopied ? <Check className="h-3.5 w-3.5 text-emerald-400" /> : <Copy className="h-3.5 w-3.5" />}
                               </button>
                             </div>
-                            <div className="text-xs text-white leading-relaxed font-sans space-y-0.5 pt-1">
-                              <p className="font-medium text-white">{ord.addressLine1}</p>
-                              {ord.addressLine2 && (
-                                <p className="text-brand-muted">{ord.addressLine2}</p>
-                              )}
-                              <p className="font-mono text-brand-text">
-                                {ord.city}, {ord.state} &ndash;{" "}
-                                <strong className="text-white font-bold">{ord.postalCode}</strong>
-                              </p>
-                              <p className="text-[11px] text-brand-subtle font-mono uppercase">
-                                {ord.country || "India"}
-                              </p>
-                            </div>
-
-                            {ord.notes && (
-                              <div className="text-[11px] text-amber-300 bg-amber-500/10 p-2.5 rounded-lg border border-amber-500/20 mt-2">
-                                <strong className="font-semibold block">Order Notes:</strong>
-                                <span>{ord.notes}</span>
-                              </div>
-                            )}
-                          </div>
-                        </div>
-
-                        {/* Column 2 (3 cols): Ordered Product / Topic & Amount Paid */}
-                        <div className="lg:col-span-3 space-y-4 lg:border-l lg:border-brand-border/70 lg:pl-6 flex flex-col justify-between">
-                          <div className="space-y-3">
-                            <div>
-                              <span className="text-[10px] font-mono uppercase tracking-wider text-brand-subtle block mb-1">
-                                Ordered Product / Topic
-                              </span>
-                              <div className="flex items-start gap-2">
-                                <Package className="h-4 w-4 text-brand-red flex-shrink-0 mt-0.5" />
-                                <span className="text-xs font-semibold text-white leading-snug">
-                                  {ord.productTitle}
-                                </span>
-                              </div>
-                              {ord.language && (
-                                <div className="mt-1.5 flex items-center gap-1.5">
-                                  <span className="text-[10px] font-mono text-brand-subtle uppercase">Language:</span>
-                                  <span className="px-2 py-0.5 text-[11px] font-mono font-bold uppercase rounded bg-brand-red/10 border border-brand-red/30 text-brand-red">
-                                    {ord.language}
-                                  </span>
-                                </div>
-                              )}
-                              <span className="text-[11px] text-brand-subtle font-mono block mt-1">
-                                Quantity: {ord.quantity || 1} {ord.quantity === 1 ? "book" : "books"}
-                              </span>
-
-                              {/* Itemized Cart Items Breakdown */}
-                              {Array.isArray(ord.items) && ord.items.length > 0 && (
-                                <div className="mt-2 space-y-1.5 border border-brand-border/60 rounded-lg bg-brand-black/70 p-2.5 max-h-36 overflow-y-auto">
-                                  <div className="text-[10px] font-mono text-brand-subtle uppercase font-bold">
-                                    Itemized Books ({ord.items.length}):
-                                  </div>
-                                  {ord.items.map((it: any, i: number) => (
-                                    <div key={i} className="text-[11px] flex justify-between items-start gap-1.5 border-b border-brand-border/30 pb-1 last:border-b-0 last:pb-0 font-mono">
-                                      <span className="text-white truncate">
-                                        {it.title} {it.language ? `(${it.language})` : ""} &times; {it.quantity || 1}
-                                      </span>
-                                      <span className="text-emerald-400 font-bold shrink-0">
-                                        ₹{it.totalItemPrice || it.unitPrice * (it.quantity || 1)}
-                                      </span>
-                                    </div>
-                                  ))}
-                                </div>
-                              )}
-                            </div>
-
-                            <div>
-                              <span className="text-[10px] font-mono uppercase tracking-wider text-brand-subtle block mb-1">
-                                Amount
-                              </span>
-                              <div className="flex items-baseline gap-2">
-                                <span
-                                  className={`text-2xl font-bold font-mono block ${
-                                    isTestOrder ? "text-amber-400" : "text-emerald-400"
-                                  }`}
-                                >
-                                  ₹{ord.totalAmount}
-                                </span>
-                                {isTestOrder && (
-                                  <span className="text-[10px] font-mono text-amber-400 bg-amber-500/10 px-1.5 py-0.5 rounded border border-amber-500/20">
-                                    Test
-                                  </span>
-                                )}
-                              </div>
-                              <span className="text-[10px] text-brand-subtle font-mono block mt-0.5">
-                                {isTestOrder
-                                  ? "Excluded from revenue (Test Mode)"
-                                  : `Payment Method: ${ord.paymentMethod || "Razorpay"}`}
-                              </span>
-                              {ord.razorpayPaymentId && (
-                                <span className="text-[10px] text-neutral-400 font-mono block truncate mt-0.5" title={ord.razorpayPaymentId}>
-                                  Payment ID: {ord.razorpayPaymentId}
-                                </span>
-                              )}
-                              {ord.razorpayOrderId && (
-                                <span className="text-[10px] text-neutral-500 font-mono block truncate" title={ord.razorpayOrderId}>
-                                  Razorpay Order: {ord.razorpayOrderId}
-                                </span>
-                              )}
-                            </div>
-                          </div>
-
-                          <div className="text-[10px] text-brand-subtle font-mono pt-2 border-t border-brand-border/50">
-                            Order Date: {formatDate(ord.createdAt)}
-                          </div>
-                        </div>
-
-                        {/* Column 3 (4 cols): Update Delivery Status & Tracking */}
-                        <div className="lg:col-span-4 space-y-3 lg:border-l lg:border-brand-border/70 lg:pl-6 bg-brand-black/40 p-4 rounded-xl border border-brand-border/60">
-                          <span className="text-[10px] font-mono uppercase tracking-wider text-brand-subtle flex items-center gap-1.5 font-bold">
-                            <Truck className="h-3.5 w-3.5 text-brand-red" />
-                            <span>Update Delivery Status</span>
+                          ) : ord.isManualGrant ? (
+                            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-brand-red/10 border border-brand-red/30 text-brand-red font-mono text-xs font-semibold">
+                              <Shield className="h-3 w-3" />
+                              <span>Admin Granted</span>
+                            </span>
+                          ) : (
+                            <span className="text-xs font-mono text-neutral-500 italic">
+                              Not available
+                            </span>
+                          )}
+                          <span className="text-[10px] text-brand-subtle font-mono block">
+                            Method: {ord.isManualGrant ? "Direct Grant" : ord.paymentMethod || "Razorpay"}
                           </span>
-
-                          <div className="space-y-2.5">
-                            <div>
-                              <label className="text-[11px] text-brand-muted block mb-1 font-mono">
-                                Delivery Status
-                              </label>
-                              <select
-                                value={editState.orderStatus}
-                                onChange={(e) =>
-                                  setEditingOrders((prev) => ({
-                                    ...prev,
-                                    [ord.id]: { ...editState, orderStatus: e.target.value },
-                                  }))
-                                }
-                                className="w-full px-3 py-1.5 rounded-lg bg-brand-black border border-brand-border text-xs text-white font-mono focus:outline-none focus:border-brand-red"
-                              >
-                                <option value="PENDING">PENDING</option>
-                                <option value="CONFIRMED">CONFIRMED</option>
-                                <option value="PROCESSING">PROCESSING</option>
-                                <option value="SHIPPED">SHIPPED</option>
-                                <option value="DELIVERED">DELIVERED</option>
-                                <option value="CANCELLED">CANCELLED</option>
-                              </select>
-                            </div>
-
-                            <div className="grid grid-cols-2 gap-2">
-                              <div>
-                                <label className="text-[10px] text-brand-subtle block mb-0.5 font-mono">
-                                  Courier / Carrier
-                                </label>
-                                <input
-                                  type="text"
-                                  placeholder="e.g. DTDC"
-                                  value={editState.carrier}
-                                  onChange={(e) =>
-                                    setEditingOrders((prev) => ({
-                                      ...prev,
-                                      [ord.id]: { ...editState, carrier: e.target.value },
-                                    }))
-                                  }
-                                  className="w-full px-2.5 py-1.5 rounded-lg bg-brand-black border border-brand-border text-xs text-white placeholder-brand-subtle focus:outline-none focus:border-brand-red"
-                                />
-                              </div>
-                              <div>
-                                <label className="text-[10px] text-brand-subtle block mb-0.5 font-mono">
-                                  Tracking Number
-                                </label>
-                                <input
-                                  type="text"
-                                  placeholder="e.g. TRK12345"
-                                  value={editState.trackingNumber}
-                                  onChange={(e) =>
-                                    setEditingOrders((prev) => ({
-                                      ...prev,
-                                      [ord.id]: { ...editState, trackingNumber: e.target.value },
-                                    }))
-                                  }
-                                  className="w-full px-2.5 py-1.5 rounded-lg bg-brand-black border border-brand-border text-xs text-white placeholder-brand-subtle font-mono focus:outline-none focus:border-brand-red"
-                                />
-                              </div>
-                            </div>
-
-                            {/* Certificate Tracking Status if order requires certificate */}
-                            {ord.requiresCertificate && (
-                              <div className="pt-2 border-t border-brand-border/60">
-                                <label className="text-[11px] text-brand-red block mb-1 font-mono flex items-center gap-1.5 font-bold">
-                                  <Award className="h-3.5 w-3.5" />
-                                  <span>Physical Certificate Status</span>
-                                </label>
-                                <select
-                                  value={editState.certificateStatus || ord.certificateStatus || "PENDING"}
-                                  onChange={(e) =>
-                                    setEditingOrders((prev) => ({
-                                      ...prev,
-                                      [ord.id]: { ...editState, certificateStatus: e.target.value },
-                                    }))
-                                  }
-                                  className="w-full px-3 py-1.5 rounded-lg bg-brand-black border border-brand-border text-xs text-white font-mono focus:outline-none focus:border-brand-red"
-                                >
-                                  <option value="PENDING">PENDING &mdash; Not Printed</option>
-                                  <option value="PRINTED">PRINTED &mdash; Printed, Ready to Pack</option>
-                                  <option value="PACKED">PACKED &mdash; Included in Parcel</option>
-                                  <option value="SHIPPED">SHIPPED &mdash; Dispatched</option>
-                                  <option value="DELIVERED">DELIVERED &mdash; Delivered to Customer</option>
-                                </select>
-                              </div>
-                            )}
-
-                            <button
-                              onClick={() => handleUpdateOrderStatus(ord.id)}
-                              disabled={isUpdating}
-                              className="w-full mt-2 py-2 px-3 rounded-lg bg-brand-red hover:bg-red-600 text-white text-xs font-semibold transition disabled:opacity-50 flex items-center justify-center gap-1.5 shadow-sm"
-                            >
-                              {isUpdating ? (
-                                <>
-                                  <Loader2 className="h-3.5 w-3.5 animate-spin" />
-                                  <span>Saving Status...</span>
-                                </>
-                              ) : (
-                                <span>Save Order Status</span>
-                              )}
-                            </button>
-                          </div>
                         </div>
                       </div>
                     </div>

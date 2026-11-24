@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { verifyPassword, signToken } from "@/lib/auth";
+import { isUserActivePlus } from "@/lib/membership";
 
 export async function POST(req: Request) {
   try {
@@ -63,6 +64,8 @@ export async function POST(req: Request) {
       role: user.role,
     });
 
+    const isActivePlus = isUserActivePlus(user);
+
     const userPayload = {
       id: user.id,
       name: user.name,
@@ -70,6 +73,11 @@ export async function POST(req: Request) {
       role: user.role,
       avatar: user.avatar,
       createdAt: user.createdAt,
+      membershipType: user.membershipType,
+      membershipPlan: user.membershipPlan,
+      membershipStartedAt: user.membershipStartedAt,
+      membershipExpiresAt: user.membershipExpiresAt,
+      isActivePlus,
       purchases: user.purchases,
       bookmarks: user.bookmarks,
       progress: user.progress,
