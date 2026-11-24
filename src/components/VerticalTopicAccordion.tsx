@@ -11,6 +11,7 @@ import {
 import DifficultyBadge from "@/components/DifficultyBadge";
 import { useAuth } from "@/context/AuthContext";
 import SolutionUpgradeModal from "@/components/SolutionUpgradeModal";
+import confetti from "canvas-confetti";
 
 export interface ProblemItem {
   id: string;
@@ -154,6 +155,15 @@ export default function VerticalTopicAccordion({
 
     const isNowCompleted = !internalCompletedMap[problemId];
     setInternalCompletedMap((prev) => ({ ...prev, [problemId]: isNowCompleted }));
+
+    if (isNowCompleted) {
+      confetti({
+        particleCount: 50,
+        spread: 60,
+        origin: { y: 0.7 },
+        colors: ["#E52532", "#FFFFFF"],
+      });
+    }
 
     if (user) {
       fetch("/api/user/progress", {

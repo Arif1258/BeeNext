@@ -26,9 +26,6 @@ export const MEMBERSHIP_PLANS = {
     features: [
       "Everything in Monthly Plan",
       "365 days of uninterrupted access",
-      "All future DSA additions & bonus problem sets",
-      "Priority customer & technical support",
-      "Continuous progress & certificate tracking",
       "Lowest price per month (₹25/mo equivalent)",
     ],
   },

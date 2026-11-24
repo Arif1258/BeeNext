@@ -143,7 +143,7 @@ export default function Navbar() {
                   : "text-brand-muted hover:text-white hover:bg-brand-card"
                   }`}
               >
-                <Sparkles className="h-4 w-4 text-brand-red" />
+                <Sparkles className="h-4 w-4" />
                 <span>Membership</span>
               </Link>
 
@@ -333,7 +333,7 @@ export default function Navbar() {
                 : "text-brand-muted hover:text-white hover:bg-brand-card"
                 }`}
             >
-              <Sparkles className="h-4 w-4 text-brand-red" />
+              <Sparkles className="h-4 w-4" />
               <span>Membership</span>
             </Link>
 

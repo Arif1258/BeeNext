@@ -428,7 +428,7 @@ export default function MembershipClient() {
                   <tr className="border-b border-brand-border bg-neutral-900/60 font-mono text-neutral-400">
                     <th className="py-4 px-6 font-semibold">Features &amp; Capabilities</th>
                     <th className="py-4 px-6 font-semibold text-center w-36">Normal (Free)</th>
-                    <th className="py-4 px-6 font-semibold text-center w-40 text-brand-red">
+                    <th className="py-4 px-6 font-semibold text-center w-40 text-emerald-400">
                       Plus (Paid)
                     </th>
                   </tr>
@@ -442,7 +442,7 @@ export default function MembershipClient() {
                     <td className="py-3.5 px-6 text-center text-emerald-400">
                       <Check className="h-4 w-4 mx-auto" />
                     </td>
-                    <td className="py-3.5 px-6 text-center text-brand-red font-bold">
+                    <td className="py-3.5 px-6 text-center text-emerald-400 font-bold">
                       <Check className="h-4 w-4 mx-auto" />
                     </td>
                   </tr>
@@ -455,7 +455,7 @@ export default function MembershipClient() {
                     <td className="py-3.5 px-6 text-center text-emerald-400">
                       <Check className="h-4 w-4 mx-auto" />
                     </td>
-                    <td className="py-3.5 px-6 text-center text-brand-red font-bold">
+                    <td className="py-3.5 px-6 text-center text-emerald-400 font-bold">
                       <Check className="h-4 w-4 mx-auto" />
                     </td>
                   </tr>
@@ -468,7 +468,7 @@ export default function MembershipClient() {
                     <td className="py-3.5 px-6 text-center text-neutral-300">
                       <span>View &amp; Type Code</span>
                     </td>
-                    <td className="py-3.5 px-6 text-center text-brand-red font-bold">
+                    <td className="py-3.5 px-6 text-center text-emerald-400 font-bold">
                       <span>Full Access</span>
                     </td>
                   </tr>
@@ -481,7 +481,7 @@ export default function MembershipClient() {
                     <td className="py-3.5 px-6 text-center text-neutral-500">
                       <X className="h-4 w-4 mx-auto" />
                     </td>
-                    <td className="py-3.5 px-6 text-center text-brand-red font-bold">
+                    <td className="py-3.5 px-6 text-center text-emerald-400 font-bold">
                       <Check className="h-4 w-4 mx-auto" />
                     </td>
                   </tr>
@@ -494,7 +494,7 @@ export default function MembershipClient() {
                     <td className="py-3.5 px-6 text-center text-neutral-500">
                       <X className="h-4 w-4 mx-auto" />
                     </td>
-                    <td className="py-3.5 px-6 text-center text-brand-red font-bold">
+                    <td className="py-3.5 px-6 text-center text-emerald-400 font-bold">
                       <Check className="h-4 w-4 mx-auto" />
                     </td>
                   </tr>
@@ -507,7 +507,7 @@ export default function MembershipClient() {
                     <td className="py-3.5 px-6 text-center text-neutral-500">
                       <X className="h-4 w-4 mx-auto" />
                     </td>
-                    <td className="py-3.5 px-6 text-center text-brand-red font-bold">
+                    <td className="py-3.5 px-6 text-center text-emerald-400 font-bold">
                       <Check className="h-4 w-4 mx-auto" />
                     </td>
                   </tr>
@@ -520,7 +520,7 @@ export default function MembershipClient() {
                     <td className="py-3.5 px-6 text-center text-neutral-500">
                       <X className="h-4 w-4 mx-auto" />
                     </td>
-                    <td className="py-3.5 px-6 text-center text-brand-red font-bold">
+                    <td className="py-3.5 px-6 text-center text-emerald-400 font-bold">
                       <Check className="h-4 w-4 mx-auto" />
                     </td>
                   </tr>
@@ -533,7 +533,7 @@ export default function MembershipClient() {
                     <td className="py-3.5 px-6 text-center text-neutral-500">
                       <X className="h-4 w-4 mx-auto" />
                     </td>
-                    <td className="py-3.5 px-6 text-center text-brand-red font-bold">
+                    <td className="py-3.5 px-6 text-center text-emerald-400 font-bold">
                       <Check className="h-4 w-4 mx-auto" />
                     </td>
                   </tr>

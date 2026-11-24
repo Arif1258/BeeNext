@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import { Award } from "lucide-react";
+import confetti from "canvas-confetti";
 import VerticalTopicAccordion, { TopicItem } from "@/components/VerticalTopicAccordion";
 import { useAuth } from "@/context/AuthContext";
 
@@ -39,6 +40,15 @@ export default function TopicsClient({ initialCategories }: TopicsClientProps) {
   const handleToggleProgress = async (problemId: string) => {
     const isNowCompleted = !completedMap[problemId];
     setCompletedMap((prev) => ({ ...prev, [problemId]: isNowCompleted }));
+
+    if (isNowCompleted) {
+      confetti({
+        particleCount: 50,
+        spread: 60,
+        origin: { y: 0.7 },
+        colors: ["#E52532", "#FFFFFF"],
+      });
+    }
 
     if (user) {
       try {
@@ -110,13 +120,13 @@ export default function TopicsClient({ initialCategories }: TopicsClientProps) {
         <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 sm:gap-4 border-b border-brand-border pb-3 sm:pb-4">
           <div className="space-y-1.5 sm:space-y-2 max-w-3xl lg:max-w-4xl">
             <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-[2rem] font-extrabold tracking-tight leading-tight sm:whitespace-nowrap text-white">
-              BEE<span className="text-brand-red">NEXT</span> – HERO TO INFINITY DSA SHEET
+              BEE<span className="text-brand-red">NEXT</span> – ZERO TO INFINITY DSA SHEET
             </h1>
             <h2 className="text-sm sm:text-base font-bold text-white tracking-tight">
               Sheet Details
             </h2>
             <p className="text-xs sm:text-sm text-neutral-300 font-normal leading-relaxed max-w-2xl">
-              Curated free DSA Sheet with Striver guidance, featuring notes developed under the guidance of faculty members from <strong className="text-white font-semibold">IIT Kharagpur</strong>. Master interview-relevant problems with Brute Force and Optimal solutions, and practice coding interactively.
+              Curated free DSA Sheet with Striver guidance, featuring notes developed under the guidance of faculty members from IIT Kharagpur. Master interview-relevant problems with Brute Force and Optimal solutions, and practice coding interactively.
             </p>
             <p className="text-xs sm:text-sm font-semibold text-white tracking-wide">
               Learn what matters. Skip what doesn&apos;t.

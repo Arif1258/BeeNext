@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import DifficultyBadge from "@/components/DifficultyBadge";
 import SolutionUpgradeModal from "@/components/SolutionUpgradeModal";
+import confetti from "canvas-confetti";
 
 // YouTube Play Icon
 const YouTubeIcon = ({ className = "h-3.5 w-3.5" }: { className?: string }) => (
@@ -76,6 +77,15 @@ export default function CategoryDetailClient({
   const handleToggleProgress = async (problemId: string) => {
     const isNowCompleted = !completedMap[problemId];
     setCompletedMap((prev) => ({ ...prev, [problemId]: isNowCompleted }));
+
+    if (isNowCompleted) {
+      confetti({
+        particleCount: 50,
+        spread: 60,
+        origin: { y: 0.7 },
+        colors: ["#E52532", "#FFFFFF"],
+      });
+    }
 
     if (user) {
       try {

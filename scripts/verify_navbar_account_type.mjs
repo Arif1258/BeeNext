@@ -69,49 +69,45 @@ async function main() {
       const check = await send("Runtime.evaluate", {
         expression: `
           (() => {
-            try {
-              // Find account badge (NORMAL or PLUS) near avatar
-              const spans = Array.from(document.querySelectorAll('header span'));
-              const badge = spans.find(s => s.textContent === 'NORMAL' || s.textContent === 'PLUS');
-              
-              // Find avatar button
-              const avatarBtn = Array.from(document.querySelectorAll('header button')).find(b => b.getAttribute('aria-label') === 'Profile and Account Menu');
+            // Find account badge (NORMAL or PLUS) near avatar
+            const spans = Array.from(document.querySelectorAll('header span'));
+            const badge = spans.find(s => s.textContent === 'NORMAL' || s.textContent === 'PLUS');
+            
+            // Find avatar button
+            const avatarBtn = Array.from(document.querySelectorAll('header button')).find(b => b.getAttribute('aria-label') === 'Profile and Account Menu');
 
-              // Verify badge is positioned BEFORE avatar button
-              const isBadgeBeforeAvatar = badge && avatarBtn ? (badge.compareDocumentPosition(avatarBtn) & Node.DOCUMENT_POSITION_FOLLOWING) !== 0 : false;
+            // Verify badge is positioned BEFORE avatar button
+            const isBadgeBeforeAvatar = badge && avatarBtn ? (badge.compareDocumentPosition(avatarBtn) & Node.DOCUMENT_POSITION_FOLLOWING) !== 0 : false;
 
-              // Find any red plus sign after avatar
-              const plusSign = spans.find(s => s.textContent && s.textContent.trim() === '+' && s.classList.contains('text-brand-red'));
-              
-              // Check dropdown content if open
-              const dropdown = document.querySelector('.animate-in');
-              const dropdownText = dropdown ? dropdown.innerText : '';
-              const dropdownHasAccountType = dropdownText.includes('NORMAL') || dropdownText.includes('PLUS');
+            // Find any red plus sign after avatar
+            const plusSign = spans.find(s => s.textContent && s.textContent.trim() === '+' && s.classList.contains('text-brand-red'));
+            
+            // Check dropdown content if open
+            const dropdown = document.querySelector('.animate-in');
+            const dropdownText = dropdown ? dropdown.innerText : '';
+            const dropdownHasAccountType = dropdownText.includes('NORMAL') || dropdownText.includes('PLUS');
 
-              // Check topics layout metrics if on topics page
-              const introParagraphs = Array.from(document.querySelectorAll('main p'));
-              const progressBar = document.querySelector('[role="progressbar"]');
-              const beginnerSection = Array.from(document.querySelectorAll('[role="button"], button')).find(b => b.textContent && b.textContent.includes('Beginner Problems'));
-              
-              const progressBarHeight = progressBar ? progressBar.getBoundingClientRect().height : null;
-              const beginnerTop = beginnerSection ? beginnerSection.getBoundingClientRect().top : null;
+            // Check topics layout metrics if on topics page
+            const introParagraphs = Array.from(document.querySelectorAll('.max-w-2xl, .space-y-1\\.5 p, .space-y-2 p'));
+            const progressBar = document.querySelector('[role="progressbar"]');
+            const beginnerSection = Array.from(document.querySelectorAll('button')).find(b => b.textContent && b.textContent.includes('Beginner Problems'));
+            
+            const progressBarHeight = progressBar ? progressBar.getBoundingClientRect().height : null;
+            const beginnerTop = beginnerSection ? beginnerSection.getBoundingClientRect().top : null;
 
-              return {
-                hasBadge: !!badge,
-                badgeText: badge ? badge.textContent.trim() : null,
-                badgeClasses: badge ? badge.className : null,
-                isBadgeBeforeAvatar,
-                hasRedPlusSign: !!plusSign,
-                dropdownHasAccountType,
-                windowWidth: window.innerWidth,
-                bodyScrollWidth: document.body.scrollWidth,
-                progressBarHeight,
-                beginnerTop,
-                introParagraphsCount: introParagraphs.length,
-              };
-            } catch (err) {
-              return { error: err.message };
-            }
+            return {
+              hasBadge: !!badge,
+              badgeText: badge ? badge.textContent.trim() : null,
+              badgeClasses: badge ? badge.className : null,
+              isBadgeBeforeAvatar,
+              hasRedPlusSign: !!plusSign,
+              dropdownHasAccountType,
+              windowWidth: window.innerWidth,
+              bodyScrollWidth: document.body.scrollWidth,
+              progressBarHeight,
+              beginnerTop,
+              introParagraphsCount: introParagraphs.length,
+            };
           })()
         `,
         returnByValue: true,
