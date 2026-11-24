@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth";
 import { isUserActivePlus } from "@/lib/membership";
+import { getPrivateCloudNote } from "@/lib/cloudStorage";
 import fs from "fs";
 import path from "path";
 
@@ -67,21 +68,18 @@ const ALLOWED_NOTE_PDFS: Record<string, string> = {
 
   // Section 8: Version Control
   "Git_and_GitHub.pdf": "Git_and_GitHub/Git_and_GitHub.pdf",
+
+  // System Design
+  "System_Design.pdf": "System_Design/System_Design.pdf",
 };
 
-function resolvePrivatePdfFile(requestedFile: string): string | null {
-  const safeBaseName = path.basename(requestedFile).trim();
-
-  // 1. Strict Allowlist Verification: File must be registered in ALLOWED_NOTE_PDFS
-  const registeredRelPath = ALLOWED_NOTE_PDFS[safeBaseName];
-  if (!registeredRelPath) {
-    return null;
-  }
-
-  // 2. Private Storage Vault Roots (strictly outside public directory)
+/**
+ * Resolves local file fallback when running locally or during transition
+ */
+function resolveLocalPdfFile(safeBaseName: string, registeredRelPath: string): string | null {
   const privateVaultRoots = [
-    path.resolve(process.cwd(), "BEENEXT_DSA_NOTES"),
     path.resolve(process.cwd(), "protected_notes"),
+    path.resolve(process.cwd(), "BEENEXT_DSA_NOTES"),
   ];
 
   for (const vaultRoot of privateVaultRoots) {
@@ -168,33 +166,100 @@ export async function GET(req: Request) {
       );
     }
 
-    // 5. Secure File Resolution via Strict Allowlist & Private Storage
-    const resolvedPath = resolvePrivatePdfFile(requestedFile);
+    const safeBaseName = path.basename(requestedFile).trim();
 
-    if (!resolvedPath || !fs.existsSync(resolvedPath)) {
+    // 5. Strict Allowlist Verification: File must be registered in ALLOWED_NOTE_PDFS
+    const registeredRelPath = ALLOWED_NOTE_PDFS[safeBaseName];
+    if (!registeredRelPath) {
       return NextResponse.json(
-        { error: "Note document is currently being prepared." },
+        { error: "Requested note is not authorized or available." },
         { status: 404 }
       );
     }
 
-    // 6. Read and Stream PDF Binary with Secure Headers
-    const fileBuffer = fs.readFileSync(resolvedPath);
-    const fileName = path.basename(resolvedPath);
+    // Check for HTTP Range header
+    const rangeHeader = req.headers.get("range");
 
-    return new Response(fileBuffer, {
-      status: 200,
-      headers: {
-        "Content-Type": "application/pdf",
-        "Content-Disposition": `inline; filename="${fileName}"`,
-        "Cache-Control": "private, no-cache, no-store, must-revalidate",
-        Pragma: "no-cache",
-        Expires: "0",
-        "X-Content-Type-Options": "nosniff",
-        "X-Frame-Options": "SAMEORIGIN",
-        "Content-Security-Policy": "default-src 'self'",
-      },
-    });
+    // Common security response headers
+    const commonHeaders: Record<string, string> = {
+      "Content-Type": "application/pdf",
+      "Content-Disposition": `inline; filename="${safeBaseName}"`,
+      "Cache-Control": "private, no-cache, no-store, must-revalidate",
+      Pragma: "no-cache",
+      Expires: "0",
+      "X-Content-Type-Options": "nosniff",
+      "X-Frame-Options": "SAMEORIGIN",
+      "Content-Security-Policy": "default-src 'self'",
+      "Accept-Ranges": "bytes",
+    };
+
+    // 6. Primary Storage: Secure Private Cloud Storage (Cloudflare R2 / AWS S3)
+    const cloudNote = await getPrivateCloudNote(registeredRelPath, rangeHeader);
+    if (cloudNote) {
+      const responseHeaders = { ...commonHeaders };
+      if (cloudNote.contentLength !== undefined) {
+        responseHeaders["Content-Length"] = String(cloudNote.contentLength);
+      }
+      if (cloudNote.contentRange) {
+        responseHeaders["Content-Range"] = cloudNote.contentRange;
+      }
+
+      return new Response(cloudNote.stream as any, {
+        status: cloudNote.statusCode,
+        headers: responseHeaders,
+      });
+    }
+
+    // 7. Secondary / Development Fallback: Local Private Filesystem
+    const localFilePath = resolveLocalPdfFile(safeBaseName, registeredRelPath);
+    if (localFilePath && fs.existsSync(localFilePath)) {
+      const stat = fs.statSync(localFilePath);
+      const totalSize = stat.size;
+
+      // Support Range request for local file streaming
+      if (rangeHeader && rangeHeader.startsWith("bytes=")) {
+        const parts = rangeHeader.replace(/bytes=/, "").split("-");
+        const start = parseInt(parts[0], 10);
+        const end = parts[1] ? parseInt(parts[1], 10) : totalSize - 1;
+
+        if (!isNaN(start) && start < totalSize) {
+          const finalEnd = Math.min(end, totalSize - 1);
+          const chunkSize = finalEnd - start + 1;
+          const chunkBuffer = Buffer.alloc(chunkSize);
+          const fd = fs.openSync(localFilePath, "r");
+          try {
+            fs.readSync(fd, chunkBuffer, 0, chunkSize, start);
+          } finally {
+            fs.closeSync(fd);
+          }
+
+          return new Response(chunkBuffer, {
+            status: 206,
+            headers: {
+              ...commonHeaders,
+              "Content-Range": `bytes ${start}-${finalEnd}/${totalSize}`,
+              "Content-Length": String(chunkSize),
+            },
+          });
+        }
+      }
+
+      // Full file response
+      const fileBuffer = fs.readFileSync(localFilePath);
+      return new Response(fileBuffer, {
+        status: 200,
+        headers: {
+          ...commonHeaders,
+          "Content-Length": String(totalSize),
+        },
+      });
+    }
+
+    // 8. File Not Found in either Cloud or Local Storage
+    return NextResponse.json(
+      { error: "Note document is currently being prepared." },
+      { status: 404 }
+    );
   } catch (error) {
     console.error("Notes stream error:", error);
     return NextResponse.json(
