@@ -242,11 +242,11 @@ export default function ProtectedPdfViewer({
 
   // 5. Zoom & Fit Handlers
   const handleZoomIn = () => {
-    setScale((prev) => Math.min(prev + 0.2, 2.5));
+    setScale((prev) => Math.min(Math.round((prev + 0.05) * 100) / 100, 2.5));
   };
 
   const handleZoomOut = () => {
-    setScale((prev) => Math.max(prev - 0.2, 0.6));
+    setScale((prev) => Math.max(Math.round((prev - 0.05) * 100) / 100, 0.6));
   };
 
   const handleFitWidth = () => {
