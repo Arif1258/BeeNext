@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { verifyToken } from "@/lib/auth";
 import prisma from "@/lib/prisma";
-import { isUserActivePlus } from "@/lib/membership";
+import { isUserActivePlus, determineUserCurrentPlan } from "@/lib/membership";
 
 export const dynamic = "force-dynamic";
 
@@ -35,6 +35,12 @@ export async function GET() {
         membershipPlan: true,
         membershipStartedAt: true,
         membershipExpiresAt: true,
+        membershipOrders: {
+          where: { status: "COMPLETED" },
+          orderBy: { createdAt: "desc" },
+          take: 1,
+          select: { plan: true },
+        },
         createdAt: true,
         purchases: {
           where: { status: "COMPLETED" },
@@ -85,8 +91,25 @@ export async function GET() {
       },
     });
 
+    const effectivePlan = user?.membershipPlan || user?.membershipOrders?.[0]?.plan || null;
     const isActivePlus = isUserActivePlus(user);
-    return NextResponse.json({ user: user ? { ...user, isActivePlus } : null });
+    const currentPlan = user
+      ? determineUserCurrentPlan({
+          ...user,
+          membershipPlan: effectivePlan,
+        })
+      : null;
+
+    return NextResponse.json({
+      user: user
+        ? {
+            ...user,
+            membershipPlan: effectivePlan,
+            isActivePlus,
+            currentPlan,
+          }
+        : null,
+    });
   } catch (err) {
     console.error("Auth me error:", err);
     return NextResponse.json({ user: null });

@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
-import { MEMBERSHIP_PLANS, PlanType } from "@/lib/membership";
+import { MEMBERSHIP_PLANS, PlanType, CurrentMembershipPlan, determineUserCurrentPlan } from "@/lib/membership";
 import {
   Check,
   X,
@@ -27,11 +27,20 @@ const NORMAL_ACCOUNT_FEATURES = [
   "Personal Progress Tracking & Problem Status",
 ];
 
-export default function MembershipClient() {
+interface MembershipClientProps {
+  initialCurrentPlan?: CurrentMembershipPlan | null;
+}
+
+export default function MembershipClient({ initialCurrentPlan = null }: MembershipClientProps) {
   const router = useRouter();
-  const { user, isPlusMember, refreshUser } = useAuth();
+  const { user, loading: authLoading, isPlusMember, refreshUser } = useAuth();
   const [selectedPlan, setSelectedPlan] = useState<PlanType>("YEARLY");
   const [loading, setLoading] = useState(false);
+
+  // Determine current plan using server-side prop or live auth user
+  const currentPlan: CurrentMembershipPlan | null = authLoading
+    ? (initialCurrentPlan ?? (user ? determineUserCurrentPlan(user) : null))
+    : (user ? (user.currentPlan ?? determineUserCurrentPlan(user)) : null);
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [showSimModal, setShowSimModal] = useState(false);
@@ -286,7 +295,15 @@ export default function MembershipClient() {
           <div className="rounded-2xl border-2 border-yellow-500 bg-brand-card p-6 sm:p-8 transition-all">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4">
               <div>
-                <h3 className="text-xl font-bold text-white">Normal Account</h3>
+                <div className="flex items-center gap-2.5 flex-wrap">
+                  <h3 className="text-xl font-bold text-white">Normal Account</h3>
+                  {currentPlan === "NORMAL" && (
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold tracking-wider uppercase bg-yellow-400 text-black shadow-sm">
+                      <Check className="h-3.5 w-3.5 stroke-[3]" />
+                      CURRENT PLAN
+                    </span>
+                  )}
+                </div>
                 <p className="text-xs text-neutral-400 font-mono">Standard Free Access</p>
               </div>
               <div className="flex items-baseline gap-1">
@@ -319,7 +336,15 @@ export default function MembershipClient() {
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <h3 className="text-xl font-bold text-white">Monthly Plan</h3>
+                    <div className="flex items-center gap-2.5 flex-wrap">
+                      <h3 className="text-xl font-bold text-white">Monthly Plan</h3>
+                      {currentPlan === "MONTHLY" && (
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold tracking-wider uppercase bg-green-500 text-neutral-950 shadow-sm">
+                          <Check className="h-3.5 w-3.5 stroke-[3]" />
+                          CURRENT PLAN
+                        </span>
+                      )}
+                    </div>
                     <p className="text-xs text-neutral-400 font-mono">30 Days Full Access</p>
                   </div>
                   <div className="h-5 w-5 rounded-full border border-neutral-600 flex items-center justify-center">
@@ -359,7 +384,13 @@ export default function MembershipClient() {
                     <span>Processing...</span>
                   ) : (
                     <>
-                      <span>{isPlusMember ? "Extend for ₹79" : "Get Monthly Access"}</span>
+                      <span>
+                        {isPlusMember
+                          ? currentPlan === "MONTHLY"
+                            ? "Extend for ₹79"
+                            : "Switch to Monthly (₹79)"
+                          : "Get Monthly Access"}
+                      </span>
                       <ArrowRight className="h-4 w-4 text-brand-red" />
                     </>
                   )}
@@ -383,9 +414,15 @@ export default function MembershipClient() {
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 flex-wrap pr-16 sm:pr-0">
                       <h3 className="text-xl font-bold text-white">Yearly Plan</h3>
-                      <Sparkles className="h-4 w-4 text-brand-red" />
+                      <Sparkles className="h-4 w-4 text-brand-red shrink-0" />
+                      {currentPlan === "YEARLY" && (
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold tracking-wider uppercase bg-green-500 text-neutral-950 shadow-sm">
+                          <Check className="h-3.5 w-3.5 stroke-[3]" />
+                          CURRENT PLAN
+                        </span>
+                      )}
                     </div>
                     <p className="text-xs text-neutral-400 font-mono">365 Days Full Access</p>
                   </div>
@@ -429,7 +466,13 @@ export default function MembershipClient() {
                     <span>Processing...</span>
                   ) : (
                     <>
-                      <span>{isPlusMember ? "Extend for ₹599 (Yearly)" : "Upgrade to Plus Yearly"}</span>
+                      <span>
+                        {isPlusMember
+                          ? currentPlan === "YEARLY"
+                            ? "Extend for ₹599 (Yearly)"
+                            : "Upgrade to Plus Yearly"
+                          : "Upgrade to Plus Yearly"}
+                      </span>
                       <ArrowRight className="h-4 w-4" />
                     </>
                   )}

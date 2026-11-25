@@ -28,6 +28,7 @@ export interface User {
   membershipStartedAt?: string | null;
   membershipExpiresAt?: string | null;
   isActivePlus?: boolean;
+  currentPlan?: "NORMAL" | "MONTHLY" | "YEARLY" | null;
   printedOrders?: Array<{
     id: string;
     orderNumber: string;

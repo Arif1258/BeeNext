@@ -32,6 +32,7 @@ export const MEMBERSHIP_PLANS = {
 } as const;
 
 export type PlanType = keyof typeof MEMBERSHIP_PLANS;
+export type CurrentMembershipPlan = "NORMAL" | "MONTHLY" | "YEARLY";
 
 export function isUserActivePlus(
   user:
@@ -45,6 +46,42 @@ export function isUserActivePlus(
   if (!user || user.membershipType !== "PLUS") return false;
   if (!user.membershipExpiresAt) return true;
   return new Date(user.membershipExpiresAt).getTime() > Date.now();
+}
+
+/**
+ * Determine the user's active membership plan:
+ * - Returns null for logged-out users.
+ * - Returns "NORMAL" if user has NORMAL membership or if a PLUS membership has expired.
+ * - Returns "MONTHLY" if user has an active Monthly Plus membership.
+ * - Returns "YEARLY" if user has an active Yearly Plus membership.
+ */
+export function determineUserCurrentPlan(
+  user:
+    | {
+        role?: string | null;
+        membershipType?: string | null;
+        membershipPlan?: string | null;
+        membershipExpiresAt?: Date | string | null;
+      }
+    | null
+    | undefined
+): CurrentMembershipPlan | null {
+  if (!user) return null;
+
+  const isActive = isUserActivePlus(user);
+  if (!isActive) {
+    return "NORMAL";
+  }
+
+  if (user.membershipPlan === "MONTHLY") {
+    return "MONTHLY";
+  }
+  if (user.membershipPlan === "YEARLY") {
+    return "YEARLY";
+  }
+
+  // Fallback for active PLUS without an explicit plan set
+  return "YEARLY";
 }
 
 export function calculateNewExpiry(
