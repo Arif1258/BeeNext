@@ -10,30 +10,30 @@ export const dynamic = "force-dynamic";
 
 // Strict allowlist mapping of all authorized BeeNext PDF notes to relative vault paths
 const ALLOWED_NOTE_PDFS: Record<string, string> = {
-  // Section 1: DSA Topic Notes
+  // Section 1: DSA Topic Notes (20 folders mapped to the primary DSA Notes document)
   "Sorting_Algorithms.pdf": "Sorting_Algorithms.pdf",
   "sorting-mastery.pdf": "Sorting_Algorithms.pdf",
-  "Beginner_Problems.pdf": "Beginner_Problems.pdf",
-  "Arrays.pdf": "Arrays.pdf",
-  "strivers-a2z-dsa-notes.pdf": "Arrays.pdf",
-  "Hashing.pdf": "Hashing.pdf",
-  "Binary_Search.pdf": "Binary_Search.pdf",
-  "Strings_Basic_and_Medium.pdf": "Strings_Basic_and_Medium.pdf",
-  "Recursion.pdf": "Recursion.pdf",
-  "Linked_List.pdf": "Linked_List.pdf",
-  "Bit_Manipulation.pdf": "Bit_Manipulation.pdf",
-  "Greedy_Algorithms.pdf": "Greedy_Algorithms.pdf",
-  "Sliding_Window_Two_Pointer.pdf": "Sliding_Window_Two_Pointer.pdf",
-  "Stack_and_Queues.pdf": "Stack_and_Queues.pdf",
-  "Binary_Trees.pdf": "Binary_Trees.pdf",
-  "Binary_Search_Trees.pdf": "Binary_Search_Trees.pdf",
-  "Heaps.pdf": "Heaps.pdf",
-  "Graphs.pdf": "Graphs.pdf",
-  "Dynamic_Programming.pdf": "Dynamic_Programming.pdf",
-  "dp-mastery.pdf": "Dynamic_Programming.pdf",
-  "Tries.pdf": "Tries.pdf",
-  "Strings_Advanced_Algorithms.pdf": "Strings_Advanced_Algorithms.pdf",
-  "Maths.pdf": "Maths.pdf",
+  "Beginner_Problems.pdf": "Sorting_Algorithms.pdf",
+  "Arrays.pdf": "Sorting_Algorithms.pdf",
+  "strivers-a2z-dsa-notes.pdf": "Sorting_Algorithms.pdf",
+  "Hashing.pdf": "Sorting_Algorithms.pdf",
+  "Binary_Search.pdf": "Sorting_Algorithms.pdf",
+  "Strings_Basic_and_Medium.pdf": "Sorting_Algorithms.pdf",
+  "Recursion.pdf": "Sorting_Algorithms.pdf",
+  "Linked_List.pdf": "Sorting_Algorithms.pdf",
+  "Bit_Manipulation.pdf": "Sorting_Algorithms.pdf",
+  "Greedy_Algorithms.pdf": "Sorting_Algorithms.pdf",
+  "Sliding_Window_Two_Pointer.pdf": "Sorting_Algorithms.pdf",
+  "Stack_and_Queues.pdf": "Sorting_Algorithms.pdf",
+  "Binary_Trees.pdf": "Sorting_Algorithms.pdf",
+  "Binary_Search_Trees.pdf": "Sorting_Algorithms.pdf",
+  "Heaps.pdf": "Sorting_Algorithms.pdf",
+  "Graphs.pdf": "Sorting_Algorithms.pdf",
+  "Dynamic_Programming.pdf": "Sorting_Algorithms.pdf",
+  "dp-mastery.pdf": "Sorting_Algorithms.pdf",
+  "Tries.pdf": "Sorting_Algorithms.pdf",
+  "Strings_Advanced_Algorithms.pdf": "Sorting_Algorithms.pdf",
+  "Maths.pdf": "Sorting_Algorithms.pdf",
 
   // Section 2: CS Fundamentals
   "DBMS.pdf": "DBMS/DBMS.pdf",
@@ -44,6 +44,7 @@ const ALLOWED_NOTE_PDFS: Record<string, string> = {
   // Section 3: Programming Languages
   "C_Programming.pdf": "C_Programming/C_Programming.pdf",
   "C++_Programming.pdf": "C++_Programming/C++_Programming.pdf",
+  "C  _Programming.pdf": "C++_Programming/C++_Programming.pdf",
   "Java_Programming.pdf": "Java_Programming/Java_Programming.pdf",
   "Python_Programming.pdf": "Python_Programming/Python_Programming.pdf",
 
@@ -166,7 +167,11 @@ export async function GET(req: Request) {
       );
     }
 
-    const safeBaseName = path.basename(requestedFile).trim();
+    let safeBaseName = path.basename(requestedFile).trim();
+    // Normalize C++ if URL query string converted '+' to spaces
+    if (!ALLOWED_NOTE_PDFS[safeBaseName] && safeBaseName.replace(/\s+/g, "++") in ALLOWED_NOTE_PDFS) {
+      safeBaseName = safeBaseName.replace(/\s+/g, "++");
+    }
 
     // 5. Strict Allowlist Verification: File must be registered in ALLOWED_NOTE_PDFS
     const registeredRelPath = ALLOWED_NOTE_PDFS[safeBaseName];

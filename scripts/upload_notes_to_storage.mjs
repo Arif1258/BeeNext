@@ -4,7 +4,6 @@ import {
   S3Client,
   PutObjectCommand,
   HeadObjectCommand,
-  ListObjectsV2Command,
 } from "@aws-sdk/client-s3";
 
 // Load .env and .env.local
@@ -58,77 +57,70 @@ const REGION = env.AWS_REGION?.trim() || env.S3_REGION?.trim() || "auto";
 console.log("=================================================");
 console.log("   BeeNext Protected Notes Cloud Storage Uploader");
 console.log("=================================================");
-console.log(`Endpoint:    ${S3_ENDPOINT || "AWS default"}`);
-console.log(`Bucket Name: ${BUCKET_NAME}`);
-console.log(`Region:      ${REGION}`);
-console.log(`Access Key:  ${ACCESS_KEY_ID ? ACCESS_KEY_ID.substring(0, 6) + "..." : "NOT SET"}`);
+console.log(`Bucket Name:       ${BUCKET_NAME}`);
+console.log(`Region:            ${REGION}`);
+console.log(`Endpoint Status:   ${S3_ENDPOINT ? "[CONFIGURED]" : "[NOT SET]"}`);
+console.log(`Access Key Status: ${ACCESS_KEY_ID ? "[CONFIGURED]" : "[NOT SET]"}`);
+console.log(`Secret Key Status: ${SECRET_ACCESS_KEY ? "[CONFIGURED]" : "[NOT SET]"}`);
 console.log("-------------------------------------------------");
 
-if (!ACCESS_KEY_ID || !SECRET_ACCESS_KEY || (!S3_ENDPOINT && !env.AWS_REGION)) {
-  console.error("❌ ERROR: Cloud storage credentials are missing or incomplete.");
-  console.error("\nPlease set the following in .env or provide via environment:");
-  console.error("For Cloudflare R2 (Recommended, 100% Free 10GB tier, Zero Egress Fees):");
-  console.error("  R2_ACCOUNT_ID=your_cloudflare_account_id");
-  console.error("  R2_ACCESS_KEY_ID=your_r2_access_key_id");
-  console.error("  R2_SECRET_ACCESS_KEY=your_r2_secret_access_key");
-  console.error("  R2_BUCKET_NAME=beenext-notes (or your chosen bucket name)");
-  console.error("\nFor AWS S3:");
-  console.error("  AWS_ACCESS_KEY_ID=your_aws_access_key");
-  console.error("  AWS_SECRET_ACCESS_KEY=your_aws_secret_key");
-  console.error("  AWS_REGION=your_aws_region (e.g. us-east-1)");
-  console.error("  AWS_S3_BUCKET_NAME=your_s3_bucket_name");
+if (!ACCESS_KEY_ID || !SECRET_ACCESS_KEY || !S3_ENDPOINT) {
+  console.error("❌ ERROR: Cloud storage credentials are missing or incomplete in .env.");
+  console.error("Required variables:");
+  console.error("  R2_ACCOUNT_ID");
+  console.error("  R2_ACCESS_KEY_ID");
+  console.error("  R2_SECRET_ACCESS_KEY");
+  console.error("  R2_BUCKET_NAME (default: beenext-notes)");
   process.exit(1);
 }
 
 const s3 = new S3Client({
   region: REGION,
-  endpoint: S3_ENDPOINT || undefined,
+  endpoint: S3_ENDPOINT,
   credentials: {
     accessKeyId: ACCESS_KEY_ID,
     secretAccessKey: SECRET_ACCESS_KEY,
   },
-  forcePathStyle: Boolean(S3_ENDPOINT),
+  forcePathStyle: true,
 });
 
-// All 21 mapped notes and their relative storage keys
-const MAPPED_NOTES = [
-  // Section 1: DSA
+// Exactly the 21 unique PDF notes required by the BeeNext Notes page
+export const MAPPED_21_NOTES = [
+  // 1. Section 1: DSA Topics Note
   { key: "Sorting_Algorithms.pdf", path: "Sorting_Algorithms.pdf" },
-  { key: "Arrays.pdf", path: "Arrays.pdf" },
-  { key: "Dynamic_Programming.pdf", path: "Dynamic_Programming.pdf" },
 
-  // Section 2: CS Fundamentals
+  // Section 2: CS Fundamentals (4 notes)
   { key: "DBMS/DBMS.pdf", path: "DBMS/DBMS.pdf" },
   { key: "Operating_Systems/Operating_Systems.pdf", path: "Operating_Systems/Operating_Systems.pdf" },
   { key: "Computer_Networks/Computer_Networks.pdf", path: "Computer_Networks/Computer_Networks.pdf" },
   { key: "OOPS/OOPS.pdf", path: "OOPS/OOPS.pdf" },
 
-  // Section 3: Programming Languages
+  // Section 3: Programming Languages (4 notes)
   { key: "C_Programming/C_Programming.pdf", path: "C_Programming/C_Programming.pdf" },
   { key: "C++_Programming/C++_Programming.pdf", path: "C++_Programming/C++_Programming.pdf" },
   { key: "Java_Programming/Java_Programming.pdf", path: "Java_Programming/Java_Programming.pdf" },
   { key: "Python_Programming/Python_Programming.pdf", path: "Python_Programming/Python_Programming.pdf" },
 
-  // Section 4: Frontend Development
+  // Section 4: Frontend Development (4 notes)
   { key: "HTML/HTML.pdf", path: "HTML/HTML.pdf" },
   { key: "CSS/CSS.pdf", path: "CSS/CSS.pdf" },
   { key: "JavaScript/JavaScript.pdf", path: "JavaScript/JavaScript.pdf" },
   { key: "React/React.pdf", path: "React/React.pdf" },
 
-  // Section 5: Backend Development
+  // Section 5: Backend Development (3 notes)
   { key: "Node_js/Node_js.pdf", path: "Node_js/Node_js.pdf" },
   { key: "Express_js/Express_js.pdf", path: "Express_js/Express_js.pdf" },
   { key: "Spring_Boot/Spring_Boot.pdf", path: "Spring_Boot/Spring_Boot.pdf" },
 
-  // Section 6: Database
+  // Section 6: Database (2 notes)
   { key: "MySQL/MySQL.pdf", path: "MySQL/MySQL.pdf" },
   { key: "MongoDB/MongoDB.pdf", path: "MongoDB/MongoDB.pdf" },
 
-  // Section 7: DevOps
+  // Section 7: DevOps (2 notes)
   { key: "Docker/Docker.pdf", path: "Docker/Docker.pdf" },
   { key: "Kubernetes/Kubernetes.pdf", path: "Kubernetes/Kubernetes.pdf" },
 
-  // Section 8: Version Control
+  // Section 8: Version Control (1 note)
   { key: "Git_and_GitHub/Git_and_GitHub.pdf", path: "Git_and_GitHub/Git_and_GitHub.pdf" },
 ];
 
@@ -139,25 +131,28 @@ async function main() {
     process.exit(1);
   }
 
-  console.log(`\nScanning ${vaultRoot} for notes...`);
+  console.log(`Starting upload of exactly ${MAPPED_21_NOTES.length} required PDF notes to R2 bucket "${BUCKET_NAME}"...\n`);
 
   let uploadedCount = 0;
+  let verifiedCount = 0;
   let totalBytes = 0;
 
-  for (const item of MAPPED_NOTES) {
+  for (let i = 0; i < MAPPED_21_NOTES.length; i++) {
+    const item = MAPPED_21_NOTES[i];
     const fullPath = path.resolve(vaultRoot, item.path);
+
     if (!fs.existsSync(fullPath)) {
-      console.warn(`⚠️ Warning: Local file not found: ${fullPath}`);
+      console.error(`❌ [${i + 1}/${MAPPED_21_NOTES.length}] MISSING local file: ${fullPath}`);
       continue;
     }
 
     const fileBuffer = fs.readFileSync(fullPath);
     const sizeMb = (fileBuffer.length / (1024 * 1024)).toFixed(2);
 
-    process.stdout.write(`Uploading ${item.key} (${sizeMb} MB)... `);
+    process.stdout.write(`[${i + 1}/${MAPPED_21_NOTES.length}] Uploading ${item.key} (${sizeMb} MB)... `);
 
     try {
-      // 1. Upload with hierarchical key (e.g. DBMS/DBMS.pdf)
+      // Upload hierarchical key (e.g. DBMS/DBMS.pdf)
       await s3.send(
         new PutObjectCommand({
           Bucket: BUCKET_NAME,
@@ -167,7 +162,7 @@ async function main() {
         })
       );
 
-      // 2. Also upload with flat key (e.g. DBMS.pdf) for direct filename lookup resilience
+      // If key is hierarchical, also upload flat basename (e.g. DBMS.pdf) for direct filename fallback
       const flatKey = path.basename(item.path);
       if (flatKey !== item.key) {
         await s3.send(
@@ -180,27 +175,42 @@ async function main() {
         );
       }
 
-      // Verify
-      await s3.send(
+      uploadedCount++;
+      totalBytes += fileBuffer.length;
+
+      // Verify object exists in bucket using HeadObject
+      const headRes = await s3.send(
         new HeadObjectCommand({
           Bucket: BUCKET_NAME,
           Key: item.key,
         })
       );
 
-      console.log(`✅ OK`);
-      uploadedCount++;
-      totalBytes += fileBuffer.length;
+      if (headRes.ContentLength === fileBuffer.length) {
+        console.log(`✅ Verified (${headRes.ContentLength} bytes)`);
+        verifiedCount++;
+      } else {
+        console.log(`⚠️ Size mismatch on verification: expected ${fileBuffer.length}, got ${headRes.ContentLength}`);
+      }
     } catch (err) {
       console.log(`❌ FAILED: ${err.message}`);
     }
   }
 
+  console.log("\n-------------------------------------------------");
+  console.log(`🎉 Summary:`);
+  console.log(`   Total Notes Mapped:   ${MAPPED_21_NOTES.length}`);
+  console.log(`   Successfully Uploaded: ${uploadedCount}`);
+  console.log(`   HeadObject Verified:   ${verifiedCount}`);
+  console.log(`   Total Data Uploaded:   ${(totalBytes / 1024 / 1024).toFixed(2)} MB`);
   console.log("-------------------------------------------------");
-  console.log(`🎉 Finished! Successfully uploaded ${uploadedCount} notes (${(totalBytes / 1024 / 1024).toFixed(2)} MB) to bucket "${BUCKET_NAME}".`);
+
+  if (verifiedCount !== MAPPED_21_NOTES.length) {
+    process.exit(1);
+  }
 }
 
 main().catch((err) => {
-  console.error("Upload script failed:", err);
+  console.error("Upload process encountered an error:", err.message);
   process.exit(1);
 });
