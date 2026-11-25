@@ -206,7 +206,7 @@ export default function NotesClient() {
     <div className="min-h-screen bg-brand-black text-white py-10 px-4 sm:px-6 lg:px-8 selection:bg-brand-red selection:text-white">
       <div className="mx-auto max-w-7xl space-y-8 sm:space-y-10">
         {/* Top Security & Copyright Warning Banner */}
-        <div className="rounded-xl border border-emerald-600/30 bg-emerald-950/80 px-4 py-2.5 text-center text-xs sm:text-sm font-medium text-emerald-400 shadow-sm">
+        <div className="rounded-xl border border-yellow-600/30 bg-yellow-950/80 px-4 py-2.5 text-center text-xs sm:text-sm font-medium text-yellow-400 shadow-sm">
           <p className="leading-relaxed md:whitespace-nowrap">
             ⚠ Copying, downloading, or taking screenshots of any notes may result in account suspension and permanent access restriction from BeeNext.
           </p>
