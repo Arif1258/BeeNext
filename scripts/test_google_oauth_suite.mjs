@@ -30,10 +30,17 @@ async function runTestSuite() {
 
   // 1. Test Callback URL Generation
   console.log("--- 1. OAuth Callback URL Resolution ---");
+  const origNodeEnv = process.env.NODE_ENV;
+  const origAppUrl = process.env.NEXT_PUBLIC_APP_URL;
+
+  // Local development behavior
+  process.env.NODE_ENV = "development";
+  process.env.NEXT_PUBLIC_APP_URL = "http://localhost:3000";
+
   const localCallback = getGoogleOAuthCallbackUrl();
   assert(
-    localCallback.endsWith("/api/auth/google/callback"),
-    `Callback URL has correct route: ${localCallback}`
+    localCallback === "http://localhost:3000/api/auth/google/callback",
+    `Local callback URL matches localhost: ${localCallback}`
   );
 
   const mockReqLocal = new Request("http://localhost:3000/api/auth/google", {
@@ -42,21 +49,54 @@ async function runTestSuite() {
   const reqCallback = getGoogleOAuthCallbackUrl(mockReqLocal);
   assert(
     reqCallback === "http://localhost:3000/api/auth/google/callback",
-    `Dynamic request callback matches host: ${reqCallback}`
+    `Dynamic request callback matches host in development: ${reqCallback}`
   );
 
-  const mockReqProd = new Request("https://beenext.in/api/auth/google", {
+  // Production behavior: strictly canonical URL, never derived from incoming headers
+  process.env.NODE_ENV = "production";
+  process.env.NEXT_PUBLIC_APP_URL = "https://beenext-seven.vercel.app";
+
+  const mockReqRunsOnDev = new Request("https://beenext.runs-on.dev/api/auth/google", {
     headers: {
-      host: "beenext.in",
+      host: "beenext.runs-on.dev",
       "x-forwarded-proto": "https",
-      "x-forwarded-host": "beenext.in",
+      "x-forwarded-host": "beenext.runs-on.dev",
     },
   });
-  const prodCallback = getGoogleOAuthCallbackUrl(mockReqProd);
+  const prodRunsOnDevCallback = getGoogleOAuthCallbackUrl(mockReqRunsOnDev);
   assert(
-    prodCallback === "https://beenext.in/api/auth/google/callback",
-    `Production request callback matches forwarded headers: ${prodCallback}`
+    prodRunsOnDevCallback === "https://beenext-seven.vercel.app/api/auth/google/callback",
+    `Production callback strictly uses canonical NEXT_PUBLIC_APP_URL ignoring runs-on.dev alias: ${prodRunsOnDevCallback}`
   );
+
+  const mockReqPreview = new Request("https://beenext-git-main-arif1258s-projects.vercel.app/api/auth/google", {
+    headers: {
+      host: "beenext-git-main-arif1258s-projects.vercel.app",
+      "x-forwarded-proto": "https",
+      "x-forwarded-host": "beenext-git-main-arif1258s-projects.vercel.app",
+    },
+  });
+  const prodPreviewCallback = getGoogleOAuthCallbackUrl(mockReqPreview);
+  assert(
+    prodPreviewCallback === "https://beenext-seven.vercel.app/api/auth/google/callback",
+    `Production callback strictly uses canonical NEXT_PUBLIC_APP_URL ignoring Vercel preview host: ${prodPreviewCallback}`
+  );
+
+  // Production fallback if NEXT_PUBLIC_APP_URL is empty
+  delete process.env.NEXT_PUBLIC_APP_URL;
+  const prodFallbackCallback = getGoogleOAuthCallbackUrl(mockReqRunsOnDev);
+  assert(
+    prodFallbackCallback === "https://beenext-seven.vercel.app/api/auth/google/callback",
+    `Production callback safely defaults to https://beenext-seven.vercel.app/api/auth/google/callback when env var empty: ${prodFallbackCallback}`
+  );
+
+  // Restore env
+  process.env.NODE_ENV = origNodeEnv;
+  if (origAppUrl !== undefined) {
+    process.env.NEXT_PUBLIC_APP_URL = origAppUrl;
+  } else {
+    delete process.env.NEXT_PUBLIC_APP_URL;
+  }
 
   // 2. Test CSRF State Generation and Verification
   console.log("\n--- 2. CSRF State Security & Validation ---");

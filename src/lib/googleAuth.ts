@@ -25,7 +25,21 @@ export function isGoogleAuthConfigured(): boolean {
 }
 
 export function getGoogleOAuthCallbackUrl(req?: Request): string {
-  // 1. Try resolving base URL dynamically from incoming request headers
+  const isProduction = process.env.NODE_ENV === "production";
+
+  if (isProduction) {
+    // In production, always use NEXT_PUBLIC_APP_URL as the canonical application base URL.
+    // Never derive from incoming request host, x-forwarded-host, or preview domains.
+    const rawAppUrl = process.env.NEXT_PUBLIC_APP_URL?.trim();
+    const baseAppUrl =
+      rawAppUrl && !rawAppUrl.includes("localhost") && !rawAppUrl.includes("127.0.0.1")
+        ? rawAppUrl
+        : "https://beenext-seven.vercel.app";
+    const cleanBase = baseAppUrl.replace(/\/+$/, "");
+    return `${cleanBase}/api/auth/google/callback`;
+  }
+
+  // Local development: preserve localhost callback behavior
   if (req) {
     const host = req.headers.get("x-forwarded-host") || req.headers.get("host");
     if (host) {
@@ -35,9 +49,9 @@ export function getGoogleOAuthCallbackUrl(req?: Request): string {
     }
   }
 
-  // 2. Fall back to NEXT_PUBLIC_APP_URL or localhost default
   const baseAppUrl = process.env.NEXT_PUBLIC_APP_URL?.trim() || "http://localhost:3000";
-  return `${baseAppUrl.replace(/\/+$/, "")}/api/auth/google/callback`;
+  const cleanBase = baseAppUrl.replace(/\/+$/, "");
+  return `${cleanBase}/api/auth/google/callback`;
 }
 
 export function generateGoogleOAuthUrl(state: string, req?: Request): string {
