@@ -80,6 +80,7 @@ model User {
   passwordHash String
   role         Role           @default(USER)
   avatar       String?
+  googleId     String?        @unique
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
 
