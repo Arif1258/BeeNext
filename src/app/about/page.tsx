@@ -50,7 +50,7 @@ export default function AboutPage() {
         <div className="space-y-4 text-center sm:text-left border-b border-brand-border/80 pb-8 sm:pb-10">
 
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white leading-tight">
-            About <span className="text-brand-red">BeeNext</span>
+            <span className="text-brand-red">BEENEXT</span>
           </h1>
           <p className="text-neutral-400 text-sm sm:text-base max-w-2xl leading-relaxed">
             Engineered to bridge the gap between algorithmic theory and real technical hiring rigor. Master 495 curated problems with clean code solutions, structured notes, and live execution.
@@ -67,7 +67,7 @@ export default function AboutPage() {
             </div>
             <div className="flex items-center gap-3 flex-1 min-w-0">
               <h2 className="text-base sm:text-lg font-bold text-white tracking-wide uppercase font-mono">
-                About BeeNext
+                About BEENEXT
               </h2>
               <div className="h-px flex-1 bg-gradient-to-r from-neutral-800 to-transparent" />
             </div>
@@ -79,7 +79,7 @@ export default function AboutPage() {
               Master DSA &amp; Ace Technical Interviews
             </h3>
             <p className="text-neutral-300 text-sm sm:text-base leading-relaxed">
-              BeeNext is a dedicated Data Structures and Algorithms learning platform designed to help computer science students, aspiring software engineers, and working professionals build real problem-solving confidence. Our curriculum is structured around Striver&apos;s renowned A to Z DSA Sheet, stripping away unnecessary theory to focus strictly on what is evaluated in technical interviews.
+              BeeNext is a comprehensive Data Structures and Algorithms learning platform designed to empower computer science students, aspiring software engineers, and working professionals to build strong technical foundations and develop real-world problem-solving skills. Our carefully structured curriculum follows Striver&apos;s renowned A to Z DSA Sheet, providing a systematic learning journey from fundamental concepts to advanced algorithms. With curated coding problems, video explanations, an interactive coding playground, detailed solutions, premium study notes, and company-specific placement preparation, BeeNext brings essential learning resources together in one place. Our mission is to make quality technical education accessible, simplify interview preparation, and help learners confidently take the next step in their software engineering careers.
             </p>
           </div>
         </section>

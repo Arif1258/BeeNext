@@ -118,7 +118,7 @@ export default function CertificatePage() {
           spread: 80,
           origin: { y: 0.6 },
         });
-      } catch {}
+      } catch { }
       await fetchStatus();
     } catch (err: unknown) {
       setClaimError(err instanceof Error ? err.message : "Error downloading certificate.");
@@ -132,16 +132,9 @@ export default function CertificatePage() {
       <div className="mx-auto max-w-5xl space-y-8">
         {/* CERTIFICATE HEADING */}
         <header className="border-b border-neutral-800 pb-6 space-y-2.5">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-neutral-900 border border-brand-border text-xs font-mono text-neutral-300">
-            <Award className="h-3.5 w-3.5 text-brand-red" />
-            <span>Official Credential</span>
-          </div>
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight uppercase">
             BEENEXT CERTIFICATE OF ACHIEVEMENT
           </h1>
-          <p className="text-neutral-400 text-xs sm:text-sm leading-relaxed max-w-3xl">
-            Recognizing software engineers who master the comprehensive 495-problem Striver-aligned DSA curriculum with dedicated perseverance.
-          </p>
         </header>
 
         {/* Success or Error Banner */}
@@ -161,18 +154,17 @@ export default function CertificatePage() {
         <section className="space-y-3">
           <div className="flex items-center gap-2">
             <h2 className="text-sm font-mono font-bold text-neutral-300 uppercase tracking-wider">
-              Eligibility Requirements (Both Required • No Additional Fee)
+              Eligibility Requirements:
             </h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* CRITERION 1: 85% SOLVED */}
             <div
-              className={`p-5 rounded-2xl border transition-all ${
-                is85Completed
-                  ? "bg-neutral-900/90 border-emerald-500/40 shadow-sm"
-                  : "bg-neutral-900 border-neutral-800"
-              }`}
+              className={`p-5 rounded-2xl border transition-all ${is85Completed
+                ? "bg-neutral-900/90 border-emerald-500/40 shadow-sm"
+                : "bg-neutral-900 border-neutral-800"
+                }`}
             >
               <div className="flex items-center justify-between gap-2 mb-2">
                 <span className="font-mono text-xs font-bold uppercase tracking-wider text-brand-red">
@@ -204,11 +196,10 @@ export default function CertificatePage() {
 
             {/* CRITERION 2: ACTIVE PLUS MEMBERSHIP */}
             <div
-              className={`p-5 rounded-2xl border transition-all ${
-                isActivePlus
-                  ? "bg-neutral-900/90 border-emerald-500/40 shadow-sm"
-                  : "bg-neutral-900 border-neutral-800"
-              }`}
+              className={`p-5 rounded-2xl border transition-all ${isActivePlus
+                ? "bg-neutral-900/90 border-emerald-500/40 shadow-sm"
+                : "bg-neutral-900 border-neutral-800"
+                }`}
             >
               <div className="flex items-center justify-between gap-2 mb-2">
                 <span className="font-mono text-xs font-bold uppercase tracking-wider text-brand-red">

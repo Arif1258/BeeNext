@@ -182,8 +182,7 @@ export default function MembershipClient({ initialCurrentPlan = null }: Membersh
       setShowSimModal(false);
       setPendingOrderData(null);
       setSuccessMessage(
-        `🎉 Congratulations! Your BeeNext Plus ${
-          plan === "MONTHLY" ? "Monthly" : "Yearly"
+        `🎉 Congratulations! Your BeeNext Plus ${plan === "MONTHLY" ? "Monthly" : "Yearly"
         } membership is now active!`
       );
 
@@ -273,10 +272,10 @@ export default function MembershipClient({ initialCurrentPlan = null }: Membersh
         {/* Header */}
         <div className="text-center space-y-4 max-w-3xl mx-auto">
           <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white">
-            Choose Your <span className="text-brand-red">BeeNext</span> Plan
+            Choose Your <span className="text-brand-red">BEENEXT</span> Plan
           </h1>
           <p className="text-neutral-400 text-sm sm:text-base leading-relaxed">
-            Free forever for viewing problems and videos. Upgrade to <strong className="text-white">BeeNext Plus</strong> for cloud code execution, submission verdicts, complete solutions, and 5 collections of premium notes.
+            Access problems and videos for free. Upgrade to BeeNext Plus and unlock your full learning potential.
           </p>
         </div>
 
@@ -404,13 +403,11 @@ export default function MembershipClient({ initialCurrentPlan = null }: Membersh
               onClick={() => {
                 if (!isLifetimePlus) setSelectedPlan("MONTHLY");
               }}
-              className={`rounded-2xl border-2 border-green-500 bg-brand-card p-6 sm:p-8 flex flex-col justify-between ${
-                isLifetimePlus ? "cursor-default" : "cursor-pointer"
-              } transition-all ${
-                selectedPlan === "MONTHLY" && !isLifetimePlus
+              className={`rounded-2xl border-2 border-green-500 bg-brand-card p-6 sm:p-8 flex flex-col justify-between ${isLifetimePlus ? "cursor-default" : "cursor-pointer"
+                } transition-all ${selectedPlan === "MONTHLY" && !isLifetimePlus
                   ? "ring-2 ring-green-500/30 shadow-lg"
                   : "hover:border-green-400"
-              }`}
+                }`}
             >
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
@@ -491,13 +488,11 @@ export default function MembershipClient({ initialCurrentPlan = null }: Membersh
               onClick={() => {
                 if (!isLifetimePlus) setSelectedPlan("YEARLY");
               }}
-              className={`rounded-2xl border-2 border-green-500 bg-brand-card p-6 sm:p-8 flex flex-col justify-between ${
-                isLifetimePlus ? "cursor-default" : "cursor-pointer"
-              } transition-all relative overflow-hidden ${
-                selectedPlan === "YEARLY" && !isLifetimePlus
+              className={`rounded-2xl border-2 border-green-500 bg-brand-card p-6 sm:p-8 flex flex-col justify-between ${isLifetimePlus ? "cursor-default" : "cursor-pointer"
+                } transition-all relative overflow-hidden ${selectedPlan === "YEARLY" && !isLifetimePlus
                   ? "ring-2 ring-green-500/30 shadow-lg"
                   : "hover:border-green-400"
-              }`}
+                }`}
             >
               <div className="absolute top-0 right-0 bg-brand-red text-white text-[10px] font-mono font-bold uppercase tracking-wider px-3.5 py-1 rounded-bl-xl shadow">
                 Best Value • Save 37%

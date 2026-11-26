@@ -218,7 +218,7 @@ export default function NotesClient() {
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div className="space-y-1">
               <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-white">
-                BeeNext <span className="text-brand-red">Notes</span>
+                BEENEXT <span className="text-brand-red">NOTES</span>
               </h1>
             </div>
 
@@ -243,7 +243,7 @@ export default function NotesClient() {
             </div>
           </div>
           <p className="text-neutral-400 text-xs sm:text-sm max-w-3xl leading-relaxed">
-            Curated engineering notes across 8 collections. Plus members can access and view all documents.
+            Plus members can only access and view all documents.
           </p>
         </div>
 
