@@ -1,7 +1,8 @@
 import React from "react";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { getProblemWithAccess } from "@/lib/problem";
 import ProblemDetailClient from "@/components/ProblemDetailClient";
+import { isProblemConceptual } from "@/lib/problemTemplates";
 
 export const dynamic = "force-dynamic";
 
@@ -12,6 +13,10 @@ interface BruteForcePageProps {
 }
 
 export default async function BruteForcePage({ params }: BruteForcePageProps) {
+  if (isProblemConceptual(params.slug)) {
+    redirect(`/problem/${params.slug}`);
+  }
+
   const result = await getProblemWithAccess(params.slug);
 
   if (!result) {

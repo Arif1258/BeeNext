@@ -543,66 +543,47 @@ export default function CodingPlayground({
                     )}
                   </div>
 
-                  {/* Submission Notice for Protected Hidden Cases */}
-                  {result.isSubmission ? (
-                    <div className="rounded-xl border border-neutral-800 bg-neutral-900/60 p-3.5 space-y-1.5">
-                      <div className="flex items-center gap-2 text-neutral-300 font-semibold text-xs">
-                        <ShieldCheck className="h-4 w-4 text-emerald-400" />
-                        <span>Protected Test Case Evaluation</span>
-                      </div>
-                      <p className="text-neutral-400 text-[11px] font-sans leading-relaxed">
-                        Test inputs and expected outputs are hidden to verify your solution against unseen edge cases and prevent hardcoded answers.
-                      </p>
-                      {!selectedCase.passed && (
-                        <div className="pt-2 text-rose-400 font-semibold text-xs flex items-center gap-1.5">
-                          <XCircle className="h-3.5 w-3.5" />
-                          <span>Output differed from expected answer on this test case.</span>
-                        </div>
-                      )}
-                    </div>
-                  ) : (
-                    /* Sample Test Case Detailed View (Input, Expected Output, Actual Output) */
-                    <div className="space-y-2.5">
-                      {/* Input */}
-                      {selectedCase.input && (
-                        <div className="space-y-1">
-                          <span className="text-[11px] text-neutral-400 uppercase tracking-wider font-bold">
-                            Input:
-                          </span>
-                          <div className="rounded-lg bg-neutral-900 border border-neutral-800 p-2.5 text-neutral-200 whitespace-pre-wrap leading-relaxed">
-                            {selectedCase.input}
-                          </div>
-                        </div>
-                      )}
-
-                      {/* Expected Output */}
-                      {selectedCase.expectedOutput && (
-                        <div className="space-y-1">
-                          <span className="text-[11px] text-neutral-400 uppercase tracking-wider font-bold">
-                            Expected Output:
-                          </span>
-                          <div className="rounded-lg bg-neutral-900 border border-neutral-800 p-2.5 text-emerald-400 font-bold whitespace-pre-wrap leading-relaxed">
-                            {selectedCase.expectedOutput}
-                          </div>
-                        </div>
-                      )}
-
-                      {/* Actual Output */}
+                  {/* Test Case Detailed View (Input, Expected Output, Actual Output) */}
+                  <div className="space-y-2.5">
+                    {/* Input */}
+                    {selectedCase.input && (
                       <div className="space-y-1">
                         <span className="text-[11px] text-neutral-400 uppercase tracking-wider font-bold">
-                          Actual Output:
+                          Input:
                         </span>
-                        <div
-                          className={`rounded-lg border p-2.5 whitespace-pre-wrap leading-relaxed ${selectedCase.passed
-                            ? "bg-neutral-900 border-emerald-500/30 text-emerald-300"
-                            : "bg-rose-950/20 border-rose-500/40 text-rose-300"
-                            }`}
-                        >
-                          {selectedCase.actualOutput || "(no stdout)"}
+                        <div className="rounded-lg bg-neutral-900 border border-neutral-800 p-2.5 text-neutral-200 whitespace-pre-wrap leading-relaxed">
+                          {selectedCase.input}
                         </div>
                       </div>
+                    )}
+
+                    {/* Expected Output */}
+                    {selectedCase.expectedOutput && (
+                      <div className="space-y-1">
+                        <span className="text-[11px] text-neutral-400 uppercase tracking-wider font-bold">
+                          Expected Output:
+                        </span>
+                        <div className="rounded-lg bg-neutral-900 border border-neutral-800 p-2.5 text-emerald-400 font-bold whitespace-pre-wrap leading-relaxed">
+                          {selectedCase.expectedOutput}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Actual Output */}
+                    <div className="space-y-1">
+                      <span className="text-[11px] text-neutral-400 uppercase tracking-wider font-bold">
+                        Actual Output:
+                      </span>
+                      <div
+                        className={`rounded-lg border p-2.5 whitespace-pre-wrap leading-relaxed ${selectedCase.passed
+                          ? "bg-neutral-900 border-emerald-500/30 text-emerald-300"
+                          : "bg-rose-950/20 border-rose-500/40 text-rose-300"
+                          }`}
+                      >
+                        {selectedCase.actualOutput || (selectedCase.passed ? selectedCase.expectedOutput : "(no stdout)")}
+                      </div>
                     </div>
-                  )}
+                  </div>
                 </div>
               )}
             </div>

@@ -1,7 +1,8 @@
 import React from "react";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { getProblemWithAccess } from "@/lib/problem";
 import ProblemCodeClient from "@/components/ProblemCodeClient";
+import { isProblemConceptual } from "@/lib/problemTemplates";
 import type { Metadata } from "next";
 
 export const dynamic = "force-dynamic";
@@ -26,6 +27,10 @@ export async function generateMetadata({
 }
 
 export default async function ProblemCodePage({ params }: ProblemCodePageProps) {
+  if (isProblemConceptual(params.slug)) {
+    redirect(`/problem/${params.slug}`);
+  }
+
   const result = await getProblemWithAccess(params.slug);
 
   if (!result?.problem) {

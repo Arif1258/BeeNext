@@ -3,7 +3,8 @@ import prisma from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth";
 import { isUserActivePlus } from "@/lib/membership";
 import { SupportedLanguage } from "@/lib/judge0";
-import { evaluateCodeWithWrapper } from "@/lib/executionWrapper";
+import { evaluateTestSuiteWithOnlineCompiler } from "@/lib/executionWrapper";
+import { isProblemConceptual } from "@/lib/problemTemplates";
 import { SubmissionStatus } from "@prisma/client";
 
 interface SubmitResponsePayload {
@@ -19,6 +20,9 @@ interface SubmitResponsePayload {
   testResults: Array<{
     testIndex: number;
     passed: boolean;
+    input: string;
+    expectedOutput: string | null;
+    actualOutput: string;
     status: string;
     time: string | null;
     memory: number | null;
@@ -27,7 +31,7 @@ interface SubmitResponsePayload {
 
 export async function POST(req: Request) {
   try {
-    const session = await getCurrentUser();
+    const session = await getCurrentUser(req);
     if (!session) {
       return NextResponse.json(
         { error: "Please sign in to submit code." },
@@ -75,128 +79,106 @@ export async function POST(req: Request) {
       );
     }
 
+    if (!problemId) {
+      return NextResponse.json(
+        { error: "Problem ID is required for submission." },
+        { status: 400 }
+      );
+    }
+
     let problemSlug = "";
-    if (problemId) {
-      const prob = await prisma.problem.findUnique({
-        where: { id: problemId },
-        select: { slug: true },
-      });
-      if (prob) problemSlug = prob.slug;
+    const prob = await prisma.problem.findUnique({
+      where: { id: problemId },
+      select: { slug: true },
+    });
+    if (prob) problemSlug = prob.slug;
+
+    if (problemSlug && isProblemConceptual(problemSlug)) {
+      return NextResponse.json(
+        { error: "This topic is conceptual and does not support code submission." },
+        { status: 400 }
+      );
     }
 
-    // Query all 12 test cases from the database
-    let testCases: Array<{
-      order: number;
-      input: string;
-      expectedOutput: string;
-      isSample: boolean;
-    }> = [];
+    // Query exactly the 6 active test cases from the database
+    const testCases = await prisma.testCase.findMany({
+      where: { problemId, isActive: true },
+      orderBy: { order: "asc" },
+      take: 6,
+      select: { order: true, input: true, expectedOutput: true, isSample: true },
+    });
 
-    if (problemId) {
-      const dbCases = await prisma.testCase.findMany({
-        where: { problemId },
-        orderBy: { order: "asc" },
-        select: { order: true, input: true, expectedOutput: true, isSample: true },
-      });
-
-      if (dbCases.length > 0) {
-        testCases = dbCases;
-      }
-    }
-
-    // Fallback if none in DB (guarantees 12 test cases)
     if (testCases.length === 0) {
-      for (let i = 1; i <= 12; i++) {
-        testCases.push({
-          order: i,
-          input: `nums = [${i}, ${i + 1}, ${i + 2}], target = ${2 * i + 1}`,
-          expectedOutput: "[0, 1]",
-          isSample: i <= 3,
-        });
-      }
+      return NextResponse.json(
+        { error: "No verified test cases found for this problem." },
+        { status: 404 }
+      );
     }
 
-    let passedTests = 0;
-    let finalVerdict: SubmissionStatus = "ACCEPTED";
-    let overallDisplayVerdict = "Accepted";
-    let maxTime = 0.02;
-    let maxMemory = 12000;
-    let errorOutput: string | null = null;
+    const evalResult = await evaluateTestSuiteWithOnlineCompiler({
+      language: language as SupportedLanguage,
+      sourceCode,
+      problemSlug,
+      testCases,
+      isSubmission: true,
+      cacheKey: `submit_${user.id}_${problemId}_${language}`,
+      userId: user.id,
+      problemId,
+    });
 
-    // Test results for the client: STRICTLY PROTECTED
-    // For hidden test cases (!tc.isSample), inputs and expected outputs are omitted!
-    const testResults: Array<{
-      testIndex: number;
-      passed: boolean;
-      status: string;
-      time: string | null;
-      memory: number | null;
-    }> = [];
-
-    for (const tc of testCases) {
-      const evalResult = await evaluateCodeWithWrapper({
-        language: language as SupportedLanguage,
-        sourceCode,
-        input: tc.input,
-        expectedOutput: tc.expectedOutput,
-        testIndex: tc.order,
-        problemSlug,
-      });
-
-      const parsedTime = parseFloat(evalResult.time || "0.02");
-      if (parsedTime > maxTime) maxTime = parsedTime;
-      if ((evalResult.memory || 0) > maxMemory) maxMemory = evalResult.memory;
-
-      if (evalResult.status === "Compilation Error") {
-        finalVerdict = "COMPILATION_ERROR";
-        overallDisplayVerdict = "Compilation Error";
-        errorOutput = evalResult.compileError || "Compilation error";
-      } else if (evalResult.status === "Runtime Error" && finalVerdict !== "COMPILATION_ERROR") {
-        finalVerdict = "RUNTIME_ERROR";
-        overallDisplayVerdict = "Runtime Error";
-        errorOutput = evalResult.runtimeError || "Runtime error";
-      } else if (evalResult.status === "Time Limit Exceeded" && finalVerdict === "ACCEPTED") {
-        finalVerdict = "TIME_LIMIT_EXCEEDED";
-        overallDisplayVerdict = "Time Limit Exceeded";
-        errorOutput = evalResult.runtimeError || "Time limit exceeded";
-      } else if (!evalResult.passed && finalVerdict === "ACCEPTED") {
-        finalVerdict = "WRONG_ANSWER";
-        overallDisplayVerdict = "Wrong Answer";
-      }
-
-      if (evalResult.passed) {
-        passedTests++;
-      }
-
-      // Record protected client status
-      testResults.push({
-        testIndex: tc.order,
-        passed: evalResult.passed,
-        status: evalResult.status,
-        time: evalResult.time,
-        memory: evalResult.memory,
-      });
+    if (evalResult.overallStatus === "SERVICE_UNAVAILABLE") {
+      return NextResponse.json(
+        {
+          error: "Execution Service Unavailable. Please wait a moment and try again.",
+          verdict: "Execution Service Unavailable",
+        },
+        { status: 503 }
+      );
     }
+
+    // Map Prisma submission status
+    const prismaStatus: SubmissionStatus =
+      evalResult.overallStatus === "ACCEPTED"
+        ? "ACCEPTED"
+        : evalResult.overallStatus === "COMPILATION_ERROR"
+        ? "COMPILATION_ERROR"
+        : evalResult.overallStatus === "RUNTIME_ERROR"
+        ? "RUNTIME_ERROR"
+        : evalResult.overallStatus === "TIME_LIMIT_EXCEEDED"
+        ? "TIME_LIMIT_EXCEEDED"
+        : "WRONG_ANSWER";
+
+    // All 6 evaluated test case results with input, expectedOutput and actualOutput
+    const submitTestResults = evalResult.testResults.map((t) => ({
+      testIndex: t.testIndex,
+      passed: t.passed,
+      input: t.input,
+      expectedOutput: t.expectedOutput,
+      actualOutput: t.actualOutput,
+      status: t.status,
+      time: t.time,
+      memory: t.memory,
+    }));
 
     // Persist submission record in database
     try {
       await prisma.codeSubmission.create({
         data: {
           userId: user.id,
-          problemId: problemId || null,
+          problemId,
           language,
           code: sourceCode,
-          status: finalVerdict,
-          executionTime: maxTime,
-          memoryUsage: maxMemory,
-          passedTests,
-          totalTests: testCases.length,
-          errorOutput,
+          status: prismaStatus,
+          executionTime: parseFloat(evalResult.executionTime),
+          memoryUsage: evalResult.memoryUsage,
+          passedTests: evalResult.passedTests,
+          totalTests: evalResult.totalTests,
+          errorOutput: evalResult.errorOutput,
         },
       });
 
-      // If accepted, update user progress
-      if (finalVerdict === "ACCEPTED" && problemId) {
+      // ONLY update user progress if genuinely ACCEPTED on all test cases
+      if (prismaStatus === "ACCEPTED") {
         await prisma.userProgress.upsert({
           where: {
             userId_problemId: {
@@ -223,14 +205,14 @@ export async function POST(req: Request) {
     return NextResponse.json<SubmitResponsePayload>({
       success: true,
       isSubmission: true,
-      status: finalVerdict,
-      verdict: overallDisplayVerdict,
-      executionTime: maxTime.toFixed(3),
-      memoryUsage: maxMemory,
-      passedTests,
-      totalTests: testCases.length,
-      errorOutput,
-      testResults,
+      status: prismaStatus,
+      verdict: evalResult.verdict,
+      executionTime: evalResult.executionTime,
+      memoryUsage: evalResult.memoryUsage,
+      passedTests: evalResult.passedTests,
+      totalTests: evalResult.totalTests,
+      errorOutput: evalResult.errorOutput,
+      testResults: submitTestResults,
     });
   } catch (error: any) {
     console.error("Playground submit error:", error);

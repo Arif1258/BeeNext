@@ -2,7 +2,7 @@
   "implementation-using-different-ds": {
     "title": "Implementation using different DS",
     "slug": "implementation-using-different-ds",
-    "isConceptual": false,
+    "isConceptual": true,
     "methodName": "push",
     "returnType": "void",
     "params": [
@@ -21,7 +21,7 @@
   "bit-prerequisites-for-trie-problems": {
     "title": "Bit PreRequisites for TRIE Problems",
     "slug": "bit-prerequisites-for-trie-problems",
-    "isConceptual": false,
+    "isConceptual": true,
     "methodName": "checkBit",
     "returnType": "int",
     "params": [
@@ -268,7 +268,7 @@
   "heaps-theory": {
     "title": "Heaps (Theory Video)",
     "slug": "heaps-theory",
-    "isConceptual": false,
+    "isConceptual": true,
     "methodName": "getParent",
     "returnType": "int",
     "params": [
@@ -329,7 +329,7 @@
   "introduction-to-dp": {
     "title": "Introduction to DP",
     "slug": "introduction-to-dp",
-    "isConceptual": false,
+    "isConceptual": true,
     "methodName": "Optimization",
     "returnType": "Space",
     "params": [
@@ -348,7 +348,7 @@
   "theory": {
     "title": "Theory",
     "slug": "theory",
-    "isConceptual": false,
+    "isConceptual": true,
     "methodName": "fixedWindowSum",
     "returnType": "int",
     "params": [
@@ -728,7 +728,7 @@
   "programming-and-what-are-computers": {
     "title": "Programming and What Are Computers?",
     "slug": "programming-and-what-are-computers",
-    "isConceptual": false,
+    "isConceptual": true,
     "methodName": "compute",
     "returnType": "void",
     "params": [
@@ -937,7 +937,7 @@
   "how-to-think-like-a-programmer": {
     "title": "How to Think Like a Programmer",
     "slug": "how-to-think-like-a-programmer",
-    "isConceptual": false,
+    "isConceptual": true,
     "methodName": "solve",
     "returnType": "int",
     "params": [
@@ -1414,7 +1414,7 @@
   "flowcharts-and-pseudocode": {
     "title": "Flowcharts and Pseudocode",
     "slug": "flowcharts-and-pseudocode",
-    "isConceptual": false,
+    "isConceptual": true,
     "methodName": "isEven",
     "returnType": "boolean",
     "params": [
@@ -1498,7 +1498,7 @@
   "hashing-in-strings-theory": {
     "title": "Hashing In Strings | Theory",
     "slug": "hashing-in-strings-theory",
-    "isConceptual": false,
+    "isConceptual": true,
     "methodName": "computeHash",
     "returnType": "long",
     "params": [
@@ -1977,7 +1977,7 @@
   "flowchart-problem-solving": {
     "title": "Flowchart Problem-Solving ",
     "slug": "flowchart-problem-solving",
-    "isConceptual": false,
+    "isConceptual": true,
     "methodName": "findMax",
     "returnType": "int",
     "params": [
@@ -2088,7 +2088,7 @@
   "dry-runs-edge-cases-and-debugging": {
     "title": "Dry Runs, Edge Cases and Debugging",
     "slug": "dry-runs-edge-cases-and-debugging",
-    "isConceptual": false,
+    "isConceptual": true,
     "methodName": "safeDivide",
     "returnType": "int",
     "params": [
@@ -2260,7 +2260,7 @@
   "learn-all-patterns-of-subsequences": {
     "title": "Learn All Patterns of Subsequences (Theory)",
     "slug": "learn-all-patterns-of-subsequences",
-    "isConceptual": false,
+    "isConceptual": true,
     "methodName": "printSubsequences",
     "returnType": "void",
     "params": [
@@ -2906,7 +2906,7 @@
   "learn-cpp": {
     "title": "Learn C++",
     "slug": "learn-cpp",
-    "isConceptual": false,
+    "isConceptual": true,
     "methodName": "demoIO",
     "returnType": "void",
     "params": [
@@ -3322,7 +3322,7 @@
   "learn-java": {
     "title": "Learn Java",
     "slug": "learn-java",
-    "isConceptual": false,
+    "isConceptual": true,
     "methodName": "BufferedReader",
     "returnType": "new",
     "params": [
@@ -3589,7 +3589,7 @@
   "learn-python": {
     "title": "Learn Python",
     "slug": "learn-python",
-    "isConceptual": false,
+    "isConceptual": true,
     "methodName": "processArray",
     "returnType": "int[]",
     "params": [
@@ -3711,7 +3711,7 @@
   "easy-and-medium": {
     "title": "Easy and Medium",
     "slug": "easy-and-medium",
-    "isConceptual": false,
+    "isConceptual": true,
     "methodName": "printGrid",
     "returnType": "void",
     "params": [
@@ -4082,7 +4082,7 @@
   "hard": {
     "title": "Hard",
     "slug": "hard",
-    "isConceptual": false,
+    "isConceptual": true,
     "methodName": "printComplexPattern",
     "returnType": "void",
     "params": [
@@ -5159,31 +5159,19 @@
     "title": "Palindrome partitioning",
     "slug": "palindrome-partitioning",
     "isConceptual": false,
-    "methodName": "func",
-    "returnType": "void",
+    "methodName": "partition",
+    "returnType": "List<List<String>>",
     "params": [
-      {
-        "name": "index",
-        "type": "int"
-      },
       {
         "name": "s",
         "type": "String"
-      },
-      {
-        "name": "path",
-        "type": "List<String>"
-      },
-      {
-        "name": "res",
-        "type": "List<List<String>>"
       }
     ],
     "templates": {
-      "java": "class Solution {\n    public void func(int index, String s, List<String> path, List<List<String>> res) {\n        // Write your code here\n        \n    }\n}",
-      "cpp": "class Solution {\npublic:\n    void func(int index, string& s, vector<string>& path, List<List<String>> res) {\n        // Write your code here\n        \n    }\n};",
-      "python": "class Solution:\n    def func(self, index: int, s: str, path: List[str], res: Any) -> None:\n        # Write your code here\n        pass",
-      "javascript": "/**\n * @param {number} index\n * @param {string} s\n * @param {string[]} path\n * @param {any} res\n * @return {void}\n */\nvar func = function(index, s, path, res) {\n    // Write your code here\n    \n};"
+      "java": "class Solution {\n    public List<List<String>> partition(String s) {\n        // Write your code here\n        \n    }\n}",
+      "cpp": "class Solution {\npublic:\n    vector<vector<string>> partition(string s) {\n        // Write your code here\n        \n    }\n};",
+      "python": "class Solution:\n    def partition(self, s: str) -> List[List[str]]:\n        # Write your code here\n        pass",
+      "javascript": "/**\n * @param {string} s\n * @return {string[][]}\n */\nvar partition = function(s) {\n    // Write your code here\n    \n};"
     }
   },
   "next-greater-element---2": {
@@ -8478,7 +8466,7 @@
   "theory-with-examples": {
     "title": "Theory with examples",
     "slug": "theory-with-examples",
-    "isConceptual": false,
+    "isConceptual": true,
     "methodName": "linearSum",
     "returnType": "int",
     "params": [
@@ -8539,7 +8527,7 @@
   "mst-theory": {
     "title": "MST theory",
     "slug": "mst-theory",
-    "isConceptual": false,
+    "isConceptual": true,
     "methodName": "isTree",
     "returnType": "boolean",
     "params": [
@@ -8600,7 +8588,7 @@
   "stl": {
     "title": "STL",
     "slug": "stl",
-    "isConceptual": false,
+    "isConceptual": true,
     "methodName": "demoCollections",
     "returnType": "void",
     "params": [],
@@ -8614,7 +8602,7 @@
   "java-collections": {
     "title": "Java Collections",
     "slug": "java-collections",
-    "isConceptual": false,
+    "isConceptual": true,
     "methodName": "demoMapAndSet",
     "returnType": "void",
     "params": [],
@@ -8762,7 +8750,7 @@
   "python-libraries-part-1": {
     "title": "Python Libraries Part 1",
     "slug": "python-libraries-part-1",
-    "isConceptual": false,
+    "isConceptual": true,
     "methodName": "demoHeap",
     "returnType": "void",
     "params": [],
@@ -8837,7 +8825,7 @@
   "python-libraries-part-2": {
     "title": "Python Libraries Part 2",
     "slug": "python-libraries-part-2",
-    "isConceptual": false,
+    "isConceptual": true,
     "methodName": "demoDeque",
     "returnType": "void",
     "params": [],
@@ -8908,7 +8896,7 @@
   "basic-maths": {
     "title": "Basic Maths",
     "slug": "basic-maths",
-    "isConceptual": false,
+    "isConceptual": true,
     "methodName": "countDigits",
     "returnType": "int",
     "params": [
@@ -8927,7 +8915,7 @@
   "basic-arrays-hashing-and-strings": {
     "title": "Basic Arrays",
     "slug": "basic-arrays-hashing-and-strings",
-    "isConceptual": false,
+    "isConceptual": true,
     "methodName": "arraySum",
     "returnType": "int",
     "params": [
@@ -9019,7 +9007,7 @@
   "beginner-basic-hashing": {
     "title": "Basic Hashing",
     "slug": "beginner-basic-hashing",
-    "isConceptual": false,
+    "isConceptual": true,
     "methodName": "frequency",
     "returnType": "void",
     "params": [
@@ -9122,7 +9110,7 @@
   "basic-string": {
     "title": "Basic String",
     "slug": "basic-string",
-    "isConceptual": false,
+    "isConceptual": true,
     "methodName": "isPalindrome",
     "returnType": "boolean",
     "params": [
@@ -10160,7 +10148,7 @@
   "recursion-theory": {
     "title": "Recursion Theory",
     "slug": "recursion-theory",
-    "isConceptual": false,
+    "isConceptual": true,
     "methodName": "print1ToN",
     "returnType": "void",
     "params": [
@@ -10179,7 +10167,7 @@
   "recursion-concepts-with-parameters": {
     "title": "Recursion Concepts with Parameters",
     "slug": "recursion-concepts-with-parameters",
-    "isConceptual": false,
+    "isConceptual": true,
     "methodName": "sumN",
     "returnType": "int",
     "params": [

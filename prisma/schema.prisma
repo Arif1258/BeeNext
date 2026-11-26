@@ -431,10 +431,12 @@ model TestCase {
   expectedOutput String   @db.Text
   isSample       Boolean  @default(false)
   order          Int      @default(0)
+  isActive       Boolean  @default(true)
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 
   @@index([problemId])
+  @@index([problemId, isActive, order])
   @@map("test_cases")
 }
 
@@ -457,4 +459,17 @@ model CodeSubmission {
   @@index([userId])
   @@index([problemId])
   @@map("code_submissions")
+}
+
+model ExecutionLock {
+  id        String   @id @default(cuid())
+  userId    String
+  problemId String?
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([userId, problemId])
+  @@index([expiresAt])
+  @@index([createdAt])
+  @@map("execution_locks")
 }

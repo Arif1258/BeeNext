@@ -12,6 +12,7 @@ import DifficultyBadge from "@/components/DifficultyBadge";
 import { useAuth } from "@/context/AuthContext";
 import SolutionUpgradeModal from "@/components/SolutionUpgradeModal";
 import confetti from "canvas-confetti";
+import { isProblemConceptual } from "@/lib/problemTemplates";
 
 export interface ProblemItem {
   id: string;
@@ -326,21 +327,26 @@ export default function VerticalTopicAccordion({
                             <Check className="h-3 w-3 stroke-[3]" />
                           </button>
 
-                          {/* Problem Title Link - Navigates directly to dedicated Coding Playground */}
-                          <Link
-                            href={`/problem/${problem.slug}/code`}
-                            className={`text-xs sm:text-sm font-medium transition-colors truncate ${
-                              isCompleted
-                                ? "text-neutral-500 line-through decoration-neutral-600 hover:text-neutral-300"
-                                : "text-neutral-100 hover:text-brand-red"
-                            }`}
-                            title={`Open Coding Playground for ${problem.title}`}
-                          >
-                            <span className="font-mono text-neutral-500 mr-2">
-                              {problemNumber}.
-                            </span>
-                            <span>{problem.title}</span>
-                          </Link>
+                          {/* Problem Title Link - Navigates to Overview for conceptual topics, or Coding Playground for coding problems */}
+                          {(() => {
+                            const isConceptual = isProblemConceptual(problem.slug);
+                            return (
+                              <Link
+                                href={isConceptual ? `/problem/${problem.slug}` : `/problem/${problem.slug}/code`}
+                                className={`text-xs sm:text-sm font-medium transition-colors truncate ${
+                                  isCompleted
+                                    ? "text-neutral-500 line-through decoration-neutral-600 hover:text-neutral-300"
+                                    : "text-neutral-100 hover:text-brand-red"
+                                }`}
+                                title={isConceptual ? `View ${problem.title}` : `Open Coding Playground for ${problem.title}`}
+                              >
+                                <span className="font-mono text-neutral-500 mr-2">
+                                  {problemNumber}.
+                                </span>
+                                <span>{problem.title}</span>
+                              </Link>
+                            );
+                          })()}
 
                           {/* Difficulty Label directly after the title */}
                           <DifficultyBadge difficulty={problem.difficulty} />
@@ -348,17 +354,21 @@ export default function VerticalTopicAccordion({
 
                         {/* Right: Code | Striver | LeetCode | Brute | Optimal */}
                         <div className="flex flex-wrap items-center space-x-2 sm:space-x-3 text-xs font-mono flex-shrink-0 pl-6 sm:pl-0">
-                          {/* 1. Code (Dedicated Problem Coding Playground) */}
-                          <Link
-                            href={`/problem/${problem.slug}/code`}
-                            className="text-neutral-300 hover:text-brand-red font-medium transition-colors inline-flex items-center gap-1.5"
-                            title="Open dedicated Coding Playground for this problem"
-                          >
-                            <Code2 className="h-3.5 w-3.5 text-brand-red" />
-                            <span>Code</span>
-                          </Link>
+                          {/* 1. Code (Dedicated Problem Coding Playground - only for non-conceptual coding problems) */}
+                          {!isProblemConceptual(problem.slug) && (
+                            <>
+                              <Link
+                                href={`/problem/${problem.slug}/code`}
+                                className="text-neutral-300 hover:text-brand-red font-medium transition-colors inline-flex items-center gap-1.5"
+                                title="Open dedicated Coding Playground for this problem"
+                              >
+                                <Code2 className="h-3.5 w-3.5 text-brand-red" />
+                                <span>Code</span>
+                              </Link>
 
-                          <span className="text-neutral-700 select-none">|</span>
+                              <span className="text-neutral-700 select-none">|</span>
+                            </>
+                          )}
 
                           {/* 2. Striver YouTube */}
                           {problem.youtubeUrl ? (

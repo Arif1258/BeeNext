@@ -35,10 +35,26 @@ export function verifyToken(token: string): UserSession | null {
   }
 }
 
-export async function getCurrentUser(): Promise<UserSession | null> {
+export async function getCurrentUser(req?: Request): Promise<UserSession | null> {
   try {
-    const cookieStore = cookies();
-    const token = cookieStore.get(COOKIE_NAME)?.value;
+    let token: string | undefined;
+    if (req) {
+      const cookieHeader = req.headers.get("cookie");
+      if (cookieHeader) {
+        const match = cookieHeader.match(new RegExp(`${COOKIE_NAME}=([^;]+)`));
+        if (match) token = match[1];
+      }
+    }
+
+    if (!token) {
+      try {
+        const cookieStore = cookies();
+        token = cookieStore.get(COOKIE_NAME)?.value;
+      } catch {
+        // cookies() called outside Next.js request scope
+      }
+    }
+
     if (!token) return null;
 
     const session = verifyToken(token);

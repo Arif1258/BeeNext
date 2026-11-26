@@ -34,6 +34,9 @@ yarn-error.log*
 
 # backups
 /backups/
+/data/
+*.json.bak
+*.json.backup
 
 # vercel
 .vercel

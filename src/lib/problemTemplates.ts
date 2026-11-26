@@ -41,7 +41,43 @@ export function getProblemTemplateForLanguage(
   return entry.templates[language] || null;
 }
 
+export const CONCEPTUAL_SLUGS = new Set<string>([
+  "breaking-the-myth",
+  "programming-and-what-are-computers",
+  "how-to-think-like-a-programmer",
+  "flowcharts-and-pseudocode",
+  "flowchart-problem-solving",
+  "dry-runs-edge-cases-and-debugging",
+  "programming-languages-and-choosing-a-path",
+  "learn-cpp",
+  "learn-java",
+  "learn-python",
+  "easy-and-medium",
+  "hard",
+  "theory-with-examples",
+  "stl",
+  "java-collections",
+  "python-libraries-part-1",
+  "python-libraries-part-2",
+  "basic-maths",
+  "basic-arrays-hashing-and-strings",
+  "beginner-basic-hashing",
+  "basic-string",
+  "recursion-theory",
+  "recursion-concepts-with-parameters",
+  "learn-all-patterns-of-subsequences",
+  "implementation-using-different-ds",
+  "theory",
+  "heaps-theory",
+  "mst-theory",
+  "introduction-to-dp",
+  "bit-prerequisites-for-trie-problems",
+  "hashing-in-strings-theory"
+]);
+
 export function isProblemConceptual(slug: string): boolean {
+  if (!slug) return false;
+  if (CONCEPTUAL_SLUGS.has(slug)) return true;
   return !!registry[slug]?.isConceptual;
 }
 
