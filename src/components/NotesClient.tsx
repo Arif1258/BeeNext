@@ -7,6 +7,7 @@ import {
   Lock,
   Sparkles,
   BookOpen,
+  Briefcase,
   X,
   ShieldCheck,
   CheckCircle2,
@@ -221,15 +222,25 @@ export default function NotesClient() {
               </h1>
             </div>
 
-            {!isPlusMember && (
+            <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
               <Link
-                href="/membership"
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-red hover:bg-brand-redHover text-white text-xs sm:text-sm font-mono font-bold shadow-brand transition-all"
+                href="/company-preparation"
+                className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl border border-emerald-500/40 bg-emerald-600 hover:bg-emerald-500 text-white text-xs sm:text-sm font-mono font-bold shadow-sm transition-all group"
               >
-                <Sparkles className="h-4 w-4" />
-                <span>Upgrade to Plus</span>
+                <Briefcase className="h-4 w-4 text-white group-hover:scale-110 transition-transform" />
+                <span>Prepare for Companies</span>
               </Link>
-            )}
+
+              {!isPlusMember && (
+                <Link
+                  href="/membership"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-red hover:bg-brand-redHover text-white text-xs sm:text-sm font-mono font-bold shadow-brand transition-all"
+                >
+                  <Sparkles className="h-4 w-4" />
+                  <span>Upgrade to Plus</span>
+                </Link>
+              )}
+            </div>
           </div>
           <p className="text-neutral-400 text-xs sm:text-sm max-w-3xl leading-relaxed">
             Curated engineering notes across 8 collections. Plus members can access and view all documents.
@@ -366,204 +377,204 @@ export default function NotesClient() {
 
         {/* COMING SOON & FEEDBACK FOOTER MESSAGE */}
         <div className="pt-6 sm:pt-8 pb-4 border-t border-neutral-800/80">
-            <div className="max-w-2xl mx-auto rounded-2xl border border-emerald-600/30 bg-emerald-950/80 p-4 sm:p-5 text-center shadow-sm">
-              <p className="text-xs sm:text-sm text-neutral-400 leading-relaxed">
-                Stay tuned! More notes and learning resources are coming soon. Have any suggestions or feedback? Feel free to share them with us at our Support Email.
-              </p>
+          <div className="max-w-2xl mx-auto rounded-2xl border border-emerald-600/30 bg-emerald-950/80 p-4 sm:p-5 text-center shadow-sm">
+            <p className="text-xs sm:text-sm text-neutral-400 leading-relaxed">
+              Stay tuned! More companies, interview experiences, and placement preparation tracks are coming soon. Our notes are regularly updated to reflect the latest hiring patterns, interview trends, and recruitment requirements. Have any specific company requests or suggestions? Feel free to share them with us at our Support Email.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Protected Embedded PDF Viewer Modal for Plus Users */}
+      {selectedNote && isPlusMember && (
+        <div
+          ref={viewerContainerRef}
+          className={
+            isFullscreen
+              ? "fixed inset-0 z-50 bg-black flex flex-col w-screen h-screen max-w-none rounded-none overflow-hidden"
+              : "fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-1 sm:p-2 md:p-3"
+          }
+        >
+          <div
+            className={
+              isFullscreen
+                ? "bg-neutral-950 w-full h-full flex flex-col overflow-hidden relative"
+                : "bg-neutral-950 border border-brand-border rounded-2xl w-full max-w-6xl xl:max-w-7xl h-[97vh] flex flex-col shadow-2xl overflow-hidden relative"
+            }
+          >
+            {/* Viewer Header - Slim & Unified */}
+            <div className="flex items-center justify-between border-b border-brand-border px-3 sm:px-4 py-1.5 sm:py-2 bg-neutral-900/95 shrink-0">
+              <div className="flex items-center gap-2 truncate mr-2">
+                <BookOpen className="h-4 w-4 text-brand-red shrink-0" />
+                <div className="flex items-center gap-2 truncate">
+                  <h3 className="text-xs sm:text-sm font-bold text-white truncate">
+                    {selectedNote.title}
+                  </h3>
+                  <span className="hidden sm:inline-block text-[10px] font-mono text-neutral-400 truncate">
+                    &bull; BeeNext Plus Protected Viewer
+                  </span>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+                <span className="hidden md:inline-flex items-center gap-1 text-[10px] sm:text-[11px] font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full">
+                  <ShieldCheck className="h-3 w-3" />
+                  <span className="truncate max-w-[180px]">Licensed to {user?.email}</span>
+                </span>
+
+                {/* Single Fullscreen Control */}
+                <button
+                  type="button"
+                  onClick={toggleFullscreen}
+                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg border border-neutral-700 bg-neutral-800 text-neutral-200 hover:text-white hover:border-neutral-500 font-mono text-xs transition-colors"
+                  title={isFullscreen ? "Exit Fullscreen" : "Fullscreen"}
+                  aria-label={isFullscreen ? "Exit Fullscreen" : "Fullscreen"}
+                >
+                  {isFullscreen ? (
+                    <>
+                      <Minimize2 className="h-3.5 w-3.5 text-brand-red" />
+                      <span className="hidden sm:inline text-xs">Exit Fullscreen</span>
+                    </>
+                  ) : (
+                    <>
+                      <Maximize2 className="h-3.5 w-3.5 text-neutral-300" />
+                      <span className="hidden sm:inline text-xs">Fullscreen</span>
+                    </>
+                  )}
+                </button>
+
+                {/* Close Button */}
+                <button
+                  type="button"
+                  onClick={handleCloseViewer}
+                  className="p-1 rounded-lg border border-neutral-700 bg-neutral-800 text-neutral-300 hover:text-white hover:border-neutral-500 transition-colors"
+                  title="Close Viewer"
+                  aria-label="Close Viewer"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              </div>
+            </div>
+
+            {/* Embedded Container */}
+            <div className="flex-1 relative bg-neutral-900 w-full h-full overflow-hidden">
+              {selectedNote.pdfFile ? (
+                <ProtectedPdfViewer
+                  file={selectedNote.pdfFile}
+                  title={selectedNote.title}
+                  userEmail={user?.email || "Licensed Member"}
+                  isFullscreen={isFullscreen}
+                  onToggleFullscreen={toggleFullscreen}
+                  onClose={handleCloseViewer}
+                />
+              ) : (
+                <div className="flex flex-col items-center justify-center h-full text-center px-4 py-12 select-none">
+                  <div className="h-16 w-16 rounded-2xl bg-neutral-800/60 border border-neutral-700/60 flex items-center justify-center text-neutral-400 mb-4 shadow-inner">
+                    <BookOpen className="h-8 w-8 text-brand-red" />
+                  </div>
+                  <h4 className="text-lg sm:text-xl font-bold text-white mb-2">
+                    {selectedNote.title} Notes
+                  </h4>
+                  <p className="text-xs sm:text-sm text-neutral-400 max-w-md leading-relaxed mb-4">
+                    This study guide is currently being prepared and will be available for Plus members soon.
+                  </p>
+                  <span className="inline-flex items-center gap-1.5 text-xs font-mono text-neutral-300 bg-neutral-900 border border-neutral-800 px-3 py-1.5 rounded-full">
+                    <Sparkles className="h-3.5 w-3.5 text-brand-red" />
+                    <span>Included in your Plus Membership</span>
+                  </span>
+                </div>
+              )}
             </div>
           </div>
         </div>
+      )}
 
-        {/* Protected Embedded PDF Viewer Modal for Plus Users */}
-        {selectedNote && isPlusMember && (
+      {/* Upgrade Prompt Modal in Center of Screen for Normal Users */}
+      {showUpgradeModal && selectedNote && !isPlusMember && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          onClick={() => {
+            setShowUpgradeModal(false);
+            setSelectedNote(null);
+          }}
+          className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 animate-fadeIn"
+        >
           <div
-            ref={viewerContainerRef}
-            className={
-              isFullscreen
-                ? "fixed inset-0 z-50 bg-black flex flex-col w-screen h-screen max-w-none rounded-none overflow-hidden"
-                : "fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-1 sm:p-2 md:p-3"
-            }
+            onClick={(e) => e.stopPropagation()}
+            className="bg-brand-card border border-brand-border rounded-2xl max-w-md w-full p-6 space-y-5 shadow-2xl relative text-left"
           >
-            <div
-              className={
-                isFullscreen
-                  ? "bg-neutral-950 w-full h-full flex flex-col overflow-hidden relative"
-                  : "bg-neutral-950 border border-brand-border rounded-2xl w-full max-w-6xl xl:max-w-7xl h-[97vh] flex flex-col shadow-2xl overflow-hidden relative"
-              }
+            <button
+              type="button"
+              onClick={() => {
+                setShowUpgradeModal(false);
+                setSelectedNote(null);
+              }}
+              className="absolute top-4 right-4 rounded-lg p-1.5 text-neutral-400 hover:text-white hover:bg-neutral-800 transition-colors"
+              aria-label="Close modal"
             >
-              {/* Viewer Header - Slim & Unified */}
-              <div className="flex items-center justify-between border-b border-brand-border px-3 sm:px-4 py-1.5 sm:py-2 bg-neutral-900/95 shrink-0">
-                <div className="flex items-center gap-2 truncate mr-2">
-                  <BookOpen className="h-4 w-4 text-brand-red shrink-0" />
-                  <div className="flex items-center gap-2 truncate">
-                    <h3 className="text-xs sm:text-sm font-bold text-white truncate">
-                      {selectedNote.title}
-                    </h3>
-                    <span className="hidden sm:inline-block text-[10px] font-mono text-neutral-400 truncate">
-                      &bull; BeeNext Plus Protected Viewer
-                    </span>
-                  </div>
-                </div>
+              <X className="h-4 w-4" />
+            </button>
 
-                <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
-                  <span className="hidden md:inline-flex items-center gap-1 text-[10px] sm:text-[11px] font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full">
-                    <ShieldCheck className="h-3 w-3" />
-                    <span className="truncate max-w-[180px]">Licensed to {user?.email}</span>
-                  </span>
-
-                  {/* Single Fullscreen Control */}
-                  <button
-                    type="button"
-                    onClick={toggleFullscreen}
-                    className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg border border-neutral-700 bg-neutral-800 text-neutral-200 hover:text-white hover:border-neutral-500 font-mono text-xs transition-colors"
-                    title={isFullscreen ? "Exit Fullscreen" : "Fullscreen"}
-                    aria-label={isFullscreen ? "Exit Fullscreen" : "Fullscreen"}
-                  >
-                    {isFullscreen ? (
-                      <>
-                        <Minimize2 className="h-3.5 w-3.5 text-brand-red" />
-                        <span className="hidden sm:inline text-xs">Exit Fullscreen</span>
-                      </>
-                    ) : (
-                      <>
-                        <Maximize2 className="h-3.5 w-3.5 text-neutral-300" />
-                        <span className="hidden sm:inline text-xs">Fullscreen</span>
-                      </>
-                    )}
-                  </button>
-
-                  {/* Close Button */}
-                  <button
-                    type="button"
-                    onClick={handleCloseViewer}
-                    className="p-1 rounded-lg border border-neutral-700 bg-neutral-800 text-neutral-300 hover:text-white hover:border-neutral-500 transition-colors"
-                    title="Close Viewer"
-                    aria-label="Close Viewer"
-                  >
-                    <X className="h-4 w-4" />
-                  </button>
-                </div>
+            <div className="flex items-center gap-3 pr-8">
+              <div className="h-10 w-10 rounded-xl bg-brand-red/15 border border-brand-red/30 flex items-center justify-center text-brand-red shrink-0">
+                <Lock className="h-5 w-5" />
               </div>
-
-              {/* Embedded Container */}
-              <div className="flex-1 relative bg-neutral-900 w-full h-full overflow-hidden">
-                {selectedNote.pdfFile ? (
-                  <ProtectedPdfViewer
-                    file={selectedNote.pdfFile}
-                    title={selectedNote.title}
-                    userEmail={user?.email || "Licensed Member"}
-                    isFullscreen={isFullscreen}
-                    onToggleFullscreen={toggleFullscreen}
-                    onClose={handleCloseViewer}
-                  />
-                ) : (
-                  <div className="flex flex-col items-center justify-center h-full text-center px-4 py-12 select-none">
-                    <div className="h-16 w-16 rounded-2xl bg-neutral-800/60 border border-neutral-700/60 flex items-center justify-center text-neutral-400 mb-4 shadow-inner">
-                      <BookOpen className="h-8 w-8 text-brand-red" />
-                    </div>
-                    <h4 className="text-lg sm:text-xl font-bold text-white mb-2">
-                      {selectedNote.title} Notes
-                    </h4>
-                    <p className="text-xs sm:text-sm text-neutral-400 max-w-md leading-relaxed mb-4">
-                      This study guide is currently being prepared and will be available for Plus members soon.
-                    </p>
-                    <span className="inline-flex items-center gap-1.5 text-xs font-mono text-neutral-300 bg-neutral-900 border border-neutral-800 px-3 py-1.5 rounded-full">
-                      <Sparkles className="h-3.5 w-3.5 text-brand-red" />
-                      <span>Included in your Plus Membership</span>
-                    </span>
-                  </div>
-                )}
+              <div>
+                <h3 className="text-base font-bold text-white tracking-tight">
+                  Plus Membership Required
+                </h3>
+                <p className="text-xs text-brand-red font-mono font-medium">
+                  {selectedNote.title}
+                </p>
               </div>
             </div>
-          </div>
-        )}
 
-        {/* Upgrade Prompt Modal in Center of Screen for Normal Users */}
-        {showUpgradeModal && selectedNote && !isPlusMember && (
-          <div
-            role="dialog"
-            aria-modal="true"
-            onClick={() => {
-              setShowUpgradeModal(false);
-              setSelectedNote(null);
-            }}
-            className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 animate-fadeIn"
-          >
-            <div
-              onClick={(e) => e.stopPropagation()}
-              className="bg-brand-card border border-brand-border rounded-2xl max-w-md w-full p-6 space-y-5 shadow-2xl relative text-left"
-            >
+            <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed">
+              Access to curated engineering notes, PDF guides, and topic breakdowns is available exclusively to <strong className="text-white">BeeNext Plus</strong> members.
+            </p>
+
+            <div className="space-y-2 rounded-xl bg-neutral-900 border border-neutral-800 p-3.5 text-xs text-neutral-300">
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="h-3.5 w-3.5 text-brand-red shrink-0" />
+                <span>All 20 DSA Topic Guides</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="h-3.5 w-3.5 text-brand-red shrink-0" />
+                <span>CS Fundamentals &amp; Programming Languages</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="h-3.5 w-3.5 text-brand-red shrink-0" />
+                <span>Frontend, Backend, Database, DevOps &amp; Version Control</span>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3 pt-1">
               <button
                 type="button"
                 onClick={() => {
                   setShowUpgradeModal(false);
                   setSelectedNote(null);
                 }}
-                className="absolute top-4 right-4 rounded-lg p-1.5 text-neutral-400 hover:text-white hover:bg-neutral-800 transition-colors"
-                aria-label="Close modal"
+                className="flex-1 py-2.5 px-4 rounded-xl border border-neutral-800 bg-neutral-900 hover:bg-neutral-800 text-neutral-300 text-xs font-mono font-medium transition-colors text-center"
               >
-                <X className="h-4 w-4" />
+                Close
               </button>
-
-              <div className="flex items-center gap-3 pr-8">
-                <div className="h-10 w-10 rounded-xl bg-brand-red/15 border border-brand-red/30 flex items-center justify-center text-brand-red shrink-0">
-                  <Lock className="h-5 w-5" />
-                </div>
-                <div>
-                  <h3 className="text-base font-bold text-white tracking-tight">
-                    Plus Membership Required
-                  </h3>
-                  <p className="text-xs text-brand-red font-mono font-medium">
-                    {selectedNote.title}
-                  </p>
-                </div>
-              </div>
-
-              <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed">
-                Access to curated engineering notes, PDF guides, and topic breakdowns is available exclusively to <strong className="text-white">BeeNext Plus</strong> members.
-              </p>
-
-              <div className="space-y-2 rounded-xl bg-neutral-900 border border-neutral-800 p-3.5 text-xs text-neutral-300">
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 className="h-3.5 w-3.5 text-brand-red shrink-0" />
-                  <span>All 20 DSA Topic Guides</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 className="h-3.5 w-3.5 text-brand-red shrink-0" />
-                  <span>CS Fundamentals &amp; Programming Languages</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 className="h-3.5 w-3.5 text-brand-red shrink-0" />
-                  <span>Frontend, Backend, Database, DevOps &amp; Version Control</span>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-3 pt-1">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setShowUpgradeModal(false);
-                    setSelectedNote(null);
-                  }}
-                  className="flex-1 py-2.5 px-4 rounded-xl border border-neutral-800 bg-neutral-900 hover:bg-neutral-800 text-neutral-300 text-xs font-mono font-medium transition-colors text-center"
-                >
-                  Close
-                </button>
-                <Link
-                  href="/membership"
-                  onClick={() => {
-                    setShowUpgradeModal(false);
-                    setSelectedNote(null);
-                  }}
-                  className="flex-1 py-2.5 px-4 rounded-xl bg-brand-red hover:bg-brand-redHover text-white text-xs font-mono font-bold transition-all shadow-brand flex items-center justify-center gap-1.5 text-center"
-                >
-                  <span>Upgrade to Plus</span>
-                  <ArrowRight className="h-3.5 w-3.5" />
-                </Link>
-              </div>
+              <Link
+                href="/membership"
+                onClick={() => {
+                  setShowUpgradeModal(false);
+                  setSelectedNote(null);
+                }}
+                className="flex-1 py-2.5 px-4 rounded-xl bg-brand-red hover:bg-brand-redHover text-white text-xs font-mono font-bold transition-all shadow-brand flex items-center justify-center gap-1.5 text-center"
+              >
+                <span>Upgrade to Plus</span>
+                <ArrowRight className="h-3.5 w-3.5" />
+              </Link>
             </div>
           </div>
-        )}
-      </div>
-      );
+        </div>
+      )}
+    </div>
+  );
 }

@@ -109,7 +109,44 @@ export default function CodingPlayground({
   const [result, setResult] = useState<ExecutionResult | null>(null);
   const [selectedTestIndex, setSelectedTestIndex] = useState<number>(0);
 
+  // Resizable results panel state
+  const DEFAULT_RESULTS_HEIGHT = 220;
+  const MIN_RESULTS_HEIGHT = 120;
+  const [resultsHeight, setResultsHeight] = useState<number>(DEFAULT_RESULTS_HEIGHT);
+  const [isResizing, setIsResizing] = useState<boolean>(false);
+
+  const containerRef = useRef<HTMLDivElement>(null);
   const resultsRef = useRef<HTMLDivElement>(null);
+
+  const handleResizeStart = (e: React.PointerEvent) => {
+    e.preventDefault();
+    setIsResizing(true);
+    const startY = e.clientY;
+    const startHeight = resultsHeight;
+
+    const handlePointerMove = (moveEvent: PointerEvent) => {
+      const deltaY = startY - moveEvent.clientY;
+      const containerHeight = containerRef.current?.clientHeight || 650;
+      const maxAllowed = Math.max(MIN_RESULTS_HEIGHT, containerHeight - 160);
+      const newHeight = Math.min(maxAllowed, Math.max(MIN_RESULTS_HEIGHT, startHeight + deltaY));
+      setResultsHeight(newHeight);
+    };
+
+    const handlePointerUp = () => {
+      setIsResizing(false);
+      document.removeEventListener("pointermove", handlePointerMove);
+      document.removeEventListener("pointerup", handlePointerUp);
+      document.removeEventListener("pointercancel", handlePointerUp);
+      document.body.style.cursor = "";
+      document.body.style.userSelect = "";
+    };
+
+    document.body.style.cursor = "row-resize";
+    document.body.style.userSelect = "none";
+    document.addEventListener("pointermove", handlePointerMove);
+    document.addEventListener("pointerup", handlePointerUp);
+    document.addEventListener("pointercancel", handlePointerUp);
+  };
 
   // Auto-scroll to results when execution completes
   useEffect(() => {
@@ -252,7 +289,10 @@ export default function CodingPlayground({
     overallVerdict === "Time Limit Exceeded" || overallVerdict === "TIME_LIMIT_EXCEEDED";
 
   return (
-    <div className="flex flex-col h-full w-full rounded-2xl border border-brand-border bg-neutral-950 overflow-y-auto shadow-2xl">
+    <div
+      ref={containerRef}
+      className="flex flex-col h-full w-full rounded-2xl border border-brand-border bg-neutral-950 overflow-hidden shadow-2xl relative"
+    >
       {/* Top Action Bar: Language Selection & Options */}
       <div className="flex flex-wrap items-center justify-between border-b border-brand-border/70 bg-neutral-900/80 px-4 py-2 gap-3 shrink-0">
         <div className="flex items-center gap-3">
@@ -331,7 +371,7 @@ export default function CodingPlayground({
       )}
 
       {/* Monaco Code Editor: Full Playground Width */}
-      <div className="w-full relative min-h-[340px] flex-1">
+      <div className={`w-full relative min-h-[140px] flex-1 overflow-hidden ${isResizing ? "pointer-events-none select-none" : ""}`}>
         <Editor
           height="100%"
           language={LANGUAGE_CONFIG[language].monacoLanguage}
@@ -351,62 +391,27 @@ export default function CodingPlayground({
         />
       </div>
 
-      {/* Bottom Action Bar: Run and Submit Controls (LeetCode-Style) */}
-      <div className="flex items-center justify-between border-t border-brand-border/60 bg-neutral-900/95 px-4 py-2 shrink-0 h-11">
-        <div className="flex items-center gap-2">
-          <span className="text-[11px] font-mono text-neutral-400 font-medium">
-            Runtime: {LANGUAGE_CONFIG[language].name}
-          </span>
-        </div>
-
-        <div className="flex items-center gap-2.5">
-          {/* Run Code Button */}
-          <button
-            onClick={handleRun}
-            disabled={running || submitting}
-            className={`inline-flex items-center gap-1.5 rounded-lg px-3.5 py-1.5 text-xs font-mono font-bold transition-all shadow-sm ${isPlusMember
-              ? "bg-neutral-800 hover:bg-neutral-700 text-white border border-neutral-700 hover:border-neutral-600"
-              : "bg-neutral-800/80 hover:bg-neutral-800 text-neutral-300 border border-neutral-700"
-              }`}
-          >
-            <Play className="h-3.5 w-3.5 text-emerald-400 fill-emerald-400" />
-            <span>{running ? "Running..." : "Run"}</span>
-            {!isPlusMember && <Lock className="h-3 w-3 text-neutral-500 ml-0.5" />}
-          </button>
-
-          {/* Submit Button */}
-          <button
-            onClick={handleSubmit}
-            disabled={running || submitting}
-            className="inline-flex items-center gap-1.5 rounded-lg px-3.5 py-1.5 text-xs font-mono font-bold bg-brand-red hover:bg-brand-redHover text-white shadow-brand transition-all"
-          >
-            <Send className="h-3.5 w-3.5" />
-            <span>{submitting ? "Submitting..." : "Submit"}</span>
-            {!isPlusMember && <Lock className="h-3 w-3 text-white/70 ml-0.5" />}
-          </button>
-        </div>
-      </div>
-
-      {/* Small Loading Indicator Below Action Bar (Only while executing) */}
-      {(running || submitting) && (
-        <div className="flex items-center gap-2.5 px-4 py-2.5 bg-neutral-900/90 border-t border-brand-border/60 text-xs font-mono text-neutral-300 shrink-0 animate-pulse">
-          <div className="h-3.5 w-3.5 rounded-full border-2 border-brand-red border-t-transparent animate-spin" />
-          <span>
-            {running
-              ? "Executing code across test cases..."
-              : "Evaluating submission against hidden test suite..."}
-          </span>
-        </div>
-      )}
-
-      {/* Execution Results Section — Horizontal Across Available Width (Show Only After Execution) */}
+      {/* Execution Results Section — Vertically Resizable & Internally Scrollable */}
       {result && !running && !submitting && (
         <div
           ref={resultsRef}
-          className="border-t border-brand-border bg-neutral-950 flex flex-col shrink-0 animate-fadeIn"
+          style={{ height: `${resultsHeight}px` }}
+          className="border-t border-brand-border bg-neutral-950 flex flex-col shrink-0 overflow-hidden relative animate-fadeIn"
         >
+          {/* Draggable Horizontal Resize Handle */}
+          <div
+            onPointerDown={handleResizeStart}
+            role="separator"
+            aria-orientation="horizontal"
+            aria-label="Resize test results panel"
+            title="Drag up or down to resize test results"
+            className="h-2 w-full bg-neutral-900/90 hover:bg-neutral-800 active:bg-neutral-750 cursor-row-resize flex items-center justify-center transition-colors select-none group shrink-0 border-b border-brand-border/40 touch-none"
+          >
+            <div className="w-10 h-1 rounded-full bg-neutral-600 group-hover:bg-brand-red group-active:bg-brand-red transition-colors" />
+          </div>
+
           {/* Verdict Header Bar */}
-          <div className="flex flex-wrap items-center justify-between border-b border-brand-border/60 bg-neutral-900/80 px-4 py-2.5 gap-3">
+          <div className="flex flex-wrap items-center justify-between border-b border-brand-border/60 bg-neutral-900/80 px-4 py-2 gap-3 shrink-0">
             <div className="flex flex-wrap items-center gap-3">
               {/* Overall Verdict Badge */}
               <div className="flex items-center gap-1.5">
@@ -472,124 +477,175 @@ export default function CodingPlayground({
             </div>
           </div>
 
-          {/* Compilation / Runtime Error Banner */}
-          {(isCompileError || isRuntimeError || result.errorOutput || result.error) && (
-            <div className="p-4 bg-rose-950/20 border-b border-rose-500/20 space-y-1.5 font-mono text-xs">
-              <div className="flex items-center gap-1.5 text-rose-400 font-bold">
-                <AlertTriangle className="h-4 w-4" />
-                <span>
-                  {isCompileError
-                    ? "Compilation Error Details:"
-                    : "Execution Error Details:"}
-                </span>
-              </div>
-              <pre className="p-3 rounded-xl bg-black/60 border border-rose-500/30 text-rose-300 overflow-x-auto whitespace-pre-wrap max-h-44 text-[12px] leading-relaxed">
-                {result.errorOutput || result.error || "An error occurred during execution."}
-              </pre>
-            </div>
-          )}
-
-          {/* Horizontal Test Cases Row (LeetCode-Style Green & Red Status Boxes) */}
-          {result.testResults && result.testResults.length > 0 && !isCompileError && (
-            <div className="flex flex-col">
-              <div className="flex flex-wrap items-center gap-2 px-4 py-2.5 border-b border-brand-border/60 bg-neutral-900/40">
-                {result.testResults.map((tc, idx) => {
-                  const isSelected = idx === selectedTestIndex;
-                  return (
-                    <button
-                      key={tc.testIndex}
-                      onClick={() => setSelectedTestIndex(idx)}
-                      className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg font-mono text-xs font-semibold transition-all cursor-pointer ${tc.passed
-                        ? isSelected
-                          ? "bg-emerald-500/25 border-2 border-emerald-400 text-emerald-200 ring-2 ring-emerald-500/40 shadow-sm"
-                          : "bg-emerald-950/40 border border-emerald-500/30 text-emerald-300 hover:border-emerald-500/60"
-                        : isSelected
-                          ? "bg-rose-500/25 border-2 border-rose-400 text-rose-200 ring-2 ring-rose-500/40 shadow-sm"
-                          : "bg-rose-950/40 border border-rose-500/30 text-rose-300 hover:border-rose-500/60"
-                        }`}
-                    >
-                      <span
-                        className={`h-2 w-2 rounded-full ${tc.passed ? "bg-emerald-400 shadow-emerald-400/50" : "bg-rose-500 shadow-rose-500/50"
-                          }`}
-                      />
-                      <span>Case {tc.testIndex}</span>
-                    </button>
-                  );
-                })}
-              </div>
-
-              {/* Selected Test Case Content Area */}
-              {selectedCase && (
-                <div className="p-4 space-y-3 font-mono text-xs">
-                  {/* Case Status Banner */}
-                  <div className="flex items-center justify-between pb-1">
-                    <div className="flex items-center gap-2">
-                      <span className="text-neutral-400">Selected:</span>
-                      <strong className="text-white">Case {selectedCase.testIndex}</strong>
-                      <span
-                        className={`px-2 py-0.5 rounded text-[11px] font-bold ${selectedCase.passed
-                          ? "bg-emerald-500/15 text-emerald-400 border border-emerald-500/30"
-                          : "bg-rose-500/15 text-rose-400 border border-rose-500/30"
-                          }`}
-                      >
-                        {selectedCase.passed ? "Passed" : selectedCase.status || "Failed"}
-                      </span>
-                    </div>
-
-                    {selectedCase.time && (
-                      <span className="text-neutral-400 text-[11px]">
-                        Execution: {selectedCase.time}s
-                      </span>
-                    )}
-                  </div>
-
-                  {/* Test Case Detailed View (Input, Expected Output, Actual Output) */}
-                  <div className="space-y-2.5">
-                    {/* Input */}
-                    {selectedCase.input && (
-                      <div className="space-y-1">
-                        <span className="text-[11px] text-neutral-400 uppercase tracking-wider font-bold">
-                          Input:
-                        </span>
-                        <div className="rounded-lg bg-neutral-900 border border-neutral-800 p-2.5 text-neutral-200 whitespace-pre-wrap leading-relaxed">
-                          {selectedCase.input}
-                        </div>
-                      </div>
-                    )}
-
-                    {/* Expected Output */}
-                    {selectedCase.expectedOutput && (
-                      <div className="space-y-1">
-                        <span className="text-[11px] text-neutral-400 uppercase tracking-wider font-bold">
-                          Expected Output:
-                        </span>
-                        <div className="rounded-lg bg-neutral-900 border border-neutral-800 p-2.5 text-emerald-400 font-bold whitespace-pre-wrap leading-relaxed">
-                          {selectedCase.expectedOutput}
-                        </div>
-                      </div>
-                    )}
-
-                    {/* Actual Output */}
-                    <div className="space-y-1">
-                      <span className="text-[11px] text-neutral-400 uppercase tracking-wider font-bold">
-                        Actual Output:
-                      </span>
-                      <div
-                        className={`rounded-lg border p-2.5 whitespace-pre-wrap leading-relaxed ${selectedCase.passed
-                          ? "bg-neutral-900 border-emerald-500/30 text-emerald-300"
-                          : "bg-rose-950/20 border-rose-500/40 text-rose-300"
-                          }`}
-                      >
-                        {selectedCase.actualOutput || (selectedCase.passed ? selectedCase.expectedOutput : "(no stdout)")}
-                      </div>
-                    </div>
-                  </div>
+          {/* Scrollable Results Content Area */}
+          <div className="flex-1 overflow-y-auto scrollbar-thin flex flex-col">
+            {/* Compilation / Runtime Error Banner */}
+            {(isCompileError || isRuntimeError || result.errorOutput || result.error) && (
+              <div className="p-4 bg-rose-950/20 border-b border-rose-500/20 space-y-1.5 font-mono text-xs">
+                <div className="flex items-center gap-1.5 text-rose-400 font-bold">
+                  <AlertTriangle className="h-4 w-4" />
+                  <span>
+                    {isCompileError
+                      ? "Compilation Error Details:"
+                      : "Execution Error Details:"}
+                  </span>
                 </div>
-              )}
-            </div>
-          )}
+                <pre className="p-3 rounded-xl bg-black/60 border border-rose-500/30 text-rose-300 overflow-x-auto whitespace-pre-wrap text-[12px] leading-relaxed">
+                  {result.errorOutput || result.error || "An error occurred during execution."}
+                </pre>
+              </div>
+            )}
+
+            {/* Horizontal Test Cases Row (LeetCode-Style Green & Red Status Boxes) */}
+            {result.testResults && result.testResults.length > 0 && !isCompileError && (
+              <div className="flex flex-col flex-1">
+                <div className="flex flex-wrap items-center gap-2 px-4 py-2 border-b border-brand-border/60 bg-neutral-900/40 shrink-0">
+                  {result.testResults.map((tc, idx) => {
+                    const isSelected = idx === selectedTestIndex;
+                    return (
+                      <button
+                        key={tc.testIndex}
+                        onClick={() => setSelectedTestIndex(idx)}
+                        className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg font-mono text-xs font-semibold transition-all cursor-pointer ${tc.passed
+                          ? isSelected
+                            ? "bg-emerald-500/25 border-2 border-emerald-400 text-emerald-200 ring-2 ring-emerald-500/40 shadow-sm"
+                            : "bg-emerald-950/40 border border-emerald-500/30 text-emerald-300 hover:border-emerald-500/60"
+                          : isSelected
+                            ? "bg-rose-500/25 border-2 border-rose-400 text-rose-200 ring-2 ring-rose-500/40 shadow-sm"
+                            : "bg-rose-950/40 border border-rose-500/30 text-rose-300 hover:border-rose-500/60"
+                          }`}
+                      >
+                        <span
+                          className={`h-2 w-2 rounded-full ${tc.passed ? "bg-emerald-400 shadow-emerald-400/50" : "bg-rose-500 shadow-rose-500/50"
+                            }`}
+                        />
+                        <span>Case {tc.testIndex}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {/* Selected Test Case Content Area */}
+                {selectedCase && (
+                  <div className="p-4 space-y-3 font-mono text-xs flex-1">
+                    {/* Case Status Banner */}
+                    <div className="flex items-center justify-between pb-1">
+                      <div className="flex items-center gap-2">
+                        <span className="text-neutral-400">Selected:</span>
+                        <strong className="text-white">Case {selectedCase.testIndex}</strong>
+                        <span
+                          className={`px-2 py-0.5 rounded text-[11px] font-bold ${selectedCase.passed
+                            ? "bg-emerald-500/15 text-emerald-400 border border-emerald-500/30"
+                            : "bg-rose-500/15 text-rose-400 border border-rose-500/30"
+                            }`}
+                        >
+                          {selectedCase.passed ? "Passed" : selectedCase.status || "Failed"}
+                        </span>
+                      </div>
+
+                      {selectedCase.time && (
+                        <span className="text-neutral-400 text-[11px]">
+                          Execution: {selectedCase.time}s
+                        </span>
+                      )}
+                    </div>
+
+                    {/* Test Case Detailed View (Input, Expected Output, Actual Output) */}
+                    <div className="space-y-2.5">
+                      {/* Input */}
+                      {selectedCase.input && (
+                        <div className="space-y-1">
+                          <span className="text-[11px] text-neutral-400 uppercase tracking-wider font-bold">
+                            Input:
+                          </span>
+                          <div className="rounded-lg bg-neutral-900 border border-neutral-800 p-2.5 text-neutral-200 whitespace-pre-wrap leading-relaxed">
+                            {selectedCase.input}
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Expected Output */}
+                      {selectedCase.expectedOutput && (
+                        <div className="space-y-1">
+                          <span className="text-[11px] text-neutral-400 uppercase tracking-wider font-bold">
+                            Expected Output:
+                          </span>
+                          <div className="rounded-lg bg-neutral-900 border border-neutral-800 p-2.5 text-emerald-400 font-bold whitespace-pre-wrap leading-relaxed">
+                            {selectedCase.expectedOutput}
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Actual Output */}
+                      <div className="space-y-1">
+                        <span className="text-[11px] text-neutral-400 uppercase tracking-wider font-bold">
+                          Actual Output:
+                        </span>
+                        <div
+                          className={`rounded-lg border p-2.5 whitespace-pre-wrap leading-relaxed ${selectedCase.passed
+                            ? "bg-neutral-900 border-emerald-500/30 text-emerald-300"
+                            : "bg-rose-950/20 border-rose-500/40 text-rose-300"
+                            }`}
+                        >
+                          {selectedCase.actualOutput || (selectedCase.passed ? selectedCase.expectedOutput : "(no stdout)")}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
         </div>
       )}
+
+      {/* Small Loading Indicator Below Action Bar (Only while executing) */}
+      {(running || submitting) && (
+        <div className="flex items-center gap-2.5 px-4 py-2.5 bg-neutral-900/90 border-t border-brand-border/60 text-xs font-mono text-neutral-300 shrink-0 animate-pulse">
+          <div className="h-3.5 w-3.5 rounded-full border-2 border-brand-red border-t-transparent animate-spin" />
+          <span>
+            {running
+              ? "Executing code across test cases..."
+              : "Evaluating submission against hidden test suite..."}
+          </span>
+        </div>
+      )}
+
+      {/* Bottom Action Bar: Run and Submit Controls (LeetCode-Style) */}
+      <div className="flex items-center justify-between border-t border-brand-border/60 bg-neutral-900/95 px-4 py-2 shrink-0 h-11">
+        <div className="flex items-center gap-2">
+          <span className="text-[11px] font-mono text-neutral-400 font-medium">
+            Runtime: {LANGUAGE_CONFIG[language].name}
+          </span>
+        </div>
+
+        <div className="flex items-center gap-2.5">
+          {/* Run Code Button */}
+          <button
+            onClick={handleRun}
+            disabled={running || submitting}
+            className={`inline-flex items-center gap-1.5 rounded-lg px-3.5 py-1.5 text-xs font-mono font-bold transition-all shadow-sm ${isPlusMember
+              ? "bg-neutral-800 hover:bg-neutral-700 text-white border border-neutral-700 hover:border-neutral-600"
+              : "bg-neutral-800/80 hover:bg-neutral-800 text-neutral-300 border border-neutral-700"
+              }`}
+          >
+            <Play className="h-3.5 w-3.5 text-emerald-400 fill-emerald-400" />
+            <span>{running ? "Running..." : "Run"}</span>
+            {!isPlusMember && <Lock className="h-3 w-3 text-neutral-500 ml-0.5" />}
+          </button>
+
+          {/* Submit Button */}
+          <button
+            onClick={handleSubmit}
+            disabled={running || submitting}
+            className="inline-flex items-center gap-1.5 rounded-lg px-3.5 py-1.5 text-xs font-mono font-bold bg-brand-red hover:bg-brand-redHover text-white shadow-brand transition-all"
+          >
+            <Send className="h-3.5 w-3.5" />
+            <span>{submitting ? "Submitting..." : "Submit"}</span>
+            {!isPlusMember && <Lock className="h-3 w-3 text-white/70 ml-0.5" />}
+          </button>
+        </div>
+      </div>
 
       {/* Plus Upgrade Modal */}
       {showUpgradeModal && (

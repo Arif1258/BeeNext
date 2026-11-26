@@ -66,7 +66,8 @@ export default function Navbar() {
         pathname === "/purchase" ||
         pathname?.startsWith("/purchase/") ||
         pathname === "/order-printed" ||
-        pathname === "/notes"
+        pathname === "/notes" ||
+        pathname === "/company-preparation"
       );
     }
     if (path === "/orders") {
