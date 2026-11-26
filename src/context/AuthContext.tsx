@@ -24,11 +24,11 @@ export interface User {
   dsaQualifiedAt?: string | null;
   certificateClaimedAt?: string | null;
   membershipType?: "NORMAL" | "PLUS";
-  membershipPlan?: "MONTHLY" | "YEARLY" | null;
+  membershipPlan?: "MONTHLY" | "YEARLY" | "LIFETIME_PLUS" | string | null;
   membershipStartedAt?: string | null;
   membershipExpiresAt?: string | null;
   isActivePlus?: boolean;
-  currentPlan?: "NORMAL" | "MONTHLY" | "YEARLY" | null;
+  currentPlan?: "NORMAL" | "MONTHLY" | "YEARLY" | "LIFETIME_PLUS" | null;
   printedOrders?: Array<{
     id: string;
     orderNumber: string;

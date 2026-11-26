@@ -29,9 +29,10 @@ export default function Navbar() {
 
   const isPlusActive = Boolean(
     user &&
-    (user.isActivePlus ??
-      (user.membershipType === "PLUS" &&
-        (!user.membershipExpiresAt || new Date(user.membershipExpiresAt).getTime() > Date.now())))
+    (user.role === "ADMIN" ||
+      (user.isActivePlus ??
+        (user.membershipType === "PLUS" &&
+          (!user.membershipExpiresAt || new Date(user.membershipExpiresAt).getTime() > Date.now()))))
   );
 
   // Close dropdown on click outside

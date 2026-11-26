@@ -32,18 +32,21 @@ export const MEMBERSHIP_PLANS = {
 } as const;
 
 export type PlanType = keyof typeof MEMBERSHIP_PLANS;
-export type CurrentMembershipPlan = "NORMAL" | "MONTHLY" | "YEARLY";
+export type CurrentMembershipPlan = "NORMAL" | "MONTHLY" | "YEARLY" | "LIFETIME_PLUS";
 
 export function isUserActivePlus(
   user:
     | {
+        role?: string | null;
         membershipType?: string | null;
         membershipExpiresAt?: Date | string | null;
       }
     | null
     | undefined
 ): boolean {
-  if (!user || user.membershipType !== "PLUS") return false;
+  if (!user) return false;
+  if (user.role === "ADMIN") return true;
+  if (user.membershipType !== "PLUS") return false;
   if (!user.membershipExpiresAt) return true;
   return new Date(user.membershipExpiresAt).getTime() > Date.now();
 }
@@ -51,6 +54,7 @@ export function isUserActivePlus(
 /**
  * Determine the user's active membership plan:
  * - Returns null for logged-out users.
+ * - Returns "LIFETIME_PLUS" for administrator accounts (permanent complimentary access).
  * - Returns "NORMAL" if user has NORMAL membership or if a PLUS membership has expired.
  * - Returns "MONTHLY" if user has an active Monthly Plus membership.
  * - Returns "YEARLY" if user has an active Yearly Plus membership.
@@ -67,6 +71,10 @@ export function determineUserCurrentPlan(
     | undefined
 ): CurrentMembershipPlan | null {
   if (!user) return null;
+
+  if (user.role === "ADMIN") {
+    return "LIFETIME_PLUS";
+  }
 
   const isActive = isUserActivePlus(user);
   if (!isActive) {

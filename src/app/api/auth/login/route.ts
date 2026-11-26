@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { verifyPassword, signToken } from "@/lib/auth";
-import { isUserActivePlus } from "@/lib/membership";
+import { isUserActivePlus, determineUserCurrentPlan } from "@/lib/membership";
 
 export async function POST(req: Request) {
   try {
@@ -64,7 +64,12 @@ export async function POST(req: Request) {
       role: user.role,
     });
 
+    const effectivePlan = user.role === "ADMIN" ? "LIFETIME_PLUS" : (user.membershipPlan || null);
     const isActivePlus = isUserActivePlus(user);
+    const currentPlan = determineUserCurrentPlan({
+      ...user,
+      membershipPlan: effectivePlan,
+    });
 
     const userPayload = {
       id: user.id,
@@ -74,10 +79,11 @@ export async function POST(req: Request) {
       avatar: user.avatar,
       createdAt: user.createdAt,
       membershipType: user.membershipType,
-      membershipPlan: user.membershipPlan,
+      membershipPlan: effectivePlan,
       membershipStartedAt: user.membershipStartedAt,
       membershipExpiresAt: user.membershipExpiresAt,
       isActivePlus,
+      currentPlan,
       purchases: user.purchases,
       bookmarks: user.bookmarks,
       progress: user.progress,

@@ -122,7 +122,12 @@ export default function ProfilePage() {
                 <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase bg-brand-black border border-brand-border text-white">
                   {user.role}
                 </span>
-                {user.membershipType === "PLUS" ? (
+                {user.role === "ADMIN" ? (
+                  <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold uppercase bg-brand-red/15 text-brand-red border border-brand-red/40 shadow-sm">
+                    <Sparkles className="h-3 w-3" />
+                    <span>Lifetime Plus</span>
+                  </span>
+                ) : user.membershipType === "PLUS" ? (
                   <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold uppercase bg-brand-red/15 text-brand-red border border-brand-red/40 shadow-sm">
                     <Sparkles className="h-3 w-3" />
                     <span>Plus Member {user.membershipPlan ? `(${user.membershipPlan})` : ""}</span>
@@ -144,12 +149,17 @@ export default function ProfilePage() {
                     <span>Member since {formatDate(user.createdAt)}</span>
                   </span>
                 )}
-                {user.membershipType === "PLUS" && user.membershipExpiresAt && (
+                {user.role === "ADMIN" ? (
+                  <span className="flex items-center gap-1 text-emerald-400">
+                    <Sparkles className="h-3 w-3 text-emerald-400" />
+                    <span>Lifetime Plus active</span>
+                  </span>
+                ) : user.membershipType === "PLUS" && user.membershipExpiresAt ? (
                   <span className="flex items-center gap-1 text-emerald-400">
                     <Sparkles className="h-3 w-3 text-emerald-400" />
                     <span>Plus active until {formatDate(user.membershipExpiresAt)}</span>
                   </span>
-                )}
+                ) : null}
               </div>
             </div>
           </div>

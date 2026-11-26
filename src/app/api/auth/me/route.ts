@@ -91,7 +91,7 @@ export async function GET() {
       },
     });
 
-    const effectivePlan = user?.membershipPlan || user?.membershipOrders?.[0]?.plan || null;
+    const effectivePlan = user?.role === "ADMIN" ? "LIFETIME_PLUS" : (user?.membershipPlan || user?.membershipOrders?.[0]?.plan || null);
     const isActivePlus = isUserActivePlus(user);
     const currentPlan = user
       ? determineUserCurrentPlan({

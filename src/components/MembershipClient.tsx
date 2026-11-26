@@ -41,6 +41,7 @@ export default function MembershipClient({ initialCurrentPlan = null }: Membersh
   const currentPlan: CurrentMembershipPlan | null = authLoading
     ? (initialCurrentPlan ?? (user ? determineUserCurrentPlan(user) : null))
     : (user ? (user.currentPlan ?? determineUserCurrentPlan(user)) : null);
+  const isLifetimePlus = Boolean(user?.role === "ADMIN" || currentPlan === "LIFETIME_PLUS");
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [showSimModal, setShowSimModal] = useState(false);
@@ -220,7 +221,7 @@ export default function MembershipClient({ initialCurrentPlan = null }: Membersh
     <div className="min-h-screen bg-brand-black text-white py-12 px-4 sm:px-6 lg:px-8 selection:bg-brand-red selection:text-white">
       <div className="mx-auto max-w-6xl space-y-12">
         {/* Active Plus Status Alert */}
-        {isPlusMember && (
+        {(isPlusMember || isLifetimePlus) && (
           <div className="rounded-2xl border border-brand-red/50 bg-brand-red/10 p-5 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div className="flex items-center gap-3">
               <div className="h-10 w-10 rounded-xl bg-brand-red text-white flex items-center justify-center shrink-0">
@@ -230,11 +231,15 @@ export default function MembershipClient({ initialCurrentPlan = null }: Membersh
                 <div className="flex items-center gap-2">
                   <span className="font-bold text-white text-base">Active Plus Membership</span>
                   <span className="px-2 py-0.5 rounded-full text-[11px] font-mono font-bold bg-brand-red text-white">
-                    {user?.membershipPlan || "ACTIVE"}
+                    {isLifetimePlus ? "Lifetime Plus" : (user?.membershipPlan || "ACTIVE")}
                   </span>
                 </div>
                 <p className="text-xs text-neutral-300">
-                  {user?.membershipExpiresAt ? (
+                  {isLifetimePlus ? (
+                    <>
+                      Membership Validity: <strong className="text-white">Lifetime</strong> (No expiration date or renewal requirement).
+                    </>
+                  ) : user?.membershipExpiresAt ? (
                     <>
                       Valid until{" "}
                       <strong className="text-white">
@@ -252,9 +257,16 @@ export default function MembershipClient({ initialCurrentPlan = null }: Membersh
                 </p>
               </div>
             </div>
-            <div className="text-xs text-neutral-400 font-mono">
-              Renewing now extends your expiration date automatically.
-            </div>
+            {isLifetimePlus ? (
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono text-xs font-semibold">
+                <Check className="h-4 w-4" />
+                <span>Complimentary Lifetime Access</span>
+              </div>
+            ) : (
+              <div className="text-xs text-neutral-400 font-mono">
+                Renewing now extends your expiration date automatically.
+              </div>
+            )}
           </div>
         )}
 
@@ -289,8 +301,71 @@ export default function MembershipClient({ initialCurrentPlan = null }: Membersh
           </div>
         )}
 
-        {/* Three Plan Boxes Container */}
+        {/* Plan Boxes Container */}
         <div className="space-y-6 sm:space-y-8 max-w-4xl mx-auto">
+          {/* Lifetime Plus Plan Box (For Administrator Account) */}
+          {isLifetimePlus && (
+            <div className="rounded-2xl border-2 border-green-500 bg-brand-card p-6 sm:p-8 transition-all relative overflow-hidden ring-2 ring-green-500/30 shadow-lg">
+              <div className="absolute top-0 right-0 bg-emerald-600 text-white text-[10px] font-mono font-bold uppercase tracking-wider px-3.5 py-1 rounded-bl-xl shadow">
+                Administrator Privileges • Lifetime Access
+              </div>
+
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4">
+                <div>
+                  <div className="flex items-center gap-2.5 flex-wrap">
+                    <h3 className="text-xl font-bold text-white">Lifetime Plus</h3>
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold tracking-wider uppercase bg-green-500 text-neutral-950 shadow-sm">
+                      <Check className="h-3.5 w-3.5 stroke-[3]" />
+                      CURRENT PLAN
+                    </span>
+                  </div>
+                  <p className="text-xs text-neutral-400 font-mono">Complimentary Lifetime Access — All Features Unlocked</p>
+                </div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl sm:text-4xl font-extrabold text-white">Lifetime</span>
+                  <span className="text-neutral-400 text-sm font-mono">/ no expiration</span>
+                </div>
+              </div>
+
+              <div className="pt-4 border-t border-brand-border/60 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div className="flex items-start gap-2.5 text-xs text-neutral-200">
+                  <Check className="h-4 w-4 text-emerald-400 shrink-0 mt-0.5" />
+                  <span>Access to all 495 Striver DSA Sheet Problems</span>
+                </div>
+                <div className="flex items-start gap-2.5 text-xs text-neutral-200">
+                  <Check className="h-4 w-4 text-emerald-400 shrink-0 mt-0.5" />
+                  <span>Interactive Monaco Coding Playground with Cloud Execution</span>
+                </div>
+                <div className="flex items-start gap-2.5 text-xs text-neutral-200">
+                  <Check className="h-4 w-4 text-emerald-400 shrink-0 mt-0.5" />
+                  <span>Hidden Test Cases &amp; Official Submission Verdicts</span>
+                </div>
+                <div className="flex items-start gap-2.5 text-xs text-neutral-200">
+                  <Check className="h-4 w-4 text-emerald-400 shrink-0 mt-0.5" />
+                  <span>Full Access to Brute Force &amp; Optimal Solutions</span>
+                </div>
+                <div className="flex items-start gap-2.5 text-xs text-neutral-200">
+                  <Check className="h-4 w-4 text-emerald-400 shrink-0 mt-0.5" />
+                  <span>Full Access to all 5 groups of Premium PDF Notes &amp; Company Prep</span>
+                </div>
+                <div className="flex items-start gap-2.5 text-xs text-neutral-200">
+                  <Check className="h-4 w-4 text-emerald-400 shrink-0 mt-0.5" />
+                  <span>Permanent Lifetime Validity (No renewal or expiration required)</span>
+                </div>
+              </div>
+
+              <div className="pt-5 mt-4 border-t border-brand-border/60 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-neutral-400 font-mono">
+                <div className="flex items-center gap-2 text-emerald-400">
+                  <Shield className="h-4 w-4 shrink-0" />
+                  <span>Your administrator account is permanently authorized for all Plus capabilities.</span>
+                </div>
+                <div>
+                  Validity: <strong className="text-white">Lifetime</strong>
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* First Box: Normal Account (First row, full width, yellow outline) */}
           <div className="rounded-2xl border-2 border-yellow-500 bg-brand-card p-6 sm:p-8 transition-all">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4">
@@ -326,9 +401,13 @@ export default function MembershipClient({ initialCurrentPlan = null }: Membersh
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 items-stretch">
             {/* Second Box: Monthly Plus (Left, green outline) */}
             <div
-              onClick={() => setSelectedPlan("MONTHLY")}
-              className={`rounded-2xl border-2 border-green-500 bg-brand-card p-6 sm:p-8 flex flex-col justify-between cursor-pointer transition-all ${
-                selectedPlan === "MONTHLY"
+              onClick={() => {
+                if (!isLifetimePlus) setSelectedPlan("MONTHLY");
+              }}
+              className={`rounded-2xl border-2 border-green-500 bg-brand-card p-6 sm:p-8 flex flex-col justify-between ${
+                isLifetimePlus ? "cursor-default" : "cursor-pointer"
+              } transition-all ${
+                selectedPlan === "MONTHLY" && !isLifetimePlus
                   ? "ring-2 ring-green-500/30 shadow-lg"
                   : "hover:border-green-400"
               }`}
@@ -347,9 +426,11 @@ export default function MembershipClient({ initialCurrentPlan = null }: Membersh
                     </div>
                     <p className="text-xs text-neutral-400 font-mono">30 Days Full Access</p>
                   </div>
-                  <div className="h-5 w-5 rounded-full border border-neutral-600 flex items-center justify-center">
-                    {selectedPlan === "MONTHLY" && <div className="h-2.5 w-2.5 rounded-full bg-brand-red" />}
-                  </div>
+                  {!isLifetimePlus && (
+                    <div className="h-5 w-5 rounded-full border border-neutral-600 flex items-center justify-center">
+                      {selectedPlan === "MONTHLY" && <div className="h-2.5 w-2.5 rounded-full bg-brand-red" />}
+                    </div>
+                  )}
                 </div>
 
                 <div className="pt-2 flex items-baseline gap-1">
@@ -372,37 +453,48 @@ export default function MembershipClient({ initialCurrentPlan = null }: Membersh
               </div>
 
               <div className="pt-6">
-                <button
-                  disabled={loading}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleCheckout("MONTHLY");
-                  }}
-                  className="w-full py-3 px-4 rounded-xl bg-neutral-900 hover:bg-neutral-800 border border-brand-border text-white font-mono font-bold text-xs sm:text-sm transition-all flex items-center justify-center gap-2"
-                >
-                  {loading && selectedPlan === "MONTHLY" ? (
-                    <span>Processing...</span>
-                  ) : (
-                    <>
-                      <span>
-                        {isPlusMember
-                          ? currentPlan === "MONTHLY"
-                            ? "Extend for ₹79"
-                            : "Switch to Monthly (₹79)"
-                          : "Get Monthly Access"}
-                      </span>
-                      <ArrowRight className="h-4 w-4 text-brand-red" />
-                    </>
-                  )}
-                </button>
+                {isLifetimePlus ? (
+                  <div className="w-full py-3 px-4 rounded-xl bg-neutral-900 border border-brand-border/60 text-neutral-400 font-mono font-medium text-xs sm:text-sm text-center flex items-center justify-center gap-2 select-none">
+                    <Check className="h-4 w-4 text-emerald-400" />
+                    <span>Included in Lifetime Plus</span>
+                  </div>
+                ) : (
+                  <button
+                    disabled={loading}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleCheckout("MONTHLY");
+                    }}
+                    className="w-full py-3 px-4 rounded-xl bg-neutral-900 hover:bg-neutral-800 border border-brand-border text-white font-mono font-bold text-xs sm:text-sm transition-all flex items-center justify-center gap-2"
+                  >
+                    {loading && selectedPlan === "MONTHLY" ? (
+                      <span>Processing...</span>
+                    ) : (
+                      <>
+                        <span>
+                          {isPlusMember
+                            ? currentPlan === "MONTHLY"
+                              ? "Extend for ₹79"
+                              : "Switch to Monthly (₹79)"
+                            : "Get Monthly Access"}
+                        </span>
+                        <ArrowRight className="h-4 w-4 text-brand-red" />
+                      </>
+                    )}
+                  </button>
+                )}
               </div>
             </div>
 
             {/* Third Box: Yearly Plus (Right, green outline) */}
             <div
-              onClick={() => setSelectedPlan("YEARLY")}
-              className={`rounded-2xl border-2 border-green-500 bg-brand-card p-6 sm:p-8 flex flex-col justify-between cursor-pointer transition-all relative overflow-hidden ${
-                selectedPlan === "YEARLY"
+              onClick={() => {
+                if (!isLifetimePlus) setSelectedPlan("YEARLY");
+              }}
+              className={`rounded-2xl border-2 border-green-500 bg-brand-card p-6 sm:p-8 flex flex-col justify-between ${
+                isLifetimePlus ? "cursor-default" : "cursor-pointer"
+              } transition-all relative overflow-hidden ${
+                selectedPlan === "YEARLY" && !isLifetimePlus
                   ? "ring-2 ring-green-500/30 shadow-lg"
                   : "hover:border-green-400"
               }`}
@@ -426,9 +518,11 @@ export default function MembershipClient({ initialCurrentPlan = null }: Membersh
                     </div>
                     <p className="text-xs text-neutral-400 font-mono">365 Days Full Access</p>
                   </div>
-                  <div className="h-5 w-5 rounded-full border border-neutral-600 flex items-center justify-center">
-                    {selectedPlan === "YEARLY" && <div className="h-2.5 w-2.5 rounded-full bg-brand-red" />}
-                  </div>
+                  {!isLifetimePlus && (
+                    <div className="h-5 w-5 rounded-full border border-neutral-600 flex items-center justify-center">
+                      {selectedPlan === "YEARLY" && <div className="h-2.5 w-2.5 rounded-full bg-brand-red" />}
+                    </div>
+                  )}
                 </div>
 
                 <div className="pt-2 flex items-baseline gap-2">
@@ -454,29 +548,36 @@ export default function MembershipClient({ initialCurrentPlan = null }: Membersh
               </div>
 
               <div className="pt-6">
-                <button
-                  disabled={loading}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleCheckout("YEARLY");
-                  }}
-                  className="w-full py-3 px-4 rounded-xl bg-brand-red hover:bg-brand-redHover text-white font-mono font-bold text-xs sm:text-sm transition-all shadow-brand flex items-center justify-center gap-2"
-                >
-                  {loading && selectedPlan === "YEARLY" ? (
-                    <span>Processing...</span>
-                  ) : (
-                    <>
-                      <span>
-                        {isPlusMember
-                          ? currentPlan === "YEARLY"
-                            ? "Extend for ₹599 (Yearly)"
-                            : "Upgrade to Plus Yearly"
-                          : "Upgrade to Plus Yearly"}
-                      </span>
-                      <ArrowRight className="h-4 w-4" />
-                    </>
-                  )}
-                </button>
+                {isLifetimePlus ? (
+                  <div className="w-full py-3 px-4 rounded-xl bg-brand-card border border-brand-border/60 text-neutral-400 font-mono font-medium text-xs sm:text-sm text-center flex items-center justify-center gap-2 select-none">
+                    <Check className="h-4 w-4 text-emerald-400" />
+                    <span>Included in Lifetime Plus</span>
+                  </div>
+                ) : (
+                  <button
+                    disabled={loading}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleCheckout("YEARLY");
+                    }}
+                    className="w-full py-3 px-4 rounded-xl bg-brand-red hover:bg-brand-redHover text-white font-mono font-bold text-xs sm:text-sm transition-all shadow-brand flex items-center justify-center gap-2"
+                  >
+                    {loading && selectedPlan === "YEARLY" ? (
+                      <span>Processing...</span>
+                    ) : (
+                      <>
+                        <span>
+                          {isPlusMember
+                            ? currentPlan === "YEARLY"
+                              ? "Extend for ₹599 (Yearly)"
+                              : "Upgrade to Plus Yearly"
+                            : "Upgrade to Plus Yearly"}
+                        </span>
+                        <ArrowRight className="h-4 w-4" />
+                      </>
+                    )}
+                  </button>
+                )}
               </div>
             </div>
           </div>

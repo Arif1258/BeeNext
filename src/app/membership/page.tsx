@@ -42,7 +42,7 @@ export default async function MembershipPage() {
         });
 
         if (user) {
-          const effectivePlan = user.membershipPlan || user.membershipOrders?.[0]?.plan || null;
+          const effectivePlan = user.role === "ADMIN" ? "LIFETIME_PLUS" : (user.membershipPlan || user.membershipOrders?.[0]?.plan || null);
           initialCurrentPlan = determineUserCurrentPlan({
             ...user,
             membershipPlan: effectivePlan,
