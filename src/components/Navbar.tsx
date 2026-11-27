@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
+import NavbarStreak from "@/components/NavbarStreak";
 import { useCart } from "@/context/CartContext";
 import {
   BookOpen,
@@ -165,6 +166,9 @@ export default function Navbar() {
 
           {/* Far Right: Profile / User Icon & Account Type */}
           <div className="flex items-center space-x-2 sm:space-x-3">
+            {/* LeetCode-inspired Flame Streak Icon immediately before profile logo */}
+            <NavbarStreak />
+
             {/* Profile Avatar / Logo with Dropdown */}
             <div ref={dropdownRef} className="relative flex items-center">
               <button

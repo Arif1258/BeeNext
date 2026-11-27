@@ -264,14 +264,14 @@ var countNodesinLoop = function(head) {
 `,
       java: `
 public class Solution {
-    public int countNodesinLoop(ListNode head) {
-        ListNode slow = head, fast = head;
+    public int countNodesinLoop(Node head) {
+        Node slow = head, fast = head;
         while (fast != null && fast.next != null) {
             slow = slow.next;
             fast = fast.next.next;
             if (slow == fast) {
                 int count = 1;
-                ListNode curr = slow.next;
+                Node curr = slow.next;
                 while (curr != slow) {
                     count++;
                     curr = curr.next;
@@ -286,14 +286,14 @@ public class Solution {
       cpp: `
 class Solution {
 public:
-    int countNodesinLoop(ListNode *head) {
-        ListNode *slow = head, *fast = head;
+    int countNodesinLoop(Node *head) {
+        Node *slow = head, *fast = head;
         while (fast && fast->next) {
             slow = slow->next;
             fast = fast->next->next;
             if (slow == fast) {
                 int count = 1;
-                ListNode *curr = slow->next;
+                Node *curr = slow->next;
                 while (curr != slow) {
                     count++;
                     curr = curr->next;
@@ -544,23 +544,16 @@ async function main() {
   let passedTests = 0;
   let failedTests = 0;
 
-  for (const prob of specializedProblems) {
-    const dbProb = await prisma.problem.findUnique({
-      where: { slug: prob.slug },
-      include: { testCases: { where: { isActive: true }, orderBy: { order: "asc" } } },
-    });
+  const curatedCases = JSON.parse(fs.readFileSync(path.resolve(__dirname, "curated_active_test_cases.json"), "utf-8"));
 
-    if (!dbProb) {
-      console.error(`Problem not found in DB: ${prob.slug}`);
+  for (const prob of specializedProblems) {
+    const testCases = curatedCases[prob.slug];
+    if (!testCases) {
+      console.error(`Problem not found in curated: ${prob.slug}`);
       continue;
     }
 
     const template = (registry as any)[prob.slug];
-    const testCases = dbProb.testCases.map((tc) => ({
-      order: tc.order,
-      input: tc.input,
-      expectedOutput: tc.expectedOutput,
-    }));
 
     console.log(`Testing problem: ${prob.slug} (${testCases.length} cases)`);
 

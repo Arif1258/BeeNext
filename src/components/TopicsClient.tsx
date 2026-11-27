@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Award } from "lucide-react";
 import confetti from "canvas-confetti";
 import VerticalTopicAccordion, { TopicItem } from "@/components/VerticalTopicAccordion";
+import DailyChallengeSection from "@/components/DailyChallengeSection";
 import { useAuth } from "@/context/AuthContext";
 
 interface TopicsClientProps {
@@ -102,6 +103,39 @@ export default function TopicsClient({ initialCategories }: TopicsClientProps) {
     totalProblemsCount > 0
       ? Math.round((completedCount / totalProblemsCount) * 100)
       : 0;
+
+  // Continuous scroll position tracking in sessionStorage (scoped per browser tab)
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    // Set scrollRestoration to manual so browser doesn't clamp scroll before content expands
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+
+    let scrollTimeout: NodeJS.Timeout;
+    const handleScroll = () => {
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        sessionStorage.setItem("beenext_topics_scroll_y", String(window.scrollY));
+      }, 50);
+    };
+
+    const handleSnapshot = () => {
+      sessionStorage.setItem("beenext_topics_scroll_y", String(window.scrollY));
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("pagehide", handleSnapshot);
+    window.addEventListener("beforeunload", handleSnapshot);
+
+    return () => {
+      clearTimeout(scrollTimeout);
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("pagehide", handleSnapshot);
+      window.removeEventListener("beforeunload", handleSnapshot);
+    };
+  }, []);
 
   // Number of grid boxes in the LeetCode contribution-style tracker (single horizontal row)
   const TOTAL_TRACKER_BOXES = 50;
@@ -231,6 +265,9 @@ export default function TopicsClient({ initialCategories }: TopicsClientProps) {
             })}
           </div>
         </div>
+
+        {/* Daily Challenge Section (Immediately Above Beginner Problems) */}
+        <DailyChallengeSection />
 
         {/* Vertical Topic Accordion Layout (ONE Topic Per Row) */}
         {categories.length > 0 ? (

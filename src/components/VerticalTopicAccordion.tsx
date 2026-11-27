@@ -76,6 +76,9 @@ const LeetCodeIcon = () => (
   </svg>
 );
 
+const useIsomorphicLayoutEffect =
+  typeof window !== "undefined" ? React.useLayoutEffect : React.useEffect;
+
 export default function VerticalTopicAccordion({
   topics,
   user,
@@ -95,35 +98,118 @@ export default function VerticalTopicAccordion({
   }>({ isOpen: false, type: "Brute Force" });
   // Map of topicId -> boolean to allow multiple topics to stay open independently until manually closed
   const [expandedTopicIds, setExpandedTopicIds] = useState<{ [id: string]: boolean }>({});
+  const hasRestoredScrollRef = React.useRef(false);
 
-  // Sync expanded state with localStorage to preserve opened topics across navigation and state updates
-  useEffect(() => {
+  // Sync expanded state with sessionStorage (tab-isolated) and fallback to localStorage
+  useIsomorphicLayoutEffect(() => {
     if (typeof window === "undefined") return;
     try {
-      const raw = localStorage.getItem("beenext_expanded_topics");
-      if (raw !== null) {
-        const parsed = JSON.parse(raw);
-        if (Array.isArray(parsed)) {
-          const map: { [id: string]: boolean } = {};
-          parsed.forEach((id: string) => {
-            map[id] = true;
-          });
-          setExpandedTopicIds(map);
-          return;
+      let savedIds: string[] | null = null;
+      const sessionRaw = sessionStorage.getItem("beenext_topics_expanded_ids");
+      if (sessionRaw !== null) {
+        savedIds = JSON.parse(sessionRaw);
+      } else {
+        const localRaw = localStorage.getItem("beenext_expanded_topics");
+        if (localRaw !== null) {
+          savedIds = JSON.parse(localRaw);
         }
       }
-      // If nothing saved in localStorage yet and defaultExpandedSlug was given:
+
+      if (Array.isArray(savedIds) && savedIds.length > 0) {
+        const map: { [id: string]: boolean } = {};
+        savedIds.forEach((id: string) => {
+          map[id] = true;
+        });
+        setExpandedTopicIds(map);
+        sessionStorage.setItem("beenext_topics_expanded_ids", JSON.stringify(savedIds));
+        return;
+      }
+
+      // If nothing saved yet and defaultExpandedSlug was given:
       if (defaultExpandedSlug) {
         const found = topics.find((t) => t.slug === defaultExpandedSlug);
         if (found) {
           setExpandedTopicIds({ [found.id]: true });
+          sessionStorage.setItem("beenext_topics_expanded_ids", JSON.stringify([found.id]));
           localStorage.setItem("beenext_expanded_topics", JSON.stringify([found.id]));
         }
       }
     } catch (e) {
-      console.error("Error reading expanded topics from localStorage:", e);
+      console.error("Error reading expanded topics from storage:", e);
     }
   }, [defaultExpandedSlug, topics]);
+
+  // Restore scroll position smoothly after expanded topics are rendered into DOM
+  useIsomorphicLayoutEffect(() => {
+    if (typeof window === "undefined" || hasRestoredScrollRef.current) return;
+
+    const savedYStr = sessionStorage.getItem("beenext_topics_scroll_y");
+    if (!savedYStr) {
+      hasRestoredScrollRef.current = true;
+      return;
+    }
+
+    const targetY = parseInt(savedYStr, 10);
+    if (isNaN(targetY) || targetY <= 0) {
+      hasRestoredScrollRef.current = true;
+      return;
+    }
+
+    const attemptRestore = () => {
+      const scrollHeight = document.documentElement.scrollHeight;
+      const clientHeight = window.innerHeight;
+      const maxScroll = Math.max(0, scrollHeight - clientHeight);
+
+      if (maxScroll >= targetY || maxScroll >= targetY - 50) {
+        window.scrollTo({ top: targetY, behavior: "instant" });
+        hasRestoredScrollRef.current = true;
+        return true;
+      }
+      return false;
+    };
+
+    if (attemptRestore()) return;
+
+    const raf1 = requestAnimationFrame(() => {
+      if (attemptRestore()) return;
+      const raf2 = requestAnimationFrame(() => {
+        attemptRestore();
+      });
+      return () => cancelAnimationFrame(raf2);
+    });
+
+    const timeoutId = setTimeout(() => {
+      attemptRestore();
+      hasRestoredScrollRef.current = true;
+    }, 100);
+
+    return () => {
+      cancelAnimationFrame(raf1);
+      clearTimeout(timeoutId);
+    };
+  }, [expandedTopicIds]);
+
+  // Support browser native back and forward buttons (popstate)
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const handlePopState = () => {
+      hasRestoredScrollRef.current = false;
+      const savedYStr = sessionStorage.getItem("beenext_topics_scroll_y");
+      if (savedYStr) {
+        const targetY = parseInt(savedYStr, 10);
+        if (!isNaN(targetY) && targetY > 0) {
+          window.scrollTo({ top: targetY, behavior: "instant" });
+          requestAnimationFrame(() => {
+            window.scrollTo({ top: targetY, behavior: "instant" });
+          });
+        }
+      }
+    };
+
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, []);
 
   // Completed problems map: use prop if provided, else internal fallback
   const [internalCompletedMap, setInternalCompletedMap] = useState<{ [id: string]: boolean }>({});
@@ -200,16 +286,40 @@ export default function VerticalTopicAccordion({
       }
       if (typeof window !== "undefined") {
         try {
+          const keys = Object.keys(next);
+          sessionStorage.setItem(
+            "beenext_topics_expanded_ids",
+            JSON.stringify(keys)
+          );
           localStorage.setItem(
             "beenext_expanded_topics",
-            JSON.stringify(Object.keys(next))
+            JSON.stringify(keys)
           );
         } catch (e) {
-          console.error("Error saving expanded topics to localStorage:", e);
+          console.error("Error saving expanded topics to storage:", e);
         }
       }
       return next;
     });
+  };
+
+  const handleBeforeNavigate = (categoryId?: string) => {
+    if (typeof window === "undefined") return;
+    try {
+      sessionStorage.setItem("beenext_topics_scroll_y", String(window.scrollY));
+      const currentKeys = Object.keys(expandedTopicIds);
+      if (categoryId && !currentKeys.includes(categoryId)) {
+        currentKeys.push(categoryId);
+      }
+      sessionStorage.setItem(
+        "beenext_topics_expanded_ids",
+        JSON.stringify(currentKeys)
+      );
+      localStorage.setItem(
+        "beenext_expanded_topics",
+        JSON.stringify(currentKeys)
+      );
+    } catch (e) {}
   };
 
   // Check if user owns full bundle (all topics unlocked)
@@ -333,6 +443,7 @@ export default function VerticalTopicAccordion({
                             return (
                               <Link
                                 href={isConceptual ? `/problem/${problem.slug}` : `/problem/${problem.slug}/code`}
+                                onClick={() => handleBeforeNavigate(topic.id)}
                                 className={`text-xs sm:text-sm font-medium transition-colors truncate ${
                                   isCompleted
                                     ? "text-neutral-500 line-through decoration-neutral-600 hover:text-neutral-300"
@@ -359,6 +470,7 @@ export default function VerticalTopicAccordion({
                             <>
                               <Link
                                 href={`/problem/${problem.slug}/code`}
+                                onClick={() => handleBeforeNavigate(topic.id)}
                                 className="text-neutral-300 hover:text-brand-red font-medium transition-colors inline-flex items-center gap-1.5"
                                 title="Open dedicated Coding Playground for this problem"
                               >
@@ -422,6 +534,7 @@ export default function VerticalTopicAccordion({
                           {isPlusMember ? (
                             <Link
                               href={`/problem/${problem.slug}/brute-force`}
+                              onClick={() => handleBeforeNavigate(topic.id)}
                               className="text-neutral-300 hover:text-white hover:underline transition-colors font-medium"
                               title="Open Brute Force solution"
                             >
@@ -446,6 +559,7 @@ export default function VerticalTopicAccordion({
                           {isPlusMember ? (
                             <Link
                               href={`/problem/${problem.slug}/optimal`}
+                              onClick={() => handleBeforeNavigate(topic.id)}
                               className="text-neutral-300 hover:text-white hover:underline transition-colors font-medium"
                               title="Open Optimal solution"
                             >

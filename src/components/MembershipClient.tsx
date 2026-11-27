@@ -17,6 +17,7 @@ import {
   Code2,
   BookOpen,
   Calendar,
+  Flame,
 } from "lucide-react";
 import confetti from "canvas-confetti";
 
@@ -24,6 +25,7 @@ const NORMAL_ACCOUNT_FEATURES = [
   "Access to all 495 Striver DSA Sheet Problems",
   "Curated Striver YouTube Video Walkthroughs",
   "Interactive Monaco Code Editor (View & Type Code)",
+  "1 Free Run & 1 Free Submit Daily on Daily Challenge",
   "Personal Progress Tracking & Problem Status",
 ];
 
@@ -641,10 +643,23 @@ export default function MembershipClient({ initialCurrentPlan = null }: Membersh
                     </td>
                   </tr>
 
+                  <tr className="bg-amber-500/5">
+                    <td className="py-3.5 px-6 font-semibold text-white flex items-center gap-2.5">
+                      <Flame className="h-4 w-4 text-amber-500" />
+                      <span>Daily Challenge (1 Free Run &amp; 1 Submit Daily)</span>
+                    </td>
+                    <td className="py-3.5 px-6 text-center text-amber-400 font-medium">
+                      <span>1 Run + 1 Submit / Day</span>
+                    </td>
+                    <td className="py-3.5 px-6 text-center text-emerald-400 font-bold">
+                      <span>Unlimited Runs &amp; Submits</span>
+                    </td>
+                  </tr>
+
                   <tr className="bg-brand-red/5">
                     <td className="py-3.5 px-6 font-semibold text-white flex items-center gap-2.5">
                       <Zap className="h-4 w-4 text-brand-red" />
-                      <span>Cloud Code Execution (Java, C++, Python, JS)</span>
+                      <span>Unrestricted Cloud Execution (All 464 Problems)</span>
                     </td>
                     <td className="py-3.5 px-6 text-center text-neutral-500">
                       <X className="h-4 w-4 mx-auto" />
@@ -657,7 +672,7 @@ export default function MembershipClient({ initialCurrentPlan = null }: Membersh
                   <tr className="bg-brand-red/5">
                     <td className="py-3.5 px-6 font-semibold text-white flex items-center gap-2.5">
                       <Code2 className="h-4 w-4 text-brand-red" />
-                      <span>Submit Against Hidden Test Cases &amp; Verdicts</span>
+                      <span>Hidden Test Suite Submissions &amp; Verdicts (All Problems)</span>
                     </td>
                     <td className="py-3.5 px-6 text-center text-neutral-500">
                       <X className="h-4 w-4 mx-auto" />

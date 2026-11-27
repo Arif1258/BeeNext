@@ -3,6 +3,7 @@ import { cookies } from "next/headers";
 import { verifyToken } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { isUserActivePlus, determineUserCurrentPlan } from "@/lib/membership";
+import { calculateEffectiveStreak, getUserStreakSafe } from "@/lib/dailyChallenge";
 
 export const dynamic = "force-dynamic";
 
@@ -100,6 +101,16 @@ export async function GET() {
         })
       : null;
 
+    let streakInfo = { currentStreak: 0, longestStreak: 0, isCompletedToday: false };
+    if (user?.id) {
+      try {
+        const rawStreak = await getUserStreakSafe(user.id);
+        streakInfo = calculateEffectiveStreak(rawStreak);
+      } catch (streakErr) {
+        console.warn("Streak calculation warning (non-blocking):", streakErr);
+      }
+    }
+
     return NextResponse.json({
       user: user
         ? {
@@ -107,6 +118,9 @@ export async function GET() {
             membershipPlan: effectivePlan,
             isActivePlus,
             currentPlan,
+            currentStreak: streakInfo.currentStreak,
+            longestStreak: streakInfo.longestStreak,
+            isDailyChallengeCompletedToday: streakInfo.isCompletedToday,
           }
         : null,
     });

@@ -6,6 +6,13 @@ import { SupportedLanguage } from "@/lib/judge0";
 import { evaluateTestSuiteWithOnlineCompiler } from "@/lib/executionWrapper";
 import { isProblemConceptual } from "@/lib/problemTemplates";
 import { SubmissionStatus } from "@prisma/client";
+import {
+  verifyAndRecordDailySubmission,
+  getTodayISTDateString,
+  getOrCreateDailyChallenge,
+  reserveDailyAttempt,
+  refundDailyAttempt,
+} from "@/lib/dailyChallenge";
 
 interface SubmitResponsePayload {
   success: boolean;
@@ -27,9 +34,24 @@ interface SubmitResponsePayload {
     time: string | null;
     memory: number | null;
   }>;
+  dailyChallenge?: {
+    isDailyChallenge: boolean;
+    newlyCompleted: boolean;
+    currentStreak: number;
+    longestStreak: number;
+    todayDate: string;
+  } | null;
+  dailyAllowance?: {
+    isDailyChallenge: boolean;
+    freeSubmitsRemaining: number;
+  } | null;
 }
 
 export async function POST(req: Request) {
+  let isDailyChallengeSubmit = false;
+  let currentUserId: string | null = null;
+  let reservationDate: string | undefined = undefined;
+
   try {
     const session = await getCurrentUser(req);
     if (!session) {
@@ -56,18 +78,8 @@ export async function POST(req: Request) {
       );
     }
 
+    currentUserId = user.id;
     const isPlus = user.role === "ADMIN" || isUserActivePlus(user);
-
-    if (!isPlus) {
-      return NextResponse.json(
-        {
-          error: "BeeNext Plus membership is required to submit code.",
-          code: "PLUS_REQUIRED",
-          requiresUpgrade: true,
-        },
-        { status: 403 }
-      );
-    }
 
     const body = await req.json();
     const { problemId, language, sourceCode } = body;
@@ -84,6 +96,40 @@ export async function POST(req: Request) {
         { error: "Problem ID is required for submission." },
         { status: 400 }
       );
+    }
+
+    // Membership & Daily Challenge Access Control
+    if (!isPlus) {
+      // Check if problemId is today's Daily Challenge
+      const todayStr = getTodayISTDateString();
+      const dailyProblem = await getOrCreateDailyChallenge(todayStr);
+
+      if (!dailyProblem || dailyProblem.id !== problemId) {
+        return NextResponse.json(
+          {
+            error: "BeeNext Plus membership is required to submit code.",
+            code: "PLUS_REQUIRED",
+            requiresUpgrade: true,
+          },
+          { status: 403 }
+        );
+      }
+
+      // Atomically reserve the 1 free Submit attempt for today's Daily Challenge
+      const reservation = await reserveDailyAttempt(user.id, "SUBMIT");
+      if (!reservation.success) {
+        return NextResponse.json(
+          {
+            error: "You have used your 1 free Submit for today's Daily Challenge. Upgrade to BeeNext Plus for unlimited submissions.",
+            code: "DAILY_FREE_SUBMIT_EXHAUSTED",
+            requiresUpgrade: true,
+          },
+          { status: 403 }
+        );
+      }
+
+      isDailyChallengeSubmit = true;
+      reservationDate = reservation.date;
     }
 
     let problemSlug = "";
@@ -127,6 +173,9 @@ export async function POST(req: Request) {
     });
 
     if (evalResult.overallStatus === "SERVICE_UNAVAILABLE") {
+      if (isDailyChallengeSubmit && currentUserId) {
+        await refundDailyAttempt(currentUserId, "SUBMIT", reservationDate);
+      }
       return NextResponse.json(
         {
           error: "Execution Service Unavailable. Please wait a moment and try again.",
@@ -161,6 +210,7 @@ export async function POST(req: Request) {
     }));
 
     // Persist submission record in database
+    let dailyChallengeResult = null;
     try {
       await prisma.codeSubmission.create({
         data: {
@@ -197,6 +247,21 @@ export async function POST(req: Request) {
             completedAt: new Date(),
           },
         });
+
+        // Verify and record Daily Challenge streak if all 6 test cases passed
+        if (evalResult.passedTests === 6) {
+          try {
+            dailyChallengeResult = await verifyAndRecordDailySubmission({
+              userId: user.id,
+              problemId,
+              passedTests: evalResult.passedTests,
+              totalTests: evalResult.totalTests,
+              isAccepted: true,
+            });
+          } catch (streakErr) {
+            console.error("Streak service error in submission (non-blocking):", streakErr);
+          }
+        }
       }
     } catch (dbErr) {
       console.warn("Could not save submission record to DB:", dbErr);
@@ -213,8 +278,22 @@ export async function POST(req: Request) {
       totalTests: evalResult.totalTests,
       errorOutput: evalResult.errorOutput,
       testResults: submitTestResults,
+      dailyChallenge: dailyChallengeResult,
+      dailyAllowance: isDailyChallengeSubmit
+        ? {
+            isDailyChallenge: true,
+            freeSubmitsRemaining: 0,
+          }
+        : null,
     });
   } catch (error: any) {
+    if (isDailyChallengeSubmit && currentUserId) {
+      try {
+        await refundDailyAttempt(currentUserId, "SUBMIT", reservationDate);
+      } catch (refundErr) {
+        console.warn("refundDailyAttempt error on exception:", refundErr);
+      }
+    }
     console.error("Playground submit error:", error);
     return NextResponse.json(
       { error: error?.message || "Submission processing encountered an unexpected error." },

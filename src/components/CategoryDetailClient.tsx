@@ -55,6 +55,21 @@ export default function CategoryDetailClient({
     type: "Brute Force" | "Optimal";
   }>({ isOpen: false, type: "Brute Force" });
 
+  const handleBeforeNavigate = () => {
+    if (typeof window === "undefined" || !category?.id) return;
+    try {
+      const raw =
+        sessionStorage.getItem("beenext_topics_expanded_ids") ||
+        localStorage.getItem("beenext_expanded_topics");
+      const list = raw ? JSON.parse(raw) : [];
+      if (Array.isArray(list) && !list.includes(category.id)) {
+        const updated = [...list, category.id];
+        sessionStorage.setItem("beenext_topics_expanded_ids", JSON.stringify(updated));
+        localStorage.setItem("beenext_expanded_topics", JSON.stringify(updated));
+      }
+    } catch (e) {}
+  };
+
   // Completed map
   const [completedMap, setCompletedMap] = useState<{ [id: string]: boolean }>({});
 
@@ -129,6 +144,7 @@ export default function CategoryDetailClient({
         {/* Breadcrumb Navigation */}
         <Link
           href="/topics"
+          scroll={false}
           className="inline-flex items-center gap-1.5 text-xs font-mono text-neutral-400 hover:text-white transition-colors"
         >
           <ChevronLeft className="h-4 w-4" />
@@ -194,6 +210,7 @@ export default function CategoryDetailClient({
                         return (
                           <Link
                             href={isConceptual ? `/problem/${prob.slug}` : `/problem/${prob.slug}/code`}
+                            onClick={handleBeforeNavigate}
                             className={`text-xs sm:text-sm font-medium transition-colors truncate ${
                               isCompleted
                                 ? "text-neutral-500 line-through decoration-neutral-600 hover:text-neutral-300"
@@ -220,6 +237,7 @@ export default function CategoryDetailClient({
                         <>
                           <Link
                             href={`/problem/${prob.slug}/code`}
+                            onClick={handleBeforeNavigate}
                             className="text-neutral-300 hover:text-brand-red font-medium transition-colors inline-flex items-center gap-1.5"
                             title="Open dedicated Coding Playground for this problem"
                           >
@@ -283,6 +301,7 @@ export default function CategoryDetailClient({
                       {isPlusMember ? (
                         <Link
                           href={`/problem/${prob.slug}/brute-force`}
+                          onClick={handleBeforeNavigate}
                           className="text-neutral-300 hover:text-white hover:underline transition-colors font-medium"
                           title="Open Brute Force solution"
                         >
@@ -307,6 +326,7 @@ export default function CategoryDetailClient({
                       {isPlusMember ? (
                         <Link
                           href={`/problem/${prob.slug}/optimal`}
+                          onClick={handleBeforeNavigate}
                           className="text-neutral-300 hover:text-white hover:underline transition-colors font-medium"
                           title="Open Optimal solution"
                         >

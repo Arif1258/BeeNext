@@ -7,6 +7,8 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { LANGUAGE_CONFIG, SupportedLanguage } from "@/lib/judge0";
 import { getProblemTemplateForLanguage } from "@/lib/problemTemplates";
+import { triggerBombBlastCelebration } from "@/lib/celebration";
+import DailyChallengeCelebrationModal from "@/components/DailyChallengeCelebrationModal";
 import {
   Play,
   Send,
@@ -25,6 +27,7 @@ import {
   ShieldCheck,
   ChevronDown,
   ChevronUp,
+  Flame,
 } from "lucide-react";
 
 // Dynamically import Monaco Editor to avoid SSR window issues
@@ -95,12 +98,55 @@ export default function CodingPlayground({
   const [code, setCode] = useState<string>(() => getTemplateFor(initialLanguage));
   const [stdin, setStdin] = useState<string>("");
   const [showCustomInput, setShowCustomInput] = useState<boolean>(false);
+  const [showCelebrationModal, setShowCelebrationModal] = useState<boolean>(false);
+  const [celebrationData, setCelebrationData] = useState<{ currentStreak: number; longestStreak: number }>({
+    currentStreak: 1,
+    longestStreak: 1,
+  });
+  const [dailyAllowance, setDailyAllowance] = useState<{
+    isDailyChallenge: boolean;
+    freeRunsRemaining: number;
+    freeSubmitsRemaining: number;
+    freeRunsTotal: number;
+    freeSubmitsTotal: number;
+  } | null>(null);
+  const [upgradeModalMessage, setUpgradeModalMessage] = useState<string | null>(null);
 
   useEffect(() => {
     if (problemSlug) {
       setCode(getTemplateFor(language));
     }
   }, [problemSlug]);
+
+  useEffect(() => {
+    let isMounted = true;
+    const fetchAllowance = async () => {
+      if (!user) {
+        setDailyAllowance(null);
+        return;
+      }
+      try {
+        const url = problemId
+          ? `/api/daily-challenge?problemId=${encodeURIComponent(problemId)}`
+          : "/api/daily-challenge";
+        const res = await fetch(url);
+        if (res.ok) {
+          const data = await res.json();
+          if (isMounted && data.allowance) {
+            setDailyAllowance(data.allowance);
+          }
+        }
+      } catch (err) {
+        console.warn("Could not fetch daily challenge allowance:", err);
+      }
+    };
+
+    fetchAllowance();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [user, problemId]);
 
   const [running, setRunning] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -172,7 +218,15 @@ export default function CodingPlayground({
       return;
     }
 
-    if (!isPlusMember) {
+    const isDaily = dailyAllowance?.isDailyChallenge;
+    const hasFreeRun = isDaily && (dailyAllowance?.freeRunsRemaining ?? 0) > 0;
+
+    if (!isPlusMember && !hasFreeRun) {
+      setUpgradeModalMessage(
+        isDaily
+          ? "You have used your 1 free Run for today's Daily Challenge. Upgrade to BeeNext Plus for unlimited executions across all problems."
+          : null
+      );
       setShowUpgradeModal(true);
       return;
     }
@@ -193,8 +247,16 @@ export default function CodingPlayground({
       });
 
       const data = await res.json();
-      if (res.status === 403 || data.code === "PLUS_REQUIRED") {
+      if (
+        res.status === 403 ||
+        data.code === "PLUS_REQUIRED" ||
+        data.code === "DAILY_FREE_RUN_EXHAUSTED"
+      ) {
+        setUpgradeModalMessage(data.error || null);
         setShowUpgradeModal(true);
+        if (data.code === "DAILY_FREE_RUN_EXHAUSTED" && isDaily) {
+          setDailyAllowance((prev) => (prev ? { ...prev, freeRunsRemaining: 0 } : null));
+        }
         setRunning(false);
         return;
       }
@@ -207,6 +269,9 @@ export default function CodingPlayground({
       } else {
         setResult(data);
         setSelectedTestIndex(0);
+        if (!isPlusMember && isDaily) {
+          setDailyAllowance((prev) => (prev ? { ...prev, freeRunsRemaining: 0 } : null));
+        }
       }
     } catch {
       setResult({
@@ -224,7 +289,15 @@ export default function CodingPlayground({
       return;
     }
 
-    if (!isPlusMember) {
+    const isDaily = dailyAllowance?.isDailyChallenge;
+    const hasFreeSubmit = isDaily && (dailyAllowance?.freeSubmitsRemaining ?? 0) > 0;
+
+    if (!isPlusMember && !hasFreeSubmit) {
+      setUpgradeModalMessage(
+        isDaily
+          ? "You have used your 1 free Submit for today's Daily Challenge. Upgrade to BeeNext Plus for unlimited submissions across all problems."
+          : null
+      );
       setShowUpgradeModal(true);
       return;
     }
@@ -244,8 +317,16 @@ export default function CodingPlayground({
       });
 
       const data = await res.json();
-      if (res.status === 403 || data.code === "PLUS_REQUIRED") {
+      if (
+        res.status === 403 ||
+        data.code === "PLUS_REQUIRED" ||
+        data.code === "DAILY_FREE_SUBMIT_EXHAUSTED"
+      ) {
+        setUpgradeModalMessage(data.error || null);
         setShowUpgradeModal(true);
+        if (data.code === "DAILY_FREE_SUBMIT_EXHAUSTED" && isDaily) {
+          setDailyAllowance((prev) => (prev ? { ...prev, freeSubmitsRemaining: 0 } : null));
+        }
         setSubmitting(false);
         return;
       }
@@ -258,6 +339,27 @@ export default function CodingPlayground({
       } else {
         setResult(data);
         setSelectedTestIndex(0);
+
+        if (!isPlusMember && isDaily) {
+          setDailyAllowance((prev) => (prev ? { ...prev, freeSubmitsRemaining: 0 } : null));
+        }
+
+        // Check if today's Daily Challenge was completed for the first time
+        if (data.dailyChallenge?.newlyCompleted) {
+          setCelebrationData({
+            currentStreak: data.dailyChallenge.currentStreak,
+            longestStreak: data.dailyChallenge.longestStreak,
+          });
+          setShowCelebrationModal(true);
+          triggerBombBlastCelebration();
+          if (typeof window !== "undefined") {
+            window.dispatchEvent(
+              new CustomEvent("beenext_daily_challenge_completed", {
+                detail: data.dailyChallenge,
+              })
+            );
+          }
+        }
 
         if ((data.status === "ACCEPTED" || data.verdict === "Accepted") && onSuccess) {
           onSuccess();
@@ -617,6 +719,14 @@ export default function CodingPlayground({
           <span className="text-[11px] font-mono text-neutral-400 font-medium">
             Runtime: {LANGUAGE_CONFIG[language].name}
           </span>
+          {dailyAllowance?.isDailyChallenge && !isPlusMember && user && (
+            <span className="hidden sm:inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[10px] font-mono font-medium text-amber-400 bg-amber-500/10 border border-amber-500/20">
+              <Flame className="h-3 w-3 text-amber-500" />
+              <span>
+                Daily Challenge: {dailyAllowance.freeRunsRemaining}/1 Run • {dailyAllowance.freeSubmitsRemaining}/1 Submit free
+              </span>
+            </span>
+          )}
         </div>
 
         <div className="flex items-center gap-2.5">
@@ -624,14 +734,28 @@ export default function CodingPlayground({
           <button
             onClick={handleRun}
             disabled={running || submitting}
-            className={`inline-flex items-center gap-1.5 rounded-lg px-3.5 py-1.5 text-xs font-mono font-bold transition-all shadow-sm ${isPlusMember
-              ? "bg-neutral-800 hover:bg-neutral-700 text-white border border-neutral-700 hover:border-neutral-600"
-              : "bg-neutral-800/80 hover:bg-neutral-800 text-neutral-300 border border-neutral-700"
-              }`}
+            className={`inline-flex items-center gap-1.5 rounded-lg px-3.5 py-1.5 text-xs font-mono font-bold transition-all shadow-sm ${
+              isPlusMember || (dailyAllowance?.isDailyChallenge && (dailyAllowance?.freeRunsRemaining ?? 0) > 0)
+                ? "bg-neutral-800 hover:bg-neutral-700 text-white border border-neutral-700 hover:border-neutral-600"
+                : "bg-neutral-800/80 hover:bg-neutral-800 text-neutral-300 border border-neutral-700"
+            }`}
           >
             <Play className="h-3.5 w-3.5 text-emerald-400 fill-emerald-400" />
             <span>{running ? "Running..." : "Run"}</span>
-            {!isPlusMember && <Lock className="h-3 w-3 text-neutral-500 ml-0.5" />}
+            {dailyAllowance?.isDailyChallenge && !isPlusMember && user ? (
+              (dailyAllowance?.freeRunsRemaining ?? 0) > 0 ? (
+                <span className="ml-0.5 px-1.5 py-0.2 rounded text-[10px] font-mono bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                  1 free left
+                </span>
+              ) : (
+                <span className="ml-0.5 inline-flex items-center gap-1 text-[10px] font-mono text-neutral-400">
+                  <span className="px-1.5 py-0.2 rounded bg-neutral-800 border border-neutral-700">0 free left</span>
+                  <Lock className="h-3 w-3 text-amber-400/80" />
+                </span>
+              )
+            ) : (
+              !isPlusMember && <Lock className="h-3 w-3 text-neutral-500 ml-0.5" />
+            )}
           </button>
 
           {/* Submit Button */}
@@ -642,7 +766,20 @@ export default function CodingPlayground({
           >
             <Send className="h-3.5 w-3.5" />
             <span>{submitting ? "Submitting..." : "Submit"}</span>
-            {!isPlusMember && <Lock className="h-3 w-3 text-white/70 ml-0.5" />}
+            {dailyAllowance?.isDailyChallenge && !isPlusMember && user ? (
+              (dailyAllowance?.freeSubmitsRemaining ?? 0) > 0 ? (
+                <span className="ml-0.5 px-1.5 py-0.2 rounded text-[10px] font-mono bg-black/40 text-amber-300 border border-amber-400/30">
+                  1 free left
+                </span>
+              ) : (
+                <span className="ml-0.5 inline-flex items-center gap-1 text-[10px] font-mono text-white/70">
+                  <span className="px-1.5 py-0.2 rounded bg-black/40 border border-white/20">0 free left</span>
+                  <Lock className="h-3 w-3 text-white/80" />
+                </span>
+              )
+            ) : (
+              !isPlusMember && <Lock className="h-3 w-3 text-white/70 ml-0.5" />
+            )}
           </button>
         </div>
       </div>
@@ -652,7 +789,10 @@ export default function CodingPlayground({
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
           <div className="bg-brand-card border border-brand-border rounded-2xl max-w-md w-full p-6 space-y-5 shadow-2xl relative">
             <button
-              onClick={() => setShowUpgradeModal(false)}
+              onClick={() => {
+                setShowUpgradeModal(false);
+                setUpgradeModalMessage(null);
+              }}
               className="absolute top-4 right-4 text-neutral-400 hover:text-white"
             >
               <X className="h-4 w-4" />
@@ -669,7 +809,11 @@ export default function CodingPlayground({
             </div>
 
             <p className="text-xs text-neutral-300 leading-relaxed">
-              Normal members can write and edit code freely in our Monaco editor. To execute programs in the cloud, test submissions against hidden test cases, and see instant verdicts, upgrade to <strong className="text-white">BeeNext Plus</strong>.
+              {upgradeModalMessage || (
+                <>
+                  Normal members can write and edit code freely in our Monaco editor. To execute programs in the cloud, test submissions against hidden test cases, and see instant verdicts, upgrade to <strong className="text-white">BeeNext Plus</strong>.
+                </>
+              )}
             </p>
 
             <div className="space-y-2 rounded-xl bg-neutral-900 border border-neutral-800 p-3 text-xs text-neutral-300">
@@ -710,6 +854,14 @@ export default function CodingPlayground({
           </div>
         </div>
       )}
+
+      {/* Daily Challenge First-Time Completion Celebration Modal */}
+      <DailyChallengeCelebrationModal
+        isOpen={showCelebrationModal}
+        onClose={() => setShowCelebrationModal(false)}
+        currentStreak={celebrationData.currentStreak}
+        longestStreak={celebrationData.longestStreak}
+      />
     </div>
   );
 }

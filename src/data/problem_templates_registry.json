@@ -1115,14 +1115,14 @@
       },
       {
         "name": "heights",
-        "type": "int"
+        "type": "int[]"
       }
     ],
     "templates": {
-      "java": "class Solution {\n    public int frogJump(int n, int heights) {\n        // Write your code here\n        \n    }\n}",
-      "cpp": "class Solution {\npublic:\n    int frogJump(int n, int heights) {\n        // Write your code here\n        \n    }\n};",
-      "python": "class Solution:\n    def frogJump(self, n: int, heights: int) -> int:\n        # Write your code here\n        pass",
-      "javascript": "/**\n * @param {number} n\n * @param {number} heights\n * @return {number}\n */\nvar frogJump = function(n, heights) {\n    // Write your code here\n    \n};"
+      "java": "class Solution {\n    public int frogJump(int n, int[] heights) {\n        // Write your code here\n        \n    }\n}",
+      "cpp": "class Solution {\npublic:\n    int frogJump(int n, vector<int>& heights) {\n        // Write your code here\n        \n    }\n};",
+      "python": "class Solution:\n    def frogJump(self, n: int, heights: List[int]) -> int:\n        # Write your code here\n        pass",
+      "javascript": "var frogJump = function(n, heights) {\n    // Write your code here\n    \n};"
     }
   },
   "floor-and-ceil-in-a-bst": {
@@ -1518,14 +1518,23 @@
     "title": "Longest Word with All Prefixes",
     "slug": "longest-word-with-all-prefixes",
     "isConceptual": false,
-    "methodName": "Node",
-    "returnType": "new",
-    "params": [],
+    "methodName": "completeString",
+    "returnType": "String",
+    "params": [
+      {
+        "name": "n",
+        "type": "int"
+      },
+      {
+        "name": "a",
+        "type": "String[]"
+      }
+    ],
     "templates": {
-      "java": "class Solution {\n    public new Node() {\n        // Write your code here\n        \n    }\n}",
-      "cpp": "class Solution {\npublic:\n    new Node() {\n        // Write your code here\n        \n    }\n};",
-      "python": "class Solution:\n    def Node(self) -> Any:\n        # Write your code here\n        pass",
-      "javascript": "/**\n * @return {any}\n */\nvar Node = function() {\n    // Write your code here\n    \n};"
+      "java": "class Solution {\n    public String completeString(int n, String[] a) {\n        // Write your code here\n        \n    }\n}",
+      "cpp": "class Solution {\npublic:\n    string completeString(int n, vector<string>& a) {\n        // Write your code here\n        \n    }\n};",
+      "python": "class Solution:\n    def completeString(self, n: int, a: List[str]) -> str:\n        # Write your code here\n        pass",
+      "javascript": "/**\n * @param {number} n\n * @param {string[]} a\n * @return {string}\n */\nvar completeString = function(n, a) {\n    // Write your code here\n    \n};"
     }
   },
   "implement-min-heap": {
@@ -2360,14 +2369,19 @@
     "title": "Maximum XOR of two numbers in an array",
     "slug": "maximum-xor-of-two-numbers-in-an-array",
     "isConceptual": false,
-    "methodName": "Node",
-    "returnType": "new",
-    "params": [],
+    "methodName": "findMaximumXOR",
+    "returnType": "int",
+    "params": [
+      {
+        "name": "nums",
+        "type": "int[]"
+      }
+    ],
     "templates": {
-      "java": "class Solution {\n    public new Node() {\n        // Write your code here\n        \n    }\n}",
-      "cpp": "class Solution {\npublic:\n    new Node() {\n        // Write your code here\n        \n    }\n};",
-      "python": "class Solution:\n    def Node(self) -> Any:\n        # Write your code here\n        pass",
-      "javascript": "/**\n * @return {any}\n */\nvar Node = function() {\n    // Write your code here\n    \n};"
+      "java": "class Solution {\n    public int findMaximumXOR(int[] nums) {\n        // Write your code here\n        \n    }\n}",
+      "cpp": "class Solution {\npublic:\n    int findMaximumXOR(vector<int>& nums) {\n        // Write your code here\n        \n    }\n};",
+      "python": "class Solution:\n    def findMaximumXOR(self, nums: List[int]) -> int:\n        # Write your code here\n        pass",
+      "javascript": "/**\n * @param {number[]} nums\n * @return {number}\n */\nvar findMaximumXOR = function(nums) {\n    // Write your code here\n    \n};"
     }
   },
   "flood-fill-algorithm": {
@@ -2437,28 +2451,37 @@
       },
       {
         "name": "points",
-        "type": "int"
+        "type": "int[][]"
       }
     ],
     "templates": {
-      "java": "class Solution {\n    public int ninjaTraining(int n, int points) {\n        // Write your code here\n        \n    }\n}",
-      "cpp": "class Solution {\npublic:\n    int ninjaTraining(int n, int points) {\n        // Write your code here\n        \n    }\n};",
-      "python": "class Solution:\n    def ninjaTraining(self, n: int, points: int) -> int:\n        # Write your code here\n        pass",
-      "javascript": "/**\n * @param {number} n\n * @param {number} points\n * @return {number}\n */\nvar ninjaTraining = function(n, points) {\n    // Write your code here\n    \n};"
+      "java": "class Solution {\n    public int ninjaTraining(int n, int[][] points) {\n        // Write your code here\n        \n    }\n}",
+      "cpp": "class Solution {\npublic:\n    int ninjaTraining(int n, vector<vector<int>>& points) {\n        // Write your code here\n        \n    }\n};",
+      "python": "class Solution:\n    def ninjaTraining(self, n: int, points: List[List[int]]) -> int:\n        # Write your code here\n        pass",
+      "javascript": "var ninjaTraining = function(n, points) {\n    // Write your code here\n    \n};"
     }
   },
   "maximum-xor-with-an-element-from-an-array": {
     "title": "Maximum Xor with an element from an array",
     "slug": "maximum-xor-with-an-element-from-an-array",
     "isConceptual": false,
-    "methodName": "Node",
-    "returnType": "new",
-    "params": [],
+    "methodName": "maximizeXor",
+    "returnType": "int[]",
+    "params": [
+      {
+        "name": "nums",
+        "type": "int[]"
+      },
+      {
+        "name": "queries",
+        "type": "int[][]"
+      }
+    ],
     "templates": {
-      "java": "class Solution {\n    public new Node() {\n        // Write your code here\n        \n    }\n}",
-      "cpp": "class Solution {\npublic:\n    new Node() {\n        // Write your code here\n        \n    }\n};",
-      "python": "class Solution:\n    def Node(self) -> Any:\n        # Write your code here\n        pass",
-      "javascript": "/**\n * @return {any}\n */\nvar Node = function() {\n    // Write your code here\n    \n};"
+      "java": "class Solution {\n    public int[] maximizeXor(int[] nums, int[][] queries) {\n        // Write your code here\n        \n    }\n}",
+      "cpp": "class Solution {\npublic:\n    vector<int> maximizeXor(vector<int>& nums, vector<vector<int>>& queries) {\n        // Write your code here\n        \n    }\n};",
+      "python": "class Solution:\n    def maximizeXor(self, nums: List[int], queries: List[List[int]]) -> List[int]:\n        # Write your code here\n        pass",
+      "javascript": "/**\n * @param {number[]} nums\n * @param {number[][]} queries\n * @return {number[]}\n */\nvar maximizeXor = function(nums, queries) {\n    // Write your code here\n    \n};"
     }
   },
   "recursive-insertion-sort": {
@@ -5978,14 +6001,14 @@
       },
       {
         "name": "arr",
-        "type": "int"
+        "type": "int[]"
       }
     ],
     "templates": {
-      "java": "class Solution {\n    public boolean subsetSumToK(int n, int k, int arr) {\n        // Write your code here\n        \n    }\n}",
-      "cpp": "class Solution {\npublic:\n    bool subsetSumToK(int n, int k, int arr) {\n        // Write your code here\n        \n    }\n};",
-      "python": "class Solution:\n    def subsetSumToK(self, n: int, k: int, arr: int) -> bool:\n        # Write your code here\n        pass",
-      "javascript": "/**\n * @param {number} n\n * @param {number} k\n * @param {number} arr\n * @return {boolean}\n */\nvar subsetSumToK = function(n, k, arr) {\n    // Write your code here\n    \n};"
+      "java": "class Solution {\n    public boolean subsetSumToK(int n, int k, int[] arr) {\n        // Write your code here\n        \n    }\n}",
+      "cpp": "class Solution {\npublic:\n    bool subsetSumToK(int n, int k, vector<int>& arr) {\n        // Write your code here\n        \n    }\n};",
+      "python": "class Solution:\n    def subsetSumToK(self, n: int, k: int, arr: List[int]) -> bool:\n        # Write your code here\n        pass",
+      "javascript": "var subsetSumToK = function(n, k, arr) {\n    // Write your code here\n    \n};"
     }
   },
   "top-k-frequent-elements": {
@@ -6636,7 +6659,7 @@
     "params": [
       {
         "name": "num",
-        "type": "int"
+        "type": "int[]"
       },
       {
         "name": "tar",
@@ -6644,10 +6667,10 @@
       }
     ],
     "templates": {
-      "java": "class Solution {\n    public int findWays(int num, int tar) {\n        // Write your code here\n        \n    }\n}",
-      "cpp": "class Solution {\npublic:\n    int findWays(int num, int tar) {\n        // Write your code here\n        \n    }\n};",
-      "python": "class Solution:\n    def findWays(self, num: int, tar: int) -> int:\n        # Write your code here\n        pass",
-      "javascript": "/**\n * @param {number} num\n * @param {number} tar\n * @return {number}\n */\nvar findWays = function(num, tar) {\n    // Write your code here\n    \n};"
+      "java": "class Solution {\n    public int findWays(int[] num, int tar) {\n        // Write your code here\n        \n    }\n}",
+      "cpp": "class Solution {\npublic:\n    int findWays(vector<int>& num, int tar) {\n        // Write your code here\n        \n    }\n};",
+      "python": "class Solution:\n    def findWays(self, num: List[int], tar: int) -> int:\n        # Write your code here\n        pass",
+      "javascript": "var findWays = function(num, tar) {\n    // Write your code here\n    \n};"
     }
   },
   "insert-node-before-tail-in-dll": {
@@ -7028,14 +7051,14 @@
       },
       {
         "name": "edges",
-        "type": "int"
+        "type": "int[][]"
       }
     ],
     "templates": {
-      "java": "class Solution {\n    public List<Integer> shortestPath(int n, int m, int edges) {\n        // Write your code here\n        \n    }\n}",
-      "cpp": "class Solution {\npublic:\n    vector<int> shortestPath(int n, int m, int edges) {\n        // Write your code here\n        \n    }\n};",
-      "python": "class Solution:\n    def shortestPath(self, n: int, m: int, edges: int) -> List[int]:\n        # Write your code here\n        pass",
-      "javascript": "/**\n * @param {number} n\n * @param {number} m\n * @param {number} edges\n * @return {number[]}\n */\nvar shortestPath = function(n, m, edges) {\n    // Write your code here\n    \n};"
+      "java": "class Solution {\n    public List<Integer> shortestPath(int n, int m, int[][] edges) {\n        // Write your code here\n        \n    }\n}",
+      "cpp": "class Solution {\npublic:\n    vector<int> shortestPath(int n, int m, vector<vector<int>>& edges) {\n        // Write your code here\n        \n    }\n};",
+      "python": "class Solution:\n    def shortestPath(self, n: int, m: int, edges: List[List[int]]) -> List[int]:\n        # Write your code here\n        pass",
+      "javascript": "var shortestPath = function(n, m, edges) {\n    // Write your code here\n    \n};"
     }
   },
   "kadane's-algorithm": {
@@ -7915,7 +7938,7 @@
     "params": [
       {
         "name": "price",
-        "type": "int"
+        "type": "int[]"
       },
       {
         "name": "n",
@@ -7923,10 +7946,10 @@
       }
     ],
     "templates": {
-      "java": "class Solution {\n    public int cutRod(int price, int n) {\n        // Write your code here\n        \n    }\n}",
-      "cpp": "class Solution {\npublic:\n    int cutRod(int price, int n) {\n        // Write your code here\n        \n    }\n};",
-      "python": "class Solution:\n    def cutRod(self, price: int, n: int) -> int:\n        # Write your code here\n        pass",
-      "javascript": "/**\n * @param {number} price\n * @param {number} n\n * @return {number}\n */\nvar cutRod = function(price, n) {\n    // Write your code here\n    \n};"
+      "java": "class Solution {\n    public int cutRod(int[] price, int n) {\n        // Write your code here\n        \n    }\n}",
+      "cpp": "class Solution {\npublic:\n    int cutRod(vector<int>& price, int n) {\n        // Write your code here\n        \n    }\n};",
+      "python": "class Solution:\n    def cutRod(self, price: List[int], n: int) -> int:\n        # Write your code here\n        pass",
+      "javascript": "var cutRod = function(price, n) {\n    // Write your code here\n    \n};"
     }
   },
   "lfu-cache": {
@@ -8714,14 +8737,14 @@
       },
       {
         "name": "edges",
-        "type": "int"
+        "type": "int[][]"
       }
     ],
     "templates": {
-      "java": "class Solution {\n    public int spanningTree(int V, int E, int edges) {\n        // Write your code here\n        \n    }\n}",
-      "cpp": "class Solution {\npublic:\n    int spanningTree(int V, int E, int edges) {\n        // Write your code here\n        \n    }\n};",
-      "python": "class Solution:\n    def spanningTree(self, V: int, E: int, edges: int) -> int:\n        # Write your code here\n        pass",
-      "javascript": "/**\n * @param {number} V\n * @param {number} E\n * @param {number} edges\n * @return {number}\n */\nvar spanningTree = function(V, E, edges) {\n    // Write your code here\n    \n};"
+      "java": "class Solution {\n    public int spanningTree(int V, int E, int[][] edges) {\n        // Write your code here\n        \n    }\n}",
+      "cpp": "class Solution {\npublic:\n    int spanningTree(int V, int E, vector<vector<int>>& edges) {\n        // Write your code here\n        \n    }\n};",
+      "python": "class Solution:\n    def spanningTree(self, V: int, E: int, edges: List[List[int]]) -> int:\n        # Write your code here\n        pass",
+      "javascript": "var spanningTree = function(V, E, edges) {\n    // Write your code here\n    \n};"
     }
   },
   "longest-common-substring": {
@@ -8845,14 +8868,14 @@
     "params": [
       {
         "name": "head",
-        "type": "ListNode"
+        "type": "Node"
       }
     ],
     "templates": {
-      "java": "/**\n * Definition for singly-linked list.\n * class ListNode {\n *     int val;\n *     ListNode next;\n *     ListNode() {}\n *     ListNode(int val) { this.val = val; }\n *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }\n * }\n */\nclass Solution {\n    public int countNodesinLoop(ListNode head) {\n        // Write your code here\n        \n    }\n}",
-      "cpp": "/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode() : val(0), next(nullptr) {}\n *     ListNode(int x) : val(x), next(nullptr) {}\n *     ListNode(int x, ListNode *next) : val(x), next(next) {}\n * };\n */\nclass Solution {\npublic:\n    int countNodesinLoop(ListNode* head) {\n        // Write your code here\n        \n    }\n};",
-      "python": "# Definition for singly-linked list.\n# class ListNode:\n#     def __init__(self, val=0, next=None):\n#         self.val = val\n#         self.next = next\nclass Solution:\n    def countNodesinLoop(self, head: Optional[ListNode]) -> int:\n        # Write your code here\n        pass",
-      "javascript": "/**\n * Definition for singly-linked list.\n * function ListNode(val, next) {\n *     this.val = (val===undefined ? 0 : val)\n *     this.next = (next===undefined ? null : next)\n * }\n * @param {ListNode} head\n * @return {number}\n */\nvar countNodesinLoop = function(head) {\n    // Write your code here\n    \n};"
+      "java": "class Solution {\n    public int countNodesinLoop(Node head) {\n        // Write your code here\n        \n    }\n}",
+      "cpp": "class Solution {\npublic:\n    int countNodesinLoop(Node* head) {\n        // Write your code here\n        \n    }\n};",
+      "python": "class Solution:\n    def countNodesinLoop(self, head: Optional[Node]) -> int:\n        # Write your code here\n        pass",
+      "javascript": "var countNodesinLoop = function(head) {\n    // Write your code here\n    \n};"
     }
   },
   "accounts-merge": {
@@ -9891,14 +9914,14 @@
       },
       {
         "name": "a",
-        "type": "int"
+        "type": "int[]"
       }
     ],
     "templates": {
-      "java": "class Solution {\n    public boolean isSorted(int n, int a) {\n        // Write your code here\n        \n    }\n}",
-      "cpp": "class Solution {\npublic:\n    bool isSorted(int n, int a) {\n        // Write your code here\n        \n    }\n};",
-      "python": "class Solution:\n    def isSorted(self, n: int, a: int) -> bool:\n        # Write your code here\n        pass",
-      "javascript": "/**\n * @param {number} n\n * @param {number} a\n * @return {boolean}\n */\nvar isSorted = function(n, a) {\n    // Write your code here\n    \n};"
+      "java": "class Solution {\n    public boolean isSorted(int n, int[] a) {\n        // Write your code here\n        \n    }\n}",
+      "cpp": "class Solution {\npublic:\n    bool isSorted(int n, vector<int>& a) {\n        // Write your code here\n        \n    }\n};",
+      "python": "class Solution:\n    def isSorted(self, n: int, a: List[int]) -> bool:\n        # Write your code here\n        pass",
+      "javascript": "var isSorted = function(n, a) {\n    // Write your code here\n    \n};"
     }
   },
   "reverse-an-array": {
@@ -9909,15 +9932,19 @@
     "returnType": "void",
     "params": [
       {
-        "name": "arr",
+        "name": "n",
         "type": "int"
+      },
+      {
+        "name": "arr",
+        "type": "int[]"
       }
     ],
     "templates": {
-      "java": "class Solution {\n    public void reverseArray(int arr) {\n        // Write your code here\n        \n    }\n}",
-      "cpp": "class Solution {\npublic:\n    void reverseArray(int arr) {\n        // Write your code here\n        \n    }\n};",
-      "python": "class Solution:\n    def reverseArray(self, arr: int) -> None:\n        # Write your code here\n        pass",
-      "javascript": "/**\n * @param {number} arr\n * @return {void}\n */\nvar reverseArray = function(arr) {\n    // Write your code here\n    \n};"
+      "java": "class Solution {\n    public int[] reverseArray(int n, int[] arr) {\n        // Write your code here\n        \n    }\n}",
+      "cpp": "class Solution {\npublic:\n    vector<int> reverseArray(int n, vector<int>& arr) {\n        // Write your code here\n        \n    }\n};",
+      "python": "class Solution:\n    def reverseArray(self, n: int, arr: List[int]) -> List[int]:\n        # Write your code here\n        pass",
+      "javascript": "var reverseArray = function(n, arr) {\n    // Write your code here\n    \n};"
     }
   },
   "highest-occurring-element-in-an-array": {

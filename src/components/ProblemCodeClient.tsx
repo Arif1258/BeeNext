@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
 import DifficultyBadge from "@/components/DifficultyBadge";
@@ -13,6 +13,23 @@ interface ProblemCodeClientProps {
 
 export default function ProblemCodeClient({ problem }: ProblemCodeClientProps) {
   const { refreshUser } = useAuth();
+
+  // Keep the problem's parent topic open in the DSA Topics accordion when navigating through problems
+  useEffect(() => {
+    if (problem?.category?.id && typeof window !== "undefined") {
+      try {
+        const raw =
+          sessionStorage.getItem("beenext_topics_expanded_ids") ||
+          localStorage.getItem("beenext_expanded_topics");
+        const list = raw ? JSON.parse(raw) : [];
+        if (Array.isArray(list) && !list.includes(problem.category.id)) {
+          const updated = [...list, problem.category.id];
+          sessionStorage.setItem("beenext_topics_expanded_ids", JSON.stringify(updated));
+          localStorage.setItem("beenext_expanded_topics", JSON.stringify(updated));
+        }
+      } catch (e) {}
+    }
+  }, [problem?.category?.id]);
 
   // Parse examples if array or string
   let examplesList: Array<{ input?: string; output?: string; explanation?: string }> = [];
@@ -44,6 +61,7 @@ export default function ProblemCodeClient({ problem }: ProblemCodeClientProps) {
         <div className="flex items-center justify-between border-b border-brand-border/60 pb-1.5 shrink-0">
           <Link
             href="/topics"
+            scroll={false}
             className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-neutral-900 hover:bg-neutral-800 border border-neutral-800 hover:border-neutral-700 text-xs font-mono font-semibold text-neutral-300 hover:text-white transition-all shadow-sm group"
           >
             <ChevronLeft className="h-3.5 w-3.5 text-brand-red group-hover:-translate-x-0.5 transition-transform" />

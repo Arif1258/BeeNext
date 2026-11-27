@@ -100,6 +100,11 @@ model User {
   certificateOrders CertificateOrder[]
   membershipOrders  MembershipOrder[]
   codeSubmissions   CodeSubmission[]
+  currentStreak     Int            @default(0)
+  longestStreak     Int            @default(0)
+  lastStreakDate    String?
+  dailyStreaks      UserDailyStreak[]
+  dailyChallengeAttempts DailyChallengeAttempt[]
 
   @@map("users")
 }
@@ -152,7 +157,9 @@ model Problem {
   bookmarks    Bookmark[]
   progress     UserProgress[]
   testCases    TestCase[]
-  submissions  CodeSubmission[]
+  submissions      CodeSubmission[]
+  dailyChallenges  DailyChallenge[]
+  userDailyStreaks UserDailyStreak[]
 
   @@index([categoryId])
   @@map("problems")
@@ -472,4 +479,47 @@ model ExecutionLock {
   @@index([expiresAt])
   @@index([createdAt])
   @@map("execution_locks")
+}
+
+model DailyChallenge {
+  id        String   @id @default(cuid())
+  date      String   @unique // "YYYY-MM-DD" in Asia/Kolkata timezone
+  problemId String
+  problem   Problem  @relation(fields: [problemId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@index([date])
+  @@index([problemId])
+  @@map("daily_challenges")
+}
+
+model UserDailyStreak {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  date        String   // "YYYY-MM-DD" in Asia/Kolkata timezone
+  problemId   String
+  problem     Problem  @relation(fields: [problemId], references: [id], onDelete: Cascade)
+  completedAt DateTime @default(now())
+
+  @@unique([userId, date])
+  @@index([userId])
+  @@index([date])
+  @@map("user_daily_streaks")
+}
+
+model DailyChallengeAttempt {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  date        String   // "YYYY-MM-DD" in Asia/Kolkata timezone
+  runCount    Int      @default(0)
+  submitCount Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([userId, date])
+  @@index([userId])
+  @@index([date])
+  @@map("daily_challenge_attempts")
 }

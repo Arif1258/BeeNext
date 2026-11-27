@@ -8,8 +8,18 @@ import {
 } from "@/lib/executionWrapper";
 import { executeOnlineCompilerSync } from "@/lib/onlineCompiler";
 import { isProblemConceptual } from "@/lib/problemTemplates";
+import {
+  getTodayISTDateString,
+  getOrCreateDailyChallenge,
+  reserveDailyAttempt,
+  refundDailyAttempt,
+} from "@/lib/dailyChallenge";
 
 export async function POST(req: Request) {
+  let isDailyChallengeRun = false;
+  let currentUserId: string | null = null;
+  let reservationDate: string | undefined = undefined;
+
   try {
     const session = await getCurrentUser(req);
     if (!session) {
@@ -36,18 +46,8 @@ export async function POST(req: Request) {
       );
     }
 
+    currentUserId = user.id;
     const isPlus = user.role === "ADMIN" || isUserActivePlus(user);
-
-    if (!isPlus) {
-      return NextResponse.json(
-        {
-          error: "BeeNext Plus membership is required to execute code.",
-          code: "PLUS_REQUIRED",
-          requiresUpgrade: true,
-        },
-        { status: 403 }
-      );
-    }
 
     const body = await req.json();
     const { problemId, language, sourceCode, stdin } = body;
@@ -57,6 +57,63 @@ export async function POST(req: Request) {
         { error: "Language and sourceCode are required." },
         { status: 400 }
       );
+    }
+
+    // Membership & Daily Challenge Access Control
+    if (!isPlus) {
+      if (!problemId) {
+        return NextResponse.json(
+          {
+            error: "BeeNext Plus membership is required to execute code in custom scratchpad mode.",
+            code: "PLUS_REQUIRED",
+            requiresUpgrade: true,
+          },
+          { status: 403 }
+        );
+      }
+
+      // Check if problemId is today's Daily Challenge
+      const todayStr = getTodayISTDateString();
+      const dailyProblem = await getOrCreateDailyChallenge(todayStr);
+
+      if (!dailyProblem || dailyProblem.id !== problemId) {
+        return NextResponse.json(
+          {
+            error: "BeeNext Plus membership is required to execute code for this problem.",
+            code: "PLUS_REQUIRED",
+            requiresUpgrade: true,
+          },
+          { status: 403 }
+        );
+      }
+
+      // Custom input execution mode is Plus-exclusive
+      if (stdin && typeof stdin === "string" && stdin.trim()) {
+        return NextResponse.json(
+          {
+            error: "Custom Input execution requires BeeNext Plus membership.",
+            code: "PLUS_REQUIRED",
+            requiresUpgrade: true,
+          },
+          { status: 403 }
+        );
+      }
+
+      // Atomically reserve the 1 free Run attempt for today's Daily Challenge
+      const reservation = await reserveDailyAttempt(user.id, "RUN");
+      if (!reservation.success) {
+        return NextResponse.json(
+          {
+            error: "You have used your 1 free Run for today's Daily Challenge. Upgrade to BeeNext Plus for unlimited executions.",
+            code: "DAILY_FREE_RUN_EXHAUSTED",
+            requiresUpgrade: true,
+          },
+          { status: 403 }
+        );
+      }
+
+      isDailyChallengeRun = true;
+      reservationDate = reservation.date;
     }
 
     let problemSlug = "";
@@ -182,6 +239,9 @@ export async function POST(req: Request) {
     });
 
     if (evalResult.overallStatus === "SERVICE_UNAVAILABLE") {
+      if (isDailyChallengeRun && currentUserId) {
+        await refundDailyAttempt(currentUserId, "RUN", reservationDate);
+      }
       return NextResponse.json(
         {
           success: false,
@@ -209,8 +269,19 @@ export async function POST(req: Request) {
       totalTests: evalResult.totalTests,
       errorOutput: evalResult.errorOutput,
       testResults: evalResult.testResults,
+      dailyAllowance: isDailyChallengeRun ? {
+        isDailyChallenge: true,
+        freeRunsRemaining: 0,
+      } : undefined,
     });
   } catch (error: any) {
+    if (isDailyChallengeRun && currentUserId) {
+      try {
+        await refundDailyAttempt(currentUserId, "RUN", reservationDate);
+      } catch (refundErr) {
+        console.warn("refundDailyAttempt error on exception:", refundErr);
+      }
+    }
     console.error("Playground execute error:", error);
     return NextResponse.json(
       { error: error?.message || "Execution engine encountered an unexpected error." },

@@ -77,17 +77,24 @@ export default function ProblemDetailClient({
   useEffect(() => {
     if (problem?.category?.id && typeof window !== "undefined") {
       try {
-        const raw = localStorage.getItem("beenext_expanded_topics");
+        const raw =
+          sessionStorage.getItem("beenext_topics_expanded_ids") ||
+          localStorage.getItem("beenext_expanded_topics");
         const list = raw ? JSON.parse(raw) : [];
         if (Array.isArray(list) && !list.includes(problem.category.id)) {
+          const updated = [...list, problem.category.id];
+          sessionStorage.setItem(
+            "beenext_topics_expanded_ids",
+            JSON.stringify(updated)
+          );
           localStorage.setItem(
             "beenext_expanded_topics",
-            JSON.stringify([...list, problem.category.id])
+            JSON.stringify(updated)
           );
         }
       } catch (e) {}
     }
-  }, [problem]);
+  }, [problem?.category?.id]);
 
   const handleTabChange = (newTab: "BRUTE_FORCE" | "OPTIMAL") => {
     if (!isPlusMember) {
@@ -156,6 +163,7 @@ export default function ProblemDetailClient({
           <div className="flex flex-wrap items-center gap-3">
             <Link
               href="/topics"
+              scroll={false}
               className="inline-flex items-center gap-1.5 text-xs font-mono text-neutral-400 hover:text-white transition-colors"
             >
               <ChevronLeft className="h-4 w-4" />

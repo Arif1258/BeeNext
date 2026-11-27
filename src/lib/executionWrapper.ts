@@ -134,6 +134,7 @@ export function parseInputToArgs(inputStr: string): Record<string, any> {
   // Handle loop back in arrow notation
   let loopVal: number | null = null;
   let hasNoLoop = false;
+  trimmed = trimmed.replace(/\s*(\(|\[)top is.*?(\)|\])/gi, "").trim();
   if (trimmed.includes("(loops back to")) {
     const m = trimmed.match(/\(loops back to\s*(\d+)\)/i);
     if (m) loopVal = Number(m[1]);
@@ -273,6 +274,7 @@ export function normalizeOutput(val: any): string {
 
   // "right view = [1, 3, 4]" -> "[1,3,4]"
   // "Inorder = [1, 2, 3, 4, 7]" -> "[1,2,3,4,7]"
+  str = str.replace(/\s*(\(|\[)top is.*?(\)|\])/gi, "").trim();
   const arrMatch = str.match(/=\s*(\[.*?\])/);
   if (arrMatch) {
     try {
@@ -309,6 +311,14 @@ export function compareOutputs(actual: any, expected: any): boolean {
   const normExpected = normalizeOutput(expected);
 
   if (normActual === normExpected) return true;
+
+  // Empty tree / node / collection equivalence: null vs []
+  if (
+    (normActual === "null" && normExpected === "[]") ||
+    (normActual === "[]" && normExpected === "null")
+  ) {
+    return true;
+  }
 
   // Single scalar number vs 1-element array e.g. 6 vs [6]
   if (normActual === `[${normExpected}]` || normExpected === `[${normActual}]`) {
@@ -430,6 +440,11 @@ export function resolveArgValue(
       if (argsMap[alt] !== undefined) return argsMap[alt];
     }
   }
+  if (["s", "st", "stack"].includes(pLower)) {
+    for (const alt of ["st", "s", "stack"]) {
+      if (argsMap[alt] !== undefined) return argsMap[alt];
+    }
+  }
   if (["words", "dict"].includes(pLower)) {
     for (const alt of ["words", "dict"]) {
       if (argsMap[alt] !== undefined) return argsMap[alt];
@@ -508,27 +523,67 @@ function serializeJavaLiteral(val: any, typeHint?: string): string {
   if (typeof val === "boolean") return val ? "true" : "false";
   if (typeof val === "number") {
     if (typeHint?.toLowerCase().includes("long")) return `${val}L`;
-    if (typeHint?.toLowerCase().includes("double")) return `${val}.0`;
+    if (typeHint?.toLowerCase().includes("double")) return Number.isInteger(val) ? `${val}.0` : String(val);
     return String(val);
   }
-  if (typeof val === "string") return JSON.stringify(val);
+  if (typeof val === "string") {
+    if (typeHint?.includes("char") && val.length === 1) return `'${val}'`;
+    return JSON.stringify(val);
+  }
   if (Array.isArray(val)) {
     if (val.length === 0) {
+      if (typeHint?.includes("int[][][]")) return "new int[0][0][0]";
       if (typeHint?.includes("int[][]")) return "new int[0][0]";
+      if (typeHint?.includes("char[][]")) return "new char[0][0]";
+      if (typeHint?.includes("String[][]")) return "new String[0][0]";
       if (typeHint?.includes("TreeNode") || typeHint?.includes("Integer")) return "new Integer[0]";
+      if (typeHint?.toLowerCase().includes("long[]")) return "new long[0]";
+      if (typeHint?.toLowerCase().includes("double[]")) return "new double[0]";
       if (typeHint?.includes("int[]")) return "new int[0]";
+      if (typeHint?.includes("char[]")) return "new char[0]";
       if (typeHint?.includes("Integer[]")) return "new Integer[0]";
       if (typeHint?.includes("String[]")) return "new String[0]";
       return "new int[0]";
     }
+    // 3D array
+    if (typeHint?.includes("int[][][]") || (Array.isArray(val[0]) && Array.isArray(val[0][0]))) {
+      return `new int[][][]{${val.map((mat: any) => `{${(mat || []).map((row: any) => `{${(row || []).join(", ")}}`).join(", ")}}`).join(", ")}}`;
+    }
+    // 2D array
     if (Array.isArray(val[0])) {
+      if (typeHint?.includes("char") || (typeof val[0][0] === "string" && val[0][0].length === 1 && (typeHint?.includes("char") || typeHint?.includes("char[][]")))) {
+        return `new char[][]{${val.map((row) => `{${row.map((c: any) => `'${c}'`).join(", ")}}`).join(", ")}}`;
+      }
+      if (typeHint?.includes("String") || typeof val[0][0] === "string") {
+        return `new String[][]{${val.map((row) => `{${row.map((s: any) => JSON.stringify(s)).join(", ")}}`).join(", ")}}`;
+      }
+      if (typeof val[0][0] === "boolean") {
+        return `new boolean[][]{${val.map((row) => `{${row.map((b: any) => (b ? "true" : "false")).join(", ")}}`).join(", ")}}`;
+      }
       return `new int[][]{${val.map((row) => `{${row.join(", ")}}`).join(", ")}}`;
+    }
+    // If typeHint is 2D char[][] but val is 1D array of strings e.g. ["..X..", ".X..."]
+    if (typeHint?.includes("char[][]") && typeof val[0] === "string" && val[0].length > 1) {
+      return `new char[][]{${val.map((row) => `{${row.split("").map((c: string) => `'${c}'`).join(", ")}}`).join(", ")}}`;
+    }
+    // If typeHint is 2D int[][] but val is 1D array
+    if (typeHint?.includes("int[][]")) {
+      return `new int[][]{{${val.join(", ")}}}`;
+    }
+    if (typeHint?.includes("char") && typeof val[0] === "string") {
+      return `new char[]{${val.map((c) => `'${c}'`).join(", ")}}`;
     }
     if (typeof val[0] === "string") {
       return `new String[]{${val.map((s) => JSON.stringify(s)).join(", ")}}`;
     }
     if (typeof val[0] === "boolean") {
       return `new boolean[]{${val.map((b) => (b ? "true" : "false")).join(", ")}}`;
+    }
+    if (typeHint?.toLowerCase().includes("long[]") || (typeHint?.toLowerCase().includes("long") && !typeHint?.toLowerCase().includes("double"))) {
+      return `new long[]{${val.map((x) => `${x}L`).join(", ")}}`;
+    }
+    if (typeHint?.toLowerCase().includes("double[]") || typeHint?.toLowerCase().includes("double")) {
+      return `new double[]{${val.map((x) => Number.isInteger(x) ? `${x}.0` : String(x)).join(", ")}}`;
     }
     if (typeHint?.includes("TreeNode") || typeHint?.includes("Integer") || val.some((x) => x === null)) {
       return `new Integer[]{${val.map((x) => (x === null ? "null" : x)).join(", ")}}`;
@@ -543,23 +598,55 @@ function serializeCppLiteral(val: any, typeHint?: string): string {
   if (typeof val === "boolean") return val ? "true" : "false";
   if (typeof val === "number") {
     if (typeHint?.toLowerCase().includes("long")) return `${val}LL`;
+    if (typeHint?.toLowerCase().includes("double")) return Number.isInteger(val) ? `${val}.0` : String(val);
     return String(val);
   }
-  if (typeof val === "string") return JSON.stringify(val);
+  if (typeof val === "string") {
+    if (typeHint?.includes("char") && val.length === 1) return `'${val}'`;
+    return JSON.stringify(val);
+  }
   if (Array.isArray(val)) {
     if (val.length === 0) {
       if (typeHint?.includes("vector<vector<int>>")) return "vector<vector<int>>{}";
+      if (typeHint?.includes("vector<vector<char>>")) return "vector<vector<char>>{}";
       if (typeHint?.includes("vector<string>")) return "vector<string>{}";
+      if (typeHint?.includes("vector<char>")) return "vector<char>{}";
+      if (typeHint?.includes("vector<long long>")) return "vector<long long>{}";
+      if (typeHint?.includes("vector<double>")) return "vector<double>{}";
       return "vector<int>{}";
     }
     if (Array.isArray(val[0])) {
+      if (typeHint?.includes("char") || (typeof val[0][0] === "string" && val[0][0].length === 1 && typeHint?.includes("char"))) {
+        return `vector<vector<char>>{${val.map((row) => `{${row.map((c: any) => `'${c}'`).join(", ")}}`).join(", ")}}`;
+      }
+      if (typeHint?.includes("string") || typeof val[0][0] === "string") {
+        return `vector<vector<string>>{${val.map((row) => `{${row.map((s: any) => JSON.stringify(s)).join(", ")}}`).join(", ")}}`;
+      }
+      if (typeof val[0][0] === "boolean") {
+        return `vector<vector<bool>>{${val.map((row) => `{${row.map((b: any) => (b ? "true" : "false")).join(", ")}}`).join(", ")}}`;
+      }
       return `vector<vector<int>>{${val.map((row) => `{${row.join(", ")}}`).join(", ")}}`;
+    }
+    if (typeHint?.includes("vector<vector<char>>") && typeof val[0] === "string" && val[0].length > 1) {
+      return `vector<vector<char>>{${val.map((row) => `{${row.split("").map((c: string) => `'${c}'`).join(", ")}}`).join(", ")}}`;
+    }
+    if (typeHint?.includes("vector<vector<int>>")) {
+      return `vector<vector<int>>{{${val.join(", ")}}}`;
+    }
+    if (typeHint?.includes("char") && typeof val[0] === "string") {
+      return `vector<char>{${val.map((c) => `'${c}'`).join(", ")}}`;
     }
     if (typeof val[0] === "string") {
       return `vector<string>{${val.map((s) => JSON.stringify(s)).join(", ")}}`;
     }
     if (typeof val[0] === "boolean") {
       return `vector<bool>{${val.map((b) => (b ? "true" : "false")).join(", ")}}`;
+    }
+    if (typeHint?.toLowerCase().includes("long")) {
+      return `vector<long long>{${val.map((x) => `${x}LL`).join(", ")}}`;
+    }
+    if (typeHint?.toLowerCase().includes("double")) {
+      return `vector<double>{${val.map((x) => Number.isInteger(x) ? `${x}.0` : String(x)).join(", ")}}`;
     }
     return `vector<int>{${val.map((x) => (x === null ? 0 : x)).join(", ")}}`;
   }
@@ -590,13 +677,18 @@ export function buildExecutableDriver({
     return Array.isArray(parsed["__commands__"]) && parsed["__commands__"].length > 0;
   });
 
+  const hasMutableTarget = returnType === "void" && params.some((p) => {
+    const t = p.type.toLowerCase();
+    return t.includes("[]") || t.includes("vector") || t.includes("list") || t.includes("node") || t.includes("stack") || t.includes("char");
+  });
+
   const voidTargetIdx = (() => {
-    if (returnType !== "void") return 0;
+    if (!hasMutableTarget) return -1;
     const mutableIdx = params.findIndex((p) => {
       const t = p.type.toLowerCase();
-      return t.includes("[]") || t.includes("vector") || t.includes("list") || t.includes("node");
+      return t.includes("[]") || t.includes("vector") || t.includes("list") || t.includes("node") || t.includes("stack") || t.includes("char");
     });
-    return mutableIdx >= 0 ? mutableIdx : 0;
+    return mutableIdx >= 0 ? mutableIdx : -1;
   })();
 
   // Extract argument arrays for each test case
@@ -623,6 +715,9 @@ export function buildExecutableDriver({
         skipB: argsMap["skipB"] !== undefined ? Number(argsMap["skipB"]) : null,
         listA: Array.isArray(argsMap["listA"]) ? argsMap["listA"] : null,
         listB: Array.isArray(argsMap["listB"]) ? argsMap["listB"] : null,
+        head: Array.isArray(argsMap["head"]) ? argsMap["head"] : (Array.isArray(argsMap["list"]) ? argsMap["list"] : null),
+        targetVal: argsMap["node"] !== undefined ? (typeof argsMap["node"] === "number" ? argsMap["node"] : Number(argsMap["node"])) : (argsMap["target"] !== undefined ? Number(argsMap["target"]) : (argsMap["val"] !== undefined ? Number(argsMap["val"]) : null)),
+        newVal: argsMap["val"] !== undefined ? Number(argsMap["val"]) : null,
       },
     };
   });
@@ -926,6 +1021,34 @@ ${casesDictEntries}
             call_args = [_create_random_list(raw_args[0])]
         elif "${methodName}" == "flatten" and raw_args and isinstance(raw_args[0], list) and raw_args[0] and isinstance(raw_args[0][0], list):
             call_args = [_create_multilevel_list(raw_args[0])]
+        elif "${methodName}" == "deleteNode" and len(param_types) == 1 and meta.get("head") is not None:
+            head = _create_linked_list(meta["head"], is_node=True)
+            target = head
+            target_val = meta.get("targetVal", 0)
+            while target and getattr(target, 'val', getattr(target, 'data', None)) != target_val:
+                target = target.next
+            if target:
+                new_head = target.next if target == head else head
+                method(target)
+                print(json.dumps(_to_list(new_head), separators=(',', ':')))
+            else:
+                print(json.dumps(_to_list(head), separators=(',', ':')))
+            sys.exit(0)
+        elif "${methodName}" == "insertBeforeNode" and meta.get("head") is not None:
+            head = _create_linked_list(meta["head"], is_node=True)
+            target = head
+            target_val = meta.get("targetVal", 0)
+            while target and getattr(target, 'val', getattr(target, 'data', None)) != target_val:
+                target = target.next
+            if target:
+                method(target, meta.get("newVal", 0))
+                curr = target
+                while getattr(curr, 'prev', None) or getattr(curr, 'back', None):
+                    curr = curr.prev if getattr(curr, 'prev', None) else curr.back
+                print(json.dumps(_to_list(curr), separators=(',', ':')))
+            else:
+                print(json.dumps(_to_list(head), separators=(',', ':')))
+            sys.exit(0)
         else:
             call_args = []
             for idx, arg in enumerate(raw_args):
@@ -959,8 +1082,8 @@ ${casesDictEntries}
                 print(json.dumps(res.val) if res else "null")
             else:
                 print(json.dumps(_tree_to_list(res), separators=(',', ':')))
-        elif "${returnType}" == "void" and len(call_args) > ${voidTargetIdx}:
-            target = call_args[${voidTargetIdx}]
+        elif "${returnType}" == "void" and ${hasMutableTarget ? `len(call_args) > ${voidTargetIdx}` : "False"}:
+            target = call_args[${voidTargetIdx >= 0 ? voidTargetIdx : 0}]
             if isinstance(target, (ListNode, Node)):
                 print(json.dumps(_to_list(target), separators=(',', ':')))
             elif isinstance(target, TreeNode):
@@ -1289,6 +1412,39 @@ ${casesEntries}
             callArgs = [_createRandomList(rawArgs[0])];
         } else if ("${methodName}" === "flatten" && rawArgs.length > 0 && Array.isArray(rawArgs[0]) && Array.isArray(rawArgs[0][0])) {
             callArgs = [_createMultilevelList(rawArgs[0])];
+        } else if ("${methodName}" === "deleteNode" && ${params.length} === 1 && meta && meta.head) {
+            let head = _createLinkedList(meta.head, -1, true);
+            let target = head;
+            let targetVal = meta.targetVal !== null && meta.targetVal !== undefined ? meta.targetVal : 0;
+            while (target && (target.val !== undefined ? target.val : target.data) !== targetVal) {
+                target = target.next;
+            }
+            if (target) {
+                let newHead = (target === head) ? target.next : head;
+                fn(target);
+                console.log(JSON.stringify(_toList(newHead)));
+            } else {
+                console.log(JSON.stringify(_toList(head)));
+            }
+            return;
+        } else if ("${methodName}" === "insertBeforeNode" && meta && meta.head) {
+            let head = _createLinkedList(meta.head, -1, true);
+            let target = head;
+            let targetVal = meta.targetVal !== null && meta.targetVal !== undefined ? meta.targetVal : 0;
+            while (target && (target.val !== undefined ? target.val : target.data) !== targetVal) {
+                target = target.next;
+            }
+            if (target) {
+                fn(target, meta.newVal !== null && meta.newVal !== undefined ? meta.newVal : 0);
+                let curr = target;
+                while (curr && (curr.prev || curr.back)) {
+                    curr = curr.prev || curr.back;
+                }
+                console.log(JSON.stringify(_toList(curr)));
+            } else {
+                console.log(JSON.stringify(_toList(head)));
+            }
+            return;
         } else {
             for (let i = 0; i < rawArgs.length; i++) {
                 const arg = rawArgs[i];
@@ -1325,8 +1481,8 @@ ${casesEntries}
             } else {
                 console.log(JSON.stringify(_treeToList(res)));
             }
-        } else if ("${returnType}" === "void" && callArgs.length > ${voidTargetIdx}) {
-            const target = callArgs[${voidTargetIdx}];
+        } else if ("${returnType}" === "void" && ${hasMutableTarget ? `callArgs.length > ${voidTargetIdx}` : "false"}) {
+            const target = callArgs[${voidTargetIdx >= 0 ? voidTargetIdx : 0}];
             if (target instanceof ListNode || target instanceof Node) {
                 console.log(JSON.stringify(_toList(target)));
             } else if (target instanceof TreeNode) {
@@ -1348,14 +1504,80 @@ ${casesEntries}
     }
 
     case "java": {
-      const javaSourceCode = sourceCode.replace(/\bpublic\s+class\s+Solution\b/g, "class Solution");
+      const userImports: string[] = [];
+      const javaSourceCode = sourceCode
+        .replace(/^\s*import\s+[^;]+;\s*$/gm, (m) => {
+          userImports.push(m.trim());
+          return "";
+        })
+        .replace(/\bpublic\s+class\s+(\w+)\b/g, "class $1");
+      const userImportsHeader = userImports.length > 0 ? userImports.join("\n") + "\n" : "";
+
+      const studentClassMatches = Array.from(sourceCode.matchAll(/\b(?:public\s+)?class\s+([A-Za-z0-9_]+)\b/g));
+      const studentClassName = (() => {
+        if (studentClassMatches.some((m) => m[1] === "Solution")) {
+          return "Solution";
+        }
+        for (const m of studentClassMatches) {
+          const name = m[1];
+          if (["ListNode", "TreeNode", "Node", "Pair", "PairNode", "NodeValue", "Tuple", "Item", "Job", "Meeting", "DisjointSet", "Main"].includes(name)) continue;
+          const classRegex = new RegExp(`class\\s+${name}\\b[\\s\\S]*?\\{([\\s\\S]*?)(?:\\n\\s*(?:(?:public|private|protected|static|final)\\s+)*class|$)`);
+          const bodyMatch = sourceCode.match(classRegex);
+          if (bodyMatch && bodyMatch[1].includes(methodName)) {
+            return name;
+          }
+        }
+        for (const m of studentClassMatches) {
+          const name = m[1];
+          if (!["ListNode", "TreeNode", "Node", "Pair", "PairNode", "NodeValue", "Tuple", "Item", "Job", "Meeting", "DisjointSet", "Main"].includes(name)) {
+            return name;
+          }
+        }
+        return "Solution";
+      })();
+
       if (isDesignProblem) {
+        const serializeJavaDesignArg = (arg: any, className?: string): string => {
+          if (arg === null) return "null";
+          if (Array.isArray(arg)) {
+            if (className === "BSTIterator") {
+              return `TreeNode.createTree(new Integer[]{ ${arg.map((x) => (x === null ? "null" : x)).join(", ")} })`;
+            }
+            if (arg.length === 0) return "new int[]{}";
+            if (typeof arg[0] === "number") return `new int[]{ ${arg.join(", ")} }`;
+            if (typeof arg[0] === "string") return `new String[]{ ${arg.map((x) => JSON.stringify(x)).join(", ")} }`;
+            return `new Object[]{ ${arg.map((x) => serializeJavaDesignArg(x, className)).join(", ")} }`;
+          }
+          if (typeof arg === "string") return JSON.stringify(arg);
+          if (typeof arg === "boolean" || typeof arg === "number") return String(arg);
+          return JSON.stringify(arg);
+        };
+
         const switchCases = testCasesArgs
           .map(({ order, commands, expectedOutput }) => {
-            const jsonCmds = JSON.stringify(commands || []).replace(/\\/g, "\\\\").replace(/"/g, '\\"');
+            if (!commands || commands.length === 0) {
+              return `            case ${order}: System.out.println("[]"); break;`;
+            }
+            const firstCmd = commands[0];
+            const isConstructor = /^[A-Z]/.test(firstCmd.name);
+            const className = isConstructor ? firstCmd.name : "";
+            const initArgsStr = isConstructor ? firstCmd.args.map((a: any) => serializeJavaDesignArg(a, className)).join(", ") : "";
+            const executionCommands = isConstructor ? commands.slice(1) : commands;
             const includeNulls = expectedOutput.includes("null");
+
+            const methodInvocations = executionCommands
+              .map((c: any) => {
+                const argsStr = c.args.map((a: any) => serializeJavaDesignArg(a, className)).join(", ");
+                return `                invokeDesign(inst, "${c.name}", new Object[]{ ${argsStr} }, res, ${includeNulls});`;
+              })
+              .join("\n");
+
             return `            case ${order}: {
-                executeDesignCommands("${jsonCmds}", ${includeNulls});
+                Object inst = createDesignInstance("${className}", new Object[]{ ${initArgsStr} });
+                List<String> res = new ArrayList<>();
+                if (${includeNulls} && ${isConstructor}) res.add("null");
+${methodInvocations}
+                System.out.println(formatDesignList(res));
                 break;
             }`;
           })
@@ -1364,16 +1586,16 @@ ${casesEntries}
         return `import java.util.*;
 import java.io.*;
 import java.lang.reflect.*;
-
-class ListNode {
+${userImportsHeader}
+${/(?:^|\n)\s*(?:public\s+)?class\s+ListNode\s*[\{<]/.test(sourceCode) ? "" : `class ListNode {
     int val;
     ListNode next;
     ListNode() {}
     ListNode(int val) { this.val = val; }
     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
-}
+}`}
 
-class TreeNode {
+${/(?:^|\n)\s*(?:public\s+)?class\s+TreeNode\s*[\{<]/.test(sourceCode) ? "" : `class TreeNode {
     int val;
     TreeNode left;
     TreeNode right;
@@ -1384,93 +1606,223 @@ class TreeNode {
         this.left = left;
         this.right = right;
     }
-}
+    static TreeNode createTree(Integer[] arr) {
+        if (arr == null || arr.length == 0 || arr[0] == null) return null;
+        TreeNode root = new TreeNode(arr[0]);
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        int i = 1;
+        while (!queue.isEmpty() && i < arr.length) {
+            TreeNode curr = queue.poll();
+            if (i < arr.length && arr[i] != null) {
+                curr.left = new TreeNode(arr[i]);
+                queue.add(curr.left);
+            }
+            i++;
+            if (i < arr.length && arr[i] != null) {
+                curr.right = new TreeNode(arr[i]);
+                queue.add(curr.right);
+            }
+            i++;
+        }
+        return root;
+    }
+}`}
+
+${/(?:^|\n)\s*(?:public\s+)?class\s+Node\s*[\{<]/.test(sourceCode) ? "" : `class Node {
+    int val;
+    int data;
+    Node next;
+    Node prev;
+    Node left;
+    Node right;
+    Node bottom;
+    Node child;
+    Node random;
+    Node() {}
+    Node(int val) { this.val = val; this.data = val; }
+    Node(int val, Node next) { this.val = val; this.data = val; this.next = next; }
+}`}
+
+${/(?:^|\n)\s*(?:public\s+)?class\s+Pair\s*[\{<]/.test(sourceCode) ? "" : `class Pair {
+    TreeNode node;
+    int num;
+    int first;
+    int second;
+    int line;
+    Pair() {}
+    Pair(TreeNode node, int num) { this.node = node; this.num = num; this.first = num; this.line = num; }
+    Pair(Object node, int num) { if (node instanceof TreeNode) this.node = (TreeNode) node; this.num = num; this.first = num; this.line = num; }
+    Pair(int first, int second) { this.first = first; this.second = second; this.num = first; }
+}`}
+
+${/(?:^|\n)\s*(?:public\s+)?class\s+PairNode\s*[\{<]/.test(sourceCode) ? "" : `class PairNode {
+    TreeNode node;
+    int num;
+    PairNode() {}
+    PairNode(TreeNode node, int num) { this.node = node; this.num = num; }
+}`}
+
+${/(?:^|\n)\s*(?:public\s+)?class\s+Tuple\s*[\{<]/.test(sourceCode) ? "" : `class Tuple {
+    int row;
+    int col;
+    int val;
+    TreeNode node;
+    Tuple() {}
+    Tuple(TreeNode node, int row, int col) { this.node = node; this.row = row; this.col = col; }
+    Tuple(int row, int col, int val) { this.row = row; this.col = col; this.val = val; }
+}`}
 
 // --- Student Solution ---
 ${javaSourceCode}
 
 // --- Dynamic Design Dispatcher ---
 public class Main {
-    static void executeDesignCommands(String json, boolean includeNulls) throws Exception {
-        // Simple JSON command parser
-        List<String> results = new ArrayList<>();
-        if (includeNulls) results.add("null");
-        
-        // Find student class
-        Class<?> cls = null;
-        String[] possibleClasses = new String[]{"LRUCache", "LFUCache", "BSTIterator", "Twitter", "MinStack", "Trie", "KthLargest", "Solution"};
-        for (String cName : possibleClasses) {
-            try {
-                cls = Class.forName(cName);
-                if (cls != null) break;
-            } catch (Exception ignored) {}
+    static Class<?> findDesignClass(String name) {
+        if (name != null && !name.isEmpty()) {
+            String[] candidates = new String[]{ name, "Solution$" + name, "Solution" };
+            for (String cName : candidates) {
+                try {
+                    Class<?> c = Class.forName(cName);
+                    if (c != null) return c;
+                } catch (Exception ignored) {}
+            }
         }
-        if (cls == null) cls = Class.forName("Solution");
-
-        // Parse method names and args
-        // Format: [{"name":"put","args":[1,1]}, ...]
-        java.util.regex.Pattern p = java.util.regex.Pattern.compile("\\{\"name\":\"(.*?)\",\"args\":\\[(.*?)\\]\\}");
-        java.util.regex.Matcher m = p.matcher(json);
-
-        Object inst = null;
-        boolean first = true;
-
-        while (m.find()) {
-            String methodName = m.group(1);
-            String rawArgs = m.group(2).trim();
-            List<Object> argsList = new ArrayList<>();
-            if (!rawArgs.isEmpty()) {
-                for (String t : rawArgs.split(",")) {
-                    String tok = t.trim();
-                    if (tok.equals("true")) argsList.add(true);
-                    else if (tok.equals("false")) argsList.add(false);
-                    else if (tok.startsWith("\"") && tok.endsWith("\"")) argsList.add(tok.substring(1, tok.length() - 1));
-                    else if (tok.matches("-?\\d+")) argsList.add(Integer.parseInt(tok));
-                    else argsList.add(tok);
+        try {
+            Class<?> sol = Class.forName("Solution");
+            if (name != null && !name.isEmpty()) {
+                for (Class<?> inner : sol.getDeclaredClasses()) {
+                    if (inner.getSimpleName().equalsIgnoreCase(name)) return inner;
                 }
             }
-
-            if (first) {
-                first = false;
-                // Instantiate class
-                for (Constructor<?> ctor : cls.getConstructors()) {
-                    if (ctor.getParameterCount() == argsList.size()) {
-                        try {
-                            inst = ctor.newInstance(argsList.toArray());
-                            break;
-                        } catch (Exception ignored) {}
-                    }
-                }
-                if (inst == null) inst = cls.getConstructor().newInstance();
-                continue;
+            if (sol.getDeclaredClasses().length > 0) {
+                return sol.getDeclaredClasses()[0];
             }
+            return sol;
+        } catch (Exception ignored) {}
+        return null;
+    }
 
-            // Invoke method on inst
-            Method targetMethod = null;
-            for (Method meth : cls.getMethods()) {
-                if (meth.getName().equals(methodName) && meth.getParameterCount() == argsList.size()) {
-                    targetMethod = meth;
+    static Object createDesignInstance(String name, Object[] args) throws Exception {
+        Class<?> cls = findDesignClass(name);
+        if (cls == null) throw new RuntimeException("Class not found: " + name);
+        if (args != null && args.length > 0) {
+            for (Constructor<?> ctor : cls.getConstructors()) {
+                if (ctor.getParameterCount() == args.length) {
+                    try {
+                        return ctor.newInstance(args);
+                    } catch (Exception ignored) {}
+                }
+            }
+        }
+        for (Constructor<?> ctor : cls.getConstructors()) {
+            if (ctor.getParameterCount() == 0) return ctor.newInstance();
+        }
+        Constructor<?>[] declared = cls.getDeclaredConstructors();
+        if (declared.length > 0) {
+            Constructor<?> ctor = declared[0];
+            ctor.setAccessible(true);
+            if (ctor.getParameterCount() == 0) return ctor.newInstance();
+            Class<?>[] pTypes = ctor.getParameterTypes();
+            Object[] initArgs = new Object[pTypes.length];
+            return ctor.newInstance(initArgs);
+        }
+        return cls.getConstructor().newInstance();
+    }
+
+    static String formatDesignVal(Object val) {
+        if (val == null) return "null";
+        if (val instanceof int[]) return Arrays.toString((int[]) val).replace(" ", "");
+        if (val instanceof Object[]) return Arrays.deepToString((Object[]) val).replace(" ", "");
+        if (val instanceof List) return val.toString().replace(" ", "");
+        return String.valueOf(val);
+    }
+
+    static String formatDesignList(List<String> list) {
+        StringBuilder sb = new StringBuilder("[");
+        for (int i = 0; i < list.size(); i++) {
+            if (i > 0) sb.append(", ");
+            sb.append(list.get(i));
+        }
+        sb.append("]");
+        return sb.toString();
+    }
+
+    static void invokeDesign(Object inst, String name, Object[] args, List<String> res, boolean includeNulls) throws Exception {
+        Method target = null;
+        Class<?> curr = inst.getClass();
+        while (curr != null && curr != Object.class) {
+            for (Method m : curr.getDeclaredMethods()) {
+                if (m.getName().equals(name) && m.getParameterCount() == args.length) {
+                    target = m;
+                    target.setAccessible(true);
                     break;
                 }
             }
-
-            if (targetMethod != null) {
-                Object ret = targetMethod.invoke(inst, argsList.toArray());
-                if (targetMethod.getReturnType() == void.class) {
-                    if (includeNulls) results.add("null");
-                } else {
-                    results.add(String.valueOf(ret));
+            if (target != null) break;
+            curr = curr.getSuperclass();
+        }
+        if (target == null) {
+            String[] aliases = null;
+            if (name.equals("insert")) aliases = new String[]{"insertKey", "push", "add"};
+            else if (name.equals("insertKey")) aliases = new String[]{"insert", "push"};
+            else if (name.equals("push")) aliases = new String[]{"insert", "insertKey", "add"};
+            else if (name.equals("extractMax") || name.equals("extractMin")) aliases = new String[]{"pop", "poll", "remove"};
+            else if (name.equals("pop")) aliases = new String[]{"extractMin", "extractMax", "poll"};
+            else if (name.equals("getMax") || name.equals("getMin")) aliases = new String[]{"peek", "top"};
+            else if (name.equals("top")) aliases = new String[]{"peek"};
+            else if (name.equals("peek")) aliases = new String[]{"top"};
+            else if (name.equals("empty")) aliases = new String[]{"isEmpty"};
+            if (aliases != null) {
+                for (String alias : aliases) {
+                    curr = inst.getClass();
+                    while (curr != null && curr != Object.class) {
+                        for (Method m : curr.getDeclaredMethods()) {
+                            if (m.getName().equals(alias) && m.getParameterCount() == args.length) {
+                                target = m;
+                                target.setAccessible(true);
+                                break;
+                            }
+                        }
+                        if (target != null) break;
+                        curr = curr.getSuperclass();
+                    }
+                    if (target != null) break;
                 }
             }
         }
-
-        StringBuilder sb = new StringBuilder("[");
-        for (int i = 0; i < results.size(); i++) {
-            if (i > 0) sb.append(",");
-            sb.append(results.get(i));
+        if (target == null && (name.equals("getMax") || name.equals("getMin") || name.equals("peek") || name.equals("top"))) {
+            try {
+                Field f = null;
+                try { f = inst.getClass().getDeclaredField("arr"); } catch (Exception ignored) {
+                    try { f = inst.getClass().getDeclaredField("harr"); } catch (Exception ignored2) {}
+                }
+                if (f != null) {
+                    f.setAccessible(true);
+                    int[] a = (int[]) f.get(inst);
+                    Field sf = null;
+                    try { sf = inst.getClass().getDeclaredField("size"); } catch (Exception ignored) {
+                        try { sf = inst.getClass().getDeclaredField("heap_size"); } catch (Exception ignored2) {}
+                    }
+                    int sz = 1;
+                    if (sf != null) { sf.setAccessible(true); sz = sf.getInt(inst); }
+                    if (sz > 0 && a != null && a.length > 0) {
+                        res.add(String.valueOf(a[0]));
+                        return;
+                    } else {
+                        res.add("-1");
+                        return;
+                    }
+                }
+            } catch (Exception ignored) {}
         }
-        sb.append("]");
-        System.out.println(sb.toString());
+        if (target == null) throw new RuntimeException("Method not found: " + name);
+        Object ret = target.invoke(inst, args);
+        if (target.getReturnType() == void.class) {
+            if (includeNulls) res.add("null");
+        } else {
+            res.add(formatDesignVal(ret));
+        }
     }
 
     public static void main(String[] args) throws Exception {
@@ -1494,7 +1846,7 @@ ${switchCases}
               ? "System.out.println(formatScalar(sol.getIntersectionNode(inter[0], inter[1])));"
               : "System.out.println(format(sol.getIntersectionNode(inter[0], inter[1])));";
             return `            case ${order}: {
-                ListNode[] inter = ListNode.createIntersected(${arrA}, ${arrB}, ${meta.skipA ?? 0}, ${meta.skipB ?? 0}, ${meta.intersectVal ?? 0});
+                ListNode[] inter = createIntersected(${arrA}, ${arrB}, ${meta.skipA ?? 0}, ${meta.skipB ?? 0}, ${meta.intersectVal ?? 0});
                 ${callPrint}
                 break;
             }`;
@@ -1505,8 +1857,8 @@ ${switchCases}
             const valsLit = serializeJavaLiteral(items.map((x: any) => x[0]), "int[]");
             const rIdxLit = serializeJavaLiteral(items.map((x: any) => (x[1] === null || x[1] === undefined ? -1 : x[1])), "int[]");
             return `            case ${order}: {
-                Node head = Node.createRandomList(${valsLit}, ${rIdxLit});
-                System.out.println(Node.randomToList(sol.copyRandomList(head)));
+                Node head = createRandomList(${valsLit}, ${rIdxLit});
+                System.out.println(randomToList(sol.copyRandomList(head)));
                 break;
             }`;
           }
@@ -1514,8 +1866,48 @@ ${switchCases}
           if (methodName === "flatten" && argValues.length > 0 && Array.isArray(argValues[0]) && Array.isArray(argValues[0][0])) {
             const colsLit = serializeJavaLiteral(argValues[0], "int[][]");
             return `            case ${order}: {
-                Node root = Node.createMultilevelList(${colsLit});
-                System.out.println(format(Node.flattenedToList(sol.flatten(root))));
+                Node root = createMultilevelList(${colsLit});
+                System.out.println(format(flattenedToList(sol.flatten(root))));
+                break;
+            }`;
+          }
+
+          if (methodName === "deleteNode" && params.length === 1 && meta.head) {
+            const arrLit = serializeJavaLiteral(meta.head, "int[]");
+            const targetVal = meta.targetVal ?? 0;
+            return `            case ${order}: {
+                Node head = createNodeList(${arrLit});
+                Node target = findDLLNode(head, ${targetVal});
+                if (target != null) {
+                    Node newHead = (target == head) ? target.next : head;
+                    sol.deleteNode(target);
+                    System.out.println(format(nodeToList(newHead)));
+                } else {
+                    System.out.println(format(nodeToList(head)));
+                }
+                break;
+            }`;
+          }
+
+          if (methodName === "insertBeforeNode" && meta.head) {
+            const arrLit = serializeJavaLiteral(meta.head, "int[]");
+            const targetVal = meta.targetVal ?? 0;
+            const newVal = meta.newVal ?? 0;
+            return `            case ${order}: {
+                Node head = createNodeList(${arrLit});
+                Node target = findDLLNode(head, ${targetVal});
+                if (target != null) {
+                    sol.insertBeforeNode(target, ${newVal});
+                    Node curr = target;
+                    while (true) {
+                        Node p = getDLLPrev(curr);
+                        if (p == null) break;
+                        curr = p;
+                    }
+                    System.out.println(format(nodeToList(curr)));
+                } else {
+                    System.out.println(format(nodeToList(head)));
+                }
                 break;
             }`;
           }
@@ -1528,19 +1920,60 @@ ${switchCases}
             const varName = `a${i}`;
             callArgNames.push(varName);
 
-            if (pType.includes("ListNode")) {
+            if (pType === "ListNode[]" || pType === "vector<ListNode*>") {
+              const arrLit = serializeJavaLiteral(v, "int[][]");
+              varDecls.push(`                ListNode[] ${varName} = toListNodeArray(${arrLit});`);
+            } else if (pType.includes("ListNode")) {
               const arrLit = serializeJavaLiteral(v, "int[]");
-              varDecls.push(`                ListNode ${varName} = ListNode.createList(${arrLit}, ${pos});`);
+              varDecls.push(`                ListNode ${varName} = createList(${arrLit}, ${pos});`);
             } else if (pType.includes("Node") && !pType.includes("TreeNode")) {
               const arrLit = serializeJavaLiteral(v, "int[]");
-              varDecls.push(`                Node ${varName} = Node.createNodeList(${arrLit}, ${pos});`);
+              varDecls.push(`                Node ${varName} = createNodeList(${arrLit}, ${pos});`);
             } else if (pType.includes("TreeNode")) {
-              if (i === 0) {
+              if (i === 0 || Array.isArray(v)) {
                 const arrLit = serializeJavaLiteral(v, "Integer[]");
-                varDecls.push(`                TreeNode ${varName} = TreeNode.createTree(${arrLit});`);
+                varDecls.push(`                TreeNode ${varName} = createTree(${arrLit});`);
               } else {
-                varDecls.push(`                TreeNode ${varName} = TreeNode.findNode(a0, ${v});`);
+                varDecls.push(`                TreeNode ${varName} = findNode(a0, ${v});`);
               }
+            } else if (pType.includes("Stack<Integer>")) {
+              const arrLit = serializeJavaLiteral(v, "int[]");
+              varDecls.push(`                Stack<Integer> ${varName} = toStack(${arrLit});`);
+            } else if (pType.includes("Item[]")) {
+              let norm = v;
+              if (Array.isArray(norm) && norm.length > 0 && typeof norm[0] === "object" && !Array.isArray(norm[0])) {
+                norm = norm.map((it: any) => [it.val ?? it.value, it.wt ?? it.weight]);
+              }
+              const arrLit = serializeJavaLiteral(norm, "int[][]");
+              varDecls.push(`                Item[] ${varName} = toItemArray(${arrLit});`);
+            } else if (pType.includes("Job[]")) {
+              let norm = v;
+              if (Array.isArray(norm) && norm.length > 0 && typeof norm[0] === "object" && !Array.isArray(norm[0])) {
+                norm = norm.map((j: any) => [j.id, j.deadline ?? j.dead, j.profit]);
+              }
+              const arrLit = serializeJavaLiteral(norm, "int[][]");
+              varDecls.push(`                Job[] ${varName} = toJobArray(${arrLit});`);
+            } else if (pType.includes("ArrayList<ArrayList<ArrayList<Integer>>>")) {
+              const arrLit = serializeJavaLiteral(v, "int[][][]");
+              varDecls.push(`                ArrayList<ArrayList<ArrayList<Integer>>> ${varName} = to3DArrayList(${arrLit});`);
+            } else if (pType.includes("ArrayList<ArrayList<Integer>>")) {
+              const arrLit = serializeJavaLiteral(v, "int[][]");
+              varDecls.push(`                ArrayList<ArrayList<Integer>> ${varName} = to2DArrayList(${arrLit});`);
+            } else if (pType.includes("List<List<Integer>>")) {
+              const arrLit = serializeJavaLiteral(v, "int[][]");
+              varDecls.push(`                List<List<Integer>> ${varName} = to2DList(${arrLit});`);
+            } else if (pType.includes("List<List<String>>") || pType.includes("ArrayList<ArrayList<String>>")) {
+              const arrLit = serializeJavaLiteral(v, "String[][]");
+              varDecls.push(`                List<List<String>> ${varName} = to2DStringList(${arrLit});`);
+            } else if (pType.includes("ArrayList<Integer>")) {
+              const arrLit = serializeJavaLiteral(v, "int[]");
+              varDecls.push(`                ArrayList<Integer> ${varName} = toArrayList(${arrLit});`);
+            } else if (pType.includes("List<Integer>")) {
+              const arrLit = serializeJavaLiteral(v, "int[]");
+              varDecls.push(`                List<Integer> ${varName} = toList(${arrLit});`);
+            } else if (pType.includes("List<String>") || pType.includes("ArrayList<String>")) {
+              const arrLit = serializeJavaLiteral(v, "String[]");
+              varDecls.push(`                List<String> ${varName} = toStringList(${arrLit});`);
             } else {
               varDecls.push(`                ${pType} ${varName} = ${serializeJavaLiteral(v, pType)};`);
             }
@@ -1548,10 +1981,12 @@ ${switchCases}
 
           const argsStr = callArgNames.join(", ");
           if (returnType === "void" && argValues.length > 0) {
+            const printTarget = hasMutableTarget && voidTargetIdx >= 0
+              ? `\n                System.out.println(format(a${voidTargetIdx}));`
+              : "";
             return `            case ${order}: {
 ${varDecls.join("\n")}
-                sol.${methodName}(${argsStr});
-                System.out.println(format(a${voidTargetIdx}));
+                sol.${methodName}(${argsStr});${printTarget}
                 break;
             }`;
           }
@@ -1568,16 +2003,164 @@ ${varDecls.join("\n")}
         })
         .join("\n");
 
+      const nodeValField = sourceCode.includes(".data") ? "data" : "val";
+
       return `import java.util.*;
 import java.io.*;
-
-class ListNode {
+${userImportsHeader}
+${/(?:^|\n)\s*(?:public\s+)?class\s+ListNode\s*[\{<]/.test(sourceCode) ? "" : `class ListNode {
     int val;
     int data;
     ListNode next;
     ListNode() {}
     ListNode(int val) { this.val = val; this.data = val; }
     ListNode(int val, ListNode next) { this.val = val; this.data = val; this.next = next; }
+}`}
+
+${/(?:^|\n)\s*(?:public\s+)?class\s+Node\s*[\{<]/.test(sourceCode) ? "" : `class Node {
+    int val;
+    int data;
+    Node next;
+    Node prev;
+    Node back;
+    Node left;
+    Node right;
+    Node child;
+    Node bottom;
+    Node random;
+    Node() {}
+    Node(int val) { this.val = val; this.data = val; }
+    Node(int val, Node next) { this.val = val; this.data = val; this.next = next; }
+    Node(int val, Node next, Node prev) { this.val = val; this.data = val; this.next = next; this.prev = prev; this.back = prev; }
+}`}
+
+${/(?:^|\n)\s*(?:public\s+)?class\s+TreeNode\s*[\{<]/.test(sourceCode) ? "" : `class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    TreeNode() {}
+    TreeNode(int val) { this.val = val; }
+    TreeNode(int val, TreeNode left, TreeNode right) {
+        this.val = val;
+        this.left = left;
+        this.right = right;
+    }
+}`}
+
+${/(?:^|\n)\s*(?:public\s+)?class\s+Pair\s*[\{<]/.test(sourceCode) ? "" : `class Pair {
+    TreeNode node;
+    int num;
+    int first;
+    int second;
+    int line;
+    Pair() {}
+    Pair(TreeNode node, int num) { this.node = node; this.num = num; this.first = num; this.line = num; }
+    Pair(Object node, int num) { if (node instanceof TreeNode) this.node = (TreeNode) node; this.num = num; this.first = num; this.line = num; }
+    Pair(int first, int second) { this.first = first; this.second = second; this.num = first; }
+}`}
+
+${/(?:^|\n)\s*(?:public\s+)?class\s+PairNode\s*[\{<]/.test(sourceCode) ? "" : `class PairNode {
+    TreeNode node;
+    int num;
+    PairNode() {}
+    PairNode(TreeNode node, int num) { this.node = node; this.num = num; }
+}`}
+
+${/(?:^|\n)\s*(?:public\s+)?class\s+Tuple\s*[\{<]/.test(sourceCode) ? "" : `class Tuple {
+    int row;
+    int col;
+    int val;
+    TreeNode node;
+    Tuple() {}
+    Tuple(TreeNode node, int row, int col) { this.node = node; this.row = row; this.col = col; }
+    Tuple(int row, int col, int val) { this.row = row; this.col = col; this.val = val; }
+}`}
+
+${/(?:^|\n)\s*(?:public\s+)?class\s+Item\s*[\{<]/.test(sourceCode) ? "" : `class Item {
+    int value;
+    int weight;
+    Item() {}
+    Item(int val, int wt) { this.value = val; this.weight = wt; }
+}`}
+
+${/(?:^|\n)\s*(?:public\s+)?class\s+Job\s*[\{<]/.test(sourceCode) ? "" : `class Job {
+    int id;
+    int deadline;
+    int profit;
+    Job() {}
+    Job(int id, int deadline, int profit) {
+        this.id = id;
+        this.deadline = deadline;
+        this.profit = profit;
+    }
+}`}
+
+// --- Student Solution ---
+${javaSourceCode}
+
+// --- Server-Side Execution Dispatcher ---
+public class Main {
+    static ArrayList<Integer> toArrayList(int[] arr) {
+        ArrayList<Integer> list = new ArrayList<>();
+        if (arr != null) for (int x : arr) list.add(x);
+        return list;
+    }
+
+    static ArrayList<ArrayList<Integer>> to2DArrayList(int[][] mat) {
+        ArrayList<ArrayList<Integer>> res = new ArrayList<>();
+        if (mat != null) {
+            for (int[] row : mat) {
+                ArrayList<Integer> r = new ArrayList<>();
+                for (int x : row) r.add(x);
+                res.add(r);
+            }
+        }
+        return res;
+    }
+
+    static List<List<Integer>> to2DList(int[][] mat) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (mat != null) {
+            for (int[] row : mat) {
+                List<Integer> r = new ArrayList<>();
+                for (int x : row) r.add(x);
+                res.add(r);
+            }
+        }
+        return res;
+    }
+
+    static List<List<String>> to2DStringList(String[][] mat) {
+        List<List<String>> res = new ArrayList<>();
+        if (mat != null) {
+            for (String[] row : mat) {
+                List<String> r = new ArrayList<>();
+                for (String s : row) r.add(s);
+                res.add(r);
+            }
+        }
+        return res;
+    }
+
+    static List<Integer> toList(int[] arr) {
+        List<Integer> list = new ArrayList<>();
+        if (arr != null) for (int x : arr) list.add(x);
+        return list;
+    }
+
+    static List<String> toStringList(String[] arr) {
+        List<String> list = new ArrayList<>();
+        if (arr != null) for (String s : arr) list.add(s);
+        return list;
+    }
+
+    static ListNode[] toListNodeArray(int[][] lists) {
+        if (lists == null) return new ListNode[0];
+        ListNode[] res = new ListNode[lists.length];
+        for (int i = 0; i < lists.length; i++) res[i] = createList(lists[i]);
+        return res;
+    }
+
     static ListNode createList(int[] arr, int pos) {
         if (arr == null || arr.length == 0) return null;
         ListNode[] nodes = new ListNode[arr.length];
@@ -1589,6 +2172,7 @@ class ListNode {
     static ListNode createList(int[] arr) {
         return createList(arr, -1);
     }
+
     static ListNode[] createIntersected(int[] listA, int[] listB, int skipA, int skipB, int intersectVal) {
         if (listA == null || listA.length == 0) return new ListNode[]{null, null};
         ListNode[] nodesA = new ListNode[listA.length];
@@ -1613,6 +2197,7 @@ class ListNode {
             return new ListNode[]{headA, nodesB[0]};
         }
     }
+
     static List<Integer> toList(ListNode head) {
         List<Integer> list = new ArrayList<>();
         Set<ListNode> visited = new HashSet<>();
@@ -1623,29 +2208,58 @@ class ListNode {
         }
         return list;
     }
-}
 
-class Node {
-    int val;
-    int data;
-    Node next;
-    Node prev;
-    Node back;
-    Node child;
-    Node bottom;
-    Node random;
-    Node() {}
-    Node(int val) { this.val = val; this.data = val; }
-    Node(int val, Node next) { this.val = val; this.data = val; this.next = next; }
-    Node(int val, Node next, Node prev) { this.val = val; this.data = val; this.next = next; this.prev = prev; this.back = prev; }
+    static ArrayList<ArrayList<ArrayList<Integer>>> to3DArrayList(int[][][] arr) {
+        ArrayList<ArrayList<ArrayList<Integer>>> res = new ArrayList<>();
+        if (arr != null) {
+            for (int[][] m2 : arr) {
+                ArrayList<ArrayList<Integer>> l2 = new ArrayList<>();
+                for (int[] r1 : m2) {
+                    ArrayList<Integer> l1 = new ArrayList<>();
+                    for (int x : r1) l1.add(x);
+                    l2.add(l1);
+                }
+                res.add(l2);
+            }
+        }
+        return res;
+    }
+
+    static void setFieldSafe(Object obj, String fieldName, Object val) {
+        if (obj == null) return;
+        try {
+            java.lang.reflect.Field f = obj.getClass().getDeclaredField(fieldName);
+            f.setAccessible(true);
+            f.set(obj, val);
+        } catch (Exception ignored) {}
+    }
+
+    static Object getFieldSafe(Object obj, String fieldName) {
+        if (obj == null) return null;
+        try {
+            java.lang.reflect.Field f = obj.getClass().getDeclaredField(fieldName);
+            f.setAccessible(true);
+            return f.get(obj);
+        } catch (Exception ignored) {
+            return null;
+        }
+    }
+
+    static Object getNodeVal(Object node) {
+        if (node == null) return null;
+        ${sourceCode.includes(".data")
+          ? `Object v = getFieldSafe(node, "data"); if (v == null) v = getFieldSafe(node, "val"); return v;`
+          : `Object v = getFieldSafe(node, "val"); if (v == null) v = getFieldSafe(node, "data"); return v;`}
+    }
+
     static Node createNodeList(int[] arr, int pos) {
         if (arr == null || arr.length == 0) return null;
         Node[] nodes = new Node[arr.length];
         for (int i = 0; i < arr.length; i++) nodes[i] = new Node(arr[i]);
         for (int i = 0; i < arr.length - 1; i++) {
             nodes[i].next = nodes[i + 1];
-            nodes[i + 1].prev = nodes[i];
-            nodes[i + 1].back = nodes[i];
+            setFieldSafe(nodes[i + 1], "prev", nodes[i]);
+            setFieldSafe(nodes[i + 1], "back", nodes[i]);
         }
         if (pos >= 0 && pos < arr.length) nodes[arr.length - 1].next = nodes[pos];
         return nodes[0];
@@ -1653,6 +2267,24 @@ class Node {
     static Node createNodeList(int[] arr) {
         return createNodeList(arr, -1);
     }
+
+    static Node findDLLNode(Node head, int val) {
+        Node curr = head;
+        while (curr != null) {
+            Object v = getNodeVal(curr);
+            if (v instanceof Number && ((Number) v).intValue() == val) return curr;
+            curr = curr.next;
+        }
+        return null;
+    }
+
+    static Node getDLLPrev(Node node) {
+        if (node == null) return null;
+        Object p = getFieldSafe(node, "prev");
+        if (p == null) p = getFieldSafe(node, "back");
+        return (Node) p;
+    }
+
     static Node createMultilevelList(int[][] cols) {
         if (cols == null || cols.length == 0) return null;
         List<Node> colHeads = new ArrayList<>();
@@ -1661,8 +2293,8 @@ class Node {
             Node[] colNodes = new Node[col.length];
             for (int j = 0; j < col.length; j++) colNodes[j] = new Node(col[j]);
             for (int j = 0; j < col.length - 1; j++) {
-                colNodes[j].bottom = colNodes[j + 1];
-                colNodes[j].child = colNodes[j + 1];
+                setFieldSafe(colNodes[j], "bottom", colNodes[j + 1]);
+                setFieldSafe(colNodes[j], "child", colNodes[j + 1]);
             }
             colHeads.add(colNodes[0]);
         }
@@ -1671,17 +2303,22 @@ class Node {
         }
         return colHeads.isEmpty() ? null : colHeads.get(0);
     }
+
     static List<Integer> flattenedToList(Node head) {
         List<Integer> res = new ArrayList<>();
         Set<Node> visited = new HashSet<>();
         Node curr = head;
         while (curr != null && !visited.contains(curr) && res.size() < 10000) {
             visited.add(curr);
-            res.add(curr.data != 0 ? curr.data : curr.val);
-            curr = curr.bottom != null ? curr.bottom : (curr.next != null ? curr.next : curr.child);
+            Object v = getNodeVal(curr);
+            if (v instanceof Number) res.add(((Number) v).intValue());
+            Object b = getFieldSafe(curr, "bottom");
+            Object c = getFieldSafe(curr, "child");
+            curr = b != null ? (Node) b : (curr.next != null ? curr.next : (c != null ? (Node) c : null));
         }
         return res;
     }
+
     static Node createRandomList(int[] vals, int[] randomIndices) {
         if (vals == null || vals.length == 0) return null;
         Node[] nodes = new Node[vals.length];
@@ -1689,10 +2326,11 @@ class Node {
         for (int i = 0; i < vals.length - 1; i++) nodes[i].next = nodes[i + 1];
         for (int i = 0; i < vals.length; i++) {
             int r = randomIndices[i];
-            if (r >= 0 && r < vals.length) nodes[i].random = nodes[r];
+            if (r >= 0 && r < vals.length) setFieldSafe(nodes[i], "random", nodes[r]);
         }
         return nodes[0];
     }
+
     static String randomToList(Node head) {
         if (head == null) return "[]";
         List<Node> nodes = new ArrayList<>();
@@ -1709,9 +2347,11 @@ class Node {
         for (int i = 0; i < nodes.size(); i++) {
             if (i > 0) sb.append(",");
             Node n = nodes.get(i);
-            sb.append("[").append(n.data != 0 ? n.data : n.val).append(",");
-            if (n.random != null && map.containsKey(n.random)) {
-                sb.append(map.get(n.random));
+            Object v = getNodeVal(n);
+            sb.append("[").append(v != null ? v : 0).append(",");
+            Object rand = getFieldSafe(n, "random");
+            if (rand != null && map.containsKey((Node) rand)) {
+                sb.append(map.get((Node) rand));
             } else {
                 sb.append("null");
             }
@@ -1720,35 +2360,26 @@ class Node {
         sb.append("]");
         return sb.toString();
     }
-    static List<Integer> toList(Node head) {
+
+    static List<Integer> nodeToList(Node head) {
         List<Integer> list = new ArrayList<>();
         Set<Node> visited = new HashSet<>();
         while (head != null && !visited.contains(head) && list.size() < 10000) {
             visited.add(head);
-            list.add(head.data != 0 ? head.data : head.val);
+            Object v = getNodeVal(head);
+            if (v instanceof Number) list.add(((Number) v).intValue());
             head = head.next;
         }
         return list;
     }
-}
 
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
-    TreeNode() {}
-    TreeNode(int val) { this.val = val; }
-    TreeNode(int val, TreeNode left, TreeNode right) {
-        this.val = val;
-        this.left = left;
-        this.right = right;
-    }
     static TreeNode createTree(int[] arr) {
         if (arr == null || arr.length == 0) return null;
         Integer[] boxed = new Integer[arr.length];
         for (int i = 0; i < arr.length; i++) boxed[i] = arr[i];
         return createTree(boxed);
     }
+
     static TreeNode createTree(Integer[] arr) {
         if (arr == null || arr.length == 0 || arr[0] == null) return null;
         TreeNode root = new TreeNode(arr[0]);
@@ -1770,6 +2401,7 @@ class TreeNode {
         }
         return root;
     }
+
     static TreeNode findNode(TreeNode root, int val) {
         if (root == null) return null;
         if (root.val == val) return root;
@@ -1777,6 +2409,7 @@ class TreeNode {
         if (l != null) return l;
         return findNode(root.right, val);
     }
+
     static List<Integer> treeToList(TreeNode root) {
         List<Integer> res = new ArrayList<>();
         if (root == null) return res;
@@ -1797,19 +2430,36 @@ class TreeNode {
         }
         return res;
     }
-}
 
-// --- Student Solution ---
-${javaSourceCode}
+    static Stack<Integer> toStack(int[] arr) {
+        Stack<Integer> st = new Stack<>();
+        if (arr != null) for (int x : arr) st.push(x);
+        return st;
+    }
 
-// --- Server-Side Execution Dispatcher ---
-public class Main {
+    static Item[] toItemArray(int[][] arr) {
+        if (arr == null) return new Item[0];
+        Item[] items = new Item[arr.length];
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i].length >= 2) items[i] = new Item(arr[i][0], arr[i][1]);
+        }
+        return items;
+    }
+
+    static Job[] toJobArray(int[][] arr) {
+        if (arr == null) return new Job[0];
+        Job[] jobs = new Job[arr.length];
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i].length >= 3) jobs[i] = new Job(arr[i][0], arr[i][1], arr[i][2]);
+        }
+        return jobs;
+    }
     static String formatScalar(Object obj) {
         if (obj == null) return "null";
         if (obj instanceof ListNode) return String.valueOf(((ListNode) obj).val);
         if (obj instanceof Node) {
-            Node n = (Node) obj;
-            return String.valueOf(n.data != 0 ? n.data : n.val);
+            Object v = getNodeVal(obj);
+            return String.valueOf(v != null ? v : obj);
         }
         if (obj instanceof TreeNode) return String.valueOf(((TreeNode) obj).val);
         return format(obj);
@@ -1817,6 +2467,29 @@ public class Main {
 
     static String format(Object obj) {
         if (obj == null) return "null";
+        if (obj instanceof char[][]) {
+            char[][] mat = (char[][]) obj;
+            StringBuilder sb = new StringBuilder("[");
+            for (int i = 0; i < mat.length; i++) {
+                if (i > 0) sb.append(",");
+                sb.append("[");
+                for (int j = 0; j < mat[i].length; j++) {
+                    if (j > 0) sb.append(",");
+                    sb.append('"').append(mat[i][j]).append('"');
+                }
+                sb.append("]");
+            }
+            return sb.append("]").toString();
+        }
+        if (obj instanceof char[]) {
+            char[] a = (char[]) obj;
+            StringBuilder sb = new StringBuilder("[");
+            for (int i = 0; i < a.length; i++) {
+                if (i > 0) sb.append(",");
+                sb.append('"').append(a[i]).append('"');
+            }
+            return sb.append("]").toString();
+        }
         if (obj instanceof int[][]) {
             int[][] mat = (int[][]) obj;
             StringBuilder sb = new StringBuilder("[");
@@ -1885,9 +2558,9 @@ public class Main {
             }
             return sb.append("]").toString();
         }
-        if (obj instanceof ListNode) return format(ListNode.toList((ListNode) obj));
-        if (obj instanceof Node) return format(Node.toList((Node) obj));
-        if (obj instanceof TreeNode) return format(TreeNode.treeToList((TreeNode) obj));
+        if (obj instanceof ListNode) return format(toList((ListNode) obj));
+        if (obj instanceof Node) return format(nodeToList((Node) obj));
+        if (obj instanceof TreeNode) return format(treeToList((TreeNode) obj));
         return String.valueOf(obj);
     }
 
@@ -1895,7 +2568,7 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         if (!sc.hasNextInt()) return;
         int t = sc.nextInt();
-        Solution sol = new Solution();
+        ${studentClassName} sol = new ${studentClassName}();
         
         switch(t) {
 ${switchCases}
@@ -2022,6 +2695,46 @@ ${switchCases}
         }`;
           }
 
+          if (methodName === "deleteNode" && params.length === 1 && meta.head) {
+            const arrLit = serializeCppLiteral(meta.head, "vector<int>");
+            const targetVal = meta.targetVal ?? 0;
+            return `        case ${order}: {
+            vector<int> arr = ${arrLit};
+            Node* head = createNodeList(arr);
+            Node* target = findDLLNode(head, ${targetVal});
+            if (target) {
+                Node* newHead = (target == head) ? target->next : head;
+                sol.deleteNode(target);
+                printVal(newHead);
+            } else {
+                printVal(head);
+            }
+            break;
+        }`;
+          }
+
+          if (methodName === "insertBeforeNode" && meta.head) {
+            const arrLit = serializeCppLiteral(meta.head, "vector<int>");
+            const targetVal = meta.targetVal ?? 0;
+            const newVal = meta.newVal ?? 0;
+            return `        case ${order}: {
+            vector<int> arr = ${arrLit};
+            Node* head = createNodeList(arr);
+            Node* target = findDLLNode(head, ${targetVal});
+            if (target) {
+                sol.insertBeforeNode(target, ${newVal});
+                Node* curr = target;
+                while (curr && (curr->prev || curr->back)) {
+                    curr = curr->prev ? curr->prev : curr->back;
+                }
+                printVal(curr);
+            } else {
+                printVal(head);
+            }
+            break;
+        }`;
+          }
+
           const varDecls = argValues
             .map((v, i) => {
               const cppType = params[i]?.type || "auto";
@@ -2061,10 +2774,12 @@ ${switchCases}
           const argNames = argValues.map((_, i) => `a${i}`).join(", ");
 
           if (returnType === "void" && argValues.length > 0) {
+            const printTarget = hasMutableTarget && voidTargetIdx >= 0
+              ? `\n            printVal(a${voidTargetIdx});`
+              : "";
             return `        case ${order}: {
 ${varDecls}
-            sol.${methodName}(${argNames});
-            printVal(a${voidTargetIdx});
+            sol.${methodName}(${argNames});${printTarget}
             break;
         }`;
           }
@@ -2158,6 +2873,15 @@ Node* createNodeList(const vector<int>& arr, int pos = -1) {
         nodes.back()->next = nodes[pos];
     }
     return head;
+}
+
+Node* findDLLNode(Node* head, int val) {
+    Node* curr = head;
+    while (curr) {
+        if (curr->data == val || curr->val == val) return curr;
+        curr = curr->next;
+    }
+    return nullptr;
 }
 
 TreeNode* createTree(const vector<int>& vals, const vector<bool>& isNull) {

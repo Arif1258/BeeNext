@@ -1,0 +1,1592 @@
+[
+  {
+    "slug": "0-and-1-knapsack",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_3RYcwz/Main.java:359: error: incompatible types: int cannot be converted to int[]\n                int[] a1 = 16;\n                           ^\n/"
+  },
+  {
+    "slug": "3-sum",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "4-sum",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "accounts-merge",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_5XAdAq/Main.java:382: error: illegal start of expression\n                List<List<String>> a0 = new int[][]{{John, johnsmith@mail.com, john_ne"
+  },
+  {
+    "slug": "add-one-to-a-number-represented-by-ll",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "add-two-numbers-in-ll",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "aggressive-cows",
+    "reason": "Passed 3/6 cases"
+  },
+  {
+    "slug": "alient-dictionary",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_U2JyOo/Main.java:376: error: incompatible types: int[] cannot be converted to String[]\n                String[] a0 = new int[]{3, 6, 8, 10};\n  "
+  },
+  {
+    "slug": "articulation-point-in-graph",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_KmHLV1/Main.java:367: error: incompatible types: int[][] cannot be converted to ArrayList<ArrayList<Integer>>\n                ArrayList<ArrayLi"
+  },
+  {
+    "slug": "assign-cookies",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_W1UJ8G/Main.java:358: error: incompatible types: int cannot be converted to int[]\n                int[] a1 = 16;\n                           ^\n/"
+  },
+  {
+    "slug": "balanced-paranthesis",
+    "reason": "Passed 3/6 cases"
+  },
+  {
+    "slug": "basic-hashing",
+    "reason": "Passed 0/6 cases"
+  },
+  {
+    "slug": "bellman-ford-algorithm",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_YXPbL7/Main.java:354: error: incompatible types: int[][] cannot be converted to ArrayList<ArrayList<Integer>>\n                ArrayList<ArrayLi"
+  },
+  {
+    "slug": "best-time-to-buy-and-sell-stock",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "best-time-to-buy-and-sell-stock-ii",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "best-time-to-buy-and-sell-stock-iii",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "best-time-to-buy-and-sell-stock-iv",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "best-time-to-buy-and-sell-stock-with-cooldown",
+    "reason": "Passed 3/6 cases"
+  },
+  {
+    "slug": "best-time-to-buy-and-sell-stock-with-cooldown-and-transaction-fees",
+    "reason": "Passed 3/6 cases"
+  },
+  {
+    "slug": "binary-subarrays-with-sum",
+    "reason": "Passed 3/6 cases"
+  },
+  {
+    "slug": "bipartite-graph",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_SOAPgi/Main.java:364: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{10, 20, 30, 40};\n "
+  },
+  {
+    "slug": "book-allocation-problem",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_oEzEk9/Main.java:360: error: incompatible types: Integer[] cannot be converted to ArrayList<Integer>\n                ArrayList<Integer> a0 = ne"
+  },
+  {
+    "slug": "bottom-view-of-bt",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_gcb30w/Main.java:240: error: cannot find symbol\n        Queue<Pair> q = new LinkedList<>();\n              ^\n  symbol:   class Pair\n  location: "
+  },
+  {
+    "slug": "bridges-in-graph",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_d3Xg7A/Main.java:367: error: incompatible types: int[][] cannot be converted to List<List<Integer>>\n                List<List<Integer>> a1 = ne"
+  },
+  {
+    "slug": "bst-iterator",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_SHrynz/Main.java:68: error: illegal escape character\n        java.util.regex.Pattern p = java.util.regex.Pattern.compile(\"\\{\"name\":\"(.*?)\",\"arg"
+  },
+  {
+    "slug": "bubble-sort",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_MRtsBE/Main.java:344: error: cannot find symbol\n        Solution sol = new Solution();\n        ^\n  symbol:   class Solution\n  location: class M"
+  },
+  {
+    "slug": "build-heap-from-a-given-array",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "burst-balloons",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "candy",
+    "reason": "Passed 3/6 cases"
+  },
+  {
+    "slug": "capacity-to-ship-packages-within-d-days",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "celebrity-problem",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_7Bmvp1/Main.java:356: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{3, 6, 8, 10};\n    "
+  },
+  {
+    "slug": "cheapest-flight-within-k-stops",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "check-for-perfect-number",
+    "reason": "Passed 5/6 cases"
+  },
+  {
+    "slug": "check-if-a-number-is-power-of-2-or-not",
+    "reason": "Passed 5/6 cases"
+  },
+  {
+    "slug": "check-if-an-array-represents-a-min-heap-",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "check-if-the-array-is-sorted-i",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_S282oP/Main.java:340: error: incompatible types: int[] cannot be converted to int\n                int a1 = new int[]{3, 4, 5, 1, 2};\n          "
+  },
+  {
+    "slug": "check-if-the-array-is-sorted-ii",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "check-if-the-i-th-bit-is-set-or-not",
+    "reason": "Passed 4/6 cases"
+  },
+  {
+    "slug": "check-if-there-exists-a-subsequence-with-sum-k",
+    "reason": "Passed 4/6 cases"
+  },
+  {
+    "slug": "check-if-two-trees-are-identical-or-not",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_9nhgD8/Main.java:345: error: illegal start of expression\n                TreeNode a1 = TreeNode.findNode(a0, 1,,2);\n                           "
+  },
+  {
+    "slug": "cherry-pickup-ii",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_Qg9l4R/Main.java:372: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{10, 20, 30, 40};\n "
+  },
+  {
+    "slug": "children-sum-property-in-binary-tree",
+    "reason": "Passed 0/6 cases"
+  },
+  {
+    "slug": "coin-change-ii",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "combination-sum",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "combination-sum-ii",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "connected-components",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_XQToGM/Main.java:354: error: incompatible types: int[][] cannot be converted to ArrayList<ArrayList<Integer>>\n                ArrayList<ArrayLi"
+  },
+  {
+    "slug": "construct-a-bst-from-a-preorder-traversal",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "construct-a-bt-from-postorder-and-inorder",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_iXvbGq/Main.java:365: error: incompatible types: int cannot be converted to int[]\n                int[] a1 = 16;\n                           ^\n/"
+  },
+  {
+    "slug": "construct-a-bt-from-preorder-and-inorder",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_08LKFy/Main.java:363: error: incompatible types: int cannot be converted to int[]\n                int[] a1 = 16;\n                           ^\n/"
+  },
+  {
+    "slug": "convert-array-to-dll",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "count-all-subsequences-with-sum-k",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "count-good-numbers",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "count-inversions",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_IeHlKj/Main.java:365: error: incompatible types: int[] cannot be converted to long[]\n                long[] a0 = new int[]{2, 4, 1, 3, 5};\n    "
+  },
+  {
+    "slug": "count-number-of-nice-subarrays",
+    "reason": "Passed 3/6 cases"
+  },
+  {
+    "slug": "count-number-of-odd-digits-in-a-number",
+    "reason": "Passed 4/6 cases"
+  },
+  {
+    "slug": "count-number-of-substring",
+    "reason": "Passed 1/6 cases"
+  },
+  {
+    "slug": "count-occurrences-in-a-sorted-array",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "count-of-odd-numbers-in-array",
+    "reason": "Passed 3/6 cases"
+  },
+  {
+    "slug": "count-of-prime-numbers-till-n",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "count-palindromic-subsequences",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "count-partitions-with-given-difference",
+    "reason": "Passed 4/6 cases"
+  },
+  {
+    "slug": "count-primes-in-range-l-to-r",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "count-square-submatrices-with-all-one",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_Yl0Kx0/Main.java:358: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{10, 20, 30, 40};\n "
+  },
+  {
+    "slug": "count-subarrays-with-given-sum",
+    "reason": "Passed 3/6 cases"
+  },
+  {
+    "slug": "count-subarrays-with-given-xor-k",
+    "reason": "Passed 5/6 cases"
+  },
+  {
+    "slug": "count-subsets-with-sum-k",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_VMAlGp/Main.java:343: error: incompatible types: int[] cannot be converted to int\n                int a0 = new int[]{1, 2, 2, 3};\n             "
+  },
+  {
+    "slug": "count-the-number-of-set-bits",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "count-total-nodes-in-a-complete-bt",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "course-schedule-i",
+    "reason": "Passed 4/6 cases"
+  },
+  {
+    "slug": "delete-kth-element-of-dll",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "deletion-in-linked-list",
+    "reason": "Passed 1/6 cases"
+  },
+  {
+    "slug": "deletion-of-the-kth-element-of-ll",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "design-twitter",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_7GnlOm/Main.java:106: error: illegal escape character\n        java.util.regex.Pattern p = java.util.regex.Pattern.compile(\"\\{\"name\":\"(.*?)\",\"ar"
+  },
+  {
+    "slug": "detect-a-cycle-in-a-directed-graph",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_LUqnnG/Main.java:356: error: incompatible types: int[][] cannot be converted to ArrayList<ArrayList<Integer>>\n                ArrayList<ArrayLi"
+  },
+  {
+    "slug": "detect-a-cycle-in-an-undirected-graph",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_Xw8PEb/Main.java:353: error: incompatible types: int[][] cannot be converted to ArrayList<ArrayList<Integer>>\n                ArrayList<ArrayLi"
+  },
+  {
+    "slug": "diameter-of-binary-tree",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "different-ways-to-evaluate-a-boolean-expression",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "dijkstra's-algorithm",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_6oUFL7/Main.java:356: error: incompatible types: int[][] cannot be converted to ArrayList<ArrayList<ArrayList<Integer>>>\n                ArrayL"
+  },
+  {
+    "slug": "disjoint-set-",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_vA06re/Main.java:352: error: cannot find symbol\n                System.out.println(formatScalar(sol.findUPar(a0)));\n                           "
+  },
+  {
+    "slug": "distance-of-nearest-cell-having-one",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_HD54VB/Main.java:370: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{10, 20, 30, 40};\n "
+  },
+  {
+    "slug": "distinct-subsequences",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "divide-two-numbers-without-multiplication-and-division",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "edit-distance",
+    "reason": "Passed 3/6 cases"
+  },
+  {
+    "slug": "expression-add-operators",
+    "reason": "Passed 0/6 cases"
+  },
+  {
+    "slug": "factorial-of-a-given-number-i",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "factorial-of-a-given-number-ii",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "find-eventual-safe-states",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_xbwhLf/Main.java:369: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{10, 20, 30, 40};\n "
+  },
+  {
+    "slug": "find-median-from-data-stream",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_lQI5WA/Main.java:66: error: illegal escape character\n        java.util.regex.Pattern p = java.util.regex.Pattern.compile(\"\\{\"name\":\"(.*?)\",\"arg"
+  },
+  {
+    "slug": "find-missing-number",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "find-nth-root-of-a-number",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "find-out-how-many-times-the-array-is-rotated",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "find-peak-element",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "find-peak-element-ii",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_4W305O/Main.java:363: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{10, 20, 30, 40};\n "
+  },
+  {
+    "slug": "find-row-with-maximum-1's",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_jRZqvN/Main.java:369: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{3, 6, 8, 10};\n    "
+  },
+  {
+    "slug": "find-square-root-of-a-number",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "find-the-city-with-the-smallest-number-of-neighbors",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "find-the-length-of-the-linked-list",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "find-the-mst-weight",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_FpzsUh/Main.java:360: error: incompatible types: int[][] cannot be converted to int\n                int a2 = new int[][]{{0, 1, 5}, {1, 2, 3}, "
+  },
+  {
+    "slug": "find-the-repeating-and-missing-number",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "find-the-smallest-divisor",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "first-and-last-occurrence",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "flattening-of-ll",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_vcCjK3/Main.java:357: error: incompatible types: Node cannot be converted to Solution.Node\n                System.out.println(format(Node.flatt"
+  },
+  {
+    "slug": "flood-fill-algorithm",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_CR0qNY/Main.java:363: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{3, 6, 8, 10};\n    "
+  },
+  {
+    "slug": "floor-and-ceil-in-a-bst",
+    "reason": "Passed 0/6 cases"
+  },
+  {
+    "slug": "floor-and-ceil-in-sorted-array",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "floyd-warshall-algorithm",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_tXKAGd/Main.java:366: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{10, 20, 30, 40};\n "
+  },
+  {
+    "slug": "fractional-knapsack",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_72iW3E/Main.java:355: error: illegal start of expression\n                Item[] a1 = new int[]{[object Object], [object Object], [object Object"
+  },
+  {
+    "slug": "frog-jump",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_nfiKHu/Main.java:346: error: incompatible types: int[] cannot be converted to int\n                int a1 = new int[]{10, 20, 30, 10};\n         "
+  },
+  {
+    "slug": "frog-jump-with-k-distances",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "fruit-into-baskets",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "gcd-of-two-numbers",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "generate-binary-strings-without-consecutive-1s",
+    "reason": "Passed 1/6 cases"
+  },
+  {
+    "slug": "generate-parentheses",
+    "reason": "Passed 1/6 cases"
+  },
+  {
+    "slug": "grid-unique-paths",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "hand-of-straights",
+    "reason": "Passed 4/6 cases"
+  },
+  {
+    "slug": "heapify-algorithm",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_3TbBfe/Main.java:365: error: incompatible types: String cannot be converted to int\n                int a2 = \"0 (Max-Heapify)\";\n                "
+  },
+  {
+    "slug": "highest-occurring-element-in-an-array",
+    "reason": "Passed 3/6 cases"
+  },
+  {
+    "slug": "house-robber",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "implement-max-heap",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_hudTf8/Main.java:86: error: illegal escape character\n        java.util.regex.Pattern p = java.util.regex.Pattern.compile(\"\\{\"name\":\"(.*?)\",\"arg"
+  },
+  {
+    "slug": "implement-min-heap",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_9dgl43/Main.java:92: error: illegal escape character\n        java.util.regex.Pattern p = java.util.regex.Pattern.compile(\"\\{\"name\":\"(.*?)\",\"arg"
+  },
+  {
+    "slug": "implement-min-stack",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_QxIRYH/Main.java:83: error: illegal escape character\n        java.util.regex.Pattern p = java.util.regex.Pattern.compile(\"\\{\"name\":\"(.*?)\",\"arg"
+  },
+  {
+    "slug": "implement-queue-using-arrays",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_PyrdVe/Main.java:57: error: illegal escape character\n        java.util.regex.Pattern p = java.util.regex.Pattern.compile(\"\\{\"name\":\"(.*?)\",\"arg"
+  },
+  {
+    "slug": "implement-queue-using-linkedlist",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_3kNZSx/Main.java:72: error: illegal escape character\n        java.util.regex.Pattern p = java.util.regex.Pattern.compile(\"\\{\"name\":\"(.*?)\",\"arg"
+  },
+  {
+    "slug": "implement-queue-using-stack",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_coCZhw/Main.java:72: error: illegal escape character\n        java.util.regex.Pattern p = java.util.regex.Pattern.compile(\"\\{\"name\":\"(.*?)\",\"arg"
+  },
+  {
+    "slug": "implement-stack-using-arrays",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_8VwUF0/Main.java:57: error: illegal escape character\n        java.util.regex.Pattern p = java.util.regex.Pattern.compile(\"\\{\"name\":\"(.*?)\",\"arg"
+  },
+  {
+    "slug": "implement-stack-using-linkedlist",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_ojJYtU/Main.java:70: error: illegal escape character\n        java.util.regex.Pattern p = java.util.regex.Pattern.compile(\"\\{\"name\":\"(.*?)\",\"arg"
+  },
+  {
+    "slug": "implement-stack-using-queue",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_cuhLHD/Main.java:68: error: illegal escape character\n        java.util.regex.Pattern p = java.util.regex.Pattern.compile(\"\\{\"name\":\"(.*?)\",\"arg"
+  },
+  {
+    "slug": "infix-to-postfix-conversion",
+    "reason": "Passed 5/6 cases"
+  },
+  {
+    "slug": "infix-to-prefix-conversion",
+    "reason": "Passed 4/6 cases"
+  },
+  {
+    "slug": "inorder-successor-and-predecessor-in-bst",
+    "reason": "Passed 0/6 cases"
+  },
+  {
+    "slug": "insert-before-given-node-in-dll",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_kBSvVN/Main.java:341: error: incompatible types: int cannot be converted to int[]\n                Node a0 = Node.createNodeList(3, -1);\n       "
+  },
+  {
+    "slug": "insert-interval",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_vDUb12/Main.java:364: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{3, 6, 8, 10};\n    "
+  },
+  {
+    "slug": "insert-node-before-kth-node-in-dll",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "insertion-at-the-kth-position-of-ll",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "insertion-sort",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_0W7til/Main.java:341: error: cannot find symbol\n        Solution sol = new Solution();\n        ^\n  symbol:   class Solution\n  location: class M"
+  },
+  {
+    "slug": "intersection-of-two-sorted-arrays",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "introduction-",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_JuK7n9/Main.java:233: error: duplicate class: TreeNode\nclass TreeNode {\n^\n1 error\n"
+  },
+  {
+    "slug": "introduction-to-bits-and-tricks",
+    "reason": "Passed 0/6 cases"
+  },
+  {
+    "slug": "introduction-to-bst",
+    "reason": "Passed 0/6 cases"
+  },
+  {
+    "slug": "introduction-to-doubly-ll",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_IRN7dQ/Main.java:233: error: duplicate class: Node\nclass Node {\n^\n1 error\n"
+  },
+  {
+    "slug": "introduction-to-singly-linkedlist",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_NYjNPQ/Main.java:233: error: duplicate class: Node\nclass Node {\n^\n1 error\n"
+  },
+  {
+    "slug": "isomorphic-string",
+    "reason": "Passed 3/6 cases"
+  },
+  {
+    "slug": "job-sequencing-problem",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_caFak5/Main.java:359: error: incompatible types: int[][] cannot be converted to Job[]\n                Job[] a0 = new int[][]{{1, 4, 20}, {2, 1,"
+  },
+  {
+    "slug": "jump-game---i",
+    "reason": "Passed 4/6 cases"
+  },
+  {
+    "slug": "jump-game-ii",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "k-th-largest-element-in-an-array",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "kadane's-algorithm",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "kmp-algorithm-or-lps-array",
+    "reason": "Passed 0/6 cases"
+  },
+  {
+    "slug": "koko-eating-bananas",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "kosaraju's-algorithm",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_gdx9pI/Main.java:367: error: incompatible types: int[][] cannot be converted to ArrayList<ArrayList<Integer>>\n                ArrayList<ArrayLi"
+  },
+  {
+    "slug": "kth-element-of-2-sorted-arrays",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "kth-largest-element-in-a-stream-of-running-integers",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_fboeHz/Main.java:68: error: illegal escape character\n        java.util.regex.Pattern p = java.util.regex.Pattern.compile(\"\\{\"name\":\"(.*?)\",\"arg"
+  },
+  {
+    "slug": "kth-missing-positive-number",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "kth-smallest-and-largest-element-in-bst",
+    "reason": "Passed 0/6 cases"
+  },
+  {
+    "slug": "largest-bst-in-binary-tree",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "largest-divisible-subset",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "largest-odd-number-in-a-string",
+    "reason": "Passed 4/6 cases"
+  },
+  {
+    "slug": "largest-rectangle-in-a-histogram",
+    "reason": "Passed 4/6 cases"
+  },
+  {
+    "slug": "largest-subarray-with-sum-0",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "lcm-of-two-numbers",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "leaders-in-an-array",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "left-rotate-array",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "left-rotate-array-by-one",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "lemonade-change",
+    "reason": "Passed 4/6 cases"
+  },
+  {
+    "slug": "length-of-loop-in-ll",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_lzF8DL/Main.java:348: error: incompatible types: ListNode cannot be converted to Node\n                System.out.println(formatScalar(sol.count"
+  },
+  {
+    "slug": "letter-combinations-of-a-phone-number",
+    "reason": "Passed 1/6 cases"
+  },
+  {
+    "slug": "lfu-cache",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_loy4nx/Main.java:94: error: illegal escape character\n        java.util.regex.Pattern p = java.util.regex.Pattern.compile(\"\\{\"name\":\"(.*?)\",\"arg"
+  },
+  {
+    "slug": "linear-search",
+    "reason": "Passed 4/6 cases"
+  },
+  {
+    "slug": "longest-bitonic-subsequence",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "longest-common-prefix",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_xM5gLO/Main.java:355: error: incompatible types: int[] cannot be converted to String[]\n                String[] a0 = new int[]{10, 20, 30, 40};"
+  },
+  {
+    "slug": "longest-common-subsequence",
+    "reason": "Passed 3/6 cases"
+  },
+  {
+    "slug": "longest-common-substring",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "longest-consecutive-sequence-in-an-array",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "longest-happy-prefix",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "longest-increasing-subsequence",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "longest-palindromic-subsequence",
+    "reason": "Passed 5/6 cases"
+  },
+  {
+    "slug": "longest-palindromic-substring",
+    "reason": "Passed 4/6 cases"
+  },
+  {
+    "slug": "longest-repeating-character-replacement",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "longest-string-chain",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_g59d4W/Main.java:360: error: incompatible types: int[] cannot be converted to String[]\n                String[] a0 = new int[]{10, 20, 30, 40};"
+  },
+  {
+    "slug": "longest-subarray-with-sum-k",
+    "reason": "Passed 3/6 cases"
+  },
+  {
+    "slug": "longest-substring-with-at-most-k-distinct-characters",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "longest-substring-without-repeating-characters",
+    "reason": "Passed 3/6 cases"
+  },
+  {
+    "slug": "longest-word-with-all-prefixes",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_tN15Y5/Main.java:377: error: cannot find symbol\n                 a0 = new String[]{\"n\", \"ni\", \"nin\", \"ninj\", \"ninja\", \"ninga\"};\n               "
+  },
+  {
+    "slug": "lru-cache",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_gctSts/Main.java:75: error: illegal escape character\n        java.util.regex.Pattern p = java.util.regex.Pattern.compile(\"\\{\"name\":\"(.*?)\",\"arg"
+  },
+  {
+    "slug": "m-coloring-problem",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_zgRWgr/Main.java:358: error: incompatible types: int cannot be converted to boolean[][]\n                boolean[][] a0 = 4;\n                   "
+  },
+  {
+    "slug": "majority-element-i",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "majority-element-ii",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "making-a-large-island",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_x1YlZl/Main.java:399: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{10, 20, 30, 40};\n "
+  },
+  {
+    "slug": "matrix-chain-multiplication",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "matrix-median",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_RO1tz3/Main.java:372: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{10, 20, 30, 40};\n "
+  },
+  {
+    "slug": "max-consecutive-ones-iii",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "maximum-consecutive-ones",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "maximum-nesting-depth-of-the-parentheses",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "maximum-path-sum-",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "maximum-points-you-can-obtain-from-cards-",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "maximum-product-subarray-in-an-array",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "maximum-rectangles",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_IqjJ4u/Main.java:364: error: incompatible types: int[][] cannot be converted to char[][]\n                char[][] a0 = new int[][]{{1, 0, 1, 0,"
+  },
+  {
+    "slug": "maximum-sum-combination",
+    "reason": "Passed 5/6 cases"
+  },
+  {
+    "slug": "maximum-sum-of-non-adjacent-elements",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_OBOKmP/Main.java:347: error: incompatible types: Integer[] cannot be converted to ArrayList<Integer>\n                ArrayList<Integer> a0 = ne"
+  },
+  {
+    "slug": "maximum-width-of-bt",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_j05rbC/Main.java:239: error: cannot find symbol\n        Queue<PairNode> q = new LinkedList<>();\n              ^\n  symbol:   class PairNode\n  lo"
+  },
+  {
+    "slug": "maximum-xor-of-two-numbers-in-an-array",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_dCIQcL/Main.java:372: error: cannot find symbol\n                 a0 = new int[]{3, 10, 5, 25, 2, 8};\n                 ^\n  symbol:   variable a0"
+  },
+  {
+    "slug": "maximum-xor-with-an-element-from-an-array",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_InXpIV/Main.java:387: error: cannot find symbol\n                 a0 = new int[]{0, 1, 2, 3, 4};\n                 ^\n  symbol:   variable a0\n  lo"
+  },
+  {
+    "slug": "median-of-2-sorted-arrays",
+    "reason": "Passed 3/6 cases"
+  },
+  {
+    "slug": "merge-intervals",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_NQEF2y/Main.java:357: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{10, 20, 30, 40};\n "
+  },
+  {
+    "slug": "merge-k-sorted-lists",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_xqlk74/Main.java:350: error: incompatible types: int[][] cannot be converted to int[]\n                ListNode a0 = ListNode.createList(new int"
+  },
+  {
+    "slug": "merge-sort",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_nnx3rA/Main.java:368: error: cannot find symbol\n        Solution sol = new Solution();\n        ^\n  symbol:   class Solution\n  location: class M"
+  },
+  {
+    "slug": "merge-sorted-lists-",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "merge-two-sorted-arrays-without-extra-space",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_Pl8aeI/Main.java:352: error: incompatible types: int[] cannot be converted to long[]\n                long[] a0 = new int[]{1, 4, 8, 10};\n      "
+  },
+  {
+    "slug": "minimise-max-distance-to-gas-stations",
+    "reason": "Passed 1/6 cases"
+  },
+  {
+    "slug": "minimum-bit-flips-to-convert-number",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "minimum-coins",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "minimum-cost-to-connect-sticks",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "minimum-cost-to-cut-the-stick",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "minimum-days-to-make-m-bouquets",
+    "reason": "Passed 4/6 cases"
+  },
+  {
+    "slug": "minimum-falling-path-sum",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_MzQxQe/Main.java:360: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{10, 20, 30, 40};\n "
+  },
+  {
+    "slug": "minimum-insertions-or-deletions-to-convert-string-a-to-b",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "minimum-insertions-to-make-string-palindrome",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "minimum-multiplications-to-reach-end",
+    "reason": "Passed 3/6 cases"
+  },
+  {
+    "slug": "minimum-number-of-bracket-reversals-to-make-an-expression-balanced",
+    "reason": "Passed 0/6 cases"
+  },
+  {
+    "slug": "minimum-number-of-platforms-required-for-a-railway",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_X5iVx9/Main.java:367: error: incompatible types: int cannot be converted to int[]\n                int[] a1 = 16;\n                           ^\n/"
+  },
+  {
+    "slug": "minimum-time-taken-to-burn-the-bt-from-a-given-node",
+    "reason": "Passed 1/6 cases"
+  },
+  {
+    "slug": "minimum-window-subsequence",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "minimum-window-substring-",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "most-stones-removed-with-same-row-or-column",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_u2RDcG/Main.java:378: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{10, 20, 30, 40};\n "
+  },
+  {
+    "slug": "move-zeros-to-end",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "n-meetings-in-one-room",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_sSTOzg/Main.java:368: error: incompatible types: int cannot be converted to int[]\n                int[] a1 = 16;\n                           ^\n/"
+  },
+  {
+    "slug": "n-queen",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "network-delay-time",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_QfLZDC/Main.java:377: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{3, 6, 8, 10};\n    "
+  },
+  {
+    "slug": "next-greater-element",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_rBOndd/Main.java:345: error: incompatible types: int[] cannot be converted to long[]\n                long[] a0 = new int[]{4, 5, 2, 25};\n      "
+  },
+  {
+    "slug": "next-greater-element---2",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "next-permutation",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "next-smaller-element",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_n41oeU/Main.java:347: error: incompatible types: Integer[] cannot be converted to ArrayList<Integer>\n                ArrayList<Integer> a0 = ne"
+  },
+  {
+    "slug": "ninja's-training",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_y5Z3gj/Main.java:355: error: incompatible types: int[][] cannot be converted to int\n                int a1 = new int[][]{{10, 40, 70}, {20, 50,"
+  },
+  {
+    "slug": "non-overlapping-intervals",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_4aztDx/Main.java:359: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{10, 20, 30, 40};\n "
+  },
+  {
+    "slug": "number-of-distinct-islands",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_7CNdvB/Main.java:369: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{10, 20, 30, 40};\n "
+  },
+  {
+    "slug": "number-of-distinct-substrings-in-a-string",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "number-of-enclaves",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_M9aj23/Main.java:370: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{10, 20, 30, 40};\n "
+  },
+  {
+    "slug": "number-of-greater-elements-to-the-right",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_24crP6/Main.java:358: error: incompatible types: int cannot be converted to int[]\n                int[] a1 = 16;\n                           ^\n/"
+  },
+  {
+    "slug": "number-of-islands",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_kGdQ0S/Main.java:354: error: incompatible types: int[][] cannot be converted to char[][]\n                char[][] a0 = new int[][]{{1, 1, 1, 1,"
+  },
+  {
+    "slug": "number-of-longest-increasing-subsequences",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "number-of-provinces",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_NlJ2qd/Main.java:364: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{10, 20, 30, 40};\n "
+  },
+  {
+    "slug": "number-of-substrings-containing-all-three-characters",
+    "reason": "Passed 3/6 cases"
+  },
+  {
+    "slug": "number-of-ways-to-arrive-at-destination",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "painters-partition",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_lIvWYI/Main.java:359: error: incompatible types: Integer[] cannot be converted to ArrayList<Integer>\n                ArrayList<Integer> a0 = ne"
+  },
+  {
+    "slug": "palindrome-partitioning",
+    "reason": "Passed 0/6 cases"
+  },
+  {
+    "slug": "palindrome-partitioning-ii-",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "partition-a-set-into-two-subsets-with-minimum-absolute-sum-difference",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "partition-array-for-maximum-sum",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "partition-equal-subset-sum",
+    "reason": "Passed 3/6 cases"
+  },
+  {
+    "slug": "pascals-triangle-i",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "path-with-minimum-effort",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_Uf8DSQ/Main.java:370: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{10, 20, 30, 40};\n "
+  },
+  {
+    "slug": "pattern-14",
+    "reason": "Passed 1/6 cases"
+  },
+  {
+    "slug": "pattern-15",
+    "reason": "Passed 1/6 cases"
+  },
+  {
+    "slug": "pattern-16",
+    "reason": "Passed 1/6 cases"
+  },
+  {
+    "slug": "pattern-22",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "postfix-to-infix-conversion",
+    "reason": "Passed 3/6 cases"
+  },
+  {
+    "slug": "postfix-to-prefix-conversion",
+    "reason": "Passed 3/6 cases"
+  },
+  {
+    "slug": "pow(x,n)",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_ah2UUg/Main.java:359: error: ';' expected\n                double a0 = 8.6.0;\n                               ^\n/var/folders/tx/c6zjpxvd4fb7vs_rg"
+  },
+  {
+    "slug": "power-set",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_CYdsdN/Main.java:352: error: incompatible types: int[] cannot be converted to String\n                String a0 = new int[]{1, 2, 3};\n          "
+  },
+  {
+    "slug": "power-set-bit-manipulation",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_wCmQGz/Main.java:347: error: incompatible types: String cannot be converted to int[]\n                int[] a0 = \"abc\";\n                        "
+  },
+  {
+    "slug": "pre,-post,-inorder-in-one-traversal",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_yAzXuH/Main.java:239: error: cannot find symbol\n        Stack<Pair> st = new Stack<>();\n              ^\n  symbol:   class Pair\n  location: clas"
+  },
+  {
+    "slug": "prefix-to-infix-conversion",
+    "reason": "Passed 3/6 cases"
+  },
+  {
+    "slug": "prefix-to-postfix-conversion",
+    "reason": "Passed 3/6 cases"
+  },
+  {
+    "slug": "prime-factorisation-of-a-number",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "print-all-nodes-at-a-distance-of-k-in-bt",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "print-all-primes-till-n",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "print-longest-increasing-subsequence",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "print-root-to-leaf-path-in-bt",
+    "reason": "Passed 0/6 cases"
+  },
+  {
+    "slug": "print-shortest-path-",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_F6NDdI/Main.java:370: error: incompatible types: int[][] cannot be converted to int\n                int a2 = new int[][]{{1, 2, 2}, {2, 5, 5}, "
+  },
+  {
+    "slug": "print-the-matrix-in-spiral-manner",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_o4yBII/Main.java:367: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{10, 20, 30, 40};\n "
+  },
+  {
+    "slug": "quick-sort",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_P9uiFm/Main.java:360: error: cannot find symbol\n        Solution sol = new Solution();\n        ^\n  symbol:   class Solution\n  location: class M"
+  },
+  {
+    "slug": "rabin-karp-algorithm",
+    "reason": "Passed 0/6 cases"
+  },
+  {
+    "slug": "rat-in-a-maze",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_pTi4yc/Main.java:372: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{3, 6, 8, 10};\n    "
+  },
+  {
+    "slug": "rearrange-array-elements-by-sign",
+    "reason": "Passed 3/6 cases"
+  },
+  {
+    "slug": "recursive-bubble-sort",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_hsKvTD/Main.java:346: error: cannot find symbol\n        Solution sol = new Solution();\n        ^\n  symbol:   class Solution\n  location: class M"
+  },
+  {
+    "slug": "recursive-insertion-sort",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_cqJEm2/Main.java:342: error: cannot find symbol\n        Solution sol = new Solution();\n        ^\n  symbol:   class Solution\n  location: class M"
+  },
+  {
+    "slug": "remove-duplicated-from-sorted-dll",
+    "reason": "Passed 5/6 cases"
+  },
+  {
+    "slug": "remove-duplicates-from-sorted-array",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "remove-k-digits",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "remove-nth-node-from-the-back-of-the-ll",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "remove-outermost-parentheses",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "removing-given-node-in-dll",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_uE5nhT/Main.java:339: error: incompatible types: int cannot be converted to int[]\n                Node a0 = Node.createNodeList(2, -1);\n       "
+  },
+  {
+    "slug": "replace-elements-by-their-rank",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "requirements-needed-to-construct-a-unique-bt",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_0idQhA/Main.java:336: error: incompatible types: String cannot be converted to int\n                int a0 = \"Inorder\";\n                        "
+  },
+  {
+    "slug": "return-the-largest-digit-in-a-number",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "reverse-a-stack",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_hfDENr/Main.java:351: error: incompatible types: String cannot be converted to Stack<Integer>\n                Stack<Integer> a0 = \"[3, 2, 1, 7,"
+  },
+  {
+    "slug": "reverse-a-string-ii",
+    "reason": "Passed 3/6 cases"
+  },
+  {
+    "slug": "reverse-an-array",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_cyz5U1/Main.java:342: error: incompatible types: int[] cannot be converted to int\n                int a0 = new int[]{1, 2, 3, 4, 5};\n          "
+  },
+  {
+    "slug": "reverse-an-array-ii",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "reverse-every-word-in-a-string",
+    "reason": "Passed 5/6 cases"
+  },
+  {
+    "slug": "reverse-pairs",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "rod-cutting-problem",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_tODZlA/Main.java:342: error: incompatible types: int[] cannot be converted to int\n                int a0 = new int[]{1, 5, 8, 9, 10, 17, 17, 20"
+  },
+  {
+    "slug": "roman-to-integer",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "rotate-matrix-by-90-degrees",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_7K9fSH/Main.java:364: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{10, 20, 30, 40};\n "
+  },
+  {
+    "slug": "rotate-string",
+    "reason": "Passed 3/6 cases"
+  },
+  {
+    "slug": "rotten-oranges",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_zcIec2/Main.java:376: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{10, 20, 30, 40};\n "
+  },
+  {
+    "slug": "search-in-2d-matrix-ii",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_cxksyr/Main.java:354: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{3, 6, 8, 10};\n    "
+  },
+  {
+    "slug": "search-in-a-2d-matrix",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_v8uTUs/Main.java:357: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{3, 6, 8, 10};\n    "
+  },
+  {
+    "slug": "search-in-linked-list",
+    "reason": "Passed 4/6 cases"
+  },
+  {
+    "slug": "search-in-rotated-sorted-array-2",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "search-in-rotated-sorted-array-i",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "search-x-in-sorted-array",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "second-highest-occurring-element",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "second-largest-element",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "selection-sort",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_aUkmsd/Main.java:343: error: cannot find symbol\n        Solution sol = new Solution();\n        ^\n  symbol:   class Solution\n  location: class M"
+  },
+  {
+    "slug": "serialize-and-de-serialize-bt",
+    "reason": "Passed 1/6 cases"
+  },
+  {
+    "slug": "set-matrix-zeroes",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_NuKUwH/Main.java:366: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{10, 20, 30, 40};\n "
+  },
+  {
+    "slug": "set-the-rightmost-unset-bit",
+    "reason": "Passed 1/6 cases"
+  },
+  {
+    "slug": "shortest-common-supersequence",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "shortest-job-first",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "shortest-palindrome",
+    "reason": "Passed 5/6 cases"
+  },
+  {
+    "slug": "shortest-path-in-undirected-graph-with-unit-weights",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_Uw0g2i/Main.java:374: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{3, 6, 8, 10};\n    "
+  },
+  {
+    "slug": "shortest-path-with-minimum-effort",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_AJhtvm/Main.java:372: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{3, 6, 8, 10};\n    "
+  },
+  {
+    "slug": "single-element-in-sorted-array",
+    "reason": "Passed 3/6 cases"
+  },
+  {
+    "slug": "single-number---i",
+    "reason": "Passed 3/6 cases"
+  },
+  {
+    "slug": "single-number---ii",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "single-number---iii",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "sliding-window-maximum",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "sort-a-k-sorted-array",
+    "reason": "Passed 3/6 cases"
+  },
+  {
+    "slug": "sort-characters-by-frequency",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_IjWFMQ/Main.java:364: error: incompatible types: int[] cannot be converted to String\n                String a0 = new int[]{12, 11, 13, 5, 6};\n "
+  },
+  {
+    "slug": "split-array---largest-sum",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "stock-span-problem",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_YlNW7X/Main.java:63: error: illegal escape character\n        java.util.regex.Pattern p = java.util.regex.Pattern.compile(\"\\{\"name\":\"(.*?)\",\"arg"
+  },
+  {
+    "slug": "string-to-integer-atoi",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "subarrays-with-k-different-integers",
+    "reason": "Passed 3/6 cases"
+  },
+  {
+    "slug": "subset-sum-equals-to-target",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_tTbf5T/Main.java:352: error: incompatible types: int[] cannot be converted to int\n                int a2 = new int[]{3, 34, 4, 12, 5, 2};\n     "
+  },
+  {
+    "slug": "subsets-i",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "subsets-ii",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "sudoko-solver",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_wWMlXx/Main.java:363: error: illegal start of expression\n                char[][] a0 = new int[][]{{5, 3, ., ., 7, ., ., ., .}, {6, ., ., 1, 9,"
+  },
+  {
+    "slug": "sum-of-array-elements",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "sum-of-array-elements-ii",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "sum-of-beauty-of-all-substrings",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "sum-of-digits-in-a-given-number",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "sum-of-first-n-numbers",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "sum-of-highest-and-lowest-frequency",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "sum-of-subarray-minimums",
+    "reason": "Passed 3/6 cases"
+  },
+  {
+    "slug": "sum-of-subarray-ranges",
+    "reason": "Passed 3/6 cases"
+  },
+  {
+    "slug": "surrounded-regions",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_SIljSO/Main.java:360: error: cannot find symbol\n                char[][] a0 = new int[][]{{X, X, X, X}, {X, O, O, X}, {X, X, O, X}, {X, O, X, X"
+  },
+  {
+    "slug": "swim-in-rising-water",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_38zZab/Main.java:366: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{10, 20, 30, 40};\n "
+  },
+  {
+    "slug": "target-sum",
+    "reason": "Passed 3/6 cases"
+  },
+  {
+    "slug": "task-scheduler",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_M6aFgi/Main.java:346: error: incompatible types: String[] cannot be converted to char[]\n                char[] a0 = new String[]{\"A\", \"A\", \"A\","
+  },
+  {
+    "slug": "top-k-frequent-elements",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "top-view-of-bt",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_SjUlRU/Main.java:240: error: cannot find symbol\n        Queue<Pair> q = new LinkedList<>();\n              ^\n  symbol:   class Pair\n  location: "
+  },
+  {
+    "slug": "topological-sort-or-kahns-algorithm",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_OFDKwU/Main.java:354: error: incompatible types: int[][] cannot be converted to ArrayList<ArrayList<Integer>>\n                ArrayList<ArrayLi"
+  },
+  {
+    "slug": "trapping-rainwater",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "traversal-in-linked-list",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_2EVSWp/Main.java:341: error: cannot find symbol\n                System.out.println(format(sol.traverseList(a0)));\n                             "
+  },
+  {
+    "slug": "traversal-techniques",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_vfVFOp/Main.java:350: error: incompatible types: int[][] cannot be converted to ArrayList<ArrayList<Integer>>\n                ArrayList<ArrayLi"
+  },
+  {
+    "slug": "triangle",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_8ndp4K/Main.java:346: error: incompatible types: int[][] cannot be converted to List<List<Integer>>\n                List<List<Integer>> a0 = ne"
+  },
+  {
+    "slug": "trie-implementation-and-advanced-operations",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_jchlkf/Main.java:100: error: illegal escape character\n        java.util.regex.Pattern p = java.util.regex.Pattern.compile(\"\\{\"name\":\"(.*?)\",\"ar"
+  },
+  {
+    "slug": "trie-implementation-and-operations",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_Y7d0Lj/Main.java:88: error: illegal escape character\n        java.util.regex.Pattern p = java.util.regex.Pattern.compile(\"\\{\"name\":\"(.*?)\",\"arg"
+  },
+  {
+    "slug": "two-sum-in-bst",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "unbounded-knapsack",
+    "reason": "Passed 1/6 cases"
+  },
+  {
+    "slug": "union-of-two-sorted-arrays",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "unique-paths-ii",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_mCkUqM/Main.java:358: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{10, 20, 30, 40};\n "
+  },
+  {
+    "slug": "upper-bound",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "valid-anagram",
+    "reason": "Passed 3/6 cases"
+  },
+  {
+    "slug": "valid-paranthesis-checker",
+    "reason": "Passed 5/6 cases"
+  },
+  {
+    "slug": "vertical-order-traversal",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_N167R9/Main.java:238: error: cannot find symbol\n        Queue<Tuple> q = new LinkedList<>();\n              ^\n  symbol:   class Tuple\n  location"
+  },
+  {
+    "slug": "wildcard-matching",
+    "reason": "Passed 5/6 cases"
+  },
+  {
+    "slug": "word-break",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_EMCJDt/Main.java:351: error: incompatible types: String[] cannot be converted to List<String>\n                List<String> a1 = new String[]{\"l"
+  },
+  {
+    "slug": "word-ladder-i",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_5PcTD5/Main.java:366: error: incompatible types: String[] cannot be converted to List<String>\n                List<String> a2 = new String[]{\"h"
+  },
+  {
+    "slug": "word-ladder-ii",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_t45Y6i/Main.java:377: error: incompatible types: String[] cannot be converted to List<String>\n                List<String> a2 = new String[]{\"h"
+  },
+  {
+    "slug": "word-search",
+    "reason": "Compile failed",
+    "compileErr": "/var/folders/tx/c6zjpxvd4fb7vs_rgtwgt0lc0000gn/T/audit_j_km3qI2/Main.java:357: error: cannot find symbol\n                char[][] a0 = new int[][]{{A, B, C, E}, {S, F, C, S}, {A, D, E, E}};\n          "
+  },
+  {
+    "slug": "xor-of-numbers-in-a-given-range",
+    "reason": "Passed 2/6 cases"
+  },
+  {
+    "slug": "z-function",
+    "reason": "Passed 2/6 cases"
+  }
+]

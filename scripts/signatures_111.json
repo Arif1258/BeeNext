@@ -1,0 +1,1491 @@
+{
+  "0-and-1-knapsack": {
+    "methodName": "knapsack",
+    "returnType": "int",
+    "params": [
+      {
+        "name": "weight",
+        "type": "int[]"
+      },
+      {
+        "name": "value",
+        "type": "int[]"
+      },
+      {
+        "name": "n",
+        "type": "int"
+      },
+      {
+        "name": "maxWeight",
+        "type": "int"
+      }
+    ]
+  },
+  "accounts-merge": {
+    "methodName": "accountsMerge",
+    "returnType": "List<List<String>>",
+    "params": [
+      {
+        "name": "accounts",
+        "type": "List<List<String>>"
+      }
+    ]
+  },
+  "alient-dictionary": {
+    "methodName": "findOrder",
+    "returnType": "String",
+    "params": [
+      {
+        "name": "dict",
+        "type": "String[]"
+      },
+      {
+        "name": "N",
+        "type": "int"
+      },
+      {
+        "name": "K",
+        "type": "int"
+      }
+    ]
+  },
+  "assign-cookies": {
+    "methodName": "findContentChildren",
+    "returnType": "int",
+    "params": [
+      {
+        "name": "g",
+        "type": "int[]"
+      },
+      {
+        "name": "s",
+        "type": "int[]"
+      }
+    ]
+  },
+  "bipartite-graph": {
+    "methodName": "isBipartite",
+    "returnType": "boolean",
+    "params": [
+      {
+        "name": "graph",
+        "type": "int[][]"
+      }
+    ]
+  },
+  "celebrity-problem": {
+    "methodName": "celebrity",
+    "returnType": "int",
+    "params": [
+      {
+        "name": "M",
+        "type": "int[][]"
+      },
+      {
+        "name": "n",
+        "type": "int"
+      }
+    ]
+  },
+  "cheapest-flight-within-k-stops": {
+    "methodName": "findCheapestPrice",
+    "returnType": "int",
+    "params": [
+      {
+        "name": "n",
+        "type": "int"
+      },
+      {
+        "name": "flights",
+        "type": "int[][]"
+      },
+      {
+        "name": "src",
+        "type": "int"
+      },
+      {
+        "name": "dst",
+        "type": "int"
+      },
+      {
+        "name": "k",
+        "type": "int"
+      }
+    ]
+  },
+  "check-if-the-array-is-sorted-i": {
+    "methodName": "isSorted",
+    "returnType": "boolean",
+    "params": [
+      {
+        "name": "n",
+        "type": "int"
+      },
+      {
+        "name": "a",
+        "type": "int[]"
+      }
+    ]
+  },
+  "check-if-two-trees-are-identical-or-not": {
+    "methodName": "isSameTree",
+    "returnType": "boolean",
+    "params": [
+      {
+        "name": "p",
+        "type": "TreeNode"
+      },
+      {
+        "name": "q",
+        "type": "TreeNode"
+      }
+    ]
+  },
+  "cherry-pickup-ii": {
+    "methodName": "cherryPickup",
+    "returnType": "int",
+    "params": [
+      {
+        "name": "grid",
+        "type": "int[][]"
+      }
+    ]
+  },
+  "connected-components": {
+    "methodName": "countConnectedComponents",
+    "returnType": "int",
+    "params": [
+      {
+        "name": "V",
+        "type": "int"
+      },
+      {
+        "name": "adj",
+        "type": "ArrayList<ArrayList<Integer>>"
+      }
+    ]
+  },
+  "construct-a-bt-from-postorder-and-inorder": {
+    "methodName": "buildTree",
+    "returnType": "TreeNode",
+    "params": [
+      {
+        "name": "inorder",
+        "type": "int[]"
+      },
+      {
+        "name": "postorder",
+        "type": "int[]"
+      }
+    ]
+  },
+  "construct-a-bt-from-preorder-and-inorder": {
+    "methodName": "buildTree",
+    "returnType": "TreeNode",
+    "params": [
+      {
+        "name": "preorder",
+        "type": "int[]"
+      },
+      {
+        "name": "inorder",
+        "type": "int[]"
+      }
+    ]
+  },
+  "count-inversions": {
+    "methodName": "inversionCount",
+    "returnType": "long",
+    "params": [
+      {
+        "name": "arr",
+        "type": "long[]"
+      }
+    ]
+  },
+  "count-partitions-with-given-difference": {
+    "methodName": "countPartitions",
+    "returnType": "int",
+    "params": [
+      {
+        "name": "n",
+        "type": "int"
+      },
+      {
+        "name": "d",
+        "type": "int"
+      },
+      {
+        "name": "arr",
+        "type": "int[]"
+      }
+    ]
+  },
+  "count-square-submatrices-with-all-one": {
+    "methodName": "countSquares",
+    "returnType": "int",
+    "params": [
+      {
+        "name": "matrix",
+        "type": "int[][]"
+      }
+    ]
+  },
+  "count-subarrays-with-given-xor-k": {
+    "methodName": "solve",
+    "returnType": "int",
+    "params": [
+      {
+        "name": "A",
+        "type": "int[]"
+      },
+      {
+        "name": "B",
+        "type": "int"
+      }
+    ]
+  },
+  "count-subsets-with-sum-k": {
+    "methodName": "findWays",
+    "returnType": "int",
+    "params": [
+      {
+        "name": "num",
+        "type": "int[]"
+      },
+      {
+        "name": "tar",
+        "type": "int"
+      }
+    ]
+  },
+  "detect-a-cycle-in-a-directed-graph": {
+    "methodName": "isCyclic",
+    "returnType": "boolean",
+    "params": [
+      {
+        "name": "V",
+        "type": "int"
+      },
+      {
+        "name": "adj",
+        "type": "ArrayList<ArrayList<Integer>>"
+      }
+    ]
+  },
+  "dijkstra's-algorithm": {
+    "methodName": "dijkstra",
+    "returnType": "int[]",
+    "params": [
+      {
+        "name": "V",
+        "type": "int"
+      },
+      {
+        "name": "adj",
+        "type": "ArrayList<ArrayList<ArrayList<Integer>>>"
+      },
+      {
+        "name": "S",
+        "type": "int"
+      }
+    ]
+  },
+  "disjoint-set-": {
+    "methodName": "findUPar",
+    "returnType": "int",
+    "params": [
+      {
+        "name": "node",
+        "type": "int"
+      }
+    ]
+  },
+  "distance-of-nearest-cell-having-one": {
+    "methodName": "updateMatrix",
+    "returnType": "int[][]",
+    "params": [
+      {
+        "name": "mat",
+        "type": "int[][]"
+      }
+    ]
+  },
+  "expression-add-operators": {
+    "methodName": "addOperators",
+    "returnType": "List<String>",
+    "params": [
+      {
+        "name": "num",
+        "type": "String"
+      },
+      {
+        "name": "target",
+        "type": "int"
+      }
+    ]
+  },
+  "find-eventual-safe-states": {
+    "methodName": "eventualSafeNodes",
+    "returnType": "List<Integer>",
+    "params": [
+      {
+        "name": "graph",
+        "type": "int[][]"
+      }
+    ]
+  },
+  "find-peak-element-ii": {
+    "methodName": "findPeakGrid",
+    "returnType": "int[]",
+    "params": [
+      {
+        "name": "mat",
+        "type": "int[][]"
+      }
+    ]
+  },
+  "find-row-with-maximum-1's": {
+    "methodName": "rowWithMax1s",
+    "returnType": "int",
+    "params": [
+      {
+        "name": "arr",
+        "type": "int[][]"
+      },
+      {
+        "name": "n",
+        "type": "int"
+      },
+      {
+        "name": "m",
+        "type": "int"
+      }
+    ]
+  },
+  "find-the-mst-weight": {
+    "methodName": "spanningTree",
+    "returnType": "int",
+    "params": [
+      {
+        "name": "V",
+        "type": "int"
+      },
+      {
+        "name": "E",
+        "type": "int"
+      },
+      {
+        "name": "edges",
+        "type": "int[][]"
+      }
+    ]
+  },
+  "flattening-of-ll": {
+    "methodName": "flatten",
+    "returnType": "Node",
+    "params": [
+      {
+        "name": "root",
+        "type": "Node"
+      }
+    ]
+  },
+  "flood-fill-algorithm": {
+    "methodName": "floodFill",
+    "returnType": "int[][]",
+    "params": [
+      {
+        "name": "image",
+        "type": "int[][]"
+      },
+      {
+        "name": "sr",
+        "type": "int"
+      },
+      {
+        "name": "sc",
+        "type": "int"
+      },
+      {
+        "name": "color",
+        "type": "int"
+      }
+    ]
+  },
+  "floor-and-ceil-in-sorted-array": {
+    "methodName": "getFloorAndCeil",
+    "returnType": "int[]",
+    "params": [
+      {
+        "name": "a",
+        "type": "int[]"
+      },
+      {
+        "name": "n",
+        "type": "int"
+      },
+      {
+        "name": "x",
+        "type": "int"
+      }
+    ]
+  },
+  "floyd-warshall-algorithm": {
+    "methodName": "shortest_distance",
+    "returnType": "void",
+    "params": [
+      {
+        "name": "matrix",
+        "type": "int[][]"
+      }
+    ]
+  },
+  "fractional-knapsack": {
+    "methodName": "fractionalKnapsack",
+    "returnType": "double",
+    "params": [
+      {
+        "name": "w",
+        "type": "int"
+      },
+      {
+        "name": "arr",
+        "type": "Item[]"
+      },
+      {
+        "name": "n",
+        "type": "int"
+      }
+    ]
+  },
+  "frog-jump": {
+    "methodName": "frogJump",
+    "returnType": "int",
+    "params": [
+      {
+        "name": "n",
+        "type": "int"
+      },
+      {
+        "name": "heights",
+        "type": "int[]"
+      }
+    ]
+  },
+  "frog-jump-with-k-distances": {
+    "methodName": "minimizeCost",
+    "returnType": "int",
+    "params": [
+      {
+        "name": "n",
+        "type": "int"
+      },
+      {
+        "name": "k",
+        "type": "int"
+      },
+      {
+        "name": "height",
+        "type": "int[]"
+      }
+    ]
+  },
+  "heapify-algorithm": {
+    "methodName": "heapify",
+    "returnType": "void",
+    "params": [
+      {
+        "name": "arr",
+        "type": "int[]"
+      },
+      {
+        "name": "n",
+        "type": "int"
+      },
+      {
+        "name": "i",
+        "type": "int"
+      }
+    ]
+  },
+  "implement-stack-using-linkedlist": {
+    "methodName": "push",
+    "returnType": "void",
+    "params": [
+      {
+        "name": "a",
+        "type": "int"
+      }
+    ]
+  },
+  "insert-before-given-node-in-dll": {
+    "methodName": "insertBeforeNode",
+    "returnType": "void",
+    "params": [
+      {
+        "name": "node",
+        "type": "Node"
+      },
+      {
+        "name": "val",
+        "type": "int"
+      }
+    ]
+  },
+  "insert-interval": {
+    "methodName": "insert",
+    "returnType": "int[][]",
+    "params": [
+      {
+        "name": "intervals",
+        "type": "int[][]"
+      },
+      {
+        "name": "newInterval",
+        "type": "int[]"
+      }
+    ]
+  },
+  "introduction-": {
+    "methodName": "countNodes",
+    "returnType": "int",
+    "params": [
+      {
+        "name": "root",
+        "type": "TreeNode"
+      }
+    ]
+  },
+  "introduction-to-bits-and-tricks": {
+    "methodName": "bitTricks",
+    "returnType": "void",
+    "params": [
+      {
+        "name": "n",
+        "type": "int"
+      },
+      {
+        "name": "i",
+        "type": "int"
+      }
+    ]
+  },
+  "introduction-to-doubly-ll": {
+    "methodName": "constructDLL",
+    "returnType": "Node",
+    "params": [
+      {
+        "name": "arr",
+        "type": "int[]"
+      }
+    ]
+  },
+  "introduction-to-singly-linkedlist": {
+    "methodName": "constructLL",
+    "returnType": "Node",
+    "params": [
+      {
+        "name": "arr",
+        "type": "int[]"
+      }
+    ]
+  },
+  "job-sequencing-problem": {
+    "methodName": "JobScheduling",
+    "returnType": "int[]",
+    "params": [
+      {
+        "name": "arr",
+        "type": "Job[]"
+      },
+      {
+        "name": "n",
+        "type": "int"
+      }
+    ]
+  },
+  "kosaraju's-algorithm": {
+    "methodName": "kosaraju",
+    "returnType": "int",
+    "params": [
+      {
+        "name": "V",
+        "type": "int"
+      },
+      {
+        "name": "adj",
+        "type": "ArrayList<ArrayList<Integer>>"
+      }
+    ]
+  },
+  "kth-element-of-2-sorted-arrays": {
+    "methodName": "kthElement",
+    "returnType": "long",
+    "params": [
+      {
+        "name": "arr1",
+        "type": "int[]"
+      },
+      {
+        "name": "arr2",
+        "type": "int[]"
+      },
+      {
+        "name": "n",
+        "type": "int"
+      },
+      {
+        "name": "m",
+        "type": "int"
+      },
+      {
+        "name": "k",
+        "type": "int"
+      }
+    ]
+  },
+  "kth-smallest-and-largest-element-in-bst": {
+    "methodName": "kthSmallest",
+    "returnType": "int",
+    "params": [
+      {
+        "name": "root",
+        "type": "TreeNode"
+      },
+      {
+        "name": "k",
+        "type": "int"
+      }
+    ]
+  },
+  "largest-bst-in-binary-tree": {
+    "methodName": "largestBst",
+    "returnType": "int",
+    "params": [
+      {
+        "name": "root",
+        "type": "TreeNode"
+      }
+    ]
+  },
+  "letter-combinations-of-a-phone-number": {
+    "methodName": "letterCombinations",
+    "returnType": "List<String>",
+    "params": [
+      {
+        "name": "digits",
+        "type": "String"
+      }
+    ]
+  },
+  "longest-common-prefix": {
+    "methodName": "longestCommonPrefix",
+    "returnType": "String",
+    "params": [
+      {
+        "name": "strs",
+        "type": "String[]"
+      }
+    ]
+  },
+  "longest-repeating-character-replacement": {
+    "methodName": "characterReplacement",
+    "returnType": "int",
+    "params": [
+      {
+        "name": "s",
+        "type": "String"
+      },
+      {
+        "name": "k",
+        "type": "int"
+      }
+    ]
+  },
+  "longest-string-chain": {
+    "methodName": "longestStrChain",
+    "returnType": "int",
+    "params": [
+      {
+        "name": "words",
+        "type": "String[]"
+      }
+    ]
+  },
+  "longest-word-with-all-prefixes": {
+    "methodName": "completeString",
+    "returnType": "String",
+    "params": [
+      {
+        "name": "n",
+        "type": "int"
+      },
+      {
+        "name": "a",
+        "type": "String[]"
+      }
+    ]
+  },
+  "m-coloring-problem": {
+    "methodName": "graphColoring",
+    "returnType": "boolean",
+    "params": [
+      {
+        "name": "graph",
+        "type": "boolean[][]"
+      },
+      {
+        "name": "m",
+        "type": "int"
+      },
+      {
+        "name": "n",
+        "type": "int"
+      }
+    ]
+  },
+  "making-a-large-island": {
+    "methodName": "largestIsland",
+    "returnType": "int",
+    "params": [
+      {
+        "name": "grid",
+        "type": "int[][]"
+      }
+    ]
+  },
+  "matrix-median": {
+    "methodName": "findMedian",
+    "returnType": "int",
+    "params": [
+      {
+        "name": "matrix",
+        "type": "int[][]"
+      }
+    ]
+  },
+  "maximum-rectangles": {
+    "methodName": "maximalRectangle",
+    "returnType": "int",
+    "params": [
+      {
+        "name": "matrix",
+        "type": "char[][]"
+      }
+    ]
+  },
+  "maximum-sum-combination": {
+    "methodName": "maxCombinations",
+    "returnType": "List<Integer>",
+    "params": [
+      {
+        "name": "N",
+        "type": "int"
+      },
+      {
+        "name": "K",
+        "type": "int"
+      },
+      {
+        "name": "A",
+        "type": "int[]"
+      },
+      {
+        "name": "B",
+        "type": "int[]"
+      }
+    ]
+  },
+  "maximum-width-of-bt": {
+    "methodName": "widthOfBinaryTree",
+    "returnType": "int",
+    "params": [
+      {
+        "name": "root",
+        "type": "TreeNode"
+      }
+    ]
+  },
+  "merge-intervals": {
+    "methodName": "merge",
+    "returnType": "int[][]",
+    "params": [
+      {
+        "name": "intervals",
+        "type": "int[][]"
+      }
+    ]
+  },
+  "merge-k-sorted-lists": {
+    "methodName": "mergeKLists",
+    "returnType": "ListNode",
+    "params": [
+      {
+        "name": "lists",
+        "type": "ListNode[]"
+      }
+    ]
+  },
+  "merge-two-sorted-arrays-without-extra-space": {
+    "methodName": "merge",
+    "returnType": "void",
+    "params": [
+      {
+        "name": "a",
+        "type": "long[]"
+      },
+      {
+        "name": "b",
+        "type": "long[]"
+      }
+    ]
+  },
+  "minimum-falling-path-sum": {
+    "methodName": "minFallingPathSum",
+    "returnType": "int",
+    "params": [
+      {
+        "name": "matrix",
+        "type": "int[][]"
+      }
+    ]
+  },
+  "minimum-number-of-platforms-required-for-a-railway": {
+    "methodName": "findPlatform",
+    "returnType": "int",
+    "params": [
+      {
+        "name": "arr",
+        "type": "int[]"
+      },
+      {
+        "name": "dep",
+        "type": "int[]"
+      },
+      {
+        "name": "n",
+        "type": "int"
+      }
+    ]
+  },
+  "minimum-window-subsequence": {
+    "methodName": "minWindow",
+    "returnType": "String",
+    "params": [
+      {
+        "name": "s1",
+        "type": "String"
+      },
+      {
+        "name": "s2",
+        "type": "String"
+      }
+    ]
+  },
+  "minimum-window-substring-": {
+    "methodName": "minWindow",
+    "returnType": "String",
+    "params": [
+      {
+        "name": "s",
+        "type": "String"
+      },
+      {
+        "name": "t",
+        "type": "String"
+      }
+    ]
+  },
+  "most-stones-removed-with-same-row-or-column": {
+    "methodName": "removeStones",
+    "returnType": "int",
+    "params": [
+      {
+        "name": "stones",
+        "type": "int[][]"
+      }
+    ]
+  },
+  "n-meetings-in-one-room": {
+    "methodName": "maxMeetings",
+    "returnType": "int",
+    "params": [
+      {
+        "name": "start",
+        "type": "int[]"
+      },
+      {
+        "name": "end",
+        "type": "int[]"
+      },
+      {
+        "name": "n",
+        "type": "int"
+      }
+    ]
+  },
+  "network-delay-time": {
+    "methodName": "networkDelayTime",
+    "returnType": "int",
+    "params": [
+      {
+        "name": "times",
+        "type": "int[][]"
+      },
+      {
+        "name": "n",
+        "type": "int"
+      },
+      {
+        "name": "k",
+        "type": "int"
+      }
+    ]
+  },
+  "next-greater-element": {
+    "methodName": "nextLargerElement",
+    "returnType": "long[]",
+    "params": [
+      {
+        "name": "arr",
+        "type": "long[]"
+      },
+      {
+        "name": "n",
+        "type": "int"
+      }
+    ]
+  },
+  "ninja's-training": {
+    "methodName": "ninjaTraining",
+    "returnType": "int",
+    "params": [
+      {
+        "name": "n",
+        "type": "int"
+      },
+      {
+        "name": "points",
+        "type": "int[][]"
+      }
+    ]
+  },
+  "non-overlapping-intervals": {
+    "methodName": "eraseOverlapIntervals",
+    "returnType": "int",
+    "params": [
+      {
+        "name": "intervals",
+        "type": "int[][]"
+      }
+    ]
+  },
+  "number-of-distinct-islands": {
+    "methodName": "countDistinctIslands",
+    "returnType": "int",
+    "params": [
+      {
+        "name": "grid",
+        "type": "int[][]"
+      }
+    ]
+  },
+  "number-of-enclaves": {
+    "methodName": "numEnclaves",
+    "returnType": "int",
+    "params": [
+      {
+        "name": "grid",
+        "type": "int[][]"
+      }
+    ]
+  },
+  "number-of-greater-elements-to-the-right": {
+    "methodName": "countGreater",
+    "returnType": "int[]",
+    "params": [
+      {
+        "name": "arr",
+        "type": "int[]"
+      },
+      {
+        "name": "query",
+        "type": "int[]"
+      }
+    ]
+  },
+  "number-of-islands": {
+    "methodName": "numIslands",
+    "returnType": "int",
+    "params": [
+      {
+        "name": "grid",
+        "type": "char[][]"
+      }
+    ]
+  },
+  "number-of-provinces": {
+    "methodName": "findCircleNum",
+    "returnType": "int",
+    "params": [
+      {
+        "name": "isConnected",
+        "type": "int[][]"
+      }
+    ]
+  },
+  "number-of-ways-to-arrive-at-destination": {
+    "methodName": "countPaths",
+    "returnType": "int",
+    "params": [
+      {
+        "name": "n",
+        "type": "int"
+      },
+      {
+        "name": "roads",
+        "type": "int[][]"
+      }
+    ]
+  },
+  "path-with-minimum-effort": {
+    "methodName": "minimumEffortPath",
+    "returnType": "int",
+    "params": [
+      {
+        "name": "heights",
+        "type": "int[][]"
+      }
+    ]
+  },
+  "pow(x,n)": {
+    "methodName": "myPow",
+    "returnType": "double",
+    "params": [
+      {
+        "name": "x",
+        "type": "double"
+      },
+      {
+        "name": "n",
+        "type": "int"
+      }
+    ]
+  },
+  "power-set": {
+    "methodName": "AllPossibleStrings",
+    "returnType": "List<String>",
+    "params": [
+      {
+        "name": "s",
+        "type": "String"
+      }
+    ]
+  },
+  "power-set-bit-manipulation": {
+    "methodName": "subsets",
+    "returnType": "List<List<Integer>>",
+    "params": [
+      {
+        "name": "nums",
+        "type": "int[]"
+      }
+    ]
+  },
+  "print-the-matrix-in-spiral-manner": {
+    "methodName": "spiralOrder",
+    "returnType": "List<Integer>",
+    "params": [
+      {
+        "name": "matrix",
+        "type": "int[][]"
+      }
+    ]
+  },
+  "rat-in-a-maze": {
+    "methodName": "findPath",
+    "returnType": "ArrayList<String>",
+    "params": [
+      {
+        "name": "m",
+        "type": "int[][]"
+      },
+      {
+        "name": "n",
+        "type": "int"
+      }
+    ]
+  },
+  "recursive-insertion-sort": {
+    "methodName": "sortArray",
+    "returnType": "int[]",
+    "params": [
+      {
+        "name": "nums",
+        "type": "int[]"
+      }
+    ]
+  },
+  "remove-k-digits": {
+    "methodName": "removeKdigits",
+    "returnType": "String",
+    "params": [
+      {
+        "name": "num",
+        "type": "String"
+      },
+      {
+        "name": "k",
+        "type": "int"
+      }
+    ]
+  },
+  "removing-given-node-in-dll": {
+    "methodName": "deleteNode",
+    "returnType": "void",
+    "params": [
+      {
+        "name": "node",
+        "type": "Node"
+      }
+    ]
+  },
+  "requirements-needed-to-construct-a-unique-bt": {
+    "methodName": "isPossible",
+    "returnType": "boolean",
+    "params": [
+      {
+        "name": "a",
+        "type": "int"
+      },
+      {
+        "name": "b",
+        "type": "int"
+      }
+    ]
+  },
+  "reverse-a-stack": {
+    "methodName": "reverse",
+    "returnType": "void",
+    "params": [
+      {
+        "name": "s",
+        "type": "Stack<Integer>"
+      }
+    ]
+  },
+  "reverse-an-array": {
+    "methodName": "reverseArray",
+    "returnType": "void",
+    "params": [
+      {
+        "name": "n",
+        "type": "int"
+      },
+      {
+        "name": "arr",
+        "type": "int[]"
+      }
+    ]
+  },
+  "rod-cutting-problem": {
+    "methodName": "cutRod",
+    "returnType": "int",
+    "params": [
+      {
+        "name": "price",
+        "type": "int[]"
+      },
+      {
+        "name": "n",
+        "type": "int"
+      }
+    ]
+  },
+  "rotate-matrix-by-90-degrees": {
+    "methodName": "rotate",
+    "returnType": "void",
+    "params": [
+      {
+        "name": "matrix",
+        "type": "int[][]"
+      }
+    ]
+  },
+  "rotten-oranges": {
+    "methodName": "orangesRotting",
+    "returnType": "int",
+    "params": [
+      {
+        "name": "grid",
+        "type": "int[][]"
+      }
+    ]
+  },
+  "search-in-2d-matrix-ii": {
+    "methodName": "searchMatrix",
+    "returnType": "boolean",
+    "params": [
+      {
+        "name": "matrix",
+        "type": "int[][]"
+      },
+      {
+        "name": "target",
+        "type": "int"
+      }
+    ]
+  },
+  "search-in-a-2d-matrix": {
+    "methodName": "searchMatrix",
+    "returnType": "boolean",
+    "params": [
+      {
+        "name": "matrix",
+        "type": "int[][]"
+      },
+      {
+        "name": "target",
+        "type": "int"
+      }
+    ]
+  },
+  "set-matrix-zeroes": {
+    "methodName": "setZeroes",
+    "returnType": "void",
+    "params": [
+      {
+        "name": "matrix",
+        "type": "int[][]"
+      }
+    ]
+  },
+  "shortest-path-in-undirected-graph-with-unit-weights": {
+    "methodName": "shortestPath",
+    "returnType": "int[]",
+    "params": [
+      {
+        "name": "edges",
+        "type": "int[][]"
+      },
+      {
+        "name": "n",
+        "type": "int"
+      },
+      {
+        "name": "m",
+        "type": "int"
+      },
+      {
+        "name": "src",
+        "type": "int"
+      }
+    ]
+  },
+  "shortest-path-with-minimum-effort": {
+    "methodName": "shortestDistance",
+    "returnType": "int",
+    "params": [
+      {
+        "name": "grid",
+        "type": "int[][]"
+      },
+      {
+        "name": "source",
+        "type": "int[]"
+      },
+      {
+        "name": "destination",
+        "type": "int[]"
+      }
+    ]
+  },
+  "subset-sum-equals-to-target": {
+    "methodName": "subsetSumToK",
+    "returnType": "boolean",
+    "params": [
+      {
+        "name": "n",
+        "type": "int"
+      },
+      {
+        "name": "k",
+        "type": "int"
+      },
+      {
+        "name": "arr",
+        "type": "int[]"
+      }
+    ]
+  },
+  "sudoko-solver": {
+    "methodName": "solveSudoku",
+    "returnType": "void",
+    "params": [
+      {
+        "name": "board",
+        "type": "char[][]"
+      }
+    ]
+  },
+  "surrounded-regions": {
+    "methodName": "solve",
+    "returnType": "void",
+    "params": [
+      {
+        "name": "board",
+        "type": "char[][]"
+      }
+    ]
+  },
+  "swim-in-rising-water": {
+    "methodName": "swimInWater",
+    "returnType": "int",
+    "params": [
+      {
+        "name": "grid",
+        "type": "int[][]"
+      }
+    ]
+  },
+  "task-scheduler": {
+    "methodName": "leastInterval",
+    "returnType": "int",
+    "params": [
+      {
+        "name": "tasks",
+        "type": "char[]"
+      },
+      {
+        "name": "n",
+        "type": "int"
+      }
+    ]
+  },
+  "topological-sort-or-kahns-algorithm": {
+    "methodName": "topoSort",
+    "returnType": "int[]",
+    "params": [
+      {
+        "name": "V",
+        "type": "int"
+      },
+      {
+        "name": "adj",
+        "type": "ArrayList<ArrayList<Integer>>"
+      }
+    ]
+  },
+  "triangle": {
+    "methodName": "minimumTotal",
+    "returnType": "int",
+    "params": [
+      {
+        "name": "triangle",
+        "type": "List<List<Integer>>"
+      }
+    ]
+  },
+  "trie-implementation-and-advanced-operations": {
+    "methodName": "Node",
+    "returnType": "new",
+    "params": []
+  },
+  "unbounded-knapsack": {
+    "methodName": "unboundedKnapsack",
+    "returnType": "int",
+    "params": [
+      {
+        "name": "n",
+        "type": "int"
+      },
+      {
+        "name": "w",
+        "type": "int"
+      },
+      {
+        "name": "val",
+        "type": "int[]"
+      },
+      {
+        "name": "wt",
+        "type": "int[]"
+      }
+    ]
+  },
+  "unique-paths-ii": {
+    "methodName": "uniquePathsWithObstacles",
+    "returnType": "int",
+    "params": [
+      {
+        "name": "grid",
+        "type": "int[][]"
+      }
+    ]
+  },
+  "word-break": {
+    "methodName": "wordBreak",
+    "returnType": "boolean",
+    "params": [
+      {
+        "name": "s",
+        "type": "String"
+      },
+      {
+        "name": "wordDict",
+        "type": "List<String>"
+      }
+    ]
+  },
+  "word-ladder-i": {
+    "methodName": "ladderLength",
+    "returnType": "int",
+    "params": [
+      {
+        "name": "beginWord",
+        "type": "String"
+      },
+      {
+        "name": "endWord",
+        "type": "String"
+      },
+      {
+        "name": "wordList",
+        "type": "List<String>"
+      }
+    ]
+  },
+  "word-ladder-ii": {
+    "methodName": "findLadders",
+    "returnType": "List<List<String>>",
+    "params": [
+      {
+        "name": "beginWord",
+        "type": "String"
+      },
+      {
+        "name": "endWord",
+        "type": "String"
+      },
+      {
+        "name": "wordList",
+        "type": "List<String>"
+      }
+    ]
+  },
+  "word-search": {
+    "methodName": "exist",
+    "returnType": "boolean",
+    "params": [
+      {
+        "name": "board",
+        "type": "char[][]"
+      },
+      {
+        "name": "word",
+        "type": "String"
+      }
+    ]
+  }
+}

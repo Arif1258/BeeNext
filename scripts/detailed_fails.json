@@ -1,0 +1,2537 @@
+{
+  "compileFails": [
+    {
+      "slug": "0-and-1-knapsack",
+      "params": [
+        {
+          "name": "weight",
+          "type": "int[]"
+        },
+        {
+          "name": "value",
+          "type": "int[]"
+        },
+        {
+          "name": "n",
+          "type": "int"
+        },
+        {
+          "name": "maxWeight",
+          "type": "int"
+        }
+      ],
+      "sampleInput": "weight = [3,6,8,10], value = 16, n = 4, maxWeight = 4",
+      "compileError": "Main.java:450: error: incompatible types: int cannot be converted to int[]\n                int[] a1 = 16;\n                           ^\nMain.java:458: error: incompatible types: int cannot be converted to int[]\n                int[] a1 = 18;\n                           ^\nMain.java:466: error: incompat"
+    },
+    {
+      "slug": "accounts-merge",
+      "params": [
+        {
+          "name": "accounts",
+          "type": "List<List<String>>"
+        }
+      ],
+      "sampleInput": "accounts = [[\"John\", \"johnsmith@mail.com\", \"john_newyork@mail.com\"], [\"John\", \"johnsmith@mail.com\", \"john6@mail.com\"], [\"Mary\", \"mary@mail.com\"], [\"John\", \"johnnybravo@mail.com\"]]",
+      "compileError": "Main.java:472: error: illegal start of expression\n                List<List<String>> a0 = new int[][]{{John, johnsmith@mail.com, john_newyork@mail.com}, {John, johnsmith@mail.com, john00@mail.com}, {Mary, mary@mail.com}, {John, johnnybravo@mail.com}};\n                                                "
+    },
+    {
+      "slug": "alient-dictionary",
+      "params": [
+        {
+          "name": "dict",
+          "type": "String[]"
+        },
+        {
+          "name": "N",
+          "type": "int"
+        },
+        {
+          "name": "K",
+          "type": "int"
+        }
+      ],
+      "sampleInput": "dict = [3,6,8,10], N = 16, K = 4",
+      "compileError": "Main.java:466: error: incompatible types: int[] cannot be converted to String[]\n                String[] a0 = new int[]{3, 6, 8, 10};\n                              ^\nMain.java:473: error: incompatible types: int[] cannot be converted to String[]\n                String[] a0 = new int[]{4, 8, 9, 10};\n"
+    },
+    {
+      "slug": "assign-cookies",
+      "params": [
+        {
+          "name": "g",
+          "type": "int[]"
+        },
+        {
+          "name": "s",
+          "type": "int[]"
+        }
+      ],
+      "sampleInput": "g = [3,6,8,10], s = 16",
+      "compileError": "Main.java:448: error: incompatible types: int cannot be converted to int[]\n                int[] a1 = 16;\n                           ^\nMain.java:454: error: incompatible types: int cannot be converted to int[]\n                int[] a1 = 18;\n                           ^\nMain.java:460: error: incompat"
+    },
+    {
+      "slug": "bipartite-graph",
+      "params": [
+        {
+          "name": "graph",
+          "type": "int[][]"
+        }
+      ],
+      "sampleInput": "graph = [1]",
+      "compileError": "Main.java:460: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{1};\n                             ^\nMain.java:465: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{-5, 2, -1, 4};\n              "
+    },
+    {
+      "slug": "bridges-in-graph",
+      "params": [
+        {
+          "name": "n",
+          "type": "int"
+        },
+        {
+          "name": "connections",
+          "type": "List<List<Integer>>"
+        }
+      ],
+      "sampleInput": "n = 3, connections = [[0, 1], [1, 2], [2, 0]]",
+      "compileError": "Main.java:458: error: incompatible types: ArrayList<ArrayList<Integer>> cannot be converted to List<List<Integer>>\n                System.out.println(format(sol.criticalConnections(a0, a1)));\n                                                                      ^\nMain.java:464: error: incompatible t"
+    },
+    {
+      "slug": "bubble-sort",
+      "params": [
+        {
+          "name": "nums",
+          "type": "int[]"
+        }
+      ],
+      "sampleInput": "nums = [12,11,13,5,6]",
+      "compileError": "Main.java:439: error: cannot find symbol\n                System.out.println(format(sol.sortArray(a0)));\n                                             ^\n  symbol:   method sortArray(int[])\n  location: variable sol of type BubbleSort\nMain.java:444: error: cannot find symbol\n                System.out.p"
+    },
+    {
+      "slug": "celebrity-problem",
+      "params": [
+        {
+          "name": "M",
+          "type": "int[][]"
+        },
+        {
+          "name": "n",
+          "type": "int"
+        }
+      ],
+      "sampleInput": "M = [1], n = 1",
+      "compileError": "Main.java:448: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{1};\n                             ^\nMain.java:454: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{1, 2, 3, 4, 5};\n             "
+    },
+    {
+      "slug": "check-if-the-array-is-sorted-i",
+      "params": [
+        {
+          "name": "n",
+          "type": "int"
+        },
+        {
+          "name": "a",
+          "type": "int"
+        }
+      ],
+      "sampleInput": "n = 1, a = 1",
+      "compileError": "Main.java:432: error: incompatible types: int[] cannot be converted to int\n                int a1 = new int[]{3, 4, 5, 1, 2};\n                         ^\nMain.java:433: error: incompatible types: int cannot be converted to int[]\n                System.out.println(formatScalar(sol.isSorted(a0, a1)));\n"
+    },
+    {
+      "slug": "check-if-two-trees-are-identical-or-not",
+      "params": [
+        {
+          "name": "p",
+          "type": "TreeNode"
+        },
+        {
+          "name": "q",
+          "type": "TreeNode"
+        }
+      ],
+      "sampleInput": "p = [1], q = 1",
+      "compileError": "Main.java:435: error: illegal start of expression\n                TreeNode a1 = TreeNode.findNode(a0, 1,,2);\n                                                      ^\n1 error\n"
+    },
+    {
+      "slug": "cherry-pickup-ii",
+      "params": [
+        {
+          "name": "grid",
+          "type": "int[][]"
+        }
+      ],
+      "sampleInput": "grid = [1]",
+      "compileError": "Main.java:451: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{1};\n                             ^\nMain.java:456: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{-5, 2, -1, 4};\n              "
+    },
+    {
+      "slug": "children-sum-property-in-binary-tree",
+      "params": [
+        {
+          "name": "root",
+          "type": "TreeNode"
+        }
+      ],
+      "sampleInput": "root = [8, 41, 16, 8, 9, 11, 8]",
+      "compileError": "Main.java:432: error: cannot find symbol\n                sol.changeTree(a0);\n                   ^\n  symbol:   method changeTree(TreeNode)\n  location: variable sol of type Solution\nMain.java:438: error: cannot find symbol\n                sol.changeTree(a0);\n                   ^\n  symbol:   method cha"
+    },
+    {
+      "slug": "clone-a-ll-with-random-and-next-pointer",
+      "params": [
+        {
+          "name": "head",
+          "type": "Node"
+        }
+      ],
+      "sampleInput": "head = [[3, null], [3, 0], [3, null]]",
+      "compileError": "Main.java:279: error: duplicate class: Node\nclass Node {\n^\n1 error\n"
+    },
+    {
+      "slug": "connected-components",
+      "params": [
+        {
+          "name": "V",
+          "type": "int"
+        },
+        {
+          "name": "adj",
+          "type": "ArrayList<ArrayList<Integer>>"
+        }
+      ],
+      "sampleInput": "V = 5, adj = 4",
+      "compileError": "Main.java:456: error: incompatible types: int cannot be converted to int[][]\n                ArrayList<ArrayList<Integer>> a1 = to2DArrayList(4);\n                                                                 ^\nMain.java:462: error: incompatible types: int cannot be converted to int[][]\n          "
+    },
+    {
+      "slug": "construct-a-bt-from-postorder-and-inorder",
+      "params": [
+        {
+          "name": "inorder",
+          "type": "int[]"
+        },
+        {
+          "name": "postorder",
+          "type": "int[]"
+        }
+      ],
+      "sampleInput": "inorder = [3,6,8,10], postorder = 16",
+      "compileError": "Main.java:455: error: incompatible types: int cannot be converted to int[]\n                int[] a1 = 16;\n                           ^\nMain.java:461: error: incompatible types: int cannot be converted to int[]\n                int[] a1 = 18;\n                           ^\nMain.java:467: error: incompat"
+    },
+    {
+      "slug": "construct-a-bt-from-preorder-and-inorder",
+      "params": [
+        {
+          "name": "preorder",
+          "type": "int[]"
+        },
+        {
+          "name": "inorder",
+          "type": "int[]"
+        }
+      ],
+      "sampleInput": "preorder = [3,6,8,10], inorder = 16",
+      "compileError": "Main.java:453: error: incompatible types: int cannot be converted to int[]\n                int[] a1 = 16;\n                           ^\nMain.java:459: error: incompatible types: int cannot be converted to int[]\n                int[] a1 = 18;\n                           ^\nMain.java:465: error: incompat"
+    },
+    {
+      "slug": "count-inversions",
+      "params": [
+        {
+          "name": "arr",
+          "type": "long[]"
+        }
+      ],
+      "sampleInput": "arr = [1]",
+      "compileError": "Main.java:433: error: incompatible types: int[] cannot be converted to long[]\n                long[] a0 = new int[]{2, 4, 1, 3, 5};\n                            ^\nMain.java:438: error: incompatible types: int[] cannot be converted to long[]\n                long[] a0 = new int[]{5, 4, 3, 2, 1};\n      "
+    },
+    {
+      "slug": "count-square-submatrices-with-all-one",
+      "params": [
+        {
+          "name": "matrix",
+          "type": "int[][]"
+        }
+      ],
+      "sampleInput": "matrix = [1]",
+      "compileError": "Main.java:458: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{1};\n                             ^\nMain.java:463: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{-5, 2, -1, 4};\n              "
+    },
+    {
+      "slug": "count-subsets-with-sum-k",
+      "params": [
+        {
+          "name": "num",
+          "type": "int"
+        },
+        {
+          "name": "tar",
+          "type": "int"
+        }
+      ],
+      "sampleInput": "num = 1, tar = 1",
+      "compileError": "Main.java:437: error: incompatible types: int[] cannot be converted to int\n                int a0 = new int[]{1, 2, 2, 3};\n                         ^\nMain.java:439: error: incompatible types: int cannot be converted to int[]\n                System.out.println(formatScalar(sol.findWays(a0, a1)));\n   "
+    },
+    {
+      "slug": "dijkstra's-algorithm",
+      "params": [
+        {
+          "name": "V",
+          "type": "int"
+        },
+        {
+          "name": "adj",
+          "type": "ArrayList<ArrayList<ArrayList<Integer>>>"
+        },
+        {
+          "name": "S",
+          "type": "int"
+        }
+      ],
+      "sampleInput": "V = 3, adj = [[[1, 1]], [[2, 2]], []], S = 0",
+      "compileError": "Main.java:448: error: incompatible types: ArrayList<ArrayList<Integer>> cannot be converted to ArrayList<ArrayList<ArrayList<Integer>>>\n                System.out.println(format(sol.dijkstra(a0, a1, a2)));\n                                                           ^\nMain.java:455: error: incompatibl"
+    },
+    {
+      "slug": "disjoint-set-",
+      "params": [
+        {
+          "name": "node",
+          "type": "int"
+        }
+      ],
+      "sampleInput": "node = 1",
+      "compileError": "Main.java:443: error: cannot find symbol\n                System.out.println(formatScalar(sol.findUPar(a0)));\n                                                   ^\n  symbol:   method findUPar(int)\n  location: variable sol of type Solution\nMain.java:448: error: cannot find symbol\n                System"
+    },
+    {
+      "slug": "distance-of-nearest-cell-having-one",
+      "params": [
+        {
+          "name": "mat",
+          "type": "int[][]"
+        }
+      ],
+      "sampleInput": "mat = [1]",
+      "compileError": "Main.java:460: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{1};\n                             ^\nMain.java:465: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{-5, 2, -1, 4};\n              "
+    },
+    {
+      "slug": "find-eventual-safe-states",
+      "params": [
+        {
+          "name": "graph",
+          "type": "int[][]"
+        }
+      ],
+      "sampleInput": "graph = [1]",
+      "compileError": "Main.java:459: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{1};\n                             ^\nMain.java:464: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{-5, 2, -1, 4};\n              "
+    },
+    {
+      "slug": "find-peak-element-ii",
+      "params": [
+        {
+          "name": "mat",
+          "type": "int[][]"
+        }
+      ],
+      "sampleInput": "mat = [1]",
+      "compileError": "Main.java:446: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{1};\n                             ^\nMain.java:451: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{-5, 2, -1, 4};\n              "
+    },
+    {
+      "slug": "find-row-with-maximum-1's",
+      "params": [
+        {
+          "name": "arr",
+          "type": "int[][]"
+        },
+        {
+          "name": "n",
+          "type": "int"
+        },
+        {
+          "name": "m",
+          "type": "int"
+        }
+      ],
+      "sampleInput": "arr = [3,6,8,10], n = 16, m = 4",
+      "compileError": "Main.java:451: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{3, 6, 8, 10};\n                             ^\nMain.java:458: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{4, 8, 9, 10};\n     "
+    },
+    {
+      "slug": "find-the-mst-weight",
+      "params": [
+        {
+          "name": "V",
+          "type": "int"
+        },
+        {
+          "name": "E",
+          "type": "int"
+        },
+        {
+          "name": "edges",
+          "type": "int"
+        }
+      ],
+      "sampleInput": "V = 5, E = 5, edges = [[0,1,5],[1,2,3],[0,2,1]]",
+      "compileError": "Main.java:450: error: incompatible types: int[][] cannot be converted to int\n                int a2 = new int[][]{{0, 1, 5}, {1, 2, 3}, {0, 2, 1}};\n                         ^\nMain.java:451: error: incompatible types: int cannot be converted to int[][]\n                System.out.println(formatScalar("
+    },
+    {
+      "slug": "flattening-of-ll",
+      "params": [
+        {
+          "name": "root",
+          "type": "Node"
+        }
+      ],
+      "sampleInput": "head = [[1, 2, 3], [4, 5, 6]]",
+      "compileError": "Main.java:447: error: incompatible types: Node cannot be converted to Solution.Node\n                System.out.println(format(Node.flattenedToList(sol.flatten(root))));\n                                                                           ^\nMain.java:452: error: incompatible types: Node cannot "
+    },
+    {
+      "slug": "flood-fill-algorithm",
+      "params": [
+        {
+          "name": "image",
+          "type": "int[][]"
+        },
+        {
+          "name": "sr",
+          "type": "int"
+        },
+        {
+          "name": "sc",
+          "type": "int"
+        },
+        {
+          "name": "color",
+          "type": "int"
+        }
+      ],
+      "sampleInput": "image = [3,6,8,10], sr = 16, sc = 3, color = 4",
+      "compileError": "Main.java:453: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{3, 6, 8, 10};\n                             ^\nMain.java:461: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{4, 8, 9, 10};\n     "
+    },
+    {
+      "slug": "floyd-warshall-algorithm",
+      "params": [
+        {
+          "name": "matrix",
+          "type": "int[][]"
+        }
+      ],
+      "sampleInput": "matrix = [1]",
+      "compileError": "Main.java:456: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{1};\n                             ^\nMain.java:462: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{-5, 2, -1, 4};\n              "
+    },
+    {
+      "slug": "fractional-knapsack",
+      "params": [
+        {
+          "name": "w",
+          "type": "int"
+        },
+        {
+          "name": "arr",
+          "type": "Item[]"
+        },
+        {
+          "name": "n",
+          "type": "int"
+        }
+      ],
+      "sampleInput": "w = 5, arr = 1, n = 4",
+      "compileError": "Main.java:440: error: illegal start of expression\n                Item[] a1 = toItemArray(new int[]{[object Object], [object Object], [object Object]});\n                                                  ^\nMain.java:440: error: ']' expected\n                Item[] a1 = toItemArray(new int[]{[object Ob"
+    },
+    {
+      "slug": "frog-jump",
+      "params": [
+        {
+          "name": "n",
+          "type": "int"
+        },
+        {
+          "name": "heights",
+          "type": "int"
+        }
+      ],
+      "sampleInput": "n = 1, heights = 1",
+      "compileError": "Main.java:434: error: incompatible types: int[] cannot be converted to int\n                int a1 = new int[]{10, 20, 30, 10};\n                         ^\nMain.java:435: error: incompatible types: int cannot be converted to int[]\n                System.out.println(formatScalar(sol.frogJump(a0, a1)));"
+    },
+    {
+      "slug": "heapify-algorithm",
+      "params": [
+        {
+          "name": "arr",
+          "type": "int[]"
+        },
+        {
+          "name": "n",
+          "type": "int"
+        },
+        {
+          "name": "i",
+          "type": "int"
+        }
+      ],
+      "sampleInput": "arr = [3,6,8,10], n = 16, i = \"0 (Max-Heapify)\"",
+      "compileError": "Main.java:454: error: incompatible types: String cannot be converted to int\n                int a2 = \"0 (Max-Heapify)\";\n                         ^\nMain.java:462: error: incompatible types: String cannot be converted to int\n                int a2 = \"0 (Max-Heapify)\";\n                         ^\nMain.j"
+    },
+    {
+      "slug": "insert-before-given-node-in-dll",
+      "params": [
+        {
+          "name": "node",
+          "type": "Node"
+        },
+        {
+          "name": "val",
+          "type": "int"
+        }
+      ],
+      "sampleInput": "head = [10, 30], node = 30, val = 20",
+      "compileError": "Main.java:431: error: incompatible types: int cannot be converted to int[]\n                Node a0 = Node.createNodeList(3, -1);\n                                              ^\nMain.java:438: error: incompatible types: int cannot be converted to int[]\n                Node a0 = Node.createNodeList(4,"
+    },
+    {
+      "slug": "insert-interval",
+      "params": [
+        {
+          "name": "intervals",
+          "type": "int[][]"
+        },
+        {
+          "name": "newInterval",
+          "type": "int[]"
+        }
+      ],
+      "sampleInput": "intervals = [3,6,8,10], newInterval = 16",
+      "compileError": "Main.java:451: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{3, 6, 8, 10};\n                             ^\nMain.java:452: error: incompatible types: int cannot be converted to int[]\n                int[] a1 = 16;\n                           ^\nMa"
+    },
+    {
+      "slug": "insertion-sort",
+      "params": [
+        {
+          "name": "nums",
+          "type": "int[]"
+        }
+      ],
+      "sampleInput": "nums = [12,11,13,5,6]",
+      "compileError": "Main.java:436: error: cannot find symbol\n                System.out.println(format(sol.sortArray(a0)));\n                                             ^\n  symbol:   method sortArray(int[])\n  location: variable sol of type InsertionSort\nMain.java:441: error: cannot find symbol\n                System.ou"
+    },
+    {
+      "slug": "introduction-",
+      "params": [
+        {
+          "name": "root",
+          "type": "TreeNode"
+        }
+      ],
+      "sampleInput": "root = [1]",
+      "compileError": "Main.java:275: error: duplicate class: TreeNode\nclass TreeNode {\n^\n1 error\n"
+    },
+    {
+      "slug": "introduction-to-doubly-ll",
+      "params": [
+        {
+          "name": "arr",
+          "type": "int[]"
+        }
+      ],
+      "sampleInput": "arr = [1]",
+      "compileError": "Main.java:275: error: duplicate class: Node\nclass Node {\n^\n1 error\n"
+    },
+    {
+      "slug": "introduction-to-singly-linkedlist",
+      "params": [
+        {
+          "name": "arr",
+          "type": "int[]"
+        }
+      ],
+      "sampleInput": "arr = [1]",
+      "compileError": "Main.java:275: error: duplicate class: Node\nclass Node {\n^\n1 error\n"
+    },
+    {
+      "slug": "job-sequencing-problem",
+      "params": [
+        {
+          "name": "arr",
+          "type": "Job[]"
+        },
+        {
+          "name": "n",
+          "type": "int"
+        }
+      ],
+      "sampleInput": "arr = [1], n = 1",
+      "compileError": "Main.java:451: error: incompatible types: int[] cannot be converted to int[][]\n                Job[] a0 = toJobArray(new int[]{1});\n                                      ^\nMain.java:457: error: incompatible types: int[] cannot be converted to int[][]\n                Job[] a0 = toJobArray(new int[]{1"
+    },
+    {
+      "slug": "largest-bst-in-binary-tree",
+      "params": [
+        {
+          "name": "root",
+          "type": "TreeNode"
+        }
+      ],
+      "sampleInput": "root = [1]",
+      "compileError": "Main.java:441: error: constructor NodeValue in class NodeValue cannot be applied to given types;\n        NodeValue sol = new NodeValue();\n                        ^\n  required: int,int,int\n  found:    no arguments\n  reason: actual and formal argument lists differ in length\nMain.java:446: error: canno"
+    },
+    {
+      "slug": "length-of-loop-in-ll",
+      "params": [
+        {
+          "name": "head",
+          "type": "ListNode"
+        }
+      ],
+      "sampleInput": "head = [1, 2, 3, 4, 5, 6], pos = 2",
+      "compileError": "Main.java:439: error: incompatible types: ListNode cannot be converted to Node\n                System.out.println(formatScalar(sol.countNodesinLoop(a0)));\n                                                                     ^\nMain.java:444: error: incompatible types: ListNode cannot be converted to "
+    },
+    {
+      "slug": "longest-common-prefix",
+      "params": [
+        {
+          "name": "strs",
+          "type": "String[]"
+        }
+      ],
+      "sampleInput": "strs = [1]",
+      "compileError": "Main.java:444: error: incompatible types: int[] cannot be converted to String[]\n                String[] a0 = new int[]{1};\n                              ^\nMain.java:449: error: incompatible types: int[] cannot be converted to String[]\n                String[] a0 = new int[]{-5, 2, -1, 4};\n         "
+    },
+    {
+      "slug": "longest-string-chain",
+      "params": [
+        {
+          "name": "words",
+          "type": "String[]"
+        }
+      ],
+      "sampleInput": "words = [1]",
+      "compileError": "Main.java:462: error: incompatible types: int[] cannot be converted to String[]\n                String[] a0 = new int[]{1};\n                              ^\nMain.java:467: error: incompatible types: int[] cannot be converted to String[]\n                String[] a0 = new int[]{-5, 2, -1, 4};\n         "
+    },
+    {
+      "slug": "m-coloring-problem",
+      "params": [
+        {
+          "name": "graph",
+          "type": "boolean[][]"
+        },
+        {
+          "name": "m",
+          "type": "int"
+        },
+        {
+          "name": "n",
+          "type": "int"
+        }
+      ],
+      "sampleInput": "graph = [3,6,8,10], m = 16, n = 6",
+      "compileError": "Main.java:448: error: incompatible types: int cannot be converted to boolean[][]\n                boolean[][] a0 = 4;\n                                 ^\nMain.java:455: error: incompatible types: int cannot be converted to boolean[][]\n                boolean[][] a0 = 3;\n                               "
+    },
+    {
+      "slug": "making-a-large-island",
+      "params": [
+        {
+          "name": "grid",
+          "type": "int[][]"
+        }
+      ],
+      "sampleInput": "grid = [1]",
+      "compileError": "Main.java:489: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{1};\n                             ^\nMain.java:494: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{-5, 2, -1, 4};\n              "
+    },
+    {
+      "slug": "matrix-median",
+      "params": [
+        {
+          "name": "matrix",
+          "type": "int[][]"
+        }
+      ],
+      "sampleInput": "matrix = [1]",
+      "compileError": "Main.java:443: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{1};\n                             ^\nMain.java:448: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{-5, 2, -1, 4};\n              "
+    },
+    {
+      "slug": "maximum-rectangles",
+      "params": [
+        {
+          "name": "matrix",
+          "type": "char[][]"
+        }
+      ],
+      "sampleInput": "matrix = [1]",
+      "compileError": "Main.java:449: error: incompatible types: int[][] cannot be converted to char[][]\n                char[][] a0 = new int[][]{{1, 0, 1, 0, 0}, {1, 0, 1, 1, 1}, {1, 1, 1, 1, 1}, {1, 0, 0, 1, 0}};\n                              ^\nMain.java:454: error: incompatible types: int[][] cannot be converted to ch"
+    },
+    {
+      "slug": "maximum-width-of-bt",
+      "params": [
+        {
+          "name": "root",
+          "type": "TreeNode"
+        }
+      ],
+      "sampleInput": "root = [1]",
+      "compileError": "Main.java:438: error: constructor PairNode in class PairNode cannot be applied to given types;\n        PairNode sol = new PairNode();\n                       ^\n  required: TreeNode,int\n  found:    no arguments\n  reason: actual and formal argument lists differ in length\nMain.java:443: error: cannot fi"
+    },
+    {
+      "slug": "merge-intervals",
+      "params": [
+        {
+          "name": "intervals",
+          "type": "int[][]"
+        }
+      ],
+      "sampleInput": "intervals = [1]",
+      "compileError": "Main.java:450: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{1};\n                             ^\nMain.java:455: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{-5, 2, -1, 4};\n              "
+    },
+    {
+      "slug": "merge-k-sorted-lists",
+      "params": [
+        {
+          "name": "lists",
+          "type": "ListNode[]"
+        }
+      ],
+      "sampleInput": "lists = [1]",
+      "compileError": "Main.java:277: error: duplicate class: ListNode\nclass ListNode {\n^\nMain.java:457: error: incompatible types: int[] cannot be converted to int[][]\n                ListNode[] a0 = toListNodeArray(new int[]{1});\n                                                ^\nMain.java:462: error: incompatible types:"
+    },
+    {
+      "slug": "merge-sort",
+      "params": [
+        {
+          "name": "nums",
+          "type": "int[]"
+        }
+      ],
+      "sampleInput": "nums = [12,11,13,5,6]",
+      "compileError": "Main.java:463: error: cannot find symbol\n                System.out.println(format(sol.sortArray(a0)));\n                                             ^\n  symbol:   method sortArray(int[])\n  location: variable sol of type MergeSort\nMain.java:468: error: cannot find symbol\n                System.out.pr"
+    },
+    {
+      "slug": "merge-two-sorted-arrays-without-extra-space",
+      "params": [
+        {
+          "name": "a",
+          "type": "long[]"
+        },
+        {
+          "name": "b",
+          "type": "long[]"
+        }
+      ],
+      "sampleInput": "a = [12,11,13,5,6], b = 1",
+      "compileError": "Main.java:434: error: incompatible types: int[] cannot be converted to long[]\n                long[] a0 = new int[]{1, 4, 8, 10};\n                            ^\nMain.java:435: error: incompatible types: int[] cannot be converted to long[]\n                long[] a1 = new int[]{2, 3, 9};\n              "
+    },
+    {
+      "slug": "minimum-falling-path-sum",
+      "params": [
+        {
+          "name": "matrix",
+          "type": "int[][]"
+        }
+      ],
+      "sampleInput": "matrix = [1]",
+      "compileError": "Main.java:448: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{1};\n                             ^\nMain.java:453: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{-5, 2, -1, 4};\n              "
+    },
+    {
+      "slug": "minimum-number-of-platforms-required-for-a-railway",
+      "params": [
+        {
+          "name": "arr",
+          "type": "int[]"
+        },
+        {
+          "name": "dep",
+          "type": "int[]"
+        },
+        {
+          "name": "n",
+          "type": "int"
+        }
+      ],
+      "sampleInput": "arr = [3,6,8,10], dep = 16, n = 4",
+      "compileError": "Main.java:449: error: incompatible types: int cannot be converted to int[]\n                int[] a1 = 16;\n                           ^\nMain.java:456: error: incompatible types: int cannot be converted to int[]\n                int[] a1 = 18;\n                           ^\nMain.java:463: error: incompat"
+    },
+    {
+      "slug": "most-stones-removed-with-same-row-or-column",
+      "params": [
+        {
+          "name": "stones",
+          "type": "int[][]"
+        }
+      ],
+      "sampleInput": "stones = [1]",
+      "compileError": "Main.java:468: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{1};\n                             ^\nMain.java:473: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{-5, 2, -1, 4};\n              "
+    },
+    {
+      "slug": "n-meetings-in-one-room",
+      "params": [
+        {
+          "name": "start",
+          "type": "int[]"
+        },
+        {
+          "name": "end",
+          "type": "int[]"
+        },
+        {
+          "name": "n",
+          "type": "int"
+        }
+      ],
+      "sampleInput": "start = [3,6,8,10], end = 16, n = 4",
+      "compileError": "Main.java:439: error: constructor Meeting in class Meeting cannot be applied to given types;\n        Meeting sol = new Meeting();\n                      ^\n  required: int,int\n  found:    no arguments\n  reason: actual and formal argument lists differ in length\nMain.java:446: error: cannot find symbol\n"
+    },
+    {
+      "slug": "network-delay-time",
+      "params": [
+        {
+          "name": "times",
+          "type": "int[][]"
+        },
+        {
+          "name": "n",
+          "type": "int"
+        },
+        {
+          "name": "k",
+          "type": "int"
+        }
+      ],
+      "sampleInput": "times = [3,6,8,10], n = 16, k = 4",
+      "compileError": "Main.java:467: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{3, 6, 8, 10};\n                             ^\nMain.java:474: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{4, 8, 9, 10};\n     "
+    },
+    {
+      "slug": "next-greater-element",
+      "params": [
+        {
+          "name": "arr",
+          "type": "long[]"
+        },
+        {
+          "name": "n",
+          "type": "int"
+        }
+      ],
+      "sampleInput": "arr = [1], n = 1",
+      "compileError": "Main.java:436: error: incompatible types: int[] cannot be converted to long[]\n                long[] a0 = new int[]{4, 5, 2, 25};\n                            ^\nMain.java:442: error: incompatible types: int[] cannot be converted to long[]\n                long[] a0 = new int[]{13, 7, 6, 12};\n         "
+    },
+    {
+      "slug": "ninja's-training",
+      "params": [
+        {
+          "name": "n",
+          "type": "int"
+        },
+        {
+          "name": "points",
+          "type": "int"
+        }
+      ],
+      "sampleInput": "n = 1, points = 1",
+      "compileError": "Main.java:444: error: incompatible types: int[][] cannot be converted to int\n                int a1 = new int[][]{{10, 40, 70}, {20, 50, 80}, {30, 60, 90}};\n                         ^\nMain.java:445: error: incompatible types: int cannot be converted to int[][]\n                System.out.println(form"
+    },
+    {
+      "slug": "non-overlapping-intervals",
+      "params": [
+        {
+          "name": "intervals",
+          "type": "int[][]"
+        }
+      ],
+      "sampleInput": "intervals = [1]",
+      "compileError": "Main.java:449: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{1};\n                             ^\nMain.java:454: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{-5, 2, -1, 4};\n              "
+    },
+    {
+      "slug": "number-of-distinct-islands",
+      "params": [
+        {
+          "name": "grid",
+          "type": "int[][]"
+        }
+      ],
+      "sampleInput": "grid = [1]",
+      "compileError": "Main.java:459: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{1};\n                             ^\nMain.java:464: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{-5, 2, -1, 4};\n              "
+    },
+    {
+      "slug": "number-of-enclaves",
+      "params": [
+        {
+          "name": "grid",
+          "type": "int[][]"
+        }
+      ],
+      "sampleInput": "grid = [1]",
+      "compileError": "Main.java:460: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{1};\n                             ^\nMain.java:465: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{-5, 2, -1, 4};\n              "
+    },
+    {
+      "slug": "number-of-greater-elements-to-the-right",
+      "params": [
+        {
+          "name": "arr",
+          "type": "int[]"
+        },
+        {
+          "name": "query",
+          "type": "int[]"
+        }
+      ],
+      "sampleInput": "arr = [3,6,8,10], query = 16",
+      "compileError": "Main.java:448: error: incompatible types: int cannot be converted to int[]\n                int[] a1 = 16;\n                           ^\nMain.java:454: error: incompatible types: int cannot be converted to int[]\n                int[] a1 = 18;\n                           ^\nMain.java:460: error: incompat"
+    },
+    {
+      "slug": "number-of-islands",
+      "params": [
+        {
+          "name": "grid",
+          "type": "char[][]"
+        }
+      ],
+      "sampleInput": "grid = [1]",
+      "compileError": "Main.java:444: error: incompatible types: int[][] cannot be converted to char[][]\n                char[][] a0 = new int[][]{{1, 1, 1, 1, 0}, {1, 1, 0, 1, 0}, {1, 1, 0, 0, 0}, {0, 0, 0, 0, 0}};\n                              ^\nMain.java:449: error: incompatible types: int[][] cannot be converted to ch"
+    },
+    {
+      "slug": "number-of-provinces",
+      "params": [
+        {
+          "name": "isConnected",
+          "type": "int[][]"
+        }
+      ],
+      "sampleInput": "isConnected = [1]",
+      "compileError": "Main.java:454: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{1};\n                             ^\nMain.java:459: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{-5, 2, -1, 4};\n              "
+    },
+    {
+      "slug": "path-with-minimum-effort",
+      "params": [
+        {
+          "name": "heights",
+          "type": "int[][]"
+        }
+      ],
+      "sampleInput": "heights = [1]",
+      "compileError": "Main.java:460: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{1};\n                             ^\nMain.java:465: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{-5, 2, -1, 4};\n              "
+    },
+    {
+      "slug": "pow(x,n)",
+      "params": [
+        {
+          "name": "x",
+          "type": "double"
+        },
+        {
+          "name": "n",
+          "type": "int"
+        }
+      ],
+      "sampleInput": "x = 8.6, n = 16",
+      "compileError": "Main.java:447: error: ';' expected\n                double a0 = 8.6.0;\n                               ^\nMain.java:453: error: ';' expected\n                double a0 = 10.8.0;\n                                ^\nMain.java:459: error: ';' expected\n                double a0 = 12.1.0;\n                     "
+    },
+    {
+      "slug": "power-set",
+      "params": [
+        {
+          "name": "s",
+          "type": "String"
+        }
+      ],
+      "sampleInput": "s = \"a\"",
+      "compileError": "Main.java:438: error: incompatible types: int[] cannot be converted to String\n                String a0 = new int[]{1, 2, 3};\n                            ^\nMain.java:443: error: incompatible types: int[] cannot be converted to String\n                String a0 = new int[]{0};\n                        "
+    },
+    {
+      "slug": "power-set-bit-manipulation",
+      "params": [
+        {
+          "name": "nums",
+          "type": "int[]"
+        }
+      ],
+      "sampleInput": "nums = [1]",
+      "compileError": "Main.java:437: error: incompatible types: String cannot be converted to int[]\n                int[] a0 = \"abc\";\n                           ^\nMain.java:442: error: incompatible types: String cannot be converted to int[]\n                int[] a0 = \"ab\";\n                           ^\n2 errors\n"
+    },
+    {
+      "slug": "print-shortest-path-",
+      "params": [
+        {
+          "name": "n",
+          "type": "int"
+        },
+        {
+          "name": "m",
+          "type": "int"
+        },
+        {
+          "name": "edges",
+          "type": "int"
+        }
+      ],
+      "sampleInput": "n = 4, m = 4, edges = [[1, 2, 1], [2, 3, 2], [3, 4, 3], [1, 4, 10]]",
+      "compileError": "Main.java:460: error: incompatible types: int[][] cannot be converted to int\n                int a2 = new int[][]{{1, 2, 2}, {2, 5, 5}, {2, 3, 4}, {1, 4, 1}, {4, 3, 3}, {3, 5, 1}};\n                         ^\nMain.java:461: error: incompatible types: int cannot be converted to int[][]\n               "
+    },
+    {
+      "slug": "print-the-matrix-in-spiral-manner",
+      "params": [
+        {
+          "name": "matrix",
+          "type": "int[][]"
+        }
+      ],
+      "sampleInput": "matrix = [1]",
+      "compileError": "Main.java:457: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{1};\n                             ^\nMain.java:462: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{-5, 2, -1, 4};\n              "
+    },
+    {
+      "slug": "quick-sort",
+      "params": [
+        {
+          "name": "nums",
+          "type": "int[]"
+        }
+      ],
+      "sampleInput": "nums = [12,11,13,5,6]",
+      "compileError": "Main.java:455: error: cannot find symbol\n                System.out.println(format(sol.sortArray(a0)));\n                                             ^\n  symbol:   method sortArray(int[])\n  location: variable sol of type QuickSort\nMain.java:460: error: cannot find symbol\n                System.out.pr"
+    },
+    {
+      "slug": "rat-in-a-maze",
+      "params": [
+        {
+          "name": "m",
+          "type": "int[][]"
+        },
+        {
+          "name": "n",
+          "type": "int"
+        }
+      ],
+      "sampleInput": "m = [1], n = 1",
+      "compileError": "Main.java:474: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{1};\n                             ^\nMain.java:480: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{1, 2, 3, 4, 5};\n             "
+    },
+    {
+      "slug": "recursive-bubble-sort",
+      "params": [
+        {
+          "name": "nums",
+          "type": "int[]"
+        }
+      ],
+      "sampleInput": "nums = [12,11,13,5,6]",
+      "compileError": "Main.java:441: error: cannot find symbol\n                System.out.println(format(sol.sortArray(a0)));\n                                             ^\n  symbol:   method sortArray(int[])\n  location: variable sol of type RecursiveBubbleSort\nMain.java:446: error: cannot find symbol\n                Sys"
+    },
+    {
+      "slug": "recursive-insertion-sort",
+      "params": [
+        {
+          "name": "nums",
+          "type": "int[]"
+        }
+      ],
+      "sampleInput": "nums = [1]",
+      "compileError": "Main.java:437: error: cannot find symbol\n                System.out.println(format(sol.sortArray(a0)));\n                                             ^\n  symbol:   method sortArray(int[])\n  location: variable sol of type RecursiveInsertionSort\nMain.java:442: error: cannot find symbol\n                "
+    },
+    {
+      "slug": "requirements-needed-to-construct-a-unique-bt",
+      "params": [
+        {
+          "name": "a",
+          "type": "int"
+        },
+        {
+          "name": "b",
+          "type": "int"
+        }
+      ],
+      "sampleInput": "a = 1, b = 1",
+      "compileError": "Main.java:427: error: incompatible types: String cannot be converted to int\n                int a0 = \"Inorder\";\n                         ^\nMain.java:428: error: incompatible types: String cannot be converted to int\n                int a1 = \"Preorder\";\n                         ^\nMain.java:433: error:"
+    },
+    {
+      "slug": "reverse-a-stack",
+      "params": [
+        {
+          "name": "s",
+          "type": "Stack<Integer>"
+        }
+      ],
+      "sampleInput": "s = \"[9, 8, 7, 13, 12] (top is 12)\"",
+      "compileError": "Main.java:431: error: incompatible types: String cannot be converted to int[]\n                Stack<Integer> a0 = toStack(\"[3, 2, 1, 7, 6] [top is 6]\");\n                                            ^\nMain.java:441: error: incompatible types: String cannot be converted to int[]\n                Stack<I"
+    },
+    {
+      "slug": "reverse-an-array",
+      "params": [
+        {
+          "name": "arr",
+          "type": "int"
+        }
+      ],
+      "sampleInput": "arr = 1",
+      "compileError": "Main.java:429: error: incompatible types: int[] cannot be converted to int\n                int a0 = new int[]{1, 2, 3, 4, 5};\n                         ^\nMain.java:430: error: incompatible types: int cannot be converted to int[]\n                sol.reverseArray(a0);\n                                 ^"
+    },
+    {
+      "slug": "rod-cutting-problem",
+      "params": [
+        {
+          "name": "price",
+          "type": "int"
+        },
+        {
+          "name": "n",
+          "type": "int"
+        }
+      ],
+      "sampleInput": "price = 1, n = 1",
+      "compileError": "Main.java:434: error: incompatible types: int[] cannot be converted to int\n                int a0 = new int[]{1, 5, 8, 9, 10, 17, 17, 20};\n                         ^\nMain.java:436: error: incompatible types: int cannot be converted to int[]\n                System.out.println(formatScalar(sol.cutRod("
+    },
+    {
+      "slug": "rotate-matrix-by-90-degrees",
+      "params": [
+        {
+          "name": "matrix",
+          "type": "int[][]"
+        }
+      ],
+      "sampleInput": "matrix = [1]",
+      "compileError": "Main.java:447: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{1};\n                             ^\nMain.java:453: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{-5, 2, -1, 4};\n              "
+    },
+    {
+      "slug": "rotten-oranges",
+      "params": [
+        {
+          "name": "grid",
+          "type": "int[][]"
+        }
+      ],
+      "sampleInput": "grid = [1]",
+      "compileError": "Main.java:466: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{1};\n                             ^\nMain.java:471: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{-5, 2, -1, 4};\n              "
+    },
+    {
+      "slug": "search-in-2d-matrix-ii",
+      "params": [
+        {
+          "name": "matrix",
+          "type": "int[][]"
+        },
+        {
+          "name": "target",
+          "type": "int"
+        }
+      ],
+      "sampleInput": "matrix = [1], target = 1",
+      "compileError": "Main.java:443: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{1};\n                             ^\nMain.java:449: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{1, 2, 3, 4, 5};\n             "
+    },
+    {
+      "slug": "search-in-a-2d-matrix",
+      "params": [
+        {
+          "name": "matrix",
+          "type": "int[][]"
+        },
+        {
+          "name": "target",
+          "type": "int"
+        }
+      ],
+      "sampleInput": "matrix = [1], target = 1",
+      "compileError": "Main.java:444: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{1};\n                             ^\nMain.java:450: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{1, 2, 3, 4, 5};\n             "
+    },
+    {
+      "slug": "selection-sort",
+      "params": [
+        {
+          "name": "nums",
+          "type": "int[]"
+        }
+      ],
+      "sampleInput": "nums = [12,11,13,5,6]",
+      "compileError": "Main.java:438: error: cannot find symbol\n                System.out.println(format(sol.sortArray(a0)));\n                                             ^\n  symbol:   method sortArray(int[])\n  location: variable sol of type SelectionSort\nMain.java:443: error: cannot find symbol\n                System.ou"
+    },
+    {
+      "slug": "set-matrix-zeroes",
+      "params": [
+        {
+          "name": "matrix",
+          "type": "int[][]"
+        }
+      ],
+      "sampleInput": "matrix = [1]",
+      "compileError": "Main.java:453: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{1};\n                             ^\nMain.java:459: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{-5, 2, -1, 4};\n              "
+    },
+    {
+      "slug": "shortest-path-in-undirected-graph-with-unit-weights",
+      "params": [
+        {
+          "name": "edges",
+          "type": "int[][]"
+        },
+        {
+          "name": "n",
+          "type": "int"
+        },
+        {
+          "name": "m",
+          "type": "int"
+        },
+        {
+          "name": "src",
+          "type": "int"
+        }
+      ],
+      "sampleInput": "edges = [3,6,8,10], n = 16, m = 4, src = 2",
+      "compileError": "Main.java:464: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{3, 6, 8, 10};\n                             ^\nMain.java:472: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{4, 8, 9, 10};\n     "
+    },
+    {
+      "slug": "shortest-path-with-minimum-effort",
+      "params": [
+        {
+          "name": "grid",
+          "type": "int[][]"
+        },
+        {
+          "name": "source",
+          "type": "int[]"
+        },
+        {
+          "name": "destination",
+          "type": "int[]"
+        }
+      ],
+      "sampleInput": "grid = [3,6,8,10], source = 16, destination = [3, 4, 5]",
+      "compileError": "Main.java:462: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{3, 6, 8, 10};\n                             ^\nMain.java:463: error: incompatible types: int cannot be converted to int[]\n                int[] a1 = 16;\n                           ^\nMa"
+    },
+    {
+      "slug": "subset-sum-equals-to-target",
+      "params": [
+        {
+          "name": "n",
+          "type": "int"
+        },
+        {
+          "name": "k",
+          "type": "int"
+        },
+        {
+          "name": "arr",
+          "type": "int"
+        }
+      ],
+      "sampleInput": "n = 5, k = 4, arr = 4",
+      "compileError": "Main.java:436: error: incompatible types: int[] cannot be converted to int\n                int a2 = new int[]{3, 34, 4, 12, 5, 2};\n                         ^\nMain.java:437: error: incompatible types: int cannot be converted to int[]\n                System.out.println(formatScalar(sol.subsetSumToK(a0"
+    },
+    {
+      "slug": "sudoko-solver",
+      "params": [
+        {
+          "name": "board",
+          "type": "char[][]"
+        }
+      ],
+      "sampleInput": "board = [1]",
+      "compileError": "Main.java:453: error: illegal start of expression\n                char[][] a0 = new int[][]{{5, 3, ., ., 7, ., ., ., .}, {6, ., ., 1, 9, 5, ., ., .}, {., 9, 8, ., ., ., ., 6, .}, {8, ., ., ., 6, ., ., ., 3}, {4, ., ., 8, ., 3, ., ., 1}, {7, ., ., ., 2, ., ., ., 6}, {., 6, ., ., ., ., 2, 8, .}, {., ."
+    },
+    {
+      "slug": "surrounded-regions",
+      "params": [
+        {
+          "name": "board",
+          "type": "char[][]"
+        }
+      ],
+      "sampleInput": "board = [1]",
+      "compileError": "Main.java:450: error: cannot find symbol\n                char[][] a0 = new int[][]{{X, X, X, X}, {X, O, O, X}, {X, X, O, X}, {X, O, X, X}};\n                                           ^\n  symbol:   variable X\n  location: class Main\nMain.java:450: error: cannot find symbol\n                char[][] a0 "
+    },
+    {
+      "slug": "swim-in-rising-water",
+      "params": [
+        {
+          "name": "grid",
+          "type": "int[][]"
+        }
+      ],
+      "sampleInput": "grid = [1]",
+      "compileError": "Main.java:456: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{1};\n                             ^\nMain.java:461: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{-5, 2, -1, 4};\n              "
+    },
+    {
+      "slug": "task-scheduler",
+      "params": [
+        {
+          "name": "tasks",
+          "type": "char[]"
+        },
+        {
+          "name": "n",
+          "type": "int"
+        }
+      ],
+      "sampleInput": "tasks = [1], n = 1",
+      "compileError": "Main.java:436: error: incompatible types: String[] cannot be converted to char[]\n                char[] a0 = new String[]{\"A\", \"A\", \"A\", \"B\", \"B\", \"B\"};\n                            ^\nMain.java:442: error: incompatible types: String[] cannot be converted to char[]\n                char[] a0 = new Stri"
+    },
+    {
+      "slug": "topological-sort-or-kahns-algorithm",
+      "params": [
+        {
+          "name": "V",
+          "type": "int"
+        },
+        {
+          "name": "adj",
+          "type": "ArrayList<ArrayList<Integer>>"
+        }
+      ],
+      "sampleInput": "V = [12,11,13,5,6], adj = [[],[],[3],[1],[0,1],[0,2]]",
+      "compileError": "Main.java:455: error: incompatible types: int[] cannot be converted to int\n                int a0 = new int[]{12, 11, 13, 5, 6};\n                         ^\nMain.java:461: error: incompatible types: int[] cannot be converted to int\n                int a0 = new int[]{3, 1, 2};\n                        "
+    },
+    {
+      "slug": "traversal-in-linked-list",
+      "params": [
+        {
+          "name": "head",
+          "type": "ListNode"
+        }
+      ],
+      "sampleInput": "head = [5, 4, 3, 2, 1]",
+      "compileError": "Main.java:431: error: cannot find symbol\n                System.out.println(format(sol.traverseList(a0)));\n                                             ^\n  symbol:   method traverseList(ListNode)\n  location: variable sol of type Solution\nMain.java:436: error: cannot find symbol\n                Syste"
+    },
+    {
+      "slug": "traversal-techniques",
+      "params": [
+        {
+          "name": "V",
+          "type": "int"
+        },
+        {
+          "name": "adj",
+          "type": "ArrayList<ArrayList<Integer>>"
+        }
+      ],
+      "sampleInput": "V = 4, adj = [[1], [0, 2], [1, 3], [2]]",
+      "compileError": "Main.java:445: error: cannot find symbol\n                System.out.println(format(sol.dfsOfGraph(a0, a1)));\n                                             ^\n  symbol:   method dfsOfGraph(int,ArrayList<ArrayList<Integer>>)\n  location: variable sol of type Solution\nMain.java:451: error: cannot find sym"
+    },
+    {
+      "slug": "triangle",
+      "params": [
+        {
+          "name": "triangle",
+          "type": "List<List<Integer>>"
+        }
+      ],
+      "sampleInput": "triangle = [[8], [9, 10], [12, 11, 13], [10, 7, 14, 9]]",
+      "compileError": "Main.java:435: error: incompatible types: ArrayList<ArrayList<Integer>> cannot be converted to List<List<Integer>>\n                System.out.println(formatScalar(sol.minimumTotal(a0)));\n                                                                 ^\nMain.java:440: error: incompatible types: Arra"
+    },
+    {
+      "slug": "unique-paths-ii",
+      "params": [
+        {
+          "name": "grid",
+          "type": "int[][]"
+        }
+      ],
+      "sampleInput": "grid = [1]",
+      "compileError": "Main.java:441: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{1};\n                             ^\nMain.java:446: error: incompatible types: int[] cannot be converted to int[][]\n                int[][] a0 = new int[]{-5, 2, -1, 4};\n              "
+    },
+    {
+      "slug": "word-break",
+      "params": [
+        {
+          "name": "s",
+          "type": "String"
+        },
+        {
+          "name": "wordDict",
+          "type": "List<String>"
+        }
+      ],
+      "sampleInput": "s = \"abcba\", wordDict = [\"leet\",\"code\"]",
+      "compileError": "Main.java:437: error: incompatible types: String[] cannot be converted to List<String>\n                List<String> a1 = new String[]{\"leet\", \"code\"};\n                                  ^\nMain.java:443: error: incompatible types: String[] cannot be converted to List<String>\n                List<Strin"
+    },
+    {
+      "slug": "word-ladder-i",
+      "params": [
+        {
+          "name": "beginWord",
+          "type": "String"
+        },
+        {
+          "name": "endWord",
+          "type": "String"
+        },
+        {
+          "name": "wordList",
+          "type": "List<String>"
+        }
+      ],
+      "sampleInput": "beginWord = \"abcba\", endWord = \"cog\", wordList = [\"hot\",\"dot\",\"dog\",\"lot\",\"log\",\"cog\"]",
+      "compileError": "Main.java:456: error: incompatible types: String[] cannot be converted to List<String>\n                List<String> a2 = new String[]{\"hot\", \"dot\", \"dog\", \"lot\", \"log\", \"cog\"};\n                                  ^\nMain.java:463: error: incompatible types: String[] cannot be converted to List<String>\n"
+    },
+    {
+      "slug": "word-ladder-ii",
+      "params": [
+        {
+          "name": "beginWord",
+          "type": "String"
+        },
+        {
+          "name": "endWord",
+          "type": "String"
+        },
+        {
+          "name": "wordList",
+          "type": "List<String>"
+        }
+      ],
+      "sampleInput": "beginWord = \"abcba\", endWord = \"cog\", wordList = [\"hot\",\"dot\",\"dog\",\"lot\",\"log\",\"cog\"]",
+      "compileError": "Main.java:467: error: incompatible types: String[] cannot be converted to List<String>\n                List<String> a2 = new String[]{\"hot\", \"dot\", \"dog\", \"lot\", \"log\", \"cog\"};\n                                  ^\nMain.java:474: error: incompatible types: String[] cannot be converted to List<String>\n"
+    },
+    {
+      "slug": "word-search",
+      "params": [
+        {
+          "name": "board",
+          "type": "char[][]"
+        },
+        {
+          "name": "word",
+          "type": "String"
+        }
+      ],
+      "sampleInput": "board = [3,6,8,10], word = 16",
+      "compileError": "Main.java:447: error: cannot find symbol\n                char[][] a0 = new int[][]{{A, B, C, E}, {S, F, C, S}, {A, D, E, E}};\n                                           ^\n  symbol:   variable A\n  location: class Main\nMain.java:447: error: cannot find symbol\n                char[][] a0 = new int[][]{"
+    }
+  ],
+  "runtimeFails": [
+    {
+      "slug": "cheapest-flight-within-k-stops",
+      "passed": 2,
+      "caseErrors": [
+        {
+          "order": 3,
+          "input": "n = 5, flights = [[0,1,100],[1,2,100],[2,0,100],[1,3,600],[2,3,200]], src = 2, dst = 5, k = 3",
+          "expected": "1400",
+          "error": "runtime exception"
+        },
+        {
+          "order": 4,
+          "input": "n = 6, flights = [[0,1,100],[1,2,100],[2,0,100],[1,3,600],[2,3,200]], src = 3, dst = 6, k = 4",
+          "expected": "2100",
+          "error": "runtime exception"
+        },
+        {
+          "order": 5,
+          "input": "n = 7, flights = [[0,1,100],[1,2,100],[2,0,100],[1,3,600],[2,3,200]], src = 4, dst = 7, k = 5",
+          "expected": "2800",
+          "error": "runtime exception"
+        },
+        {
+          "order": 6,
+          "input": "n = 8, flights = [[0,1,100],[1,2,100],[2,0,100],[1,3,600],[2,3,200]], src = 5, dst = 8, k = 6",
+          "expected": "3500",
+          "error": "runtime exception"
+        }
+      ]
+    },
+    {
+      "slug": "count-partitions-with-given-difference",
+      "passed": 4,
+      "caseErrors": [
+        {
+          "order": 4,
+          "input": "n = 3, d = 1, arr = [1, 2, 3]",
+          "expected": "1",
+          "actual": "0"
+        },
+        {
+          "order": 5,
+          "input": "n = 2, d = 0, arr = [1, 1]",
+          "expected": "1",
+          "actual": "2"
+        }
+      ]
+    },
+    {
+      "slug": "count-subarrays-with-given-xor-k",
+      "passed": 5,
+      "caseErrors": [
+        {
+          "order": 4,
+          "input": "A = [1, 2, 3, 4, 5], B = 1",
+          "expected": "1",
+          "actual": "4"
+        }
+      ]
+    },
+    {
+      "slug": "design-twitter",
+      "passed": 0,
+      "caseErrors": [
+        {
+          "order": 1,
+          "input": "Twitter(), postTweet(1, 5), getNewsFeed(1), follow(1, 2), postTweet(2, 6), getNewsFeed(1), unfollow(1, 2), getNewsFeed(1)",
+          "expected": "[null, null, [5], null, null, [6, 5], null, [5]]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 2,
+          "input": "postTweet(1, 1), getNewsFeed(1)",
+          "expected": "[1]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 3,
+          "input": "Twitter(), postTweet(1, 10), postTweet(1, 20), getNewsFeed(1)",
+          "expected": "[null, null, null, [20, 10]]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 4,
+          "input": "Twitter(), follow(1, 2), postTweet(2, 100), getNewsFeed(1)",
+          "expected": "[null, null, null, [100]]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 5,
+          "input": "Twitter(), postTweet(1, 1), postTweet(2, 2), follow(1, 2), getNewsFeed(1)",
+          "expected": "[null, null, null, null, [2, 1]]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 6,
+          "input": "Twitter(), postTweet(1, 1), follow(1, 2), unfollow(1, 2), getNewsFeed(1)",
+          "expected": "[null, null, null, null, [1]]",
+          "error": "runtime exception"
+        }
+      ]
+    },
+    {
+      "slug": "detect-a-cycle-in-a-directed-graph",
+      "passed": 2,
+      "caseErrors": [
+        {
+          "order": 3,
+          "input": "V = 5, adj = [[1],[2],[3],[1]]",
+          "expected": "false",
+          "error": "runtime exception"
+        },
+        {
+          "order": 4,
+          "input": "V = 6, adj = [[1],[2],[3],[1]]",
+          "expected": "true",
+          "error": "runtime exception"
+        },
+        {
+          "order": 5,
+          "input": "V = 7, adj = [[1],[2],[3],[1]]",
+          "expected": "false",
+          "error": "runtime exception"
+        },
+        {
+          "order": 6,
+          "input": "V = 8, adj = [[1],[2],[3],[1]]",
+          "expected": "true",
+          "error": "runtime exception"
+        }
+      ]
+    },
+    {
+      "slug": "expression-add-operators",
+      "passed": 2,
+      "caseErrors": [
+        {
+          "order": 3,
+          "input": "num = \"abcba\", target = 8",
+          "expected": "[\"1*2*3\", \"1+2+3\"]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 4,
+          "input": "num = \"racecar\", target = 9",
+          "expected": "[\"1*2*3\", \"1+2+3\"]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 5,
+          "input": "num = \"leetcode\", target = 10",
+          "expected": "[\"1*2*3\", \"1+2+3\"]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 6,
+          "input": "num = \"a\", target = 11",
+          "expected": "[\"1*2*3\", \"1+2+3\"]",
+          "error": "runtime exception"
+        }
+      ]
+    },
+    {
+      "slug": "find-median-from-data-stream",
+      "passed": 0,
+      "caseErrors": [
+        {
+          "order": 1,
+          "input": "addNum(1), addNum(2), findMedian(), addNum(3), findMedian()",
+          "expected": "[null, null, 1.5, null, 2.0]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 2,
+          "input": "addNum(-1), findMedian(), addNum(-2), findMedian()",
+          "expected": "[-1.0, -1.5]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 3,
+          "input": "addNum(5), findMedian(), addNum(15), findMedian(), addNum(1), findMedian()",
+          "expected": "[5.0, 10.0, 5.0]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 4,
+          "input": "addNum(6), addNum(10), addNum(2), addNum(6), findMedian()",
+          "expected": "[null, null, null, null, 6.0]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 5,
+          "input": "addNum(1), findMedian()",
+          "expected": "[null, 1.0]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 6,
+          "input": "addNum(2), addNum(3), addNum(4), findMedian()",
+          "expected": "[null, null, null, 3.0]",
+          "error": "runtime exception"
+        }
+      ]
+    },
+    {
+      "slug": "floor-and-ceil-in-sorted-array",
+      "passed": 3,
+      "caseErrors": [
+        {
+          "order": 4,
+          "input": "a = [3,1,2], n = 5, x = 8",
+          "expected": "[1,2,3]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 5,
+          "input": "a = [1], n = 6, x = 9",
+          "expected": "[1]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 6,
+          "input": "a = [2,2,2,2], n = 7, x = 10",
+          "expected": "[2,2,2,2]",
+          "error": "runtime exception"
+        }
+      ]
+    },
+    {
+      "slug": "frog-jump-with-k-distances",
+      "passed": 3,
+      "caseErrors": [
+        {
+          "order": 4,
+          "input": "n = 6, k = 6, height = [10,30,40,50,20]",
+          "expected": "90",
+          "error": "runtime exception"
+        },
+        {
+          "order": 5,
+          "input": "n = 7, k = 7, height = [10,30,40,50,20]",
+          "expected": "120",
+          "error": "runtime exception"
+        },
+        {
+          "order": 6,
+          "input": "n = 8, k = 8, height = [10,30,40,50,20]",
+          "expected": "150",
+          "error": "runtime exception"
+        }
+      ]
+    },
+    {
+      "slug": "implement-max-heap",
+      "passed": 0,
+      "caseErrors": [
+        {
+          "order": 1,
+          "input": "insert(10), insert(30), extractMax(), insert(20), extractMax()",
+          "expected": "[30, 20]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 2,
+          "input": "insert(5), getMax()",
+          "expected": "5",
+          "error": "runtime exception"
+        },
+        {
+          "order": 3,
+          "input": "insert(40), insert(10), extractMax(), extractMax()",
+          "expected": "[40, 10]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 4,
+          "input": "insert(15), insert(50), insert(25), extractMax()",
+          "expected": "[50]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 5,
+          "input": "insert(5), extractMax(), insert(100), extractMax()",
+          "expected": "[5, 100]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 6,
+          "input": "insert(7), insert(77), insert(17), extractMax()",
+          "expected": "[77]",
+          "error": "runtime exception"
+        }
+      ]
+    },
+    {
+      "slug": "implement-min-heap",
+      "passed": 0,
+      "caseErrors": [
+        {
+          "order": 1,
+          "input": "insert(3), insert(2), extractMin(), insert(1), extractMin()",
+          "expected": "[2, 1]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 2,
+          "input": "insert(5), extractMin()",
+          "expected": "[5]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 3,
+          "input": "insert(10), insert(20), extractMin(), extractMin()",
+          "expected": "[10, 20]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 4,
+          "input": "insert(4), insert(2), insert(8), extractMin()",
+          "expected": "[2]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 5,
+          "input": "insert(15), extractMin(), insert(5), extractMin()",
+          "expected": "[15, 5]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 6,
+          "input": "insert(7), insert(1), insert(3), extractMin()",
+          "expected": "[1]",
+          "error": "runtime exception"
+        }
+      ]
+    },
+    {
+      "slug": "implement-min-stack",
+      "passed": 0,
+      "caseErrors": [
+        {
+          "order": 1,
+          "input": "push(-2), push(0), push(-3), getMin(), pop(), top(), getMin()",
+          "expected": "[-3, 0, -2]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 2,
+          "input": "push(1), push(2), getMin()",
+          "expected": "[1]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 3,
+          "input": "push(10), push(20), top(), getMin()",
+          "expected": "[20, 10]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 4,
+          "input": "push(-1), top(), getMin()",
+          "expected": "[-1, -1]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 5,
+          "input": "push(2), push(0), push(3), push(0), getMin(), pop(), getMin(), pop(), getMin(), pop(), getMin()",
+          "expected": "[0, 0, 0, 2]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 6,
+          "input": "push(5), push(4), push(3), push(2), push(1), getMin()",
+          "expected": "[1]",
+          "error": "runtime exception"
+        }
+      ]
+    },
+    {
+      "slug": "implement-queue-using-arrays",
+      "passed": 0,
+      "caseErrors": [
+        {
+          "order": 1,
+          "input": "push(2), push(3), pop(), push(4), pop()",
+          "expected": "[2, 3]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 2,
+          "input": "pop(), push(1), pop()",
+          "expected": "[-1, 1]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 3,
+          "input": "push(10), push(20), pop(), pop()",
+          "expected": "[10, 20]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 4,
+          "input": "push(5), pop(), pop()",
+          "expected": "[5, -1]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 5,
+          "input": "push(1), push(2), push(3), pop()",
+          "expected": "[1]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 6,
+          "input": "pop()",
+          "expected": "[-1]",
+          "error": "runtime exception"
+        }
+      ]
+    },
+    {
+      "slug": "implement-queue-using-linkedlist",
+      "passed": 0,
+      "caseErrors": [
+        {
+          "order": 1,
+          "input": "push(2), push(3), pop(), push(4), pop()",
+          "expected": "[2, 3]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 2,
+          "input": "pop()",
+          "expected": "[-1]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 3,
+          "input": "push(10), push(20), pop(), pop()",
+          "expected": "[10, 20]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 4,
+          "input": "push(1), pop()",
+          "expected": "[1]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 5,
+          "input": "push(5), push(6), push(7), pop()",
+          "expected": "[5]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 6,
+          "input": "push(100), pop(), pop()",
+          "expected": "[100, -1]",
+          "error": "runtime exception"
+        }
+      ]
+    },
+    {
+      "slug": "implement-queue-using-stack",
+      "passed": 0,
+      "caseErrors": [
+        {
+          "order": 1,
+          "input": "push(1), push(2), peek(), pop(), empty()",
+          "expected": "[1, 1, false]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 2,
+          "input": "push(5), pop(), empty()",
+          "expected": "[5, true]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 3,
+          "input": "push(10), push(20), pop(), pop()",
+          "expected": "[10, 20]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 4,
+          "input": "push(1), peek()",
+          "expected": "[1]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 5,
+          "input": "push(3), push(2), push(1), pop()",
+          "expected": "[3]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 6,
+          "input": "push(42), empty(), pop(), empty()",
+          "expected": "[false, 42, true]",
+          "error": "runtime exception"
+        }
+      ]
+    },
+    {
+      "slug": "implement-stack-using-arrays",
+      "passed": 0,
+      "caseErrors": [
+        {
+          "order": 1,
+          "input": "push(2), push(3), pop(), push(4), pop()",
+          "expected": "[3, 4]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 2,
+          "input": "pop(), push(4), pop()",
+          "expected": "[-1, 4]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 3,
+          "input": "push(10), push(20), pop(), pop()",
+          "expected": "[20, 10]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 4,
+          "input": "push(5), pop(), pop()",
+          "expected": "[5, -1]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 5,
+          "input": "push(1), push(2), push(3), pop()",
+          "expected": "[3]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 6,
+          "input": "pop()",
+          "expected": "[-1]",
+          "error": "runtime exception"
+        }
+      ]
+    },
+    {
+      "slug": "implement-stack-using-linkedlist",
+      "passed": 0,
+      "caseErrors": [
+        {
+          "order": 1,
+          "input": "push(10), push(20), pop(), top()",
+          "expected": "[20, 10]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 2,
+          "input": "pop()",
+          "expected": "[-1]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 3,
+          "input": "push(5), push(15), pop(), pop()",
+          "expected": "[15, 5]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 4,
+          "input": "push(1), top(), pop()",
+          "expected": "[1, 1]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 5,
+          "input": "push(3), push(2), push(1), pop()",
+          "expected": "[1]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 6,
+          "input": "push(100), pop(), pop()",
+          "expected": "[100, -1]",
+          "error": "runtime exception"
+        }
+      ]
+    },
+    {
+      "slug": "implement-stack-using-queue",
+      "passed": 0,
+      "caseErrors": [
+        {
+          "order": 1,
+          "input": "push(1), push(2), top(), pop(), empty()",
+          "expected": "[2, 2, false]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 2,
+          "input": "push(5), pop(), empty()",
+          "expected": "[5, true]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 3,
+          "input": "push(10), push(20), pop(), pop()",
+          "expected": "[20, 10]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 4,
+          "input": "push(1), top()",
+          "expected": "[1]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 5,
+          "input": "push(3), push(2), push(1), pop()",
+          "expected": "[1]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 6,
+          "input": "push(42), empty(), pop(), empty()",
+          "expected": "[false, 42, true]",
+          "error": "runtime exception"
+        }
+      ]
+    },
+    {
+      "slug": "introduction-to-bits-and-tricks",
+      "passed": 0,
+      "caseErrors": [
+        {
+          "order": 1,
+          "input": "n = 13, i = 2",
+          "expected": "true",
+          "actual": "AND: 4, OR: 13, XOR: 9"
+        },
+        {
+          "order": 2,
+          "input": "n = 13, i = 1",
+          "expected": "false",
+          "actual": "AND: 0, OR: 15, XOR: 15"
+        },
+        {
+          "order": 3,
+          "input": "n = 8, i = 3",
+          "expected": "true",
+          "actual": "AND: 8, OR: 8, XOR: 0"
+        },
+        {
+          "order": 4,
+          "input": "n = 8, i = 2",
+          "expected": "false",
+          "actual": "AND: 0, OR: 12, XOR: 12"
+        },
+        {
+          "order": 5,
+          "input": "n = 1, i = 0",
+          "expected": "true",
+          "actual": "AND: 1, OR: 1, XOR: 0"
+        },
+        {
+          "order": 6,
+          "input": "n = 16, i = 4",
+          "expected": "true",
+          "actual": "AND: 16, OR: 16, XOR: 0"
+        }
+      ]
+    },
+    {
+      "slug": "kosaraju's-algorithm",
+      "passed": 3,
+      "caseErrors": [
+        {
+          "order": 4,
+          "input": "V = 6, adj = [[2,3],[0],[1],[4],[]]",
+          "expected": "9",
+          "error": "runtime exception"
+        },
+        {
+          "order": 5,
+          "input": "V = 7, adj = [[2,3],[0],[1],[4],[]]",
+          "expected": "12",
+          "error": "runtime exception"
+        },
+        {
+          "order": 6,
+          "input": "V = 8, adj = [[2,3],[0],[1],[4],[]]",
+          "expected": "15",
+          "error": "runtime exception"
+        }
+      ]
+    },
+    {
+      "slug": "kth-element-of-2-sorted-arrays",
+      "passed": 3,
+      "caseErrors": [
+        {
+          "order": 4,
+          "input": "arr1 = [3,1,2], arr2 = [1,4,8,10], n = 5, m = 5, k = 8",
+          "expected": "[1,2,3]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 5,
+          "input": "arr1 = [1], arr2 = [1,4,8,10], n = 6, m = 6, k = 9",
+          "expected": "[1]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 6,
+          "input": "arr1 = [2,2,2,2], arr2 = [1,4,8,10], n = 7, m = 7, k = 10",
+          "expected": "[2,2,2,2]",
+          "error": "runtime exception"
+        }
+      ]
+    },
+    {
+      "slug": "kth-smallest-and-largest-element-in-bst",
+      "passed": 5,
+      "caseErrors": [
+        {
+          "order": 6,
+          "input": "root = [10, 5, 15, 2, 7, 12, 20], k = 4",
+          "expected": "7",
+          "actual": "10"
+        }
+      ]
+    },
+    {
+      "slug": "letter-combinations-of-a-phone-number",
+      "passed": 1,
+      "caseErrors": [
+        {
+          "order": 1,
+          "input": "digits = \"23\"",
+          "expected": "[\"ad\", \"ae\", \"af\", \"bd\", \"be\", \"bf\", \"cd\", \"ce\", \"cf\"]",
+          "actual": "[ad,ae,af,bd,be,bf,cd,ce,cf]"
+        },
+        {
+          "order": 3,
+          "input": "digits = \"2\"",
+          "expected": "[\"a\", \"b\", \"c\"]",
+          "actual": "[a,b,c]"
+        },
+        {
+          "order": 4,
+          "input": "digits = \"9\"",
+          "expected": "[\"w\", \"x\", \"y\", \"z\"]",
+          "actual": "[w,x,y,z]"
+        },
+        {
+          "order": 5,
+          "input": "digits = \"79\"",
+          "expected": "[\"pw\", \"px\", \"py\", \"pz\", \"qw\", \"qx\", \"qy\", \"qz\", \"rw\", \"rx\", \"ry\", \"rz\", \"sw\", \"sx\", \"sy\", \"sz\"]",
+          "actual": "[pw,px,py,pz,qw,qx,qy,qz,rw,rx,ry,rz,sw,sx,sy,sz]"
+        },
+        {
+          "order": 6,
+          "input": "digits = \"45\"",
+          "expected": "[\"gj\", \"gk\", \"gl\", \"hj\", \"hk\", \"hl\", \"ij\", \"ik\", \"il\"]",
+          "actual": "[gj,gk,gl,hj,hk,hl,ij,ik,il]"
+        }
+      ]
+    },
+    {
+      "slug": "longest-repeating-character-replacement",
+      "passed": 2,
+      "caseErrors": [
+        {
+          "order": 3,
+          "input": "s = \"abcba\", k = 4",
+          "expected": "5",
+          "error": "runtime exception"
+        },
+        {
+          "order": 4,
+          "input": "s = \"racecar\", k = 5",
+          "expected": "7",
+          "error": "runtime exception"
+        },
+        {
+          "order": 5,
+          "input": "s = \"leetcode\", k = 6",
+          "expected": "8",
+          "error": "runtime exception"
+        },
+        {
+          "order": 6,
+          "input": "s = \"a\", k = 7",
+          "expected": "1",
+          "error": "runtime exception"
+        }
+      ]
+    },
+    {
+      "slug": "longest-word-with-all-prefixes",
+      "passed": 0,
+      "caseErrors": [
+        {
+          "order": 1,
+          "input": "words = [\"n\", \"ni\", \"nin\", \"ninj\", \"ninja\", \"ninga\"]",
+          "expected": "\"ninja\"",
+          "error": "runtime exception"
+        },
+        {
+          "order": 2,
+          "input": "words = [\"ab\", \"bc\"]",
+          "expected": "\"\"",
+          "error": "runtime exception"
+        },
+        {
+          "order": 3,
+          "input": "words = [\"n\", \"ni\", \"nin\", \"ninj\", \"ninja\", \"ninga\"]",
+          "expected": "\"ninja\"",
+          "error": "runtime exception"
+        },
+        {
+          "order": 4,
+          "input": "words = [\"n\", \"ni\", \"nin\", \"ninj\", \"ninja\", \"ninga\"]",
+          "expected": "\"ninja\"",
+          "error": "runtime exception"
+        },
+        {
+          "order": 5,
+          "input": "words = [\"n\", \"ni\", \"nin\", \"ninj\", \"ninja\", \"ninga\"]",
+          "expected": "\"ninja\"",
+          "error": "runtime exception"
+        },
+        {
+          "order": 6,
+          "input": "words = [\"n\", \"ni\", \"nin\", \"ninj\", \"ninja\", \"ninga\"]",
+          "expected": "\"ninja\"",
+          "error": "runtime exception"
+        }
+      ]
+    },
+    {
+      "slug": "maximum-sum-combination",
+      "passed": 5,
+      "caseErrors": [
+        {
+          "order": 4,
+          "input": "A = [5, 1, 3], B = [4, 2, 6], C = 3",
+          "expected": "[11, 10, 9]",
+          "actual": "[11,9,9]"
+        }
+      ]
+    },
+    {
+      "slug": "minimum-window-subsequence",
+      "passed": 2,
+      "caseErrors": [
+        {
+          "order": 3,
+          "input": "s1 = \"abcba\", s2 = \"bde\"",
+          "expected": "\"abcba\"",
+          "actual": ""
+        },
+        {
+          "order": 4,
+          "input": "s1 = \"racecar\", s2 = \"bde\"",
+          "expected": "\"racecar\"",
+          "actual": ""
+        },
+        {
+          "order": 5,
+          "input": "s1 = \"leetcode\", s2 = \"bde\"",
+          "expected": "\"edocteel\"",
+          "actual": ""
+        },
+        {
+          "order": 6,
+          "input": "s1 = \"a\", s2 = \"bde\"",
+          "expected": "\"a\"",
+          "actual": ""
+        }
+      ]
+    },
+    {
+      "slug": "minimum-window-substring-",
+      "passed": 2,
+      "caseErrors": [
+        {
+          "order": 3,
+          "input": "s = \"abcba\", t = \"ABC\"",
+          "expected": "\"abcba\"",
+          "actual": ""
+        },
+        {
+          "order": 4,
+          "input": "s = \"racecar\", t = \"ABC\"",
+          "expected": "\"racecar\"",
+          "actual": ""
+        },
+        {
+          "order": 5,
+          "input": "s = \"leetcode\", t = \"ABC\"",
+          "expected": "\"edocteel\"",
+          "actual": ""
+        },
+        {
+          "order": 6,
+          "input": "s = \"a\", t = \"ABC\"",
+          "expected": "\"a\"",
+          "actual": ""
+        }
+      ]
+    },
+    {
+      "slug": "number-of-ways-to-arrive-at-destination",
+      "passed": 4,
+      "caseErrors": [
+        {
+          "order": 3,
+          "input": "n = 5, roads = [[0,6,7],[0,1,2],[1,2,3],[1,3,3],[6,3,3],[3,5,1],[6,5,1],[2,5,1],[0,4,5],[4,6,2]]",
+          "expected": "8",
+          "error": "runtime exception"
+        },
+        {
+          "order": 4,
+          "input": "n = 6, roads = [[0,6,7],[0,1,2],[1,2,3],[1,3,3],[6,3,3],[3,5,1],[6,5,1],[2,5,1],[0,4,5],[4,6,2]]",
+          "expected": "12",
+          "error": "runtime exception"
+        }
+      ]
+    },
+    {
+      "slug": "remove-k-digits",
+      "passed": 5,
+      "caseErrors": [
+        {
+          "order": 6,
+          "input": "num = \"a\", k = 8",
+          "expected": "\"a\"",
+          "error": "runtime exception"
+        }
+      ]
+    },
+    {
+      "slug": "removing-given-node-in-dll",
+      "passed": 0,
+      "caseErrors": [
+        {
+          "order": 1,
+          "input": "head = [1, 2, 3], val = 2",
+          "expected": "[1, 3]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 2,
+          "input": "head = [1, 2, 3, 4], val = 3",
+          "expected": "[1, 2, 4]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 3,
+          "input": "head = [5, 10, 15], val = 10",
+          "expected": "[5, 15]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 4,
+          "input": "head = [1, 2], val = 2",
+          "expected": "[1]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 5,
+          "input": "head = [10, 20, 30, 40], val = 20",
+          "expected": "[10, 30, 40]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 6,
+          "input": "head = [7, 8, 9], val = 8",
+          "expected": "[7, 9]",
+          "error": "runtime exception"
+        }
+      ]
+    },
+    {
+      "slug": "roman-to-integer",
+      "passed": 5,
+      "caseErrors": [
+        {
+          "order": 3,
+          "input": "s = \"MCMXCIV\"",
+          "expected": "1994",
+          "actual": "394"
+        }
+      ]
+    },
+    {
+      "slug": "stock-span-problem",
+      "passed": 0,
+      "caseErrors": [
+        {
+          "order": 1,
+          "input": "next(100), next(80), next(60), next(70), next(60), next(75), next(85)",
+          "expected": "[1, 1, 1, 2, 1, 4, 6]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 2,
+          "input": "next(10), next(20), next(30)",
+          "expected": "[1, 2, 3]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 3,
+          "input": "next(31), next(41), next(48), next(59), next(79)",
+          "expected": "[1, 2, 3, 4, 5]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 4,
+          "input": "next(100), next(90), next(80), next(70)",
+          "expected": "[1, 1, 1, 1]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 5,
+          "input": "next(50), next(60), next(50), next(60)",
+          "expected": "[1, 2, 1, 4]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 6,
+          "input": "next(10)",
+          "expected": "[1]",
+          "error": "runtime exception"
+        }
+      ]
+    },
+    {
+      "slug": "trie-implementation-and-advanced-operations",
+      "passed": 0,
+      "caseErrors": [
+        {
+          "order": 1,
+          "input": "insert(\"apple\"), insert(\"apple\"), insert(\"apps\"), countWordsEqualTo(\"apple\"), countWordsStartingWith(\"app\"), erase(\"apple\"), countWordsEqualTo(\"apple\")",
+          "expected": "[2, 3, 1]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 2,
+          "input": "insert(\"code\"), erase(\"code\"), countWordsEqualTo(\"code\")",
+          "expected": "0",
+          "error": "runtime exception"
+        },
+        {
+          "order": 3,
+          "input": "insert(\"apple\"), insert(\"apple\"), insert(\"apps\"), countWordsEqualTo(\"apple\"), countWordsStartingWith(\"app\"), erase(\"apple\"), countWordsEqualTo(\"apple\")",
+          "expected": "[8, 9, 7]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 4,
+          "input": "insert(\"apple\"), insert(\"apple\"), insert(\"apps\"), countWordsEqualTo(\"apple\"), countWordsStartingWith(\"app\"), erase(\"apple\"), countWordsEqualTo(\"apple\")",
+          "expected": "[10, 11, 9]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 5,
+          "input": "insert(\"apple\"), insert(\"apple\"), insert(\"apps\"), countWordsEqualTo(\"apple\"), countWordsStartingWith(\"app\"), erase(\"apple\"), countWordsEqualTo(\"apple\")",
+          "expected": "[12, 13, 11]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 6,
+          "input": "insert(\"apple\"), insert(\"apple\"), insert(\"apps\"), countWordsEqualTo(\"apple\"), countWordsStartingWith(\"app\"), erase(\"apple\"), countWordsEqualTo(\"apple\")",
+          "expected": "[14, 15, 13]",
+          "error": "runtime exception"
+        }
+      ]
+    },
+    {
+      "slug": "trie-implementation-and-operations",
+      "passed": 0,
+      "caseErrors": [
+        {
+          "order": 1,
+          "input": "Trie(), insert(\"apple\"), search(\"apple\"), search(\"app\"), startsWith(\"app\"), insert(\"app\"), search(\"app\")",
+          "expected": "[null, null, true, false, true, null, true]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 2,
+          "input": "insert(\"cat\"), search(\"car\")",
+          "expected": "false",
+          "error": "runtime exception"
+        },
+        {
+          "order": 3,
+          "input": "Trie(), insert(\"apple\"), search(\"apple\"), search(\"app\"), startsWith(\"app\"), insert(\"app\"), search(\"app\")",
+          "expected": "[null, null, true, false, true, null, true]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 4,
+          "input": "Trie(), insert(\"apple\"), search(\"apple\"), search(\"app\"), startsWith(\"app\"), insert(\"app\"), search(\"app\")",
+          "expected": "[null, null, true, false, true, null, true]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 5,
+          "input": "Trie(), insert(\"apple\"), search(\"apple\"), search(\"app\"), startsWith(\"app\"), insert(\"app\"), search(\"app\")",
+          "expected": "[null, null, true, false, true, null, true]",
+          "error": "runtime exception"
+        },
+        {
+          "order": 6,
+          "input": "Trie(), insert(\"apple\"), search(\"apple\"), search(\"app\"), startsWith(\"app\"), insert(\"app\"), search(\"app\")",
+          "expected": "[null, null, true, false, true, null, true]",
+          "error": "runtime exception"
+        }
+      ]
+    },
+    {
+      "slug": "unbounded-knapsack",
+      "passed": 2,
+      "caseErrors": [
+        {
+          "order": 3,
+          "input": "n = 5, w = 4, val = [1,30], wt = [1,3]",
+          "expected": "200",
+          "error": "runtime exception"
+        },
+        {
+          "order": 4,
+          "input": "n = 6, w = 5, val = [1,30], wt = [1,3]",
+          "expected": "300",
+          "error": "runtime exception"
+        },
+        {
+          "order": 5,
+          "input": "n = 7, w = 6, val = [1,30], wt = [1,3]",
+          "expected": "400",
+          "error": "runtime exception"
+        },
+        {
+          "order": 6,
+          "input": "n = 8, w = 7, val = [1,30], wt = [1,3]",
+          "expected": "500",
+          "error": "runtime exception"
+        }
+      ]
+    }
+  ]
+}

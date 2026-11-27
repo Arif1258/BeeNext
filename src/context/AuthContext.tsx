@@ -23,6 +23,9 @@ export interface User {
   progress?: Array<{ problemId: string; status: "IN_PROGRESS" | "COMPLETED" }>;
   dsaQualifiedAt?: string | null;
   certificateClaimedAt?: string | null;
+  currentStreak?: number;
+  longestStreak?: number;
+  isDailyChallengeCompletedToday?: boolean;
   membershipType?: "NORMAL" | "PLUS";
   membershipPlan?: "MONTHLY" | "YEARLY" | "LIFETIME_PLUS" | string | null;
   membershipStartedAt?: string | null;
