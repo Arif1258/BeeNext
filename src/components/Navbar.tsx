@@ -97,11 +97,12 @@ export default function Navbar() {
   return (
     <>
       <header className="fixed top-0 left-0 right-0 z-40 w-full border-b border-brand-border bg-brand-black/95 backdrop-blur-md">
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-          {/* Left Side: Brand Logo + Primary Navigation */}
-          <div className="flex items-center space-x-6 lg:space-x-8">
-            {/* Brand Logo - Redirects to /topics */}
-            <Link href="/topics" className="flex items-center space-x-3 group flex-shrink-0 min-[1344px]:-translate-x-8">
+        <div className="w-full px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto flex h-16 max-w-7xl items-center justify-between">
+            {/* Left Side: Brand Logo + Primary Navigation */}
+            <div className="flex items-center space-x-6 lg:space-x-8">
+              {/* Brand Logo - Redirects to /topics */}
+              <Link href="/topics" className="flex items-center space-x-3 group flex-shrink-0">
               <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-red text-white font-mono font-bold shadow-brand group-hover:scale-105 transition-transform">
                 B&gt;
               </div>
@@ -316,6 +317,7 @@ export default function Navbar() {
             </div>
           </div>
         </div>
+      </div>
 
         {/* Mobile Drawer (Topics, Notes, Membership, About) */}
         {mobileMenuOpen && (
