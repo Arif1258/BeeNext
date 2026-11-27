@@ -9,6 +9,7 @@ import { useCart } from "@/context/CartContext";
 import {
   BookOpen,
   FileText,
+  Briefcase,
   Sparkles,
   Info,
   User,
@@ -75,6 +76,9 @@ export default function Navbar() {
     if (path === "/orders") {
       return pathname === "/orders" || pathname === "/my-orders";
     }
+    if (path === "/job-alerts") {
+      return pathname === "/job-alerts" || pathname?.startsWith("/job-alerts/");
+    }
     if (path === "/about") {
       return pathname === "/about";
     }
@@ -138,7 +142,19 @@ export default function Navbar() {
                 <span>Notes</span>
               </Link>
 
-              {/* 3. Membership */}
+              {/* 3. Job Alerts */}
+              <Link
+                href="/job-alerts"
+                className={`flex items-center gap-1.5 px-3 py-2 text-sm font-medium rounded-md transition-colors ${isActive("/job-alerts")
+                  ? "text-brand-red bg-brand-redMuted font-semibold"
+                  : "text-brand-muted hover:text-white hover:bg-brand-card"
+                  }`}
+              >
+                <Briefcase className="h-4 w-4" />
+                <span>Job Alerts</span>
+              </Link>
+
+              {/* 4. Membership */}
               <Link
                 href="/membership"
                 className={`flex items-center gap-1.5 px-3 py-2 text-sm font-medium rounded-md transition-colors ${isActive("/membership")
@@ -330,7 +346,20 @@ export default function Navbar() {
               <span>Notes</span>
             </Link>
 
-            {/* 3. Membership */}
+            {/* 3. Job Alerts */}
+            <Link
+              href="/job-alerts"
+              onClick={() => setMobileMenuOpen(false)}
+              className={`flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm font-medium ${isActive("/job-alerts")
+                ? "bg-brand-redMuted text-brand-red font-semibold"
+                : "text-brand-muted hover:text-white hover:bg-brand-card"
+                }`}
+            >
+              <Briefcase className="h-4 w-4" />
+              <span>Job Alerts</span>
+            </Link>
+
+            {/* 4. Membership */}
             <Link
               href="/membership"
               onClick={() => setMobileMenuOpen(false)}

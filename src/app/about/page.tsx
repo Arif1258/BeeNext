@@ -367,6 +367,26 @@ export default function AboutPage() {
                     .
                   </div>
                 </div>
+
+                {/* 13. Job Alerts & Tech Opportunities */}
+                <div className="p-4 sm:p-5 rounded-xl bg-neutral-900/90 border border-neutral-800 hover:border-neutral-700 transition-colors space-y-2 shadow-sm">
+                  <div className="flex items-center gap-2.5">
+                    <div className="flex h-7 w-7 items-center justify-center rounded-md bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 shrink-0">
+                      <Briefcase className="h-3.5 w-3.5" />
+                    </div>
+                    <h4 className="font-semibold text-white text-sm">Job Alerts &amp; Tech Opportunities</h4>
+                  </div>
+                  <p className="text-neutral-400 text-xs leading-relaxed">
+                    Explore curated software engineering openings, internships, and off-campus recruitment drives from verified tech companies. Features search, job type filters (Full-Time, Internship, Off-Campus), batch eligibility criteria, and direct links to official company careers portals with zero middleman fees. Both Normal and Plus users can apply without restrictions.
+                  </p>
+                  <div className="pt-1 text-[11px] font-mono text-neutral-500">
+                    <span className="text-neutral-400 font-medium">Access:</span>{" "}
+                    <Link href="/job-alerts" className="text-brand-red hover:underline">
+                      Job Alerts (/job-alerts)
+                    </Link>{" "}
+                    in the top navigation bar.
+                  </div>
+                </div>
               </div>
             </div>
           </div>

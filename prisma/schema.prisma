@@ -523,3 +523,32 @@ model DailyChallengeAttempt {
   @@index([date])
   @@map("daily_challenge_attempts")
 }
+
+enum JobType {
+  FULL_TIME
+  INTERNSHIP
+  OFF_CAMPUS
+}
+
+model JobListing {
+  id             String    @id @default(cuid())
+  companyName    String
+  companyLogo    String?
+  role           String
+  jobType        JobType   @default(FULL_TIME)
+  batches        String    // e.g. "2024, 2025, 2026"
+  qualifications String?   // e.g. "B.E / B.Tech / MCA / M.Tech"
+  experience     String?   // e.g. "0-2 Years" or "Freshers"
+  location       String    // e.g. "Bengaluru, India" or "Remote"
+  description    String?   @db.Text
+  applyUrl       String    @db.Text
+  deadline       DateTime?
+  isPublished    Boolean   @default(true)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  @@index([isPublished])
+  @@index([jobType])
+  @@index([createdAt])
+  @@map("job_listings")
+}

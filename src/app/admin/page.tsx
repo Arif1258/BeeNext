@@ -33,9 +33,11 @@ import {
   Sparkles,
   CreditCard,
   Zap,
+  Briefcase,
 } from "lucide-react";
+import AdminJobAlertsTab from "@/components/AdminJobAlertsTab";
 
-type TabKey = "OVERVIEW" | "USERS" | "ORDERS";
+type TabKey = "OVERVIEW" | "USERS" | "ORDERS" | "JOB_ALERTS";
 
 interface UserItem {
   id: string;
@@ -294,6 +296,7 @@ export default function AdminDashboardPage() {
                 { key: "OVERVIEW", label: "Overview", icon: LayoutDashboard },
                 { key: "USERS", label: `Users (${usersList.length})`, icon: Users },
                 { key: "ORDERS", label: `Orders (${ordersList.length})`, icon: ShoppingBag },
+                { key: "JOB_ALERTS", label: "Job Alerts", icon: Briefcase },
               ].map((tab) => {
                 const Icon = tab.icon;
                 const isActive = activeTab === tab.key;
@@ -786,6 +789,7 @@ export default function AdminDashboardPage() {
         {/* ============================================================== */}
         {/* 3. ORDERS TAB (Membership & Verified Payment Management)       */}
         {/* ============================================================== */}
+        {/* Orders Tab */}
         {activeTab === "ORDERS" && (
           <div className="space-y-4">
             {/* Filter Bar */}
@@ -980,6 +984,11 @@ export default function AdminDashboardPage() {
               </div>
             )}
           </div>
+        )}
+
+        {/* Job Alerts Tab */}
+        {activeTab === "JOB_ALERTS" && (
+          <AdminJobAlertsTab />
         )}
 
       </main>
