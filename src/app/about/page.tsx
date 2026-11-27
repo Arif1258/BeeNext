@@ -2,19 +2,23 @@ import React from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import {
-  Sparkles,
   Compass,
   BookOpen,
-  Layers,
+  Code2,
+  Terminal,
+  PlayCircle,
+  Video,
+  Flame,
+  Activity,
+  FileText,
+  Briefcase,
+  Crown,
+  Zap,
   Award,
   Mail,
   Share2,
-  Video,
-  Code2,
-  TrendingUp,
-  CheckCircle2,
-  Check,
   ArrowUpRight,
+  Sparkles,
 } from "lucide-react";
 import { CUSTOMER_SUPPORT_EMAIL } from "@/components/Footer";
 
@@ -37,7 +41,7 @@ const SOCIAL_MEDIA_CHANNELS: SocialMediaChannel[] = [
 export const metadata: Metadata = {
   title: "About BeeNext - Modern DSA Learning Platform",
   description:
-    "BeeNext is a modern Data Structures & Algorithms learning platform featuring 495 curated problems, interactive Monaco coding playground, Striver video solutions, and comprehensive computer science notes.",
+    "BeeNext is a modern Data Structures & Algorithms learning platform featuring 495 curated problems, interactive Monaco coding playground, Striver video solutions, comprehensive notes, company prep, and certification.",
 };
 
 export default function AboutPage() {
@@ -48,7 +52,6 @@ export default function AboutPage() {
         {/* HERO HEADER                                               */}
         {/* ========================================================= */}
         <div className="space-y-4 text-center sm:text-left border-b border-brand-border/80 pb-8 sm:pb-10">
-
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white leading-tight">
             <span className="text-brand-red">BEENEXT</span>
           </h1>
@@ -78,269 +81,299 @@ export default function AboutPage() {
             <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
               Master DSA &amp; Ace Technical Interviews
             </h3>
-            <p className="text-neutral-300 text-sm sm:text-base leading-relaxed">
-              BeeNext is a comprehensive Data Structures and Algorithms learning platform designed to empower computer science students, aspiring software engineers, and working professionals to build strong technical foundations and develop real-world problem-solving skills. Our carefully structured curriculum follows Striver&apos;s renowned A to Z DSA Sheet, providing a systematic learning journey from fundamental concepts to advanced algorithms. With curated coding problems, video explanations, an interactive coding playground, detailed solutions, premium study notes, and company-specific placement preparation, BeeNext brings essential learning resources together in one place. Our mission is to make quality technical education accessible, simplify interview preparation, and help learners confidently take the next step in their software engineering careers.
-            </p>
+            BeeNext is a comprehensive Data Structures and Algorithms learning platform designed to empower computer science students, aspiring software engineers, and working professionals to build strong technical foundations and develop real-world problem-solving skills.
+
+            Our carefully structured curriculum follows Striver's renowned A to Z DSA Sheet, providing a systematic learning journey from fundamental concepts to advanced algorithms. With curated coding problems, video explanations, an interactive coding playground, detailed solutions, premium study notes, and company-specific placement preparation, BeeNext brings essential learning resources together in one place.
+
+            As BeeNext continues to grow, we plan to introduce more coding problems, our own dedicated video explanations, and comprehensive courses designed to take learners from **Zero to Hero**, covering fundamental concepts through advanced technical skills.
+
+            Our mission is to make quality technical education accessible, simplify interview preparation, and help learners confidently take the next step in their software engineering careers.
+
+            Stay connected with our website and follow our official social media handles for upcoming courses, new features, learning resources, and the latest updates.
+
           </div>
         </section>
 
         {/* ========================================================= */}
-        {/* 2. THE CURRICULUM                                         */}
+        {/* 2. WEBSITE GUIDE                                          */}
         {/* ========================================================= */}
-        <section className="space-y-4">
+        <section className="space-y-6">
           <div className="flex items-center gap-3">
             <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-brand-red/15 border border-brand-red/30 text-brand-red shrink-0">
               <BookOpen className="h-4 w-4" />
             </div>
             <div className="flex items-center gap-3 flex-1 min-w-0">
               <h2 className="text-base sm:text-lg font-bold text-white tracking-wide uppercase font-mono">
-                The Curriculum
+                Website Guide
               </h2>
               <div className="h-px flex-1 bg-gradient-to-r from-neutral-800 to-transparent" />
             </div>
           </div>
 
-          <div className="rounded-2xl border border-brand-border bg-gradient-to-b from-brand-card to-brand-blackDeep p-6 sm:p-8 space-y-5 shadow-card hover:border-brand-borderHover transition-colors">
-            <p className="text-neutral-300 text-sm sm:text-base leading-relaxed">
-              The platform organizes 495 carefully curated problems across 20 core topics, taking learners from foundational arrays and strings to advanced dynamic programming, graphs, trees, tries, and bit manipulation.
-            </p>
+          <p className="text-neutral-400 text-xs sm:text-sm leading-relaxed">
+            Explore BeeNext's features and learn how to use them effectively.
+          </p>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-1">
-              {/* Feature 1: Striver Video Solutions */}
-              <div className="p-4 rounded-xl bg-neutral-900/90 border border-neutral-800 hover:border-neutral-700 transition-colors space-y-1.5 shadow-sm group">
-                <div className="flex items-center gap-2.5">
-                  <div className="flex h-7 w-7 items-center justify-center rounded-md bg-red-500/10 border border-red-500/20 text-brand-red shrink-0">
-                    <Video className="h-3.5 w-3.5" />
-                  </div>
-                  <span className="font-semibold text-white text-sm group-hover:text-brand-red transition-colors">
-                    Striver Video Solutions
-                  </span>
-                </div>
-                <p className="text-neutral-400 text-xs leading-relaxed pl-9">
-                  Curated step-by-step video explanations with dry runs and intuition.
-                </p>
-              </div>
+          <div className="space-y-6">
+            {/* Guide Category 1: Curriculum & Problem Solving */}
+            <div className="space-y-3">
+              <h3 className="text-xs sm:text-sm font-mono font-bold text-neutral-300 uppercase tracking-wider flex items-center gap-2">
+                <span className="h-1.5 w-1.5 rounded-full bg-brand-red" />
+                Curriculum &amp; Solutions
+              </h3>
 
-              {/* Feature 2: LeetCode Integration */}
-              <div className="p-4 rounded-xl bg-neutral-900/90 border border-neutral-800 hover:border-neutral-700 transition-colors space-y-1.5 shadow-sm group">
-                <div className="flex items-center gap-2.5">
-                  <div className="flex h-7 w-7 items-center justify-center rounded-md bg-amber-500/10 border border-amber-500/20 text-amber-400 shrink-0">
-                    <Code2 className="h-3.5 w-3.5" />
-                  </div>
-                  <span className="font-semibold text-white text-sm group-hover:text-amber-400 transition-colors">
-                    LeetCode Integration
-                  </span>
-                </div>
-                <p className="text-neutral-400 text-xs leading-relaxed pl-9">
-                  Direct problem links for comprehensive external practice and testing.
-                </p>
-              </div>
-
-              {/* Feature 3: Progress Tracking */}
-              <div className="p-4 rounded-xl bg-neutral-900/90 border border-neutral-800 hover:border-neutral-700 transition-colors space-y-1.5 shadow-sm group">
-                <div className="flex items-center gap-2.5">
-                  <div className="flex h-7 w-7 items-center justify-center rounded-md bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 shrink-0">
-                    <TrendingUp className="h-3.5 w-3.5" />
-                  </div>
-                  <span className="font-semibold text-white text-sm group-hover:text-emerald-400 transition-colors">
-                    Progress Tracking
-                  </span>
-                </div>
-                <p className="text-neutral-400 text-xs leading-relaxed pl-9">
-                  Difficulty breakdown (Easy, Medium, Hard) with real-time sheet completion metrics.
-                </p>
-              </div>
-
-              {/* Feature 4: Complete Solutions */}
-              <div className="p-4 rounded-xl bg-neutral-900/90 border border-neutral-800 hover:border-neutral-700 transition-colors space-y-1.5 shadow-sm group">
-                <div className="flex items-center gap-2.5">
-                  <div className="flex h-7 w-7 items-center justify-center rounded-md bg-sky-500/10 border border-sky-500/20 text-sky-400 shrink-0">
-                    <CheckCircle2 className="h-3.5 w-3.5" />
-                  </div>
-                  <span className="font-semibold text-white text-sm group-hover:text-sky-400 transition-colors">
-                    Complete Solutions
-                  </span>
-                </div>
-                <p className="text-neutral-400 text-xs leading-relaxed pl-9">
-                  Syntax-highlighted Brute Force and Optimal implementations with Time &amp; Space complexity.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ========================================================= */}
-        {/* 3. MEMBERSHIP TIERS                                       */}
-        {/* ========================================================= */}
-        <section className="space-y-4">
-          <div className="flex items-center gap-3">
-            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-brand-red/15 border border-brand-red/30 text-brand-red shrink-0">
-              <Layers className="h-4 w-4" />
-            </div>
-            <div className="flex items-center gap-3 flex-1 min-w-0">
-              <h2 className="text-base sm:text-lg font-bold text-white tracking-wide uppercase font-mono">
-                Membership Tiers
-              </h2>
-              <div className="h-px flex-1 bg-gradient-to-r from-neutral-800 to-transparent" />
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* Normal Tier Box */}
-            <div className="rounded-2xl border border-brand-border bg-gradient-to-b from-brand-card to-brand-blackDeep p-6 sm:p-7 space-y-5 shadow-card hover:border-neutral-700 transition-colors flex flex-col justify-between">
-              <div className="space-y-4">
-                <div className="flex items-center justify-between border-b border-neutral-800 pb-3">
-                  <div>
-                    <h3 className="font-bold text-white text-lg">Normal (Free)</h3>
-                    <p className="text-xs text-neutral-400">Essential DSA Foundation</p>
-                  </div>
-                  <span className="font-mono text-xs px-2.5 py-1 rounded-full bg-neutral-800 text-neutral-300 font-semibold border border-neutral-700">
-                    FREE FOREVER
-                  </span>
-                </div>
-
-                <ul className="space-y-2.5 text-xs sm:text-sm text-neutral-300">
-                  <li className="flex items-start gap-2.5">
-                    <Check className="h-4 w-4 text-neutral-500 shrink-0 mt-0.5" />
-                    <span>Full access to all 495 DSA sheet problems</span>
-                  </li>
-                  <li className="flex items-start gap-2.5">
-                    <Check className="h-4 w-4 text-neutral-500 shrink-0 mt-0.5" />
-                    <span>Curated Striver YouTube video walkthroughs</span>
-                  </li>
-                  <li className="flex items-start gap-2.5">
-                    <Check className="h-4 w-4 text-neutral-500 shrink-0 mt-0.5" />
-                    <span>Personal progress tracking &amp; difficulty breakdown</span>
-                  </li>
-                  <li className="flex items-start gap-2.5">
-                    <Check className="h-4 w-4 text-neutral-500 shrink-0 mt-0.5" />
-                    <span>Open Monaco editor and write solution code</span>
-                  </li>
-                </ul>
-              </div>
-
-              <div className="pt-2">
-                <Link
-                  href="/topics"
-                  className="w-full py-2.5 px-4 rounded-xl bg-neutral-900 hover:bg-neutral-800 border border-neutral-800 text-neutral-200 hover:text-white font-mono text-xs font-semibold transition-all flex items-center justify-center gap-1.5"
-                >
-                  <span>Start Free Practice</span>
-                </Link>
-              </div>
-            </div>
-
-            {/* Plus Tier Box (Highlighted) */}
-            <div className="rounded-2xl border border-brand-red/40 bg-gradient-to-b from-brand-card via-brand-card to-brand-blackDeep p-6 sm:p-7 space-y-5 shadow-brand relative overflow-hidden flex flex-col justify-between group hover:border-brand-red/60 transition-all">
-              <div className="absolute top-0 right-0 w-40 h-40 bg-brand-red/10 rounded-full blur-2xl pointer-events-none" />
-
-              <div className="space-y-4 relative">
-                <div className="flex items-center justify-between border-b border-brand-border pb-3">
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <h3 className="font-bold text-white text-lg">BeeNext Plus</h3>
-                      <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase bg-brand-red text-white shadow-sm">
-                        Pro
-                      </span>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+                {/* 1. DSA Sheet and Topic-wise Problems */}
+                <div className="p-4 sm:p-5 rounded-xl bg-neutral-900/90 border border-neutral-800 hover:border-neutral-700 transition-colors space-y-2 shadow-sm">
+                  <div className="flex items-center gap-2.5">
+                    <div className="flex h-7 w-7 items-center justify-center rounded-md bg-brand-red/10 border border-brand-red/20 text-brand-red shrink-0">
+                      <Code2 className="h-3.5 w-3.5" />
                     </div>
-                    <p className="text-xs text-neutral-400">Complete Cloud Sandbox &amp; Notes</p>
+                    <h4 className="font-semibold text-white text-sm">DSA Sheet &amp; Topic Problems</h4>
                   </div>
-                  <span className="font-mono text-xs font-bold text-brand-red bg-brand-red/10 border border-brand-red/25 px-2.5 py-1 rounded-full">
-                    ₹79/mo or ₹599/yr
-                  </span>
+                  <p className="text-neutral-400 text-xs leading-relaxed">
+                    Practice 495 interview-relevant questions organized into 20 structured topics (from Arrays to Dynamic Programming). Each problem features Easy, Medium, or Hard difficulty tags, real-time search, and completion checkmarks.
+                  </p>
+                  <div className="pt-1 text-[11px] font-mono text-neutral-500">
+                    <span className="text-neutral-400 font-medium">Access:</span>{" "}
+                    <Link href="/topics" className="text-brand-red hover:underline">
+                      DSA Sheet (/topics)
+                    </Link>
+                  </div>
                 </div>
 
-                <ul className="space-y-2.5 text-xs sm:text-sm text-neutral-300">
-                  <li className="flex items-start gap-2.5">
-                    <Check className="h-4 w-4 text-brand-red shrink-0 mt-0.5" />
-                    <span className="font-medium text-white">Everything included in the Normal tier</span>
-                  </li>
-                  <li className="flex items-start gap-2.5">
-                    <Check className="h-4 w-4 text-brand-red shrink-0 mt-0.5" />
-                    <span>Instant cloud code execution with Judge0</span>
-                  </li>
-                  <li className="flex items-start gap-2.5">
-                    <Check className="h-4 w-4 text-brand-red shrink-0 mt-0.5" />
-                    <span>Submit code against hidden test cases &amp; verdicts</span>
-                  </li>
-                  <li className="flex items-start gap-2.5">
-                    <Check className="h-4 w-4 text-brand-red shrink-0 mt-0.5" />
-                    <span>Unlocked Brute Force &amp; Optimal solutions</span>
-                  </li>
-                  <li className="flex items-start gap-2.5">
-                    <Check className="h-4 w-4 text-brand-red shrink-0 mt-0.5" />
-                    <span>Unrestricted access to all 5 Premium Notes libraries</span>
-                  </li>
-                  <li className="flex items-start gap-2.5">
-                    <Check className="h-4 w-4 text-brand-red shrink-0 mt-0.5" />
-                    <span>Completion Certificate download (at &ge;85% sheet solved)</span>
-                  </li>
-                </ul>
-              </div>
+                {/* 2. Brute Force and Optimal Solutions */}
+                <div className="p-4 sm:p-5 rounded-xl bg-neutral-900/90 border border-neutral-800 hover:border-neutral-700 transition-colors space-y-2 shadow-sm">
+                  <div className="flex items-center gap-2.5">
+                    <div className="flex h-7 w-7 items-center justify-center rounded-md bg-amber-500/10 border border-amber-500/20 text-amber-400 shrink-0">
+                      <FileText className="h-3.5 w-3.5" />
+                    </div>
+                    <h4 className="font-semibold text-white text-sm">Brute Force &amp; Optimal Solutions</h4>
+                  </div>
+                  <p className="text-neutral-400 text-xs leading-relaxed">
+                    Study tabbed, syntax-highlighted code implementations for both brute force and optimal approaches. Every solution includes comprehensive Time (TC) and Space Complexity (SC) breakdowns.
+                  </p>
+                  <div className="pt-1 text-[11px] font-mono text-neutral-500">
+                    <span className="text-neutral-400 font-medium">Access:</span> Click the Brute Force or Optimal buttons on any problem.
+                  </div>
+                </div>
 
-              <div className="pt-2">
-                <Link
-                  href="/membership"
-                  className="w-full py-2.5 px-4 rounded-xl bg-brand-red hover:bg-brand-redHover text-white font-mono text-xs font-bold transition-all shadow-brand flex items-center justify-center gap-1.5"
-                >
-                  <Sparkles className="h-3.5 w-3.5" />
-                  <span>Upgrade to Plus</span>
-                </Link>
+                {/* 3. YouTube Video Explanations */}
+                <div className="p-4 sm:p-5 rounded-xl bg-neutral-900/90 border border-neutral-800 hover:border-neutral-700 transition-colors space-y-2 shadow-sm">
+                  <div className="flex items-center gap-2.5">
+                    <div className="flex h-7 w-7 items-center justify-center rounded-md bg-red-500/10 border border-red-500/20 text-[#FF0000] shrink-0">
+                      <Video className="h-3.5 w-3.5" />
+                    </div>
+                    <h4 className="font-semibold text-white text-sm">YouTube Video Explanations</h4>
+                  </div>
+                  <p className="text-neutral-400 text-xs leading-relaxed">
+                    Watch curated video walkthroughs by Striver directly linked to each problem. Master algorithmic intuition, manual dry runs, and edge-case handling before writing code.
+                  </p>
+                  <div className="pt-1 text-[11px] font-mono text-neutral-500">
+                    <span className="text-neutral-400 font-medium">Access:</span> Click the Video button on any problem card.
+                  </div>
+                </div>
+
+                {/* 4. Daily Challenge & Streak System */}
+                <div className="p-4 sm:p-5 rounded-xl bg-neutral-900/90 border border-neutral-800 hover:border-neutral-700 transition-colors space-y-2 shadow-sm">
+                  <div className="flex items-center gap-2.5">
+                    <div className="flex h-7 w-7 items-center justify-center rounded-md bg-orange-500/10 border border-orange-500/20 text-orange-400 shrink-0">
+                      <Flame className="h-3.5 w-3.5" />
+                    </div>
+                    <h4 className="font-semibold text-white text-sm">Daily Challenge &amp; Streak System</h4>
+                  </div>
+                  <p className="text-neutral-400 text-xs leading-relaxed">
+                    One non-repeating problem is selected daily from 464 coding questions, synchronized for all users and resetting at midnight IST (Asia/Kolkata). Solving it advances your active flame streak in the navbar.
+                  </p>
+                  <div className="pt-1 text-[11px] font-mono text-neutral-500">
+                    <span className="text-neutral-400 font-medium">Access:</span> Top of{" "}
+                    <Link href="/topics" className="text-brand-red hover:underline">
+                      /topics
+                    </Link>{" "}
+                    &amp; flame icon in the top navbar.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Guide Category 2: Interactive Coding & Sandbox */}
+            <div className="space-y-3">
+              <h3 className="text-xs sm:text-sm font-mono font-bold text-neutral-300 uppercase tracking-wider flex items-center gap-2">
+                <span className="h-1.5 w-1.5 rounded-full bg-brand-red" />
+                Playground &amp; Execution
+              </h3>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+                {/* 5. Interactive Coding Playground & Languages */}
+                <div className="p-4 sm:p-5 rounded-xl bg-neutral-900/90 border border-neutral-800 hover:border-neutral-700 transition-colors space-y-2 shadow-sm">
+                  <div className="flex items-center gap-2.5">
+                    <div className="flex h-7 w-7 items-center justify-center rounded-md bg-sky-500/10 border border-sky-500/20 text-sky-400 shrink-0">
+                      <Terminal className="h-3.5 w-3.5" />
+                    </div>
+                    <h4 className="font-semibold text-white text-sm">Coding Playground &amp; Languages</h4>
+                  </div>
+                  <p className="text-neutral-400 text-xs leading-relaxed">
+                    Write code inside a full-featured Monaco editor with dark theme and syntax highlighting. Choose from 4 supported programming languages: C++ (GCC 9.2), Java (OpenJDK 13), Python (3.8), and JavaScript (Node.js 12).
+                  </p>
+                  <div className="pt-1 text-[11px] font-mono text-neutral-500">
+                    <span className="text-neutral-400 font-medium">Access:</span> Click the Code button on any problem or the Daily Challenge.
+                  </div>
+                </div>
+
+                {/* 6. Run and Submit Functionality */}
+                <div className="p-4 sm:p-5 rounded-xl bg-neutral-900/90 border border-neutral-800 hover:border-neutral-700 transition-colors space-y-2 shadow-sm">
+                  <div className="flex items-center gap-2.5">
+                    <div className="flex h-7 w-7 items-center justify-center rounded-md bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 shrink-0">
+                      <PlayCircle className="h-3.5 w-3.5" />
+                    </div>
+                    <h4 className="font-semibold text-white text-sm">Run &amp; Submit Functionality</h4>
+                  </div>
+                  <p className="text-neutral-400 text-xs leading-relaxed">
+                    <strong className="text-neutral-300">Run</strong> tests your code against 3 visible test cases or custom inputs with execution time and memory stats. <strong className="text-neutral-300">Submit</strong> evaluates against all 6 comprehensive test cases (including hidden edge cases) to record completion.
+                  </p>
+                  <div className="pt-1 text-[11px] font-mono text-neutral-500">
+                    <span className="text-neutral-400 font-medium">Access:</span> Bottom action bar in the interactive Coding Playground.
+                  </div>
+                </div>
+
+                {/* 7. Free Daily Coding Attempts */}
+                <div className="p-4 sm:p-5 rounded-xl bg-neutral-900/90 border border-neutral-800 hover:border-neutral-700 transition-colors space-y-2 shadow-sm">
+                  <div className="flex items-center gap-2.5">
+                    <div className="flex h-7 w-7 items-center justify-center rounded-md bg-yellow-500/10 border border-yellow-500/20 text-yellow-400 shrink-0">
+                      <Zap className="h-3.5 w-3.5" />
+                    </div>
+                    <h4 className="font-semibold text-white text-sm">Free Daily Coding Attempts</h4>
+                  </div>
+                  <p className="text-neutral-400 text-xs leading-relaxed">
+                    Every logged-in Normal (free) user receives 1 free Run (3 test cases) and 1 free Submit (6 test cases) every day exclusively for the Daily Challenge. Solving it awards full streak increments, modal congratulations, and confetti animations.
+                  </p>
+                  <div className="pt-1 text-[11px] font-mono text-neutral-500">
+                    <span className="text-neutral-400 font-medium">Access:</span> Automatically available on the Daily Challenge playground.
+                  </div>
+                </div>
+
+                {/* 8. Heatmap & Difficulty Performance Graph */}
+                <div className="p-4 sm:p-5 rounded-xl bg-neutral-900/90 border border-neutral-800 hover:border-neutral-700 transition-colors space-y-2 shadow-sm">
+                  <div className="flex items-center gap-2.5">
+                    <div className="flex h-7 w-7 items-center justify-center rounded-md bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 shrink-0">
+                      <Activity className="h-3.5 w-3.5" />
+                    </div>
+                    <h4 className="font-semibold text-white text-sm">Activity Heatmap &amp; Difficulty Graph</h4>
+                  </div>
+                  <p className="text-neutral-400 text-xs leading-relaxed">
+                    Monitor your 53-week coding consistency on a LeetCode-style activity calendar. The circular performance gauge and progress bars track solved problems by difficulty: Easy (Green #22C55E), Medium (Yellow #EAB308), and Hard (Red #EF4444).
+                  </p>
+                  <div className="pt-1 text-[11px] font-mono text-neutral-500">
+                    <span className="text-neutral-400 font-medium">Access:</span> Coding Activity section directly on{" "}
+                    <Link href="/topics" className="text-brand-red hover:underline">
+                      /topics
+                    </Link>
+                    .
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Guide Category 3: Learning Notes, Placement & Credentials */}
+            <div className="space-y-3">
+              <h3 className="text-xs sm:text-sm font-mono font-bold text-neutral-300 uppercase tracking-wider flex items-center gap-2">
+                <span className="h-1.5 w-1.5 rounded-full bg-brand-red" />
+                Notes, Placements &amp; Certification
+              </h3>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+                {/* 9. Notes Library & Available Subjects */}
+                <div className="p-4 sm:p-5 rounded-xl bg-neutral-900/90 border border-neutral-800 hover:border-neutral-700 transition-colors space-y-2 shadow-sm">
+                  <div className="flex items-center gap-2.5">
+                    <div className="flex h-7 w-7 items-center justify-center rounded-md bg-purple-500/10 border border-purple-500/20 text-purple-400 shrink-0">
+                      <BookOpen className="h-3.5 w-3.5" />
+                    </div>
+                    <h4 className="font-semibold text-white text-sm">Notes Library &amp; Available Subjects</h4>
+                  </div>
+                  <p className="text-neutral-400 text-xs leading-relaxed">
+                    Access in-depth PDF study notes across 8 computer science tracks: DSA (20 topics), Core CS (DBMS, OS, CN, OOPs), Languages (C, C++, Java, Python), Web Dev (HTML, CSS, JS, React), Backend (Node.js, Express, Spring Boot), Databases (MySQL, MongoDB), DevOps (Docker, Kubernetes), and Git/GitHub.
+                  </p>
+                  <div className="pt-1 text-[11px] font-mono text-neutral-500">
+                    <span className="text-neutral-400 font-medium">Access:</span>{" "}
+                    <Link href="/notes" className="text-brand-red hover:underline">
+                      Notes Page (/notes)
+                    </Link>
+                  </div>
+                </div>
+
+                {/* 10. Company-Specific Placement Preparation */}
+                <div className="p-4 sm:p-5 rounded-xl bg-neutral-900/90 border border-neutral-800 hover:border-neutral-700 transition-colors space-y-2 shadow-sm">
+                  <div className="flex items-center gap-2.5">
+                    <div className="flex h-7 w-7 items-center justify-center rounded-md bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 shrink-0">
+                      <Briefcase className="h-3.5 w-3.5" />
+                    </div>
+                    <h4 className="font-semibold text-white text-sm">Company Placement Preparation</h4>
+                  </div>
+                  <p className="text-neutral-400 text-xs leading-relaxed">
+                    Prepare with company-specific recruitment tracks, syllabus breakdowns, and assessment patterns for 10 major hiring partners: TCS (NQT 2027), Infosys, Accenture, Cognizant, Capgemini, Wipro, HCLTech, Tech Mahindra, LTIMindtree, and IBM.
+                  </p>
+                  <div className="pt-1 text-[11px] font-mono text-neutral-500">
+                    <span className="text-neutral-400 font-medium">Access:</span> Click &quot;Prepare for Companies&quot; on{" "}
+                    <Link href="/notes" className="text-brand-red hover:underline">
+                      /notes
+                    </Link>{" "}
+                    or visit{" "}
+                    <Link href="/company-preparation" className="text-brand-red hover:underline">
+                      /company-preparation
+                    </Link>
+                    .
+                  </div>
+                </div>
+
+                {/* 11. Normal and Plus Membership Benefits */}
+                <div className="p-4 sm:p-5 rounded-xl bg-neutral-900/90 border border-neutral-800 hover:border-neutral-700 transition-colors space-y-2 shadow-sm">
+                  <div className="flex items-center gap-2.5">
+                    <div className="flex h-7 w-7 items-center justify-center rounded-md bg-brand-red/10 border border-brand-red/20 text-brand-red shrink-0">
+                      <Crown className="h-3.5 w-3.5" />
+                    </div>
+                    <h4 className="font-semibold text-white text-sm">Normal &amp; Plus Memberships</h4>
+                  </div>
+                  <p className="text-neutral-400 text-xs leading-relaxed">
+                    <strong className="text-neutral-300">Normal (Free)</strong> provides access to all 495 problems, Striver videos, progress tracking, and 1 daily challenge attempt. <strong className="text-neutral-300">Plus (₹79/mo or ₹599/yr)</strong> unlocks unlimited cloud code execution, Brute &amp; Optimal solutions, complete Notes libraries, and certification.
+                  </p>
+                  <div className="pt-1 text-[11px] font-mono text-neutral-500">
+                    <span className="text-neutral-400 font-medium">Access:</span>{" "}
+                    <Link href="/membership" className="text-brand-red hover:underline">
+                      Membership Plans (/membership)
+                    </Link>
+                  </div>
+                </div>
+
+                {/* 12. Certificate Eligibility & Download Process */}
+                <div className="p-4 sm:p-5 rounded-xl bg-neutral-900/90 border border-neutral-800 hover:border-neutral-700 transition-colors space-y-2 shadow-sm">
+                  <div className="flex items-center gap-2.5">
+                    <div className="flex h-7 w-7 items-center justify-center rounded-md bg-amber-500/10 border border-amber-500/20 text-amber-400 shrink-0">
+                      <Award className="h-3.5 w-3.5" />
+                    </div>
+                    <h4 className="font-semibold text-white text-sm">Certificate Eligibility &amp; Download</h4>
+                  </div>
+                  <p className="text-neutral-400 text-xs leading-relaxed">
+                    Earn an official Certificate of Achievement by meeting two criteria: 1) Solve at least 85% of the DSA sheet (421+ problems), and 2) Hold an active Plus membership. Once eligible, enter your legal name and download your verified high-resolution PDF certificate with unique credential ID.
+                  </p>
+                  <div className="pt-1 text-[11px] font-mono text-neutral-500">
+                    <span className="text-neutral-400 font-medium">Access:</span> Certificate button on{" "}
+                    <Link href="/topics" className="text-brand-red hover:underline">
+                      /topics
+                    </Link>{" "}
+                    or visit{" "}
+                    <Link href="/certificate" className="text-brand-red hover:underline">
+                      /certificate
+                    </Link>
+                    .
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </section>
 
         {/* ========================================================= */}
-        {/* 4. COMPLETION CERTIFICATE                                 */}
-        {/* ========================================================= */}
-        <section className="space-y-4">
-          <div className="flex items-center gap-3">
-            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-brand-red/15 border border-brand-red/30 text-brand-red shrink-0">
-              <Award className="h-4 w-4" />
-            </div>
-            <div className="flex items-center gap-3 flex-1 min-w-0">
-              <h2 className="text-base sm:text-lg font-bold text-white tracking-wide uppercase font-mono">
-                Completion Certificate
-              </h2>
-              <div className="h-px flex-1 bg-gradient-to-r from-neutral-800 to-transparent" />
-            </div>
-          </div>
-
-          <div className="rounded-2xl border border-brand-border bg-gradient-to-b from-brand-card to-brand-blackDeep p-6 sm:p-8 space-y-4 shadow-card hover:border-brand-borderHover transition-colors">
-            <p className="text-neutral-300 text-sm sm:text-base leading-relaxed">
-              BeeNext issues an official Certificate of Achievement to recognize exceptional dedication in mastering DSA. To maintain credential value, issuance requires satisfying two strict conditions with zero additional fees:
-            </p>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-1">
-              <div className="p-4 rounded-xl bg-neutral-900/90 border border-neutral-800 hover:border-neutral-700 transition-colors flex items-start gap-3">
-                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-brand-red/15 border border-brand-red/30 text-brand-red font-mono font-bold text-xs shrink-0 mt-0.5">
-                  1
-                </span>
-                <div className="space-y-1">
-                  <span className="font-semibold text-white text-sm block">Requirement 1</span>
-                  <p className="text-neutral-400 text-xs leading-relaxed">
-                    Solve at least 85% of the 495 problems (421+ questions) across the sheet.
-                  </p>
-                </div>
-              </div>
-
-              <div className="p-4 rounded-xl bg-neutral-900/90 border border-neutral-800 hover:border-neutral-700 transition-colors flex items-start gap-3">
-                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-brand-red/15 border border-brand-red/30 text-brand-red font-mono font-bold text-xs shrink-0 mt-0.5">
-                  2
-                </span>
-                <div className="space-y-1">
-                  <span className="font-semibold text-white text-sm block">Requirement 2</span>
-                  <p className="text-neutral-400 text-xs leading-relaxed">
-                    Hold an active BeeNext Plus membership at the time of certificate issuance.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ========================================================= */}
-        {/* 5. CUSTOMER SUPPORT                                       */}
+        {/* 3. CUSTOMER SUPPORT                                       */}
         {/* ========================================================= */}
         <section className="space-y-4">
           <div className="flex items-center gap-3">
@@ -374,7 +407,7 @@ export default function AboutPage() {
         </section>
 
         {/* ========================================================= */}
-        {/* 6. SOCIAL MEDIA                                           */}
+        {/* 4. SOCIAL MEDIA                                           */}
         {/* ========================================================= */}
         <section className="space-y-4">
           <div className="flex items-center gap-3">

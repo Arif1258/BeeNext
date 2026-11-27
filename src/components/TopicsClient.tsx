@@ -6,6 +6,7 @@ import { Award } from "lucide-react";
 import confetti from "canvas-confetti";
 import VerticalTopicAccordion, { TopicItem } from "@/components/VerticalTopicAccordion";
 import DailyChallengeSection from "@/components/DailyChallengeSection";
+import CodingActivityHeatmap from "@/components/CodingActivityHeatmap";
 import { useAuth } from "@/context/AuthContext";
 
 interface TopicsClientProps {
@@ -137,134 +138,130 @@ export default function TopicsClient({ initialCategories }: TopicsClientProps) {
     };
   }, []);
 
-  // Number of grid boxes in the LeetCode contribution-style tracker (single horizontal row)
-  const TOTAL_TRACKER_BOXES = 50;
-  const completedBoxesCount = Math.min(
-    TOTAL_TRACKER_BOXES,
-    Math.max(
-      completedCount > 0 ? 1 : 0,
-      Math.round((progressPercentage / 100) * TOTAL_TRACKER_BOXES)
-    )
-  );
-
   return (
     <div className="min-h-screen bg-brand-black text-white pt-3 sm:pt-5 pb-8 px-4 sm:px-6 lg:px-8 selection:bg-brand-red selection:text-white">
       <div className="mx-auto max-w-7xl space-y-3 sm:space-y-3.5">
-        {/* Clean Page Header (Title + Subtitle + Description + Circular Progress Graph & Completed Problems) */}
-        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 sm:gap-4 border-b border-brand-border pb-3 sm:pb-4">
-          <div className="space-y-1.5 sm:space-y-2 max-w-3xl lg:max-w-4xl">
-            <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-[2rem] font-extrabold tracking-tight leading-tight sm:whitespace-nowrap text-white">
+        {/* Clean Page Header (Title + Subtitle + Description + Certificate Option + Circular Progress Graph) */}
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 sm:gap-4 border-b border-brand-border pb-3 sm:pb-3.5">
+          {/* Left: DSA Sheet Details */}
+          <div className="space-y-1 sm:space-y-1.5 max-w-xl lg:max-w-2xl flex-1">
+            <h1 className="text-xl sm:text-2xl md:text-3xl font-extrabold tracking-tight leading-tight sm:whitespace-nowrap text-white">
               BEE<span className="text-brand-red">NEXT</span> – HERO TO INFINITY DSA SHEET
             </h1>
-            <h2 className="text-sm sm:text-base font-bold text-white tracking-tight">
+            <h2 className="text-xs sm:text-sm font-bold text-white tracking-tight">
               Sheet Details
             </h2>
-            <p className="text-xs sm:text-sm text-neutral-300 font-normal leading-relaxed max-w-2xl">
-              Curated free DSA Sheet with Striver guidance, featuring notes developed under the guidance of faculty members from IIT Kharagpur. Master interview-relevant problems with Brute Force and Optimal solutions, and practice coding interactively.
+            <p className="text-xs sm:text-sm text-neutral-300 font-normal leading-relaxed">
+              A curated DSA Sheet with approximately 500 questions for college students and professionals to prepare and practice with YouTube videos, notes, solutions and an interactive coding playground.
             </p>
             <p className="text-xs sm:text-sm font-semibold text-white tracking-wide">
               Learn what matters. Skip what doesn&apos;t.
             </p>
           </div>
 
-          {/* Circular Progress Graph & Completed Problems Section */}
-          <div className="flex flex-col items-stretch gap-2 shrink-0 self-start sm:self-auto w-fit">
-            {/* Circular Progress Graph (above Completed Problems section) */}
-            <div
-              className="relative flex items-center justify-center w-full h-28 sm:h-32 rounded-xl bg-neutral-900 border border-neutral-800 shadow-card px-4"
-              title={`Overall Completion: ${progressPercentage}% (${completedCount}/${totalProblemsCount} problems)`}
-            >
-              <svg
-                className="w-20 h-20 sm:w-24 sm:h-24 transform -rotate-90"
-                viewBox="0 0 36 36"
-                aria-label={`Overall problem completion progress: ${progressPercentage}%`}
+          {/* Right Group: Certificate Section + Circular Performance Graph */}
+          <div className="flex items-center gap-2.5 sm:gap-3 shrink-0 self-start md:self-center">
+            {/* Left Stack: Certificate Icon Box + Certificate Button directly below */}
+            <div className="flex flex-col items-stretch gap-1.5 shrink-0 w-24 sm:w-28">
+              {/* Certificate Upper Box: Maximum Proportional Necktie Icon in Emerald Green (#22C55E) */}
+              <div
+                data-testid="certificate-box"
+                className="flex items-center justify-center rounded-xl bg-neutral-900 border border-neutral-800 shadow-card p-2 sm:p-2.5 h-24 sm:h-28 w-full shrink-0 text-center"
               >
-                {/* Subtle neutral background for remaining portion */}
-                <path
-                  className="text-neutral-800"
-                  strokeWidth="3.2"
-                  stroke="currentColor"
+                {/* Professional Necktie Icon scaled up to occupy maximum available area while maintaining proportions */}
+                <svg
+                  viewBox="0 0 24 24"
                   fill="none"
-                  d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                />
-                {/* BeeNext red progress indicator */}
-                <path
-                  className="text-brand-red transition-all duration-300 ease-out"
-                  strokeDasharray={`${Math.min(100, Math.max(0, progressPercentage))}, 100`}
+                  stroke="currentColor"
+                  strokeWidth="1.6"
                   strokeLinecap="round"
-                  strokeWidth="3.2"
-                  stroke="currentColor"
-                  fill="none"
-                  d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                />
-              </svg>
-              {/* Overall percentage inside circle */}
-              <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                <span className="font-mono text-lg sm:text-xl font-black text-brand-red">
-                  {progressPercentage}%
+                  strokeLinejoin="round"
+                  className="w-full h-full max-h-[68px] sm:max-h-[80px] text-[#22C55E] transition-transform duration-200 hover:scale-105"
+                  aria-hidden="true"
+                >
+                  {/* Left Collar Lapel pointing down */}
+                  <path d="M6 3.5 L7.5 7.5 L9.5 6" />
+                  <path d="M6 3.5 H9.5" />
+                  {/* Right Collar Lapel pointing down */}
+                  <path d="M18 3.5 L16.5 7.5 L14.5 6" />
+                  <path d="M18 3.5 H14.5" />
+                  {/* Tie Knot */}
+                  <polygon points="9.5,3.5 14.5,3.5 13.5,7.5 10.5,7.5" fill="currentColor" fillOpacity="0.3" />
+                  {/* Tie Blade with center crease */}
+                  <polygon points="10.5,7.5 13.5,7.5 16,16.5 12,21.5 8,16.5" fill="currentColor" fillOpacity="0.18" />
+                  <line x1="12" y1="9.5" x2="12" y2="18" stroke="currentColor" strokeWidth="1.2" strokeOpacity="0.6" />
+                </svg>
+              </div>
+
+              {/* Certificate Button moved outside and directly below the icon box in Emerald Green */}
+              <Link
+                href="/certificate"
+                className="flex items-center justify-center gap-1.5 px-2 py-0.5 rounded-lg bg-[#22C55E]/15 hover:bg-[#22C55E] text-white border border-[#22C55E]/40 hover:border-[#22C55E] disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed text-[11px] font-mono font-bold transition-all shadow-sm w-full text-center"
+                title="BeeNext Physical Certificate Requirements"
+              >
+                <span>Certificate</span>
+              </Link>
+            </div>
+
+            {/* Right Stack: Circular Performance Graph (Same width as Certificate box) & Solved Problems Count below */}
+            <div className="flex flex-col items-stretch gap-1.5 shrink-0 w-24 sm:w-28">
+              {/* Circular Progress Graph Upper Box: Identical width and height to Certificate icon box */}
+              <div
+                className="relative flex items-center justify-center w-full h-24 sm:h-28 rounded-xl bg-neutral-900 border border-neutral-800 shadow-card p-2 sm:p-2.5 shrink-0"
+                title={`Overall Completion: ${progressPercentage}% (${completedCount}/${totalProblemsCount} problems)`}
+              >
+                <svg
+                  className="w-16 h-16 sm:w-20 sm:h-20 transform -rotate-90"
+                  viewBox="0 0 36 36"
+                  aria-label={`Overall problem completion progress: ${progressPercentage}%`}
+                >
+                  {/* Subtle neutral background for remaining portion */}
+                  <path
+                    className="text-neutral-800"
+                    strokeWidth="3.2"
+                    stroke="currentColor"
+                    fill="none"
+                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                  />
+                  {/* Single Emerald Green (#22C55E) progress indicator */}
+                  <path
+                    className="text-[#22C55E] transition-all duration-300 ease-out"
+                    strokeDasharray={`${Math.min(100, Math.max(0, progressPercentage))}, 100`}
+                    strokeLinecap="round"
+                    strokeWidth="3.2"
+                    stroke="currentColor"
+                    fill="none"
+                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                  />
+                </svg>
+                {/* Overall percentage inside circle in Emerald Green */}
+                <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+                  <span className="font-mono text-base sm:text-lg font-black text-[#22C55E]">
+                    {progressPercentage}%
+                  </span>
+                </div>
+              </div>
+
+              {/* Dynamic Solved Count below circular graph (e.g. 423 / 495 Problems) matching Certificate button placement */}
+              <div className="flex items-center justify-center px-1.5 py-0.5 rounded-lg bg-neutral-900 border border-neutral-800 text-[10.5px] sm:text-[11px] font-mono shadow-sm w-full text-center whitespace-nowrap overflow-hidden">
+                <span className="text-white font-medium">
+                  <strong className="text-[#22C55E] font-bold">{completedCount}</strong>
+                  <span className="text-neutral-400"> / {totalProblemsCount}</span>
                 </span>
               </div>
             </div>
-
-            {/* Completed Problems Section */}
-            <div className="flex items-center gap-2 px-3 py-1 rounded-lg bg-neutral-900 border border-neutral-800 text-[11px] sm:text-xs font-mono shrink-0 shadow-sm">
-              <span className="text-neutral-400">Completed:</span>
-              <span className="text-brand-red font-bold">
-                {completedCount} / {totalProblemsCount} Problems
-              </span>
-            </div>
-
-            {/* Performance Tracker - Dedicated Certificate Button */}
-            <Link
-              href="/certificate"
-              className="flex items-center justify-center gap-2 px-3 py-1.5 rounded-lg bg-brand-red/10 hover:bg-brand-red text-white border border-brand-red/30 hover:border-brand-red text-[11px] sm:text-xs font-mono font-bold transition-all shadow-sm group"
-              title="BeeNext Physical Certificate Requirements"
-            >
-              <Award className="h-3.5 w-3.5 text-brand-red group-hover:text-white transition-colors" />
-              <span>Certificate</span>
-            </Link>
           </div>
         </div>
 
-        {/* OVERALL DSA COMPLETION PROGRESS BAR (DIRECTLY ABOVE TOPICS) */}
-        <div className="rounded-xl border border-brand-border bg-brand-card px-3.5 py-2 sm:py-2.5 space-y-1.5 shadow-sm">
-          <div className="flex items-center justify-between gap-1 text-xs font-mono">
-            <div>
-              <span className="font-bold text-white">Your Progress: </span>
-              <span className="font-extrabold text-emerald-400">
-                {progressPercentage}% Completed
-              </span>
-            </div>
-          </div>
-
-          {/* Square LeetCode Contribution-Style Grid Tracker */}
-          <div
-            className="w-full flex items-center gap-0.5 sm:gap-1 lg:gap-1.5"
-            role="progressbar"
-            aria-valuenow={progressPercentage}
-            aria-valuemin={0}
-            aria-valuemax={100}
-            aria-label={`DSA Progress: ${progressPercentage}% completed`}
-          >
-            {Array.from({ length: TOTAL_TRACKER_BOXES }).map((_, index) => {
-              const isCompleted = index < completedBoxesCount;
-              return (
-                <div
-                  key={index}
-                  className={`flex-1 aspect-square rounded-[1px] sm:rounded-[2px] transition-colors duration-200 ${isCompleted
-                    ? "bg-[#16a34a]"
-                    : "bg-neutral-800/80 border border-emerald-500/30"
-                    }`}
-                  title={
-                    isCompleted
-                      ? `Box ${index + 1} of ${TOTAL_TRACKER_BOXES} (Completed)`
-                      : `Box ${index + 1} of ${TOTAL_TRACKER_BOXES} (Remaining)`
-                  }
-                />
-              );
-            })}
-          </div>
-        </div>
+        {/* LeetCode-Style Coding Activity Heatmap & Difficulty Performance Graph */}
+        <CodingActivityHeatmap
+          completedCount={completedCount}
+          totalProblemsCount={totalProblemsCount}
+          progressPercentage={progressPercentage}
+          user={user}
+          categories={categories}
+          completedMap={completedMap}
+        />
 
         {/* Daily Challenge Section (Immediately Above Beginner Problems) */}
         <DailyChallengeSection />
