@@ -223,13 +223,23 @@ export default function NotesClient() {
             </div>
 
             <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
-              <Link
-                href="/company-preparation"
-                className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl border border-emerald-500/40 bg-emerald-600 hover:bg-emerald-500 text-white text-xs sm:text-sm font-mono font-bold shadow-sm transition-all group"
-              >
-                <Briefcase className="h-4 w-4 text-white group-hover:scale-110 transition-transform" />
-                <span>Prepare for Companies</span>
-              </Link>
+              <div className="inline-flex items-center gap-1.5 sm:gap-2">
+                <span
+                  className="animate-slide-right-arrow inline-flex items-center text-emerald-400 drop-shadow-[0_0_8px_rgba(16,185,129,0.4)] select-none pointer-events-none"
+                  aria-hidden="true"
+                  title="Prepare for company interviews"
+                >
+                  <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 stroke-[2.5]" />
+                </span>
+
+                <Link
+                  href="/company-preparation"
+                  className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl border border-emerald-500/40 bg-emerald-600 hover:bg-emerald-500 text-white text-xs sm:text-sm font-mono font-bold shadow-sm transition-all group"
+                >
+                  <Briefcase className="h-4 w-4 text-white group-hover:scale-110 transition-transform" />
+                  <span>Prepare for Companies</span>
+                </Link>
+              </div>
 
               {!isPlusMember && (
                 <Link

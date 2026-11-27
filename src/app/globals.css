@@ -69,3 +69,27 @@ pre code {
   background-color: #E52532;
   color: #ffffff;
 }
+
+/* Animated right-pointing arrow for Notes page company preparation */
+@keyframes slideRightGentle {
+  0%, 100% {
+    transform: translateX(0);
+    opacity: 0.75;
+  }
+  50% {
+    transform: translateX(5px);
+    opacity: 1;
+  }
+}
+
+.animate-slide-right-arrow {
+  animation: slideRightGentle 1.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-slide-right-arrow {
+    animation: none;
+    transform: none;
+    opacity: 1;
+  }
+}
