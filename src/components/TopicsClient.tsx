@@ -17,6 +17,67 @@ interface TopicsClientProps {
   initialMidnightIST?: string;
 }
 
+/**
+ * 32-bit FNV-1a integer hash function for deterministic pseudo-random seeding.
+ */
+function hashDateString(str: string): number {
+  let h = 2166136261 >>> 0;
+  for (let i = 0; i < str.length; i++) {
+    h = Math.imul(h ^ str.charCodeAt(i), 16777619) >>> 0;
+  }
+  return h;
+}
+
+/**
+ * Returns deterministic simulated stats for the DSA Topics page based on Asia/Kolkata date.
+ * - Base date: 2026-11-28 starts with 112 learners and 46 online.
+ * - Every midnight IST, learner count increases by selecting 8, 9, or 13 deterministically.
+ * - Online count stays randomly between 0 and total learners (approx. 30%-50% ratio).
+ */
+function getSimulatedTopicStats(dateStr?: string): { online: number; learners: number } {
+  const BASE_DATE_STR = "2026-11-28";
+  const BASE_LEARNERS = 112;
+  const options = [8, 9, 13];
+
+  let targetDate = dateStr;
+  if (!targetDate) {
+    try {
+      targetDate = new Intl.DateTimeFormat("en-CA", {
+        timeZone: "Asia/Kolkata",
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+      }).format(new Date());
+    } catch {
+      targetDate = BASE_DATE_STR;
+    }
+  }
+
+  let totalLearners = BASE_LEARNERS;
+
+  if (targetDate > BASE_DATE_STR) {
+    const [baseY, baseM, baseD] = BASE_DATE_STR.split("-").map(Number);
+    const [currY, currM, currD] = targetDate.split("-").map(Number);
+
+    const baseUtc = Date.UTC(baseY, baseM - 1, baseD);
+    const currUtc = Date.UTC(currY, currM - 1, currD);
+    const diffDays = Math.max(0, Math.floor((currUtc - baseUtc) / (86400 * 1000)));
+
+    for (let i = 1; i <= diffDays; i++) {
+      const d = new Date(baseUtc + i * 86400 * 1000);
+      const dayStr = d.toISOString().slice(0, 10);
+      const incH = hashDateString(`learner-inc-${dayStr}`);
+      totalLearners += options[incH % 3];
+    }
+  }
+
+  const onH = hashDateString(`beenext-online-0-${targetDate}`);
+  const ratio = 0.30 + ((onH % 1000) / 1000) * 0.20;
+  const online = Math.min(totalLearners, Math.max(1, Math.round(totalLearners * ratio)));
+
+  return { online, learners: totalLearners };
+}
+
 export default function TopicsClient({
   initialCategories,
   initialDailyProblem,
@@ -25,6 +86,11 @@ export default function TopicsClient({
 }: TopicsClientProps) {
   const { user, refreshUser } = useAuth();
   const [categories] = useState<TopicItem[]>(initialCategories);
+
+  // Deterministic date-based simulated stats
+  const simulatedStats = useMemo(() => {
+    return getSimulatedTopicStats(initialTodayDate);
+  }, [initialTodayDate]);
 
   // Completed problems map: { [problemId: string]: boolean }
   const [completedMap, setCompletedMap] = useState<{ [id: string]: boolean }>({});
@@ -163,9 +229,23 @@ export default function TopicsClient({
             <p className="text-xs sm:text-sm text-neutral-300 font-normal leading-relaxed">
               A curated DSA Sheet with approximately 500 questions for college students and professionals to prepare and practice with YouTube videos, notes, solutions and an interactive coding playground.
             </p>
-            <p className="text-xs sm:text-sm font-semibold text-white tracking-wide">
-              Learn what matters. Skip what doesn&apos;t.
-            </p>
+            {/* Compact User Statistics (Single horizontal line with pulsing green indicator) */}
+            <div className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm pt-0.5">
+              <span className="relative flex h-2 w-2 items-center justify-center shrink-0" aria-hidden="true">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
+                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              </span>
+              <span className="text-emerald-400 font-medium whitespace-nowrap">
+                {simulatedStats.online} online
+              </span>
+              <span className="text-neutral-500 font-normal" aria-hidden="true">
+                &middot;
+              </span>
+              <span className="text-neutral-300 font-normal whitespace-nowrap">
+                {simulatedStats.learners} learners
+              </span>
+
+            </div>
           </div>
 
           {/* Right Group: Certificate Section + Circular Performance Graph */}
