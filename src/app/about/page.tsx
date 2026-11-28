@@ -26,7 +26,12 @@ interface SocialMediaChannel {
   platform: string;
   channelName: string;
   url: string;
+  subtitle: string;
+  buttonLabel: string;
   description?: string;
+  iconBoxClasses: string;
+  buttonHoverClasses: string;
+  icon: React.ReactNode;
 }
 
 const SOCIAL_MEDIA_CHANNELS: SocialMediaChannel[] = [
@@ -34,7 +39,39 @@ const SOCIAL_MEDIA_CHANNELS: SocialMediaChannel[] = [
     platform: "YouTube",
     channelName: "BeeNext",
     url: "https://youtube.com/@beenext-y8d?si=1CQNPDjxOsF5u_1C",
+    subtitle: "Official YouTube Channel",
+    buttonLabel: "Visit Channel",
     description: "Official tutorials, algorithmic pattern analysis, and DSA problem walkthroughs.",
+    iconBoxClasses: "bg-[#FF0000]/10 border-[#FF0000]/25 text-[#FF0000] group-hover:bg-[#FF0000] group-hover:text-white",
+    buttonHoverClasses: "hover:bg-[#FF0000] hover:border-[#FF0000]",
+    icon: (
+      <svg
+        viewBox="0 0 24 24"
+        className="h-6 w-6 fill-current"
+        aria-hidden="true"
+      >
+        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+      </svg>
+    ),
+  },
+  {
+    platform: "LinkedIn",
+    channelName: "BeeNext",
+    url: "https://www.linkedin.com/company/beenext1/",
+    subtitle: "Official LinkedIn Page",
+    buttonLabel: "Visit Page",
+    description: "Official company updates, technical interview insights, and engineering opportunities.",
+    iconBoxClasses: "bg-[#0A66C2]/10 border-[#0A66C2]/25 text-[#0A66C2] group-hover:bg-[#0A66C2] group-hover:text-white",
+    buttonHoverClasses: "hover:bg-[#0A66C2] hover:border-[#0A66C2]",
+    icon: (
+      <svg
+        viewBox="0 0 24 24"
+        className="h-6 w-6 fill-current"
+        aria-hidden="true"
+      >
+        <path d="M22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451c.979 0 1.778-.773 1.778-1.729V1.73C24 .774 23.205 0 22.225 0zM7.119 20.452H3.555V9h3.564v11.452zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm15.11 13.019h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286z" />
+      </svg>
+    ),
   },
 ];
 
@@ -90,7 +127,6 @@ export default function AboutPage() {
             Our mission is to make quality technical education accessible, simplify interview preparation, and help learners confidently take the next step in their software engineering careers.
 
             Stay connected with our website and follow our official social media handles for upcoming courses, new features, learning resources, and the latest updates.
-
           </div>
         </section>
 
@@ -447,22 +483,18 @@ export default function AboutPage() {
               Connect with our community, watch step-by-step problem walkthroughs, and stay updated with the latest DSA resources:
             </p>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3.5 pt-1">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-1">
               {SOCIAL_MEDIA_CHANNELS.map((channel) => (
                 <div
                   key={channel.platform}
                   className="flex flex-col justify-between p-4 sm:p-5 rounded-xl bg-neutral-900/90 border border-neutral-800 hover:border-neutral-700 transition-all shadow-sm group space-y-4"
                 >
                   <div className="flex items-center gap-3.5">
-                    {/* Official Red YouTube Icon */}
-                    <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#FF0000]/10 border border-[#FF0000]/25 text-[#FF0000] group-hover:scale-105 group-hover:bg-[#FF0000] group-hover:text-white transition-all shrink-0 shadow-sm">
-                      <svg
-                        viewBox="0 0 24 24"
-                        className="h-6 w-6 fill-current"
-                        aria-hidden="true"
-                      >
-                        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
-                      </svg>
+                    {/* Platform Icon */}
+                    <div
+                      className={`flex h-11 w-11 items-center justify-center rounded-xl border group-hover:scale-105 transition-all shrink-0 shadow-sm ${channel.iconBoxClasses}`}
+                    >
+                      {channel.icon}
                     </div>
 
                     <div className="flex flex-col min-w-0">
@@ -470,7 +502,7 @@ export default function AboutPage() {
                         {channel.channelName}
                       </span>
                       <span className="text-neutral-400 text-xs font-mono">
-                        Official {channel.platform} Channel
+                        {channel.subtitle}
                       </span>
                     </div>
                   </div>
@@ -486,9 +518,9 @@ export default function AboutPage() {
                       href={channel.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-full inline-flex items-center justify-center gap-1.5 py-2 px-3.5 rounded-lg border border-neutral-700 bg-neutral-800/80 hover:bg-[#FF0000] hover:border-[#FF0000] text-neutral-200 hover:text-white text-xs font-mono font-semibold transition-all shadow-sm group-hover:border-neutral-600"
+                      className={`w-full inline-flex items-center justify-center gap-1.5 py-2 px-3.5 rounded-lg border border-neutral-700 bg-neutral-800/80 text-neutral-200 hover:text-white text-xs font-mono font-semibold transition-all shadow-sm group-hover:border-neutral-600 ${channel.buttonHoverClasses}`}
                     >
-                      <span>Visit Channel</span>
+                      <span>{channel.buttonLabel}</span>
                       <ArrowUpRight className="h-3.5 w-3.5 text-neutral-400 group-hover:text-white transition-colors" />
                     </a>
                   </div>
