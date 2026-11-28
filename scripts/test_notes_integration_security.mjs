@@ -19,15 +19,15 @@ function createToken(user) {
 
 const USERS = {
   normal: {
-    id: "cmwthrssz000076t3xx4yaean",
+    id: "cmwx7xmek0000j5h4av78bshd",
     name: "Normal User",
-    email: "skasif@test.com",
+    email: "razorpay@gmail.com",
     role: "USER",
   },
-  expiredPlus: {
-    id: "cmwuif5zg0000q7ki21s6syfa",
-    name: "Expired Plus User",
-    email: "expired_plus_test@test.com",
+  secondNormal: {
+    id: "cmwx8kdy70000igos5d40jz76",
+    name: "Second Normal User",
+    email: "skasifahmed78@gmail.com",
     role: "USER",
   },
   activePlus: {
@@ -101,7 +101,7 @@ async function runTests() {
   }
 
   // 2. Normal User Test
-  console.log("\n2. Testing Normal User Access (skasif@test.com)...");
+  console.log("\n2. Testing Normal User Access (razorpay@gmail.com)...");
   try {
     const token = createToken(USERS.normal);
     const res = await fetch(`${BASE_URL}/api/notes/stream?file=DBMS.pdf`, {
@@ -120,17 +120,17 @@ async function runTests() {
     passedAll = false;
   }
 
-  // 3. Expired Plus User Test
-  console.log("\n3. Testing Expired Plus User Access (expired_plus_test@test.com)...");
+  // 3. Second Normal User Test
+  console.log("\n3. Testing Second Normal User Access (skasifahmed78@gmail.com)...");
   try {
-    const token = createToken(USERS.expiredPlus);
+    const token = createToken(USERS.secondNormal);
     const res = await fetch(`${BASE_URL}/api/notes/stream?file=DBMS.pdf`, {
       headers: { Cookie: `beenext_token=${token}` },
     });
     const status = res.status;
     const body = await res.json();
     if (status === 403 && body.code === "PLUS_REQUIRED") {
-      console.log("  ✓ PASS: Expired Plus user received HTTP 403 Forbidden (PLUS_REQUIRED).");
+      console.log("  ✓ PASS: Normal user received HTTP 403 Forbidden (PLUS_REQUIRED).");
     } else {
       console.error(`  ❌ FAIL: Expected 403 PLUS_REQUIRED, got ${status}:`, body);
       passedAll = false;

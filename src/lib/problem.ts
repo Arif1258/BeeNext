@@ -22,9 +22,6 @@ export async function getProblemWithAccess(
       codes: {
         orderBy: { approachType: "desc" }, // OPTIMAL, then BRUTE_FORCE
       },
-      notes: {
-        orderBy: { order: "asc" },
-      },
     },
   });
 
@@ -34,17 +31,11 @@ export async function getProblemWithAccess(
 
   // Filter content by mode for true server-side isolation
   let filteredCodes = problem.codes;
-  let filteredNotes = problem.notes;
 
   if (mode === "BRUTE_FORCE") {
     filteredCodes = problem.codes.filter((c) => c.approachType === "BRUTE_FORCE");
-    filteredNotes = [];
   } else if (mode === "OPTIMAL") {
     filteredCodes = problem.codes.filter((c) => c.approachType === "OPTIMAL");
-    filteredNotes = [];
-  } else if (mode === "HANDWRITTEN") {
-    filteredCodes = [];
-    filteredNotes = problem.notes;
   }
 
   // In the new business model, all problem codes and approaches are 100% FREE

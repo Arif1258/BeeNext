@@ -36,6 +36,15 @@ const nextConfig = {
           },
         ],
       },
+      {
+        source: "/fonts/:all*(woff|woff2)",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
     ];
   },
   async redirects() {
@@ -47,7 +56,27 @@ const nextConfig = {
       },
       {
         source: "/purchases",
-        destination: "/purchase",
+        destination: "/topics",
+        permanent: false,
+      },
+      {
+        source: "/purchase",
+        destination: "/topics",
+        permanent: false,
+      },
+      {
+        source: "/purchase/:path*",
+        destination: "/topics",
+        permanent: false,
+      },
+      {
+        source: "/order-printed",
+        destination: "/topics",
+        permanent: false,
+      },
+      {
+        source: "/cart",
+        destination: "/topics",
         permanent: false,
       },
     ];

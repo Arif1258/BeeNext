@@ -2,6 +2,11 @@ import React from "react";
 import prisma from "@/lib/prisma";
 import TopicsClient from "@/components/TopicsClient";
 import { unstable_cache } from "next/cache";
+import {
+  getOrCreateDailyChallenge,
+  getTodayISTDateString,
+  getNextMidnightIST,
+} from "@/lib/dailyChallenge";
 
 export const dynamic = "force-dynamic";
 
@@ -43,7 +48,18 @@ const getCachedCategories = unstable_cache(
 );
 
 export default async function TopicsPage() {
-  const categories = await getCachedCategories();
+  const todayStr = getTodayISTDateString();
+  const [categories, dailyProblem] = await Promise.all([
+    getCachedCategories(),
+    getOrCreateDailyChallenge(todayStr).catch(() => null),
+  ]);
 
-  return <TopicsClient initialCategories={categories as any} />;
+  return (
+    <TopicsClient
+      initialCategories={categories as any}
+      initialDailyProblem={dailyProblem}
+      initialTodayDate={todayStr}
+      initialMidnightIST={getNextMidnightIST().toISOString()}
+    />
+  );
 }

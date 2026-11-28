@@ -102,7 +102,7 @@ export default function CodingActivityHeatmap({
     return () => {
       window.removeEventListener("beenext_daily_challenge_completed", handleChallengeCompleted);
     };
-  }, [user]);
+  }, [user?.id]);
 
   // Today in IST
   const todayISTStr = useMemo(() => {

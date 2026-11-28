@@ -42,6 +42,12 @@ export interface DailyChallengeInfo {
   allowance?: DailyChallengeAllowance;
 }
 
+let inMemoryDailyChallengeCache: {
+  dateStr: string;
+  problem: DailyProblemData;
+  expiresAt: number;
+} | null = null;
+
 /**
  * Returns today's date in Asia/Kolkata (IST) timezone in "YYYY-MM-DD" format.
  */
@@ -93,6 +99,30 @@ function hashStringToInt(str: string): number {
  */
 export async function getOrCreateDailyChallenge(dateStr?: string): Promise<DailyProblemData | null> {
   const todayStr = dateStr || getTodayISTDateString();
+  const now = Date.now();
+
+  // Fast-path: return from memory cache if already resolved today before midnight IST
+  if (
+    inMemoryDailyChallengeCache &&
+    inMemoryDailyChallengeCache.dateStr === todayStr &&
+    inMemoryDailyChallengeCache.expiresAt > now
+  ) {
+    return inMemoryDailyChallengeCache.problem;
+  }
+
+  const cacheResult = (problemData: DailyProblemData) => {
+    try {
+      const midnightMs = getNextMidnightIST().getTime();
+      inMemoryDailyChallengeCache = {
+        dateStr: todayStr,
+        problem: problemData,
+        expiresAt: midnightMs,
+      };
+    } catch {
+      // Ignore cache storage error
+    }
+    return problemData;
+  };
 
   // 1. Try to find an existing DailyChallenge record in the database
   try {
@@ -122,7 +152,7 @@ export async function getOrCreateDailyChallenge(dateStr?: string): Promise<Daily
     });
 
     if (existing?.problem) {
-      return existing.problem as DailyProblemData;
+      return cacheResult(existing.problem as DailyProblemData);
     }
   } catch (err: any) {
     // If table doesn't exist yet (e.g. before migration), log and fall back to deterministic selection
@@ -213,13 +243,13 @@ export async function getOrCreateDailyChallenge(dateStr?: string): Promise<Daily
           },
         },
       });
-      if (winner?.problem) return winner.problem as DailyProblemData;
+      if (winner?.problem) return cacheResult(winner.problem as DailyProblemData);
     } catch {
       // Return selectedProblem
     }
   }
 
-  return selectedProblem as DailyProblemData;
+  return cacheResult(selectedProblem as DailyProblemData);
 }
 
 /**
@@ -449,10 +479,15 @@ export async function verifyAndRecordDailySubmission({
 export async function getUserDailyAllowance(
   userId: string,
   isPlus: boolean,
-  problemId?: string
+  problemId?: string,
+  preloadedDailyProblem?: DailyProblemData | null,
+  preloadedAttempts?: { runCount: number; submitCount: number } | null
 ): Promise<DailyChallengeAllowance> {
   const todayStr = getTodayISTDateString();
-  const dailyProblem = await getOrCreateDailyChallenge(todayStr);
+  const dailyProblem =
+    preloadedDailyProblem !== undefined
+      ? preloadedDailyProblem
+      : await getOrCreateDailyChallenge(todayStr);
   const isDailyChallenge = Boolean(problemId && dailyProblem && dailyProblem.id === problemId);
 
   if (isPlus) {
@@ -481,21 +516,23 @@ export async function getUserDailyAllowance(
     };
   }
 
-  let runCount = 0;
-  let submitCount = 0;
-  try {
-    const rows = await prisma.$queryRawUnsafe<Array<{ runCount: number; submitCount: number }>>(
-      `SELECT "runCount", "submitCount" FROM "daily_challenge_attempts" WHERE "userId" = $1 AND "date" = $2 LIMIT 1`,
-      userId,
-      todayStr
-    );
-    if (rows && rows.length > 0) {
-      runCount = rows[0].runCount || 0;
-      submitCount = rows[0].submitCount || 0;
+  let runCount = preloadedAttempts?.runCount ?? 0;
+  let submitCount = preloadedAttempts?.submitCount ?? 0;
+  if (!preloadedAttempts) {
+    try {
+      const rows = await prisma.$queryRawUnsafe<Array<{ runCount: number; submitCount: number }>>(
+        `SELECT "runCount", "submitCount" FROM "daily_challenge_attempts" WHERE "userId" = $1 AND "date" = $2 LIMIT 1`,
+        userId,
+        todayStr
+      );
+      if (rows && rows.length > 0) {
+        runCount = rows[0].runCount || 0;
+        submitCount = rows[0].submitCount || 0;
+      }
+    } catch (err: any) {
+      // If table unmigrated, treat as 0 used
+      console.warn("getUserDailyAllowance read note:", err?.message);
     }
-  } catch (err: any) {
-    // If table unmigrated, treat as 0 used
-    console.warn("getUserDailyAllowance read note:", err?.message);
   }
 
   const freeRunsRemaining = Math.max(0, 1 - runCount);

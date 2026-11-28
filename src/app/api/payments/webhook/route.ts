@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import crypto from "crypto";
 import prisma from "@/lib/prisma";
+import { calculateNewExpiry, PlanType } from "@/lib/membership";
 
 export const dynamic = "force-dynamic";
 
@@ -111,6 +112,86 @@ export async function POST(req: Request) {
             }),
           ]);
         }
+
+        // 3. Check & update MembershipOrder (Plus Membership)
+        const membershipOrder = await prisma.membershipOrder.findFirst({
+          where: { razorpayOrderId: orderId },
+        });
+
+        if (membershipOrder) {
+          // Idempotency check: if already completed, acknowledge safely without re-processing
+          if (membershipOrder.status === "COMPLETED") {
+            return NextResponse.json({ status: "ok", message: "Idempotent: Membership order already processed" });
+          }
+
+          // Order ownership validation: ensure the order belongs to a genuine existing user
+          if (!membershipOrder.userId) {
+            console.error(`Webhook error: Membership order ${membershipOrder.id} has no associated userId`);
+            return NextResponse.json({ error: "Order has no owner" }, { status: 400 });
+          }
+
+          const user = await prisma.user.findUnique({
+            where: { id: membershipOrder.userId },
+            select: {
+              id: true,
+              membershipType: true,
+              membershipPlan: true,
+              membershipStartedAt: true,
+              membershipExpiresAt: true,
+            },
+          });
+
+          if (!user) {
+            console.error(`Webhook error: User ${membershipOrder.userId} not found for order ${membershipOrder.id}`);
+            return NextResponse.json({ error: "Order owner not found" }, { status: 404 });
+          }
+
+          // Payment amount validation: verify amount in paise (1 INR = 100 paise)
+          const eventAmountInPaise = paymentEntity?.amount ?? event.payload?.order?.entity?.amount;
+          if (eventAmountInPaise !== undefined && eventAmountInPaise !== null) {
+            const expectedPaise = membershipOrder.amount * 100;
+            if (Number(eventAmountInPaise) !== expectedPaise) {
+              console.error(
+                `Webhook payment amount mismatch for order ${orderId}: expected ${expectedPaise} paise, received ${eventAmountInPaise} paise`
+              );
+              return NextResponse.json({ error: "Payment amount mismatch" }, { status: 400 });
+            }
+          }
+
+          const now = new Date();
+          const newExpiresAt = calculateNewExpiry(
+            user?.membershipExpiresAt,
+            membershipOrder.plan as PlanType
+          );
+          const startsAt =
+            user?.membershipStartedAt &&
+            user.membershipType === "PLUS" &&
+            user.membershipExpiresAt &&
+            user.membershipExpiresAt > now
+              ? user.membershipStartedAt
+              : now;
+
+          await prisma.$transaction([
+            prisma.membershipOrder.update({
+              where: { id: membershipOrder.id },
+              data: {
+                status: "COMPLETED",
+                razorpayPaymentId: paymentId || membershipOrder.razorpayPaymentId,
+                startsAt,
+                expiresAt: newExpiresAt,
+              },
+            }),
+            prisma.user.update({
+              where: { id: membershipOrder.userId },
+              data: {
+                membershipType: "PLUS",
+                membershipPlan: membershipOrder.plan,
+                membershipStartedAt: startsAt,
+                membershipExpiresAt: newExpiresAt,
+              },
+            }),
+          ]);
+        }
       }
     } else if (eventType === "payment.failed") {
       const paymentEntity = event.payload?.payment?.entity;
@@ -133,6 +214,16 @@ export async function POST(req: Request) {
         if (purchase && purchase.status === "PENDING") {
           await prisma.purchase.update({
             where: { id: purchase.id },
+            data: { status: "FAILED" },
+          });
+        }
+
+        const membershipOrder = await prisma.membershipOrder.findFirst({
+          where: { razorpayOrderId: orderId },
+        });
+        if (membershipOrder && membershipOrder.status === "PENDING") {
+          await prisma.membershipOrder.update({
+            where: { id: membershipOrder.id },
             data: { status: "FAILED" },
           });
         }

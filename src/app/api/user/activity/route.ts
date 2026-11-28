@@ -1,8 +1,23 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth";
+import { unstable_cache } from "next/cache";
 
 export const dynamic = "force-dynamic";
+
+const getCachedPublishedProblems = unstable_cache(
+  async () => {
+    return prisma.problem.findMany({
+      where: { isPublished: true },
+      select: {
+        id: true,
+        difficulty: true,
+      },
+    });
+  },
+  ["all-published-problems-difficulty"],
+  { revalidate: 300, tags: ["problems"] }
+);
 
 /**
  * Helper to convert any Date into an IST (Asia/Kolkata) date string "YYYY-MM-DD".
@@ -52,10 +67,7 @@ export async function GET(req: Request) {
     const session = await getCurrentUser(req);
 
     if (!session?.id) {
-      const allProblems = await prisma.problem.findMany({
-        where: { isPublished: true },
-        select: { difficulty: true },
-      });
+      const allProblems = await getCachedPublishedProblems();
       const difficulty = {
         easy: { solved: 0, total: 0 },
         medium: { solved: 0, total: 0 },
@@ -163,14 +175,8 @@ export async function GET(req: Request) {
     const maxStreak = calculateMaxStreak(activeDates);
     const totalSolved = allUniqueProblems.size;
 
-    // 4. Fetch all published problems to compute exact difficulty breakdown
-    const allProblems = await prisma.problem.findMany({
-      where: { isPublished: true },
-      select: {
-        id: true,
-        difficulty: true,
-      },
-    });
+    // 4. Fetch all published problems (cached) to compute exact difficulty breakdown
+    const allProblems = await getCachedPublishedProblems();
 
     const difficulty = {
       easy: { solved: 0, total: 0 },

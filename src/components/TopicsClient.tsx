@@ -8,12 +8,21 @@ import VerticalTopicAccordion, { TopicItem } from "@/components/VerticalTopicAcc
 import DailyChallengeSection from "@/components/DailyChallengeSection";
 import CodingActivityHeatmap from "@/components/CodingActivityHeatmap";
 import { useAuth } from "@/context/AuthContext";
+import { DailyProblemData } from "@/lib/dailyChallenge";
 
 interface TopicsClientProps {
   initialCategories: TopicItem[];
+  initialDailyProblem?: DailyProblemData | null;
+  initialTodayDate?: string;
+  initialMidnightIST?: string;
 }
 
-export default function TopicsClient({ initialCategories }: TopicsClientProps) {
+export default function TopicsClient({
+  initialCategories,
+  initialDailyProblem,
+  initialTodayDate,
+  initialMidnightIST,
+}: TopicsClientProps) {
   const { user, refreshUser } = useAuth();
   const [categories] = useState<TopicItem[]>(initialCategories);
 
@@ -264,7 +273,11 @@ export default function TopicsClient({ initialCategories }: TopicsClientProps) {
         />
 
         {/* Daily Challenge Section (Immediately Above Beginner Problems) */}
-        <DailyChallengeSection />
+        <DailyChallengeSection
+          initialProblem={initialDailyProblem}
+          initialTodayDate={initialTodayDate}
+          initialMidnightIST={initialMidnightIST}
+        />
 
         {/* Vertical Topic Accordion Layout (ONE Topic Per Row) */}
         {categories.length > 0 ? (

@@ -133,10 +133,10 @@ export default function OrdersClient({ initialOrders, user }: OrdersClientProps)
 
           <div className="flex items-center gap-3">
             <Link
-              href="/purchase"
+              href="/notes"
               className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-neutral-900 border border-neutral-700 hover:border-brand-red text-neutral-300 hover:text-white text-xs font-mono font-medium transition-all"
             >
-              <span>Order New Notes</span>
+              <span>Browse DSA Notes</span>
               <ArrowRight className="h-3.5 w-3.5" />
             </Link>
           </div>
@@ -167,7 +167,7 @@ export default function OrdersClient({ initialOrders, user }: OrdersClientProps)
 
             <div className="pt-2">
               <Link
-                href="/purchase"
+                href="/notes"
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-brand-red hover:bg-brand-redHover text-white text-xs font-mono font-bold shadow-brand transition-all"
               >
                 <Package className="h-4 w-4" />

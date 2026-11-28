@@ -5,7 +5,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import NavbarStreak from "@/components/NavbarStreak";
-import { useCart } from "@/context/CartContext";
 import {
   BookOpen,
   FileText,
@@ -23,7 +22,6 @@ import {
 
 export default function Navbar() {
   const { user, logout } = useAuth();
-  const { totalItems, openCart } = useCart();
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
@@ -64,12 +62,10 @@ export default function Navbar() {
         pathname?.startsWith("/problem/")
       );
     }
-    if (path === "/purchase") {
+    if (path === "/notes") {
       return (
-        pathname === "/purchase" ||
-        pathname?.startsWith("/purchase/") ||
-        pathname === "/order-printed" ||
         pathname === "/notes" ||
+        pathname?.startsWith("/notes/") ||
         pathname === "/company-preparation"
       );
     }

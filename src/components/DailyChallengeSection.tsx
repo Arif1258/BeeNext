@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Flame, CheckCircle2, Clock, Code2 } from "lucide-react";
 import SolutionUpgradeModal from "@/components/SolutionUpgradeModal";
 import { useAuth } from "@/context/AuthContext";
-import { DailyChallengeInfo } from "@/lib/dailyChallenge";
+import { DailyChallengeInfo, DailyProblemData } from "@/lib/dailyChallenge";
 
 // YouTube Icon
 const YouTubeIcon = ({ className = "h-3.5 w-3.5" }: { className?: string }) => (
@@ -19,10 +19,34 @@ const YouTubeIcon = ({ className = "h-3.5 w-3.5" }: { className?: string }) => (
   </svg>
 );
 
-export default function DailyChallengeSection() {
+interface DailyChallengeSectionProps {
+  initialProblem?: DailyProblemData | null;
+  initialTodayDate?: string;
+  initialMidnightIST?: string;
+}
+
+export default function DailyChallengeSection({
+  initialProblem,
+  initialTodayDate,
+  initialMidnightIST,
+}: DailyChallengeSectionProps) {
   const { user, isPlusMember } = useAuth();
-  const [data, setData] = useState<DailyChallengeInfo | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState<DailyChallengeInfo | null>(
+    initialProblem
+      ? {
+          problem: initialProblem,
+          todayDate: initialTodayDate || "",
+          midnightIST: initialMidnightIST || "",
+          isCompletedToday: false,
+          userStreak: {
+            currentStreak: 0,
+            longestStreak: 0,
+            isCompletedToday: false,
+          },
+        }
+      : null
+  );
+  const [loading, setLoading] = useState(!initialProblem);
   const [timeLeft, setTimeLeft] = useState<{ hours: number; minutes: number; seconds: number }>({
     hours: 0,
     minutes: 0,
