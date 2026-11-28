@@ -77,26 +77,23 @@ export default function NavbarStreak() {
       <button
         type="button"
         onClick={() => setDropdownOpen((prev) => !prev)}
-        className={`flex items-center gap-1.5 h-9 sm:h-10 px-2 sm:px-2.5 rounded-xl border transition-all focus:outline-none select-none ${
-          hasActiveStreak
+        className={`flex items-center gap-1.5 h-9 sm:h-10 px-2 sm:px-2.5 rounded-xl border transition-all focus:outline-none select-none ${hasActiveStreak
             ? "bg-amber-500/10 border-amber-500/30 hover:border-amber-500/50 text-amber-400 shadow-sm"
             : "bg-neutral-900 border-neutral-800 hover:border-neutral-700 text-neutral-400 hover:text-neutral-300"
-        }`}
+          }`}
         title={`Daily Challenge Streak: ${localStreak.currentStreak} Days`}
         aria-label="Daily challenge streak information"
         aria-expanded={dropdownOpen}
       >
         <Flame
-          className={`h-4 w-4 sm:h-4.5 sm:w-4.5 transition-transform group-hover:scale-110 ${
-            hasActiveStreak
+          className={`h-4 w-4 sm:h-4.5 sm:w-4.5 transition-transform group-hover:scale-110 ${hasActiveStreak
               ? "text-orange-500 fill-orange-500 animate-pulse"
               : "text-neutral-500 fill-neutral-600/40"
-          }`}
+            }`}
         />
         <span
-          className={`font-mono text-xs sm:text-sm font-extrabold ${
-            hasActiveStreak ? "text-orange-400" : "text-neutral-400"
-          }`}
+          className={`font-mono text-xs sm:text-sm font-extrabold ${hasActiveStreak ? "text-orange-400" : "text-neutral-400"
+            }`}
         >
           {localStreak.currentStreak}
         </span>
@@ -142,8 +139,8 @@ export default function NavbarStreak() {
 
           <div className="text-[10px] text-neutral-400 pt-0.5 border-t border-neutral-800 leading-tight font-sans">
             {localStreak.isCompletedToday
-              ? "Great job! You've completed today's challenge. Return tomorrow to continue your streak!"
-              : "Solve today's Daily Challenge on the DSA Topics page to keep your streak alive!"}
+              ? "Great job! 🎉 Today's challenge is complete. Return tomorrow to keep your streak alive. Complete 365 days to earn exciting goodies!"
+              : "Solve today's Daily Challenge on the DSA Topics page. Keep your streak alive and earn exciting goodies at 365 days! 🎁"}
           </div>
         </div>
       )}
